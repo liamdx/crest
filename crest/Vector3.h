@@ -72,6 +72,10 @@ public:
 		z /= length;
 	}
 
+	float GetX() { return x; }
+	float GetY() { return y; }
+	float GetZ() { return z; }
+
 
 private:
 	float x, y, z;

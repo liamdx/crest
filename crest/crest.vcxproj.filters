@@ -39,12 +39,18 @@
     <ClInclude Include="Matrix4.h">
       <Filter>Source Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="crest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

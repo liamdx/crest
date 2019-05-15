@@ -60,10 +60,6 @@ public:
 		std::cout << "d1:" << d1 << " d2:" << d2 << " d3:" << d3 << " d4:" << d4 << std::endl;
 	}
 
-private:
-
-	// a - d column
-	// 1 - 4 row
 	float a1, a2, a3, a4,
 		b1, b2, b3, b4,
 		c1, c2, c3, c4,

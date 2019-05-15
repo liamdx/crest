@@ -1,7 +1,7 @@
 // crest.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 //
-#include "CrestMath.h"
+#include "Shader.h"
 
 int main()
 {
@@ -11,6 +11,8 @@ int main()
 	Vector3* b = new Vector3(1, 5, 7);
 
 	float dotResult = a->dot(*b);
+
+	CrestMaths::GLVec3(*a);
 
 	std::cout << "Dot results between a = (1,2,3) b = (1,5,7) = " << dotResult << std::endl;
 
@@ -24,7 +26,7 @@ int main()
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
-
+	  
 	//DEBUG
 	int  success;
 	char infoLog[512];
