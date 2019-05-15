@@ -23,7 +23,7 @@
     <ProjectGuid>{922701A7-F260-40A6-AC6E-B98065769181}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>crest</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -157,7 +157,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="CrestMath.h" />
+    <ClInclude Include="Matrix4.h" />
+    <ClInclude Include="static_math.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>

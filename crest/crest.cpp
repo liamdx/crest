@@ -1,16 +1,26 @@
 // crest.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
-#include <iostream>
-
-#include "yse.hpp"
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
-#include "stb_image\stb_image.h"
+//
+#include "CrestMath.h"
 
 int main()
 {
+
     std::cout << "Hello World!\n"; 
+	Vector3* a = new Vector3(1, 2, 3);
+	Vector3* b = new Vector3(1, 5, 7);
+
+	float dotResult = a->dot(*b);
+
+	std::cout << "Dot results between a = (1,2,3) b = (1,5,7) = " << dotResult << std::endl;
+
+	Matrix4 ma = Matrix4(3, 5, 7, 8, 1, 2, 8, 7, 4, 5, 3, -2, 1, 6, 7, 9);
+	Matrix4 mb = Matrix4(2, 8, 6, 9, 3, -5, 6, 7, 1, 4, 9, -3, 10, -2, 5, 2);
+
+	ma = ma * mb;
+
+	ma.Print();
+
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
