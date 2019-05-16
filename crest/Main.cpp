@@ -3,35 +3,19 @@
 //
 #include "Shader.h"
 
-int main()
-{
+int main() {
 
-    std::cout << "Hello World!\n"; 
-	Vector3* a = new Vector3(1, 2, 3);
-	Vector3* b = new Vector3(1, 5, 7);
-
-	float dotResult = a->dot(*b);
-
-	CrestMaths::GLVec3(*a);
-
-	std::cout << "Dot results between a = (1,2,3) b = (1,5,7) = " << dotResult << std::endl;
-
-	Matrix4 ma = Matrix4(3, 5, 7, 8, 1, 2, 8, 7, 4, 5, 3, -2, 1, 6, 7, 9);
-	Matrix4 mb = Matrix4(2, 8, 6, 9, 3, -5, 6, 7, 1, 4, 9, -3, 10, -2, 5, 2);
-
-	ma = ma * mb;
-
-	ma.Print();
+	std::cout << "Hello World!\n";
 
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
-	  
+
 	//DEBUG
-	int  success;
+	int success;
 	char infoLog[512];
 	//GL initialisation
-	GLFWwindow* window;
+	GLFWwindow * window;
 
 	/* Initialize the library */
 	if (!glfwInit())
@@ -40,8 +24,7 @@ int main()
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(1280.0, 720.0, "Crest", NULL, NULL);
 
-	if (!window)
-	{
+	if (!window) {
 		glfwTerminate();
 		return -1;
 	}
@@ -49,12 +32,9 @@ int main()
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
-	if (glewInit() != GLEW_OK)
-	{
+	if (glewInit() != GLEW_OK) {
 		std::cout << "failed to initalise glew" << std::endl;
 	}
-
-	
 
 	// YSE::System().init();
 
@@ -68,14 +48,11 @@ int main()
 
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-	
-	while (!glfwWindowShouldClose(window))
-	{
+	while (!glfwWindowShouldClose(window)) {
 		//Engine time
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -90,4 +67,3 @@ int main()
 	}
 
 }
-

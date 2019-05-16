@@ -1,6 +1,5 @@
 #pragma once
 
-#include "common.h"
 
 class Vector2
 {
@@ -48,9 +47,8 @@ public:
 		return(sqrt(pow(x, 2.0) + pow(y, 2.0)));
 	}
 
-
-private:
 	float x, y;
+
 
 
 };

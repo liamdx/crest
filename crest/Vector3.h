@@ -1,7 +1,5 @@
 #pragma once
 
-#include "common.h"
-
 class Vector3
 {
 public:
@@ -22,25 +20,31 @@ public:
 	}
 	~Vector3() {};
 
-	void operator +(Vector3 other)
+	Vector3 operator +(Vector3 other)
 	{
-		x += other.x;
-		y += other.y;
-		z += other.z;
+		Vector3 a = *this;
+		a.x += other.x;
+		a.y += other.y;
+		a.z += other.z;
+		return(a);
 	}
 
-	void operator -(Vector3 other)
+	Vector3 operator -(Vector3 other)
 	{
-		x -= other.x;
-		y -= other.y;
-		z -= other.z;
+		Vector3 a = *this;
+		a.x -= other.x;
+		a.y -= other.y;
+		a.z -= other.z;
+		return(a);
 	}
 
-	void operator *(float other)
+	Vector3 operator *(Vector3 other)
 	{
-		x *= other;
-		y *= other;
-		z *= other;
+		Vector3 a = *this;
+		a.x *= other.x;
+		a.y *= other.y;
+		a.z *= other.z;
+		return(a);
 	}
 
 	float dot(Vector3 b)
@@ -76,9 +80,8 @@ public:
 	float GetY() { return y; }
 	float GetZ() { return z; }
 
-
-private:
 	float x, y, z;
+
 
 
 };

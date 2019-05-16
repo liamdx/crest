@@ -1,0 +1,41 @@
+#pragma once
+
+#include "Common.h"
+#include "Shader.h"
+
+struct Vertex {
+	Vector3 position;
+	Vector3 normal;
+	Vector2 TexCoords;
+	Vector3 tangent;
+};
+
+
+
+
+class Mesh {
+public:
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
+
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+	{
+		this->vertices = vertices;
+		this->indices = indices;
+		this->textures = textures;
+
+		//calcMeshBounds();
+		setupMesh();
+	};
+
+	void Draw(Shader shader);
+	void TestDraw(Shader shader);
+	void calcMeshBounds();
+	//physics position;
+
+	unsigned int vao, vbo, ibo;
+	void setupMesh();
+	float xBound, yBound, zBound;
+
+};
