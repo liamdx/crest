@@ -115,7 +115,8 @@ int main() {
 
 		// clear everything
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.0, 0.0f, 0.0f, 0.0f);
+
+		glClearColor(1.0, 0.0f, 0.0f, 0.0f);
 		
 		//Engine time
 		float currentFrame = glfwGetTime();
@@ -190,10 +191,6 @@ int main() {
 		// end of example update()
 
 		mainFB.finishDrawing();
-
-		/*fbShader.use();
-		fbShader.setFloat("gamma", 1.0);
-		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetTexture());*/
 
 		ImGui::Begin("Scene Window");
 
