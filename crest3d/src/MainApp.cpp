@@ -5,13 +5,17 @@
 #include "Camera.h"
 #include "InputManager.h"
 #include "Cubemap.h"
-
+#include "primitives/Quad.h"
+#include "FrameBuffer.h"
 
 // imgui stuff (will more than likely have to move);
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/imgui_impl_glfw_gl3.h"
 #include "ext/imgui/imgui_internal.h"
 #include "ext/imgui/imconfig.h"
+
+const float SCREEN_WIDTH = 1280.0;
+const float SCREEN_HEIGHT = 720.0;
 
 int main() {
 
@@ -31,7 +35,7 @@ int main() {
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(1280.0, 720.0, "Crest", NULL, NULL);
+	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Crest", NULL, NULL);
 
 	if (!window) {
 		glfwTerminate();
@@ -51,8 +55,16 @@ int main() {
 	ImGui_ImplGlfwGL3_Init(window, true);
 	ImGui::StyleColorsDark();
 
+
+	//Enable depth
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+
+	glfwSwapInterval(0);
+
 	// YSE::System().init();
 
+	// example def
 	// my stuff
 	InputManager input(window);
 	//self explanatory
@@ -70,32 +82,41 @@ int main() {
 
 	Shader testShader("res/shaders/default.vert", "res/shaders/default.frag");
 	Shader cubemapShader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
+	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
+
 	Model someModel("res/models/cyborg/cyborg.obj");
 	Cubemap skybox(faces);
+	screenQuad renderQuad;
 
 	glm::vec3 modelPosition(0.0, 0.0, 4.0);
 	glm::mat4 model, view, projection;
 
-	projection = glm::perspectiveFov(90.0, 1920.0, 1080.0, 0.1, 500.0);
+	projection = glm::perspectiveFov(90.0, (double)SCREEN_WIDTH, (double)SCREEN_HEIGHT, 0.1, 500.0);
 
 	model = glm::mat4(1.0);
 	model = glm::translate(model, modelPosition);
 	model = glm::scale(model, glm::vec3(2.0));
 
-	//Enable depth
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
 
-	glfwSwapInterval(0);
+
+	// end of example def
+
+	// frame buffer
+	//Framebuffer
+	//Frame buffer set up
+
+	FrameBuffer mainFB;
+	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	//Mouse input handle
-
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	while (!glfwWindowShouldClose(window)) {
 
+		// clear everything
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		glClearColor(0.0, 0.0f, 0.0f, 0.0f);
+		
 		//Engine time
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -103,9 +124,14 @@ int main() {
 
 		ImGui_ImplGlfwGL3_NewFrame();
 
-		glEnable(GL_DEPTH_TEST);
 
+		//Render scene normally
+		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		glCullFace(GL_BACK);
 
+		mainFB.initForDrawing();
+
+		// example update()
 
 		BoneCam.ProcessMouseMovement(input.xpos, input.ypos);
 		if (input.GetKeyW())
@@ -161,12 +187,33 @@ int main() {
 
 		someModel.Draw(testShader);
 
+		// end of example update()
+
+		mainFB.finishDrawing();
+
+		/*fbShader.use();
+		fbShader.setFloat("gamma", 1.0);
+		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetTexture());*/
+
+		ImGui::Begin("Scene Window");
+
+		ImVec2 pos = ImGui::GetCursorScreenPos();
+
+		ImGui::GetWindowDrawList()->AddImage(
+			(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+			ImVec2(ImGui::GetCursorScreenPos().x + SCREEN_WIDTH / 2, ImGui::GetCursorScreenPos().y + SCREEN_HEIGHT / 2), ImVec2(0, 1), ImVec2(1, 0));
+
+		ImGui::End();
+
+		// example UI
 		if (ImGui::BeginMenu("Suck my entire yeet please"))
 		{
 			ImGui::Text("HELLO");
 
 			ImGui::End();
 		}
+
+		// end of exammple ui
 
 		//ui render	
 		ImGui::Render();
@@ -175,7 +222,7 @@ int main() {
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 		/* Poll for and process events */
 		glfwPollEvents();

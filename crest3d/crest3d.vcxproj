@@ -142,9 +142,12 @@
     <ClCompile Include="src\ext\imgui\imgui_draw.cpp" />
     <ClCompile Include="src\ext\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="src\ext\stb_image\stb_image.cpp" />
+    <ClCompile Include="src\FrameBuffer.cpp" />
     <ClCompile Include="src\MainApp.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\primitives\Cube.cpp" />
+    <ClCompile Include="src\primitives\Quad.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -307,9 +310,12 @@
     <ClInclude Include="src\ext\imgui\stb_truetype.h" />
     <ClInclude Include="src\ext\root_directory.h" />
     <ClInclude Include="src\ext\stb_image\stb_image.h" />
+    <ClInclude Include="src\FrameBuffer.h" />
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\primitives\Cube.h" />
+    <ClInclude Include="src\primitives\Quad.h" />
     <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
