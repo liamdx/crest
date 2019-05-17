@@ -9,7 +9,6 @@ class TransformComponent : public EngineComponent
 	glm::vec3 eulerAngles;
 	glm::vec3 scale;
 
-
 	// direction vectors
 	glm::vec3 forward;
 	glm::vec3 right;

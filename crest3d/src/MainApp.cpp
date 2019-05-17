@@ -95,7 +95,8 @@ int main() {
 	glm::vec3 modelPosition(0.0, 0.0, 4.0);
 	glm::mat4 model, view, projection;
 
-	projection = glm::perspectiveFov(90.0, (double)SCREEN_WIDTH, (double)SCREEN_HEIGHT, 0.1, 500.0);
+	projection = glm::perspectiveFov(glm::radians(75.0), (double)SCREEN_WIDTH, (double)SCREEN_HEIGHT, 0.1, 250.0);
+
 
 	model = glm::mat4(1.0);
 	model = glm::translate(model, modelPosition);
@@ -146,7 +147,8 @@ int main() {
 
 		debugEntity.updateBehaviour();
 
-		BoneCam.ProcessMouseMovement(input.xpos, input.ypos);
+		BoneCam.ProcessMouseMovement(input.xpos, -input.ypos);
+
 		if (input.GetKeyW())
 		{
 			BoneCam.ProcessKeyboard(FORWARD, deltaTime);
