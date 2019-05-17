@@ -30,6 +30,12 @@ private:
 
 class screenQuad {
 
+	// usage
+
+	// fbShader.use();
+	// fbShader.setFloat("gamma", 1.0);
+	// renderQuad.Draw(fbShader, "screenTexture", mainFB.GetTexture());
+
 public:
 	screenQuad();
 	~screenQuad();
