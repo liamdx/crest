@@ -134,7 +134,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\DebugComponent.cpp" />
     <ClCompile Include="src\Cubemap.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\ext\glm\detail\glm.cpp" />
     <ClCompile Include="src\ext\imgui\imgui.cpp" />
     <ClCompile Include="src\ext\imgui\ImGuiFileDialog.cpp" />
@@ -153,7 +155,10 @@
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Common.h" />
+    <ClInclude Include="src\components\DebugComponent.h" />
+    <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="src\Cubemap.h" />
+    <ClInclude Include="src\components\EngineComponent.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\ext\filesystem.h" />
     <ClInclude Include="src\ext\glm\common.hpp" />

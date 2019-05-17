@@ -1,12 +1,25 @@
 #pragma once
+#include "Common.h"
+#include "components/EngineComponent.h"
 
 class Entity {
 public:
-	Entity() {}
+	std::string name;
+
+	std::vector<std::unique_ptr<EngineComponent>> components;
+
+
+	Entity(const char* entityName) { name = entityName; }
 	~Entity() {}
 
-	void AddComponent() {}
-	void RemoveComponent() {}
+	void AddComponent(EngineComponent* newComponent);
+	EngineComponent* GetComponent(const char* name);
+
+	void startBehaviour();
+	void earlyUpdateBehaviour();
+	void updateBehaviour();
+	void uiBehaviour();
+	// void RemoveComponent() {}
 
 
 private:

@@ -7,6 +7,9 @@
 #include "Cubemap.h"
 #include "primitives/Quad.h"
 #include "FrameBuffer.h"
+#include "Entity.h"
+#include "components/EngineComponent.h"
+#include "components/DebugComponent.h"
 
 // imgui stuff (will more than likely have to move);
 
@@ -62,6 +65,9 @@ int main() {
 
 	// YSE::System().init();
 
+	// start
+
+
 	// example def
 	// my stuff
 	InputManager input(window);
@@ -95,7 +101,10 @@ int main() {
 	model = glm::translate(model, modelPosition);
 	model = glm::scale(model, glm::vec3(2.0));
 
+	Entity debugEntity("Peter Andre");
+	// debugEntity.AddComponent(new DebugComponent());
 
+	debugEntity.startBehaviour();
 
 	// end of example def
 
@@ -111,6 +120,7 @@ int main() {
 
 	while (!glfwWindowShouldClose(window)) {
 
+		// early update
 		// clear everything
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -127,10 +137,14 @@ int main() {
 		//Render scene normally
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		glCullFace(GL_BACK);
-
+		
 		mainFB.initForDrawing();
 
+		debugEntity.earlyUpdateBehaviour();
+
 		// example update()
+
+		debugEntity.updateBehaviour();
 
 		BoneCam.ProcessMouseMovement(input.xpos, input.ypos);
 		if (input.GetKeyW())
@@ -200,7 +214,7 @@ int main() {
 
 		ImGui::End();
 
-		// example UI
+		//  UI
 		if (ImGui::BeginMenu("Suck my entire yeet please"))
 		{
 			ImGui::Text("HELLO");
@@ -209,6 +223,8 @@ int main() {
 		}
 
 		// end of exammple ui
+
+		debugEntity.uiBehaviour();
 
 		//ui render	
 		ImGui::Render();
