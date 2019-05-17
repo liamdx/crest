@@ -9,10 +9,7 @@
 #include "FrameBuffer.h"
 
 // imgui stuff (will more than likely have to move);
-#include "ext/imgui/imgui.h"
-#include "ext/imgui/imgui_impl_glfw_gl3.h"
-#include "ext/imgui/imgui_internal.h"
-#include "ext/imgui/imconfig.h"
+
 
 const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
@@ -53,7 +50,8 @@ int main() {
 
 	ImGui::CreateContext();
 	ImGui_ImplGlfwGL3_Init(window, true);
-	ImGui::StyleColorsDark();
+
+	SetImGuiStyle();
 
 
 	//Enable depth
