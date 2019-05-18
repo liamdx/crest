@@ -119,15 +119,16 @@ int main() {
 
 	//Mouse input handle
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
+	float lastWindowWidth = 0.0;
+	float lastWindowHeight = 0.0;
 	while (!glfwWindowShouldClose(window)) {
 
 		// early update
 		// clear everything
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glClearColor(1.0, 0.0f, 0.0f, 0.0f);
-		
+		glClearColor(1.0, 0.0f, 0.0f, 1.0f);
+
 		//Engine time
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -148,7 +149,7 @@ int main() {
 
 		debugEntity.updateBehaviour();
 
-		BoneCam.ProcessMouseMovement(input.xpos, -input.ypos);
+		BoneCam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
 
 		if (input.GetKeyW())
 		{
@@ -176,7 +177,7 @@ int main() {
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			BoneCam.canMove = true;
 			input.GetMouseMovement();
-			BoneCam.ProcessMouseMovement(input.xpos, -input.ypos);
+			BoneCam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
 		}
 		else
 		{
@@ -207,14 +208,25 @@ int main() {
 
 		mainFB.finishDrawing();
 
+		
+
+
 		ImGui::Begin("Scene Window");
 
+
 		ImVec2 pos = ImGui::GetCursorScreenPos();
+		float dWidth = ImGui::GetWindowWidth();
+		float dHeight = ImGui::GetWindowHeight();
+
+		if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
+		{
+			mainFB.changeScreenSize(dWidth, dHeight);
+		}
 
 		ImGui::GetWindowDrawList()->AddImage(
 			(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
-			ImVec2(ImGui::GetCursorScreenPos().x + SCREEN_WIDTH / 2, ImGui::GetCursorScreenPos().y + SCREEN_HEIGHT / 2), ImVec2(0, 1), ImVec2(1, 0));
-
+			ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
+		
 		ImGui::End();
 
 		//  UI
@@ -236,11 +248,10 @@ int main() {
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
 
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
 		/* Poll for and process events */
 		glfwPollEvents();
-
+		lastWindowWidth = dWidth;
+		lastWindowHeight = dHeight;
 	}
 
 }

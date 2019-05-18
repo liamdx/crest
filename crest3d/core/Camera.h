@@ -66,12 +66,13 @@ public:
 	}
 
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
+	void ProcessMouseMovement(float xoffset, float yoffset, float deltaTime, GLboolean constrainPitch = true)
 	{
 		if (canMove)
 		{
 			xoffset *= MouseSensitivity;
 			yoffset *= MouseSensitivity;
+			
 
 			Yaw = xoffset;
 			Pitch = yoffset;
@@ -143,6 +144,9 @@ public:
 	//view = calculate_lookAt_matrix(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 private:
+	float lastOffsetX;
+	float lastOffsetY;
+
 	// Calculates the front vector from the Camera's (updated) Euler Angles
 	void updateCameraVectors()
 	{

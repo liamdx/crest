@@ -33,6 +33,14 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void FrameBuffer::changeScreenSize(float newWidth, float newHeight)
+{
+	screenWidth = newWidth;
+	screenHeight = newHeight;
+
+	initialise(screenWidth, screenHeight);
+}
+
 void FrameBuffer::initForDrawing()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);

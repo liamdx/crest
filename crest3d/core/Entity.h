@@ -1,6 +1,6 @@
 #pragma once
 #include "Common.h"
-#include "components/EngineComponent.h"
+#include "components/TransformComponent.h"
 
 class Entity {
 public:
@@ -8,8 +8,9 @@ public:
 
 	std::vector<std::unique_ptr<EngineComponent>> components;
 
+	// TransformComponent* transform = nullptr;
 
-	Entity(const char* entityName) { name = entityName; }
+	Entity(const char* entityName) { name = entityName; components.emplace_back(new TransformComponent()); }
 	~Entity() {}
 
 	void AddComponent(EngineComponent* newComponent);

@@ -8,7 +8,7 @@ public:
 	~FrameBuffer() {};
 
 	void initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT);
-	void changeScreenSize();
+	void changeScreenSize(float newWidth, float newHeight);
 
 	void initForDrawing();
 	void finishDrawing();
