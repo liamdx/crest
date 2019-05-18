@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\components\DebugComponent.cpp" />
+    <ClCompile Include="src\components\TransformComponent.cpp" />
     <ClCompile Include="src\Cubemap.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\ext\glm\detail\glm.cpp" />

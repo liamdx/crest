@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "components/EngineComponent.h"
 #include "components/DebugComponent.h"
+#include "components/TransformComponent.h"
 
 // imgui stuff (will more than likely have to move);
 
