@@ -153,6 +153,7 @@
     <ClCompile Include="core\primitives\Quad.cpp" />
     <ClCompile Include="core\gfx\Shader.cpp" />
     <ClCompile Include="core\Scene.cpp" />
+    <ClCompile Include="example\SimpleExample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\CrestCore.h" />
@@ -327,6 +328,8 @@
     <ClInclude Include="core\primitives\Cube.h" />
     <ClInclude Include="core\primitives\Quad.h" />
     <ClInclude Include="core\gfx\Shader.h" />
+    <ClInclude Include="example\Example.h" />
+    <ClInclude Include="example\SimpleExample.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl" />

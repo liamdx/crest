@@ -72,6 +72,9 @@
     <ClCompile Include="app\MainApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="example\SimpleExample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -587,10 +590,13 @@
     <ClInclude Include="core\gfx\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\Scene.h">
+    <ClInclude Include="core\CrestCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\CrestCore.h">
+    <ClInclude Include="example\Example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="example\SimpleExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
