@@ -1,19 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "Common.h"
-#include "Model.h"
-#include "Camera.h"
-#include "InputManager.h"
-#include "Cubemap.h"
-#include "primitives/Quad.h"
-#include "FrameBuffer.h"
-#include "Entity.h"
-#include "components/EngineComponent.h"
-#include "components/DebugComponent.h"
-#include "components/TransformComponent.h"
-
-// imgui stuff (will more than likely have to move);
-
+#include "CrestCore.h"
 
 const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
@@ -141,6 +128,8 @@ int main() {
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		glCullFace(GL_BACK);
 		
+		debugEntity.transform->position;
+
 		mainFB.initForDrawing();
 
 		debugEntity.earlyUpdateBehaviour();

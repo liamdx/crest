@@ -17,3 +17,8 @@ void DebugComponent::update() {
 void DebugComponent::ui() {
 	std::cout << "DebugComponent: Override function executing on ui" << std::endl;
 }
+
+void DebugComponent::debugPrintSomething(const char* thing)
+{
+	std::cout << thing << std::endl;
+}

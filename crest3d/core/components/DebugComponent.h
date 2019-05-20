@@ -12,4 +12,6 @@ public:
 	void earlyUpdate() override;
 	void update() override;
 	void ui() override;
+
+	void debugPrintSomething(const char* thing);
 };

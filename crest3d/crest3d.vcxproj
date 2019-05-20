@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClCompile Include="core\components\DebugComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
-    <ClCompile Include="core\Cubemap.cpp" />
+    <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
     <ClCompile Include="core\ext\glm\detail\glm.cpp" />
     <ClCompile Include="core\ext\imgui\imgui.cpp" />
@@ -145,21 +145,24 @@
     <ClCompile Include="core\ext\imgui\imgui_draw.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="core\ext\stb_image\stb_image.cpp" />
-    <ClCompile Include="core\FrameBuffer.cpp" />
-    <ClCompile Include="core\MainApp.cpp" />
-    <ClCompile Include="core\Mesh.cpp" />
-    <ClCompile Include="core\Model.cpp" />
+    <ClCompile Include="core\gfx\FrameBuffer.cpp" />
+    <ClCompile Include="app\MainApp.cpp" />
+    <ClCompile Include="core\gfx\Mesh.cpp" />
+    <ClCompile Include="core\gfx\Model.cpp" />
     <ClCompile Include="core\primitives\Cube.cpp" />
     <ClCompile Include="core\primitives\Quad.cpp" />
-    <ClCompile Include="core\Shader.cpp" />
+    <ClCompile Include="core\gfx\Shader.cpp" />
+    <ClCompile Include="core\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\Camera.h" />
+    <ClInclude Include="core\CrestCore.h" />
+    <ClInclude Include="core\gfx\Camera.h" />
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\components\DebugComponent.h" />
     <ClInclude Include="core\components\TransformComponent.h" />
-    <ClInclude Include="core\Cubemap.h" />
+    <ClInclude Include="core\gfx\Cubemap.h" />
     <ClInclude Include="core\components\EngineComponent.h" />
+    <ClInclude Include="core\Debug.h" />
     <ClInclude Include="core\Entity.h" />
     <ClInclude Include="core\ext\filesystem.h" />
     <ClInclude Include="core\ext\glm\common.hpp" />
@@ -317,13 +320,13 @@
     <ClInclude Include="core\ext\imgui\stb_truetype.h" />
     <ClInclude Include="core\ext\root_directory.h" />
     <ClInclude Include="core\ext\stb_image\stb_image.h" />
-    <ClInclude Include="core\FrameBuffer.h" />
+    <ClInclude Include="core\gfx\FrameBuffer.h" />
     <ClInclude Include="core\InputManager.h" />
-    <ClInclude Include="core\Mesh.h" />
-    <ClInclude Include="core\Model.h" />
+    <ClInclude Include="core\gfx\Mesh.h" />
+    <ClInclude Include="core\gfx\Model.h" />
     <ClInclude Include="core\primitives\Cube.h" />
     <ClInclude Include="core\primitives\Quad.h" />
-    <ClInclude Include="core\Shader.h" />
+    <ClInclude Include="core\gfx\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl" />
