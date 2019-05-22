@@ -20,6 +20,7 @@ public:
 	Entity* GetChild(int index);
 	Entity* GetChild(const char* name);
 
+	void initBehaviour();
 	void startBehaviour();
 	void earlyUpdateBehaviour();
 	void updateBehaviour();

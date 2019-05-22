@@ -1,5 +1,18 @@
 #include "Scene.h"
 
+void childInit(Entity* e) {
+	e->initBehaviour();
+	for (int i = 0; i < e->children.size(); i++)
+	{
+		childInit(e->children.at(i).get());
+	}
+}
+
+void Scene::initBehaviour()
+{
+	childInit(rootEntity);
+}
+
 void childStart(Entity* e) {
 	e->startBehaviour();
 	for (int i = 0; i < e->children.size(); i++)

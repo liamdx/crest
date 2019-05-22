@@ -17,3 +17,5 @@
 #include "components/EngineComponent.h"
 #include "components/DebugComponent.h"
 #include "components/TransformComponent.h"
+#include "components/MeshComponent.h"
+#include "components/ShaderComponent.h"

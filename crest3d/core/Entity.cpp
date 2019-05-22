@@ -17,6 +17,14 @@ void Entity::AddComponent(EngineComponent* newComponent)
 	
 }
 
+void Entity::initBehaviour()
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		components.at(i)->init();
+	}
+}
+
 void Entity::startBehaviour()
 {
 	for (int i = 0; i < components.size(); i++)

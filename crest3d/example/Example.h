@@ -4,10 +4,8 @@
 
 class Example {
 public:
-	Example();
-	virtual ~Example() {};
 
-	Scene mainScene;
+	virtual ~Example() {};
 
 	virtual void startBehaviour() {};
 	virtual void earlyUpdateBehaviour() {};

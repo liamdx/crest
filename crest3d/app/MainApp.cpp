@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "CrestCore.h"
+#include "components/MeshComponent.h"
+#include "SimpleExample.h"
 
 const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
@@ -91,7 +93,10 @@ int main() {
 	model = glm::scale(model, glm::vec3(2.0));
 
 	Entity debugEntity("Peter Andre");
-	// debugEntity.AddComponent(new DebugComponent());
+
+	//debugEntity.AddComponent(new DebugComponent());
+	//debugEntity.AddComponent(new MeshComponent());
+
 
 	debugEntity.startBehaviour();
 
@@ -128,7 +133,6 @@ int main() {
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		glCullFace(GL_BACK);
 		
-		debugEntity.transform->position;
 
 		mainFB.initForDrawing();
 

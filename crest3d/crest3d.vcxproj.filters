@@ -72,7 +72,13 @@
     <ClCompile Include="app\MainApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\components\MeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="example\SimpleExample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\components\ShaderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -596,7 +602,16 @@
     <ClInclude Include="example\Example.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\components\MeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="example\SimpleExample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\ShaderComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

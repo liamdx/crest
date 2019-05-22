@@ -18,6 +18,7 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "ext/stb_image/stb_image.h"
+#include "yse.hpp"
 
 // glm stuff *sigh*
 #define GLM_ENABLE_EXPERIMENTAL

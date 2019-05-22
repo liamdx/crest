@@ -4,6 +4,7 @@
 #include "assimp\Importer.hpp"
 #include "assimp\scene.h"
 #include "assimp\postprocess.h"
+#include "Entity.h"
 
 class Model {
 
@@ -27,4 +28,5 @@ public:
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 
+	Entity* loadModelAsEntity(std::string path);
 };
