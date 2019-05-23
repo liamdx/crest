@@ -86,6 +86,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

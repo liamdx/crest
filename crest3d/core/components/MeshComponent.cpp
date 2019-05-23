@@ -1,13 +1,7 @@
 #include "MeshComponent.h"
-#include "Common.h"
-#include "ShaderComponent.h"
 
 void MeshComponent::init() {
-	ShaderComponent* sc = (ShaderComponent*)attachedEntity->GetComponent("ShaderComponent");
-	if (sc != nullptr)
-		shader = &sc->shader;
-	else
-		shader = nullptr;
+	shader = attachedEntity->GetComponent<ShaderComponent>();
 	
 }
 
@@ -17,7 +11,7 @@ void MeshComponent::start() {
 
 void MeshComponent::earlyUpdate() 
 {
-	updateModelMatrix();
+	
 }
 
 void MeshComponent::update() {
@@ -26,6 +20,13 @@ void MeshComponent::update() {
 
 void MeshComponent::ui() {
 
+}
+
+void MeshComponent::draw()
+{
+	updateModelMatrix();
+	shader->UpdateShader(model);
+	mesh.Draw(*shader->shader);
 }
 
 void MeshComponent::updateModelMatrix()

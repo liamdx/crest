@@ -6,8 +6,8 @@ class Entity {
 public:
 	std::string name;
 
-	std::vector<std::unique_ptr<EngineComponent>> components;
-	std::vector<std::unique_ptr<Entity>> children;
+	std::vector<std::shared_ptr<EngineComponent>> components;
+	std::vector<std::shared_ptr<Entity>> children;
 
 	TransformComponent* transform = nullptr;
 
@@ -15,10 +15,27 @@ public:
 	~Entity() {}
 
 	void AddComponent(EngineComponent* newComponent);
-	EngineComponent* GetComponent(const char* name);
-	void AddChild(Entity* newChild);
-	Entity* GetChild(int index);
-	Entity* GetChild(const char* name);
+
+	// template method only works in .h file without round-about bs
+	// any way to keep this in cpp?
+	template <class T>
+	std::shared_ptr<T> GetComponent()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			//fix this, never finding the component
+			if (typeid(components.at(i)).name == typeid(std::shared_ptr<T>))
+			{
+				return(std::static_pointer_cast<T>(components.at(i)));
+			}
+		}
+		std::cout << "component not found" << std::endl;
+		return nullptr;
+	}
+
+	void AddChild(std::shared_ptr<Entity> newChild);
+	std::shared_ptr<Entity> GetChild(int index);
+	std::shared_ptr<Entity> GetChild(const char* name);
 
 	void initBehaviour();
 	void startBehaviour();

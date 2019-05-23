@@ -12,6 +12,7 @@
 #include <iostream> 
 #include <memory>
 #include <map>
+#include <typeinfo>
 
 //external dependencies
 //#include "yse.hpp"

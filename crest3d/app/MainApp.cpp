@@ -92,13 +92,16 @@ int main() {
 	model = glm::translate(model, modelPosition);
 	model = glm::scale(model, glm::vec3(2.0));
 
-	Entity debugEntity("Peter Andre");
+	std::shared_ptr<Entity> debugEntity = std::shared_ptr<Entity>(new Entity("John"));
 
 	//debugEntity.AddComponent(new DebugComponent());
-	//debugEntity.AddComponent(new MeshComponent());
+	debugEntity->AddComponent(new ShaderComponent(debugEntity));
+	debugEntity->AddComponent(new MeshComponent(debugEntity,someModel.meshes[0]));
+	std::shared_ptr<ShaderComponent> debugShader = debugEntity->GetComponent<ShaderComponent>();
+	debugShader.get();
 
+	debugEntity->startBehaviour();
 
-	debugEntity.startBehaviour();
 
 	// end of example def
 
@@ -136,11 +139,11 @@ int main() {
 
 		mainFB.initForDrawing();
 
-		debugEntity.earlyUpdateBehaviour();
-
+		debugEntity->earlyUpdateBehaviour();
+		
 		// example update()
-
-		debugEntity.updateBehaviour();
+		debugEntity->transform->position = debugEntity->transform->position + glm::vec3(0, 0, 1) * deltaTime;
+		debugEntity->updateBehaviour();
 
 		BoneCam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
 
@@ -179,7 +182,7 @@ int main() {
 
 
 		view = BoneCam.GetViewMatrix();
-
+		debugEntity->GetComponent<ShaderComponent>()->setView(view);
 
 		//skybox shader
 		cubemapShader.use();
@@ -232,7 +235,7 @@ int main() {
 
 		// end of exammple ui
 
-		debugEntity.uiBehaviour();
+		debugEntity->uiBehaviour();
 
 		//ui render	
 		ImGui::Render();

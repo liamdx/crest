@@ -14,7 +14,7 @@ TransformComponent::TransformComponent()
 	worldForward = forward;
 }
 
-TransformComponent::TransformComponent(TransformComponent* _parent)
+TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _parent)
 {
 	name = "TransformComponent";
 	parent = _parent;

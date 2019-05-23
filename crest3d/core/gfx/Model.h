@@ -24,9 +24,10 @@ public:
 	std::string directory;
 
 	void loadModel(std::string path);
+	static void processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity>);
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 
-	Entity* loadModelAsEntity(std::string path);
+	static std::shared_ptr<Entity> loadModelAsEntity(std::string path);
 };

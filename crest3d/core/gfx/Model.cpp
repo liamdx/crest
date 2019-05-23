@@ -275,17 +275,37 @@ int Model::CommonTextureLoad(std::string path)
 
 }
 
-Entity* Model::loadModelAsEntity(std::string path)
+std::shared_ptr<Entity> Model::loadModelAsEntity(std::string path)
 {
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
-		return;
+		return nullptr;
 	}
 
-	directory = path.substr(0, path.find_last_of('/'));
+	std::cout << path.substr(0, path.find_last_of('/')) << std::endl;
 
-	std::cout << directory << std::endl;
+	processNodeForEntity(scene->mRootNode, scene, nullptr);
+
+	return nullptr;
+}
+
+void Model::processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity> previousEntity)
+{
+
+	
+
+
+	for (unsigned int i = 0; i < node->mNumMeshes; i++)
+	{
+		std::shared_ptr<Entity> e(new Entity(node->mName.C_Str()));
+		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+		// meshes.push_back(processMesh(mesh, scene));
+	}
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	{
+		// processNode(node->mChildren[i], scene);
+	}
 }

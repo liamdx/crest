@@ -31,17 +31,17 @@ public:
 	glm::vec3 getLocalEulerAngles() { return localEulerAngles; };
 	glm::vec3 getLocalScale() { return localScale; };
 
-	TransformComponent* parent = nullptr;
-	Entity* attachedEntity = nullptr;
+	std::shared_ptr<TransformComponent> parent = nullptr;
+	std::shared_ptr<Entity> attachedEntity = nullptr;
 
-	inline void setParent(TransformComponent* newParent) { parent = newParent; }
-	inline TransformComponent* getParent() { return parent; }
+	inline void setParent(std::shared_ptr<TransformComponent> newParent) { parent = newParent; }
+	inline std::shared_ptr<TransformComponent> getParent() { return std::shared_ptr<TransformComponent>(parent); }
 
-	inline void setOwnedEntity(Entity* newEntity) { attachedEntity = newEntity; }
-	inline Entity* getOwnedEntity() { return attachedEntity; }
+	inline void setOwnedEntity(std::shared_ptr<Entity> newEntity) { attachedEntity = newEntity; }
+	inline std::shared_ptr<Entity> getOwnedEntity() { return std::shared_ptr<Entity>(attachedEntity); }
 
 	TransformComponent();
-	TransformComponent(TransformComponent* _parent);
+	TransformComponent(std::shared_ptr<TransformComponent> _parent);
 	~TransformComponent() {};
 
 	// use camera class to work out how to work out direction vectors.
