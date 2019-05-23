@@ -7,13 +7,14 @@
 class ShaderComponent : public EngineComponent
 {
 public:
-	ShaderComponent(std::shared_ptr<Entity> e, const char* vertexPath = "res/shaders/default.vert", const char* fragPath = "res/shaders/default.frag")
+	ShaderComponent(std::shared_ptr<Entity> e, const char* vertexPath = "res/shaders/unassigned.vert", const char* fragPath = "res/shaders/unassigned.frag")
 	{
 		name = "ShaderComponent"; 
 		_vertexPath = vertexPath; 
 		_fragPath = fragPath; 
 		attachedEntity = std::shared_ptr<Entity>(e);
-		view = glm::mat4(1.0);
+		shader = std::shared_ptr<Shader>(new Shader(vertexPath, fragPath));
+    	view = glm::mat4(1.0);
 		projection = glm::mat4(1.0);
 	};
 

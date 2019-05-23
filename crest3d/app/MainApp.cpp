@@ -96,9 +96,8 @@ int main() {
 
 	//debugEntity.AddComponent(new DebugComponent());
 	debugEntity->AddComponent(new ShaderComponent(debugEntity));
-	debugEntity->AddComponent(new MeshComponent(debugEntity,someModel.meshes[0]));
+	debugEntity->AddComponent(new MeshComponent(debugEntity,Mesh(someModel.meshes[0])));
 	std::shared_ptr<ShaderComponent> debugShader = debugEntity->GetComponent<ShaderComponent>();
-	debugShader.get();
 
 	debugEntity->startBehaviour();
 
@@ -182,7 +181,7 @@ int main() {
 
 
 		view = BoneCam.GetViewMatrix();
-		debugEntity->GetComponent<ShaderComponent>()->setView(view);
+		debugShader->setView(view);
 
 		//skybox shader
 		cubemapShader.use();
@@ -191,14 +190,14 @@ int main() {
 		cubemapShader.setInt("cubemap", 0);
 		skybox.Draw(cubemapShader, view, projection);
 
-		//  test shader
-		testShader.use();
+		////  test shader
+		//testShader.use();
 
-		testShader.setMat4("model", model);
-		testShader.setMat4("view", view);
-		testShader.setMat4("projection", projection);
+		//testShader.setMat4("model", model);
+		//testShader.setMat4("view", view);
+		//testShader.setMat4("projection", projection);
 
-		someModel.Draw(testShader);
+		//someModel.Draw(testShader);
 
 		// end of example update()
 
