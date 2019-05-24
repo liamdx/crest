@@ -93,7 +93,6 @@ int main() {
 	model = glm::scale(model, glm::vec3(2.0));
 
 	std::shared_ptr<Entity> debugEntity = std::shared_ptr<Entity>(new Entity("John"));
-	//debugEntity.AddComponent(new DebugComponent());
 	debugEntity->AddComponent(new ShaderComponent(debugEntity));
 	debugEntity->AddComponent(new MeshComponent(debugEntity,Mesh(someModel.meshes[0])));
 	debugEntity->initBehaviour();
@@ -101,6 +100,7 @@ int main() {
 
 	std::shared_ptr<ShaderComponent> debugShader = debugEntity->GetComponent<ShaderComponent>();
 	debugShader->setProjection(projection);
+	std::cout << "debugShader attachedEntity: " << debugShader->attachedEntity->name << std::endl;
 
 	// end of example def
 
@@ -130,6 +130,9 @@ int main() {
 
 		ImGui_ImplGlfwGL3_NewFrame();
 
+		view = BoneCam.GetViewMatrix();
+		debugShader->setView(view);
+
 
 		//Render scene normally
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -143,7 +146,7 @@ int main() {
 		// example update()
 		debugEntity->transform->position = debugEntity->transform->position + glm::vec3(0, 0, 1) * deltaTime;
 
-		std::cout << "transform.position = " << glm::to_string(debugEntity->transform->position) << std::endl;
+		// std::cout << "transform.position = " << glm::to_string(debugEntity->transform->position) << std::endl;
 
 		debugEntity->updateBehaviour();
 
@@ -183,8 +186,6 @@ int main() {
 		}
 
 
-		view = BoneCam.GetViewMatrix();
-		debugShader->setView(view);
 
 		//skybox shader
 		cubemapShader.use();
