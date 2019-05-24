@@ -22,7 +22,7 @@ TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _pare
 	parent = _parent;
 	position = glm::vec3(1.0); eulerAngles = glm::vec3(0.0); scale = glm::vec3(1.0);
 	localPosition = glm::vec3(1.0); localEulerAngles = glm::vec3(0.0); localScale = glm::vec3(1.0);
-	forward = glm::vec3(0.0, 0.0, 1.0);
+	forward = glm::vec3(0.0, 0.0, -1.0);
 	right = glm::vec3(1.0, 0.0, 0.0);
 	up = glm::vec3(0.0, 1.0, 0.0);
 	worldUp = up;
@@ -45,9 +45,8 @@ void TransformComponent::setPosition(glm::vec3 newPosition)
 	{
 		position = parent->position + localPosition;
 	}
-
-	updateModelPosition(position - lastPosition);
-	
+	position = position - lastPosition;
+	updateModelPosition(position);	
 }
 
 void TransformComponent::updateModelPosition(glm::vec3 positionChange)
@@ -70,15 +69,36 @@ void TransformComponent::setEulerAngles(glm::vec3 newEulerAngles)
 		eulerAngles = parent->eulerAngles + localEulerAngles;
 	}
 
+	eulerAngles = eulerAngles - lastEuler;
+
+	clampEulerAngles(eulerAngles);
 	updateDirectionVectors();
-	updateModelAngles(eulerAngles - lastEuler);
+	updateModelAngles(eulerAngles);
+}
+
+void TransformComponent::clampEulerAngles(glm::vec3& v)
+{
+	clampRotation(v.x);
+	clampRotation(v.y);
+	clampRotation(v.z);
+}
+
+void TransformComponent::clampRotation(float& value)
+{
+	if(value >= 180.0f)
+	{
+		value = -180.0f;
+	}
+	else if(value <= -180.0f)
+	{
+		value = 180.0f;
+	}
+
 }
 
 void TransformComponent::updateModelAngles(glm::vec3 rotationChange)
 {
-	model = glm::rotate(model, rotationChange.x, glm::vec3(1.0, 0.0, 0.0));
-	model = glm::rotate(model, rotationChange.y, glm::vec3(0.0, 1.0, 0.0));
-	model = glm::rotate(model, rotationChange.z, glm::vec3(0.0, 0.0, 1.0));
+	model = glm::rotate(model, glm::radians(glm::length(rotationChange)), glm::normalize(rotationChange));
 }
 
 
@@ -94,7 +114,9 @@ void TransformComponent::setScale(glm::vec3 newScale)
 	{
 		scale = parent->scale + localScale;
 	}
-	updateModelScale(scale - lastScale);
+
+	scale = scale - lastScale;
+	updateModelScale(scale);
 }
 
 void TransformComponent::updateModelScale(glm::vec3 scaleChange)
@@ -105,10 +127,10 @@ void TransformComponent::updateModelScale(glm::vec3 scaleChange)
 
 void TransformComponent::updateDirectionVectors()
 {
-	glm::vec3 front;
-	front.x = cos(glm::radians(eulerAngles.x)) * cos(glm::radians(eulerAngles.y));
-	front.y = sin(glm::radians(eulerAngles.y));
-	front.z = sin(glm::radians(eulerAngles.x)) * cos(glm::radians(eulerAngles.x));
+	glm::vec3 front = glm::vec3(0.0);
+	front.x = glm::cos(glm::radians(eulerAngles.y)) * glm::cos(glm::radians(eulerAngles.x));
+	front.y = glm::sin(glm::radians(eulerAngles.x));
+	front.z = glm::sin(glm::radians(eulerAngles.y)) * glm::cos(glm::radians(eulerAngles.x));
 	
 	forward = glm::normalize(front);
 	right = glm::normalize(glm::cross(front, worldUp)); // forward should be world up

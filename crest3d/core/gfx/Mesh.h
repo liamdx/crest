@@ -3,15 +3,12 @@
 #include "Common.h"
 #include "Shader.h"
 
-
 struct Vertex {
 	glm::vec3 position;
 	glm::vec3 normal;
 	glm::vec2 TexCoords;
 	glm::vec3 tangent;
 };
-
-
 
 
 class Mesh {
@@ -37,6 +34,7 @@ public:
 
 	unsigned int vao, vbo, ibo;
 	void setupMesh();
+    float getCullSphereRadius();
 	float xBound, yBound, zBound;
 
 };

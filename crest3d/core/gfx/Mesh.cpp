@@ -25,6 +25,15 @@ void Mesh::setupMesh()
 
 	glBindVertexArray(0);
 }
+float Mesh::getCullSphereRadius()
+{
+	if ((xBound >= yBound) && (xBound >= zBound))
+		return xBound;
+	else if ((yBound >= xBound) && (yBound >= zBound))
+		return yBound;
+	else
+		return zBound;
+}
 
 void Mesh::Draw(Shader shader)
 {

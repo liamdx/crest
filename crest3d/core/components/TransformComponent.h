@@ -26,13 +26,17 @@ public:
 	void setScale(glm::vec3 newScale);
 	void updateModelScale(glm::vec3 scaleChange);
 
-	glm::vec3 getPosition() { return position; };
-	glm::vec3 getEulerAngles() { return eulerAngles; };
-	glm::vec3 getScale() { return scale; };
+	inline glm::vec3 getPosition() { return position; };
+	inline glm::vec3 getEulerAngles() { return eulerAngles; };
+	inline glm::vec3 getScale() { return scale; };
 
-	glm::vec3 getLocalPosition() { return localPosition; };
-	glm::vec3 getLocalEulerAngles() { return localEulerAngles; };
-	glm::vec3 getLocalScale() { return localScale; };
+	inline glm::vec3 getLocalPosition() { return localPosition; };
+	inline glm::vec3 getLocalEulerAngles() { return localEulerAngles; };
+	inline glm::vec3 getLocalScale() { return localScale; };
+
+	inline glm::vec3 getForward() { return forward; }
+	inline glm::vec3 getRight() { return right; }
+	inline glm::vec3 getUp() { return up; }
 
 	std::shared_ptr<TransformComponent> parent = nullptr;
 	std::shared_ptr<Entity> attachedEntity = nullptr;
@@ -52,4 +56,6 @@ public:
 private:
 	glm::mat4 model;
 	void updateDirectionVectors();
+	void clampRotation(float& value);
+	void clampEulerAngles(glm::vec3& v);
 };

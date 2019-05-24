@@ -38,11 +38,11 @@ void SimpleExample::updateBehaviour(float deltaTime)
 	rotateCounter += deltaTime;
 	if(rotateCounter >= 5.0f)
 	{
-		debugTransform->setEulerAngles(debugTransform->getEulerAngles() + glm::vec3(0, 30.0f, 0));
+		debugTransform->setEulerAngles(debugTransform->getEulerAngles() + glm::vec3(0, 90.0f, 0));
 		rotateCounter = 0.0f;
 	}
 
-	debugTransform->setPosition(debugTransform->getPosition() + ((debugTransform->forward * 0.1f) * deltaTime));
+	debugTransform->setPosition(debugTransform->getPosition() + (debugTransform->getForward() * 1.0f) * deltaTime);
 
 	cam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
 

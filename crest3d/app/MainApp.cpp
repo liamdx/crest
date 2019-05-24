@@ -45,6 +45,8 @@ int main() {
 	ImGui_ImplGlfwGL3_Init(window, true);
 
 	SetImGuiStyle();
+	ImGuiIO& io = ImGui::GetIO();
+	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 14.0f);
 
 
 	//Enable depth
@@ -65,7 +67,7 @@ int main() {
 	example.startBehaviour();
 	//Mouse input handle
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
+	glfwSwapInterval(1);
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
 
@@ -114,9 +116,9 @@ int main() {
 		ImGui::End();
 
 		//  UI
-		if (ImGui::BeginMenu("Suck my entire yeet please"))
+		if (ImGui::BeginMenu("DebugMenu"))
 		{
-			ImGui::Text("HELLO");
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
 			ImGui::End();
 		}
