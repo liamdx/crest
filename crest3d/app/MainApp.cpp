@@ -93,14 +93,14 @@ int main() {
 	model = glm::scale(model, glm::vec3(2.0));
 
 	std::shared_ptr<Entity> debugEntity = std::shared_ptr<Entity>(new Entity("John"));
-
 	//debugEntity.AddComponent(new DebugComponent());
 	debugEntity->AddComponent(new ShaderComponent(debugEntity));
 	debugEntity->AddComponent(new MeshComponent(debugEntity,Mesh(someModel.meshes[0])));
-	std::shared_ptr<ShaderComponent> debugShader = debugEntity->GetComponent<ShaderComponent>();
-
+	debugEntity->initBehaviour();
 	debugEntity->startBehaviour();
 
+	std::shared_ptr<ShaderComponent> debugShader = debugEntity->GetComponent<ShaderComponent>();
+	debugShader->setProjection(projection);
 
 	// end of example def
 
@@ -142,6 +142,9 @@ int main() {
 		
 		// example update()
 		debugEntity->transform->position = debugEntity->transform->position + glm::vec3(0, 0, 1) * deltaTime;
+
+		std::cout << "transform.position = " << glm::to_string(debugEntity->transform->position) << std::endl;
+
 		debugEntity->updateBehaviour();
 
 		BoneCam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
@@ -242,11 +245,12 @@ int main() {
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
-
+		
 		/* Poll for and process events */
 		glfwPollEvents();
 		lastWindowWidth = dWidth;
 		lastWindowHeight = dHeight;
+
 	}
 
 }

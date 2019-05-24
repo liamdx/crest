@@ -28,6 +28,7 @@
 #include "ext/glm/gtc/matrix_transform.hpp"
 #include "ext/glm/gtc/type_ptr.hpp"
 #include "ext/glm/gtx/quaternion.hpp"
+#include "ext/glm/gtx/string_cast.hpp"
 
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/imgui_impl_glfw_gl3.h"

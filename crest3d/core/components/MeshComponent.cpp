@@ -15,7 +15,7 @@ void MeshComponent::earlyUpdate()
 }
 
 void MeshComponent::update() {
-
+	draw();
 }
 
 void MeshComponent::ui() {
