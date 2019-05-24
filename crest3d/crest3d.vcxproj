@@ -141,7 +141,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="core\components\ShaderComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />

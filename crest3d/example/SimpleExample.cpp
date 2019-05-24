@@ -8,28 +8,33 @@ SimpleExample::SimpleExample(GLFWwindow* _window) : input(_window), window(_wind
 	debugEntity = std::shared_ptr<Entity>(new Entity("John"));
 	debugEntity->AddComponent(new ShaderComponent(debugEntity));
 	debugEntity->AddComponent(new MeshComponent(debugEntity, Mesh(model->meshes[0])));
-	projection = glm::perspectiveFov(glm::radians(75.0), (double)1280, (double)720, 0.1, 500.0);
+	cameraEntity = std::shared_ptr<Entity>(new Entity("Camera"));
+	cameraEntity->AddComponent(new CameraComponent(cameraEntity));
+	// projection = glm::perspectiveFov(glm::radians(75.0), (double)1280, (double)720, 0.1, 500.0);
 
 }
 
 void SimpleExample::initBehaviour()
 {
-	debugEntity->initBehaviour();
 	debugShader = debugEntity->GetComponent<ShaderComponent>();
-	debugShader->setProjection(projection);
+	debugCamera = cameraEntity->GetComponent<CameraComponent>();
+	debugShader->setProjection(debugCamera->GetProjectionMatrix());
 	debugTransform = std::shared_ptr<TransformComponent>(debugEntity->transform);
-
+    camTransform = std::shared_ptr<TransformComponent>(cameraEntity->transform);
+	debugEntity->initBehaviour();
+	cameraEntity->initBehaviour();
 }
 
 
 void SimpleExample::startBehaviour()
 {
-	debugEntity->initBehaviour();
+	debugEntity->startBehaviour();
+	cameraEntity->startBehaviour();
 } 
 
 void SimpleExample::earlyUpdateBehaviour(float deltaTime)
 {
-	debugShader->setView(cam.GetViewMatrix());
+	debugShader->setView(debugCamera->GetViewMatrix());
 	debugEntity->earlyUpdateBehaviour();
 }
 
@@ -43,47 +48,15 @@ void SimpleExample::updateBehaviour(float deltaTime)
 	}
 
 	debugTransform->setPosition(debugTransform->getPosition() + (debugTransform->getForward() * 1.0f) * deltaTime);
+	//cameraEntity->transform->setPosition(debugTransform->getPosition() + glm::vec3(0, 3, -7));
 
-	cam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
-
-	if (input.GetKeyW())
-	{
-		cam.ProcessKeyboard(FORWARD, deltaTime);
-
-	}
-
-	if (input.GetKeyS())
-	{
-		cam.ProcessKeyboard(BACKWARD, deltaTime);
-	}
-
-	if (input.GetKeyA())
-	{
-		cam.ProcessKeyboard(LEFT, deltaTime);
-	}
-
-	if (input.GetKeyD())
-	{
-		cam.ProcessKeyboard(RIGHT, deltaTime);
-	}
-
-	if (input.GetRightClick())
-	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		cam.canMove = true;
-		input.GetMouseMovement();
-		cam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
-	}
-	else
-	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	}
+	camTransform->setEulerAngles(camTransform->getEulerAngles() + glm::vec3(0, 90.0, 0));
 
 	cubemapShader->use();
 	cubemapShader->setMat4("projection", projection);
-	cubemapShader->setMat4("view", cam.GetViewMatrix());
+	cubemapShader->setMat4("view", debugCamera->GetViewMatrix());
 	cubemapShader->setInt("cubemap", 0);
-	skybox->Draw(*cubemapShader, cam.GetViewMatrix(), projection);
+	skybox->Draw(*cubemapShader, debugCamera->GetViewMatrix(), debugCamera->GetProjectionMatrix());
 
 	debugEntity->updateBehaviour();
 }

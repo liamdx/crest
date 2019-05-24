@@ -19,8 +19,11 @@ public:
 	glm::mat4 projection;
 
 	std::shared_ptr<Entity> debugEntity;
+	std::shared_ptr<Entity> cameraEntity;
 	std::shared_ptr<ShaderComponent> debugShader;
 	std::shared_ptr<TransformComponent> debugTransform;
+	std::shared_ptr<TransformComponent> camTransform;
+	std::shared_ptr<CameraComponent> debugCamera;
 
 	float rotateCounter;
 

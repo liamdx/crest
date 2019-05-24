@@ -53,8 +53,6 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	glfwSwapInterval(0);
-
 	// YSE::System().init();
 
 	// Example Here 

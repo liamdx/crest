@@ -9,6 +9,8 @@ class Scene
 
 	Scene(const char* _name);
 
+	void AddEntity();
+
 	void initBehaviour();
 	void startBehaviour();
 	void earlyUpdateBehaviour();

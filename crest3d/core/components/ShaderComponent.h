@@ -18,7 +18,7 @@ public:
 		projection = glm::mat4(1.0);
 	};
 
-	void UpdateShader(glm::mat4 modelMatrix)
+	inline void UpdateShader(glm::mat4 modelMatrix)
 	{
 		shader->setMat4("model", modelMatrix);
 		shader->setMat4("view", view);

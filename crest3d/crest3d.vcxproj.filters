@@ -78,9 +78,6 @@
     <ClCompile Include="example\SimpleExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\components\ShaderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\components\CameraComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

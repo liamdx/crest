@@ -19,3 +19,4 @@
 #include "components/TransformComponent.h"
 #include "components/MeshComponent.h"
 #include "components/ShaderComponent.h"
+#include "components/CameraComponent.h"
