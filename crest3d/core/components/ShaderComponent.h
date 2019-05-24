@@ -7,7 +7,7 @@
 class ShaderComponent : public EngineComponent
 {
 public:
-	ShaderComponent(std::shared_ptr<Entity> e, const char* vertexPath = "res/shaders/unassigned.vert", const char* fragPath = "res/shaders/unassigned.frag")
+	ShaderComponent(std::shared_ptr<Entity> e, const char* vertexPath = "res/shaders/default.vert", const char* fragPath = "res/shaders/default.frag")
 	{
 		name = "ShaderComponent"; 
 		_vertexPath = vertexPath; 

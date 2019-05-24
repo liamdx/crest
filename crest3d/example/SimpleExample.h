@@ -4,17 +4,27 @@
 class SimpleExample : public Example
 {
 public:
-	SimpleExample();
-	~SimpleExample() override {};
+	SimpleExample(GLFWwindow* _window);
+	~SimpleExample() override { delete cubemapShader; delete model; delete skybox; };
+
+	void initBehaviour() override;
 	void startBehaviour() override;
-	void earlyUpdateBehaviour() override;
-	void updateBehaviour() override;
-	void uiBehaviour() override;
+	void earlyUpdateBehaviour(float deltaTime) override;
+	void updateBehaviour(float deltaTime) override;
+	void uiBehaviour(float deltaTime) override;
 
 
 	// example vars
-	// Camera BoneCam;
+	Camera cam;
+	glm::mat4 projection;
 
+	std::shared_ptr<Entity> debugEntity;
+	std::shared_ptr<ShaderComponent> debugShader;
+	std::shared_ptr<TransformComponent> debugTransform;
+
+	float rotateCounter;
+
+	// this stuff needs component-ised
 	//skybox faces
 	std::vector<std::string> faces
 	{
@@ -25,11 +35,9 @@ public:
 		"res/textures/starfield/starfield_bk.tga",
 		"res/textures/starfield/starfield_ft.tga"
 	};
-
-	Shader* testShader;
+	GLFWwindow* window;
 	Shader* cubemapShader;
-
-
+	InputManager input;
 	Model* model;
 	Cubemap* skybox;
 

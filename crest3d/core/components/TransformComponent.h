@@ -20,8 +20,11 @@ public:
 
 	// member funcs
 	void setPosition(glm::vec3 newPosition);
+	void updateModelPosition(glm::vec3 positionChange);
 	void setEulerAngles(glm::vec3 newRotation);
+	void updateModelAngles(glm::vec3 rotationChange);
 	void setScale(glm::vec3 newScale);
+	void updateModelScale(glm::vec3 scaleChange);
 
 	glm::vec3 getPosition() { return position; };
 	glm::vec3 getEulerAngles() { return eulerAngles; };
@@ -40,12 +43,13 @@ public:
 	inline void setOwnedEntity(std::shared_ptr<Entity> newEntity) { attachedEntity = newEntity; }
 	inline std::shared_ptr<Entity> getOwnedEntity() { return std::shared_ptr<Entity>(attachedEntity); }
 
+	inline glm::mat4 getModelMatrix() { return model; }
+
 	TransformComponent();
 	TransformComponent(std::shared_ptr<TransformComponent> _parent);
 	~TransformComponent() {};
 
-	// use camera class to work out how to work out direction vectors.
-
 private:
+	glm::mat4 model;
 	void updateDirectionVectors();
 };

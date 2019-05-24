@@ -55,72 +55,23 @@ int main() {
 
 	// YSE::System().init();
 
-	// start
+	// Example Here 
+	SimpleExample example(window);
+	example.initBehaviour();
 
-
-	// example def
-	// my stuff
-	InputManager input(window);
-	//self explanatory
-	Camera BoneCam(glm::vec3(0.0,0.0,0.0));
-	// all images requried to make a subemap (star system image)
-	std::vector<std::string> faces
-	{
-		"res/textures/starfield/starfield_rt.tga",
-		"res/textures/starfield/starfield_lf.tga",
-		"res/textures/starfield/starfield_up.tga",
-		"res/textures/starfield/starfield_dn.tga",
-		"res/textures/starfield/starfield_bk.tga",
-		"res/textures/starfield/starfield_ft.tga"
-	};
-
-	Shader testShader("res/shaders/default.vert", "res/shaders/default.frag");
-	Shader cubemapShader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
-	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
-
-	Model someModel("res/models/cyborg/cyborg.obj");
-	Cubemap skybox(faces);
-	screenQuad renderQuad;
-
-	glm::vec3 modelPosition(0.0, 0.0, 4.0);
-	glm::mat4 model, view, projection;
-
-	projection = glm::perspectiveFov(glm::radians(75.0), (double)SCREEN_WIDTH, (double)SCREEN_HEIGHT, 0.1, 250.0);
-
-
-	model = glm::mat4(1.0);
-	model = glm::translate(model, modelPosition);
-	model = glm::scale(model, glm::vec3(2.0));
-
-	std::shared_ptr<Entity> debugEntity = std::shared_ptr<Entity>(new Entity("John"));
-	debugEntity->AddComponent(new ShaderComponent(debugEntity));
-	debugEntity->AddComponent(new MeshComponent(debugEntity,Mesh(someModel.meshes[0])));
-	debugEntity->initBehaviour();
-	debugEntity->startBehaviour();
-
-	std::shared_ptr<ShaderComponent> debugShader = debugEntity->GetComponent<ShaderComponent>();
-	debugShader->setProjection(projection);
-	std::cout << "debugShader attachedEntity: " << debugShader->attachedEntity->name << std::endl;
-
-	// end of example def
-
-	// frame buffer
-	//Framebuffer
-	//Frame buffer set up
-
+	// Main Frame buffer set up
 	FrameBuffer mainFB;
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
-
+	example.startBehaviour();
 	//Mouse input handle
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
+
 	while (!glfwWindowShouldClose(window)) {
 
-		// early update
-		// clear everything
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		glClearColor(1.0, 0.0f, 0.0f, 1.0f);
 
 		//Engine time
@@ -130,85 +81,19 @@ int main() {
 
 		ImGui_ImplGlfwGL3_NewFrame();
 
-		view = BoneCam.GetViewMatrix();
-		debugShader->setView(view);
-
-
 		//Render scene normally
 		glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		glCullFace(GL_BACK);
 		
 
 		mainFB.initForDrawing();
+		example.earlyUpdateBehaviour(deltaTime);
 
-		debugEntity->earlyUpdateBehaviour();
-		
-		// example update()
-		debugEntity->transform->position = debugEntity->transform->position + glm::vec3(0, 0, 1) * deltaTime;
-
-		// std::cout << "transform.position = " << glm::to_string(debugEntity->transform->position) << std::endl;
-
-		debugEntity->updateBehaviour();
-
-		BoneCam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
-
-		if (input.GetKeyW())
-		{
-			BoneCam.ProcessKeyboard(FORWARD, deltaTime);
-
-		}
-
-		if (input.GetKeyS())
-		{
-			BoneCam.ProcessKeyboard(BACKWARD, deltaTime);
-		}
-
-		if (input.GetKeyA())
-		{
-			BoneCam.ProcessKeyboard(LEFT, deltaTime);
-		}
-
-		if (input.GetKeyD())
-		{
-			BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		}
-
-		if (input.GetRightClick())
-		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			BoneCam.canMove = true;
-			input.GetMouseMovement();
-			BoneCam.ProcessMouseMovement(input.xpos, -input.ypos, deltaTime);
-		}
-		else
-		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		}
-
-
-
-		//skybox shader
-		cubemapShader.use();
-		cubemapShader.setMat4("projection", projection);
-		cubemapShader.setMat4("view", view);
-		cubemapShader.setInt("cubemap", 0);
-		skybox.Draw(cubemapShader, view, projection);
-
-		////  test shader
-		//testShader.use();
-
-		//testShader.setMat4("model", model);
-		//testShader.setMat4("view", view);
-		//testShader.setMat4("projection", projection);
-
-		//someModel.Draw(testShader);
-
-		// end of example update()
+		example.updateBehaviour(deltaTime);
 
 		mainFB.finishDrawing();
 
-		
-
+		example.uiBehaviour(deltaTime);
 
 		ImGui::Begin("Scene Window");
 
@@ -236,9 +121,6 @@ int main() {
 			ImGui::End();
 		}
 
-		// end of exammple ui
-
-		debugEntity->uiBehaviour();
 
 		//ui render	
 		ImGui::Render();

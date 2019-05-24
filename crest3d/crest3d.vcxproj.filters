@@ -614,6 +614,9 @@
     <ClInclude Include="core\components\ShaderComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl">

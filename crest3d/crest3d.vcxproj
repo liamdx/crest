@@ -337,6 +337,7 @@
     <ClInclude Include="core\primitives\Quad.h" />
     <ClInclude Include="core\gfx\Shader.h" />
     <ClInclude Include="core\Scene.h" />
+    <ClInclude Include="core\SceneManager.h" />
     <ClInclude Include="example\Example.h" />
     <ClInclude Include="example\SimpleExample.h" />
   </ItemGroup>

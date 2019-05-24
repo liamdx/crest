@@ -6,10 +6,10 @@ class Example {
 public:
 
 	virtual ~Example() {};
-
+	virtual void initBehaviour() {};
 	virtual void startBehaviour() {};
-	virtual void earlyUpdateBehaviour() {};
-	virtual void updateBehaviour() {};
-	virtual void uiBehaviour() {};
+	virtual void earlyUpdateBehaviour(float deltaTime) {};
+	virtual void updateBehaviour(float deltaTime) {};
+	virtual void uiBehaviour(float deltaTime) {};
 
 };

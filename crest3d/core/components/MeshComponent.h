@@ -19,8 +19,6 @@ public:
 
 private:
 	void draw();
-	void updateModelMatrix();
-	glm::mat4 model = glm::mat4(1.0);
 	Mesh mesh;
 	std::shared_ptr<ShaderComponent> shader;
 
