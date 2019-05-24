@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\DebugComponent.cpp" />
     <ClCompile Include="core\components\MeshComponent.cpp">
       <SubType>
@@ -162,6 +163,7 @@
     <ClCompile Include="example\SimpleExample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />

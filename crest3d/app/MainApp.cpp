@@ -67,7 +67,6 @@ int main() {
 	example.startBehaviour();
 	//Mouse input handle
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	glfwSwapInterval(1);
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
 

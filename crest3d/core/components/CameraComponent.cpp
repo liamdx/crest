@@ -1,5 +1,6 @@
 #include "CameraComponent.h"
 #include "Common.h"
+
 void CameraComponent::start() {
 
 }
