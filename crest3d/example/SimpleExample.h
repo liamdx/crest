@@ -42,6 +42,12 @@ public:
 	Shader* cubemapShader;
 	InputManager input;
 	Model* model;
+	Model* sponza;
 	Cubemap* skybox;
+
+private:
+	float zOffset;
+	float yOffset;
+	float cameraRotation;
 
 };

@@ -34,7 +34,6 @@ TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _pare
 
 void TransformComponent::setPosition(glm::vec3 newPosition)
 {
-	glm::vec3 lastPosition = position;
 
 	localPosition = newPosition;
 	if (parent == nullptr)
@@ -45,9 +44,23 @@ void TransformComponent::setPosition(glm::vec3 newPosition)
 	{
 		position = parent->position + localPosition;
 	}
-	position = position - lastPosition;
 	updateModelPosition(position);	
 }
+
+void TransformComponent::addPosition(glm::vec3 newPosition)
+{
+	localPosition = localPosition + newPosition;
+	if (parent == nullptr)
+	{
+		position = localPosition;
+	}
+	else
+	{
+		position = parent->position + localPosition;
+	}
+	updateModelPosition(position);
+}
+
 
 void TransformComponent::updateModelPosition(glm::vec3 positionChange)
 {
@@ -57,7 +70,7 @@ void TransformComponent::updateModelPosition(glm::vec3 positionChange)
 
 void TransformComponent::setEulerAngles(glm::vec3 newEulerAngles)
 {
-	glm::vec3 lastEuler = eulerAngles;
+	//glm::vec3 lastEuler = eulerAngles;
 
 	localEulerAngles = newEulerAngles;
 	if (parent == nullptr)
@@ -69,12 +82,30 @@ void TransformComponent::setEulerAngles(glm::vec3 newEulerAngles)
 		eulerAngles = parent->eulerAngles + localEulerAngles;
 	}
 
-	eulerAngles = eulerAngles - lastEuler;
+	// eulerAngles = eulerAngles - lastEuler;
 
 	clampEulerAngles(eulerAngles);
 	updateDirectionVectors();
 	updateModelAngles(eulerAngles);
 }
+
+void TransformComponent::addEulerAngles(glm::vec3 newRotation)
+{
+	localEulerAngles = localEulerAngles + newRotation;
+	if (parent == nullptr)
+	{
+		eulerAngles = localEulerAngles;
+	}
+	else
+	{
+		eulerAngles = parent->eulerAngles + localEulerAngles;
+	}
+
+	clampEulerAngles(eulerAngles);
+	updateDirectionVectors();
+	updateModelAngles(eulerAngles);
+}
+
 
 void TransformComponent::clampEulerAngles(glm::vec3& v)
 {
@@ -118,6 +149,22 @@ void TransformComponent::setScale(glm::vec3 newScale)
 	scale = scale - lastScale;
 	updateModelScale(scale);
 }
+
+void TransformComponent::addScale(glm::vec3 newScale)
+{
+	localScale = localScale + newScale;
+	if (parent == nullptr)
+	{
+		scale = localScale;
+	}
+	else
+	{
+		scale = parent->scale + localScale;
+	}
+
+	updateModelScale(scale);
+}
+
 
 void TransformComponent::updateModelScale(glm::vec3 scaleChange)
 {

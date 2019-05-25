@@ -22,4 +22,4 @@ private:
 	float width, height;
 	float nearPlane, farPlane;
 	glm::mat4 projection;
-};
+}; 

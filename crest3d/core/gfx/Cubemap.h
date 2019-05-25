@@ -9,7 +9,7 @@ class Cubemap
 public:
 
 	Cubemap(std::vector<std::string> textures_faces);
-	void Draw(Shader shader, glm::mat4 view, glm::mat4 projection);
+	void Draw(Shader shader);
 	unsigned int vao, vbo, textureId;
 	void Bind(Shader shader);
 private:
