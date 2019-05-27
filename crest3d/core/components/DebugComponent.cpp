@@ -6,15 +6,15 @@ void DebugComponent::start() {
 
 }
 
-void DebugComponent::earlyUpdate() {
+void DebugComponent::earlyUpdate(float deltaTime) {
 	std::cout << "DebugComponent: Override function executing on eaylyUpdate()" << std::endl;
 }
 
-void DebugComponent::update() {
+void DebugComponent::update(float deltaTime) {
 	std::cout << "DebugComponent: Override function executing on update()" << std::endl;
 }
 
-void DebugComponent::ui() {
+void DebugComponent::ui(float deltaTime) {
 	std::cout << "DebugComponent: Override function executing on ui" << std::endl;
 }
 

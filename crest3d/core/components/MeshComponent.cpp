@@ -7,16 +7,22 @@ void MeshComponent::init() {
 void MeshComponent::start() {
 }
 
-void MeshComponent::earlyUpdate() 
+void MeshComponent::earlyUpdate(float deltaTime)
 {
 	
 }
 
-void MeshComponent::update() {
+void MeshComponent::update(float deltaTime) {
+
+}
+
+void MeshComponent::render(float deltaTime)
+{
 	draw();
 }
 
-void MeshComponent::ui() {
+
+void MeshComponent::ui(float deltaTime) {
 
 }
 

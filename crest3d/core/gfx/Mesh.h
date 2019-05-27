@@ -10,6 +10,11 @@ struct Vertex {
 	glm::vec3 tangent;
 };
 
+struct Face
+{
+	std::vector<unsigned int> indices;
+	int numVertices;
+};
 
 class Mesh {
 public:

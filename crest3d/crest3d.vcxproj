@@ -84,13 +84,13 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/reactphysics3d/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/reactphysics3d/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;reactphysics3d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,14 +110,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/reactphysics3d/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/reactphysics3d/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;reactphysics3d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,6 +141,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="core\components\RigidbodyComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="app\MainApp.cpp" />
     <ClCompile Include="core\gfx\Mesh.cpp" />
     <ClCompile Include="core\gfx\Model.cpp" />
+    <ClCompile Include="core\PhysicsManager.cpp" />
     <ClCompile Include="core\primitives\Cube.cpp" />
     <ClCompile Include="core\primitives\Quad.cpp" />
     <ClCompile Include="core\gfx\Shader.cpp" />
@@ -164,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
+    <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
     <ClInclude Include="core\gfx\Camera.h" />
@@ -334,6 +337,7 @@
     <ClInclude Include="core\InputManager.h" />
     <ClInclude Include="core\gfx\Mesh.h" />
     <ClInclude Include="core\gfx\Model.h" />
+    <ClInclude Include="core\PhysicsManager.h" />
     <ClInclude Include="core\primitives\Cube.h" />
     <ClInclude Include="core\primitives\Quad.h" />
     <ClInclude Include="core\gfx\Shader.h" />

@@ -1,7 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "CrestCore.h"
-#include "components/MeshComponent.h"
 #include "SimpleExample.h"
 
 const float SCREEN_WIDTH = 1280.0;
@@ -13,6 +11,37 @@ int main() {
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
+
+	//// physics
+	///
+	PhysicsManager pm;
+	//float timeStep = 1.0 / 60.0;
+	//float accumulator = 0.0;
+	//decimal factor;
+
+	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
+	//rp3d::DynamicsWorld world(gravity);
+
+
+	//rp3d::Vector3 initPosition(0.0, 200.0, 0.0);
+	//rp3d::Quaternion initRotation = rp3d::Quaternion::identity();
+	//rp3d::Transform transform(initPosition, initRotation);
+
+	//std::unique_ptr<rp3d::RigidBody> body(world.createRigidBody(transform));
+
+
+	//const std::unique_ptr<rp3d::BoxShape> shape(new rp3d::BoxShape(Vector3(2,2,2)));
+	//body->addCollisionShape(shape.get(), transform, 4.0);
+
+	//rp3d::Transform prevTransform = body->getTransform();
+
+
+	//initPosition = Vector3(0, -100, 0);
+	//transform = Transform(initPosition, initRotation);
+	//std::unique_ptr<rp3d::RigidBody> ground(world.createRigidBody(transform));
+	//const std::unique_ptr<rp3d::BoxShape> groundShape(new rp3d::BoxShape(Vector3(200, 2, 200)));
+	//ground->addCollisionShape(groundShape.get(), transform, 4.0);
+	//ground->setType(BodyType::KINEMATIC);
 
 	//DEBUG
 	int success;
@@ -52,6 +81,8 @@ int main() {
 	//Enable depth
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// YSE::System().init();
 
@@ -77,7 +108,29 @@ int main() {
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+		//accumulator += deltaTime;
 
+		//while (accumulator >= timeStep) {
+
+		//	// Update the Dynamics world with a constant time step 
+		//	world.update(timeStep);
+
+		//	// Decrease the accumulated time 
+		//	accumulator -= timeStep;
+		//}
+
+		////Physics debug stuff
+		////
+		////
+		//factor = accumulator / timeStep;
+		//rp3d::Transform currTransform = body->getTransform();
+		//rp3d::Transform interpolatedTransform = Transform::interpolateTransforms(prevTransform, currTransform, factor);
+		//prevTransform = currTransform;
+
+		//std::cout << "RP3d body position: " << interpolatedTransform.getPosition().to_string() << std::endl;
+
+		pm.update(deltaTime);
+		
 		ImGui_ImplGlfwGL3_NewFrame();
 
 		//Render scene normally
@@ -90,6 +143,7 @@ int main() {
 
 		example.updateBehaviour(deltaTime);
 
+		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
 		example.uiBehaviour(deltaTime);

@@ -10,6 +10,7 @@
 
 #include "primitives/Quad.h"
 #include "primitives/Cube.h"
+#include "PhysicsManager.h"
 
 #include "Entity.h"
 #include "Scene.h"
@@ -20,3 +21,4 @@
 #include "components/MeshComponent.h"
 #include "components/ShaderComponent.h"
 #include "components/CameraComponent.h"
+#include "components/RigidbodyComponent.h"

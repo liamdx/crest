@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "components/TransformComponent.h"
+#include "PhysicsManager.h"
 
 class Entity {
 public:
@@ -9,9 +10,16 @@ public:
 	std::vector<std::shared_ptr<EngineComponent>> components;
 	std::vector<std::shared_ptr<Entity>> children;
 
-	TransformComponent* transform = nullptr;
+	std::shared_ptr<TransformComponent> transform;
 
-	Entity(const char* entityName) { name = entityName; transform = new TransformComponent(); }
+	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager) 
+	{
+		name = entityName; transform = std::shared_ptr<TransformComponent>(new TransformComponent()); physicsManager = _physicsManager;
+	}
+	Entity(const char* entityName)
+	{
+		name = entityName; transform = std::shared_ptr<TransformComponent>(new TransformComponent());
+	}
 	~Entity() {}
 
 	void AddComponent(EngineComponent* newComponent);
@@ -33,15 +41,18 @@ public:
 		return nullptr;
 	}
 
-	void AddChild(std::shared_ptr<Entity> newChild);
+	std::shared_ptr<Entity> AddEntity();
 	std::shared_ptr<Entity> GetChild(int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
 
+	std::shared_ptr<PhysicsManager> physicsManager;
+	
 	void initBehaviour();
 	void startBehaviour();
-	void earlyUpdateBehaviour();
-	void updateBehaviour();
-	void uiBehaviour();
+	void earlyUpdateBehaviour(float deltaTime);
+	void updateBehaviour(float deltaTime);
+	void renderBehaviour(float deltaTime);
+	void uiBehaviour(float deltaTime);
 
 private:
 	int id;

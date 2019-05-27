@@ -9,9 +9,9 @@ public:
 	~DebugComponent() override {};
 
 	void start() override;
-	void earlyUpdate() override;
-	void update() override;
-	void ui() override;
+	void earlyUpdate(float deltaTime) override;
+	void update(float deltaTime) override;
+	void ui(float deltaTime) override;
 
 	void debugPrintSomething(const char* thing);
 };

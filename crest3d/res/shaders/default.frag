@@ -16,5 +16,8 @@ uniform sampler2D ourTexture;
 
 void main()
 {
-	FragColor = vec4(texture(mat.m_Diffuse, vTexCoords).rgb, 1.0);
+	vec4 finalColour = texture(ourTexture, vTexCoords);
+	if(finalColour.a < 0.1)
+		discard;
+	FragColor = finalColour;
 }

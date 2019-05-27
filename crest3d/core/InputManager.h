@@ -94,12 +94,15 @@ public:
 
 	GLFWwindow* window;
 
-	double xpos, ypos;
-
+	double xpos, ypos, scroll;
 
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	{
 
+	}
+
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	{
 	}
 
 	void GetMouseMovement()
@@ -109,12 +112,12 @@ public:
 
 	void GetMouseScroll()
 	{
-		//glfwGetScro
 	}
 
 private:
 	void initialize()
 	{
 		glfwSetCursorPosCallback(window, mouse_callback);
+		glfwSetScrollCallback(window, scroll_callback);
 	}
 };

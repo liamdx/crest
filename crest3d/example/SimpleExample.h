@@ -11,6 +11,7 @@ public:
 	void startBehaviour() override;
 	void earlyUpdateBehaviour(float deltaTime) override;
 	void updateBehaviour(float deltaTime) override;
+	void renderBehaviour(float deltaTime) override;
 	void uiBehaviour(float deltaTime) override;
 
 
@@ -31,13 +32,14 @@ public:
 	//skybox faces
 	std::vector<std::string> faces
 	{
-		"res/textures/starfield/starfield_rt.tga",
-		"res/textures/starfield/starfield_lf.tga",
-		"res/textures/starfield/starfield_up.tga",
-		"res/textures/starfield/starfield_dn.tga",
-		"res/textures/starfield/starfield_bk.tga",
-		"res/textures/starfield/starfield_ft.tga"
+		"res/textures/violentdays/violentdays_rt.png",
+		"res/textures/violentdays/violentdays_lf.png",
+		"res/textures/violentdays/violentdays_up.png",
+		"res/textures/violentdays/violentdays_dn.png",
+		"res/textures/violentdays/violentdays_bk.png",
+		"res/textures/violentdays/violentdays_ft.png"
 	};
+
 	GLFWwindow* window;
 	Shader* cubemapShader;
 	InputManager input;

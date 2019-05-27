@@ -35,6 +35,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 
+	mesh->mFaces;
+
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		//vertex
@@ -300,7 +302,7 @@ void Model::processNodeForEntity(aiNode *node, const aiScene *scene, std::shared
 
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		std::shared_ptr<Entity> e(new Entity(node->mName.C_Str()));
+		//std::shared_ptr<Entity> e(new Entity(node->mName.C_Str()));
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 		// meshes.push_back(processMesh(mesh, scene));
 	}

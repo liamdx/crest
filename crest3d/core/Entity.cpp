@@ -38,33 +38,43 @@ void Entity::startBehaviour()
 	}
 }
 
-void Entity::earlyUpdateBehaviour()
+void Entity::earlyUpdateBehaviour(float deltaTime)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components.at(i)->earlyUpdate();
+		components.at(i)->earlyUpdate(deltaTime);
 	}
 }
 
-void Entity::updateBehaviour()
+void Entity::updateBehaviour(float deltaTime)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components.at(i)->update();
+		components.at(i)->update(deltaTime);
 	}
 }
 
-void Entity::uiBehaviour()
+void Entity::renderBehaviour(float deltaTime)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components.at(i)->ui();
+		components.at(i)->render(deltaTime);
 	}
 }
 
-void Entity::AddChild(std::shared_ptr<Entity> newChild)
+
+void Entity::uiBehaviour(float deltaTime)
 {
-	children.emplace_back(newChild);
+	for (int i = 0; i < components.size(); i++)
+	{
+		components.at(i)->ui(deltaTime);
+	}
+}
+
+std::shared_ptr<Entity> Entity::AddEntity()
+{
+	children.emplace_back(new Entity("Entity", physicsManager));
+	return(children.at(children.size() - 1));
 }
 
 std::shared_ptr<Entity> Entity::GetChild(int index)

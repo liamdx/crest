@@ -12,9 +12,10 @@ public:
 
 	void init() override;
 	void start() override;
-	void earlyUpdate() override;
-	void update() override;
-	void ui() override;
+	void earlyUpdate(float deltaTime) override;
+	void update(float deltaTime) override;
+	void render(float deltaTime) override;
+	void ui(float deltaTime) override;
 
 
 private:

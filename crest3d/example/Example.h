@@ -10,6 +10,7 @@ public:
 	virtual void startBehaviour() {};
 	virtual void earlyUpdateBehaviour(float deltaTime) {};
 	virtual void updateBehaviour(float deltaTime) {};
+	virtual void renderBehaviour(float deltaTime) {};
 	virtual void uiBehaviour(float deltaTime) {};
 
 };
