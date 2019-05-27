@@ -87,6 +87,12 @@
     <ClCompile Include="core\PhysicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="example\EmptyExample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="example\PhysicsExample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -630,6 +636,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\PhysicsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="example\EmptyExample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="example\PhysicsExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

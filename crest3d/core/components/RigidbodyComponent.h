@@ -22,6 +22,8 @@ public:
 
 	void changeCollisionShape(CollisionShape* newShape);
 
+
+	//shape functionality pls
 	inline float getMass() { return mass; }
 	inline void setMass(float newMass) { mass = newMass; }
 private:

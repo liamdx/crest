@@ -161,6 +161,11 @@
     <ClCompile Include="core\primitives\Quad.cpp" />
     <ClCompile Include="core\gfx\Shader.cpp" />
     <ClCompile Include="core\Scene.cpp" />
+    <ClCompile Include="example\EmptyExample.cpp" />
+    <ClCompile Include="example\PhysicsExample.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="example\SimpleExample.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -343,7 +348,9 @@
     <ClInclude Include="core\gfx\Shader.h" />
     <ClInclude Include="core\Scene.h" />
     <ClInclude Include="core\SceneManager.h" />
+    <ClInclude Include="example\EmptyExample.h" />
     <ClInclude Include="example\Example.h" />
+    <ClInclude Include="example\PhysicsExample.h" />
     <ClInclude Include="example\SimpleExample.h" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,8 @@ public:
 	void setGravity(glm::vec3 _gravity);
 	void update(float deltaTime);
 
+	//add shape functionality
+
 	rp3d::RigidBody* addRigidbody();
 
 	inline float getFactor() { return factor; }

@@ -50,6 +50,7 @@ public:
 	void initBehaviour();
 	void startBehaviour();
 	void earlyUpdateBehaviour(float deltaTime);
+	void fixedUpdateBehaviour();
 	void updateBehaviour(float deltaTime);
 	void renderBehaviour(float deltaTime);
 	void uiBehaviour(float deltaTime);
