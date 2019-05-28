@@ -7,5 +7,5 @@ class SceneManager
 	SceneManager() {};
 
 	std::shared_ptr<CameraComponent> camera;
-	std::unique_ptr<Scene> scene;
+	std::shared_ptr<Scene> scene;
 };

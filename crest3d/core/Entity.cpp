@@ -57,17 +57,18 @@ void Entity::fixedUpdateBehaviour()
 
 void Entity::updateBehaviour(float deltaTime)
 {
+	transform->update(deltaTime);
 	for (int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->update(deltaTime);
 	}
 }
 
-void Entity::renderBehaviour(float deltaTime)
+void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components.at(i)->render(deltaTime);
+		components.at(i)->render(deltaTime, view);
 	}
 }
 

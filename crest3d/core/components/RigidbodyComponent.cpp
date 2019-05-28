@@ -45,7 +45,7 @@ void RigidbodyComponent::fixedUpdate()
 }
 
 
-void RigidbodyComponent::render(float deltaTime)
+void RigidbodyComponent::render(float deltaTime, glm::mat4 view)
 {
 	
 }

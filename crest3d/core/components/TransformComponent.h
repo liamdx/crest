@@ -40,6 +40,8 @@ public:
 	inline glm::vec3 getRight() { return right; }
 	inline glm::vec3 getUp() { return up; }
 
+	void update(float deltaTime) override;
+
 	std::shared_ptr<TransformComponent> parent = nullptr;
 	std::shared_ptr<Entity> attachedEntity = nullptr;
 

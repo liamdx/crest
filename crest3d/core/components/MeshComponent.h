@@ -14,12 +14,12 @@ public:
 	void start() override;
 	void earlyUpdate(float deltaTime) override;
 	void update(float deltaTime) override;
-	void render(float deltaTime) override;
+	void render(float deltaTime, glm::mat4 view) override;
 	void ui(float deltaTime) override;
 
 
 private:
-	void draw();
+	void draw(glm::mat4 view);
 	Mesh mesh;
 	std::shared_ptr<ShaderComponent> shader;
 

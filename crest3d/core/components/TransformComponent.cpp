@@ -6,7 +6,7 @@ TransformComponent::TransformComponent()
 	name = "TransformComponent";
 	parent = nullptr;
 	position = glm::vec3(0.0); eulerAngles = glm::vec3(0.0); scale = glm::vec3(1.0);
-	localPosition = glm::vec3(0.0); localEulerAngles = glm::vec3(0.0); localScale = glm::vec3(1.0);
+	localPosition = glm::vec3(0.0); localEulerAngles = glm::vec3(1.0); localScale = glm::vec3(1.0);
 	forward = glm::vec3(0.0, 0.0, -1.0);
 	right = glm::vec3(1.0, 0.0, 0.0);
 	up = glm::vec3(0.0, 1.0, 0.0);
@@ -14,6 +14,7 @@ TransformComponent::TransformComponent()
 	worldRight = right;
 	worldForward = forward;
 	model = glm::mat4(1.0);
+	updateModelMatrix();
 }
 
 TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _parent)
@@ -29,12 +30,12 @@ TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _pare
 	worldRight = right;
 	worldForward = forward;
 	model = glm::mat4(1.0);
+	updateModelMatrix();
 }
 
 
 void TransformComponent::setPosition(glm::vec3 newPosition)
 {
-
 	localPosition = newPosition;
 	if (parent == nullptr)
 	{
@@ -111,11 +112,11 @@ void TransformComponent::clampRotation(float& value)
 {
 	if(value >= 180.0f)
 	{
-		value = -180.0f;
+		value -= -360.0f;
 	}
 	else if(value <= -180.0f)
 	{
-		value = 180.0f;
+		value += 360.0f;
 	}
 
 }
@@ -123,7 +124,6 @@ void TransformComponent::clampRotation(float& value)
 
 void TransformComponent::setScale(glm::vec3 newScale)
 {
-	glm::vec3 lastScale = scale;
 	localScale = newScale;
 	if (parent == nullptr)
 	{
@@ -134,7 +134,6 @@ void TransformComponent::setScale(glm::vec3 newScale)
 		scale = parent->scale + localScale;
 	}
 
-	scale = scale - lastScale;
 	updateModelMatrix();
 }
 
@@ -172,4 +171,39 @@ void TransformComponent::updateDirectionVectors()
 	forward = glm::normalize(front);
 	right = glm::normalize(glm::cross(front, worldUp)); // forward should be world up
 	up = glm::normalize(glm::cross(right, forward));
+}
+
+void TransformComponent::update(float deltaTime)
+{
+	if (parent == nullptr)
+	{
+		position = localPosition;
+	}
+	else
+	{
+		position = parent->position + localPosition;
+	}
+
+
+	if (parent == nullptr)
+	{
+		eulerAngles = localEulerAngles;
+	}
+	else
+	{
+		eulerAngles = parent->eulerAngles + localEulerAngles;
+	}
+
+
+	if (parent == nullptr)
+	{
+		scale = localScale;
+	}
+	else
+	{
+		scale = parent->scale + localScale;
+	}
+
+	updateModelMatrix();
+
 }

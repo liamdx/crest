@@ -91,6 +91,53 @@ public:
 		}
 	};
 
+	bool GetKeyQ()
+	{
+		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+	bool GetKeyE()
+	{
+		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+	bool GetKeyF()
+	{
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+	bool GetKeyLeftShift()
+	{
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
 
 	GLFWwindow* window;
 

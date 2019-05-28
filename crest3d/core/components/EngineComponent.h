@@ -14,6 +14,6 @@ public:
 	virtual void earlyUpdate(float deltaTime) {};
 	virtual void update(float deltaTime) {};
 	virtual void fixedUpdate() {};
-	virtual void render(float deltaTime) {};
+	virtual void render(float deltaTime, glm::mat4 view) {};
 	virtual void ui(float deltaTime) {};
 };

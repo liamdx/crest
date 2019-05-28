@@ -6,10 +6,8 @@
 class CameraComponent : public EngineComponent
 {
 public:
-	CameraComponent(std::shared_ptr<Entity> e) { attachedEntity = e; name = "CameraComponent"; };
+	CameraComponent(std::shared_ptr<Entity> e); 
 	~CameraComponent() override {};
-
-	void init() override;
 
 	glm::mat4 GetViewProjectionMatrix();
 

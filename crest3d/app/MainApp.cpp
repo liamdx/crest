@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "SimpleExample.h"
+// #include "SimpleExample.h"
+#include "PhysicsExample.h"
 
 const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
@@ -77,6 +78,7 @@ int main() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 14.0f);
 
+	glfwSwapInterval(0);
 
 	//Enable depth
 	glEnable(GL_DEPTH_TEST);
@@ -87,7 +89,7 @@ int main() {
 	// YSE::System().init();
 
 	// Example Here 
-	SimpleExample example(window);
+	PhysicsExample example(window);
 	example.initBehaviour();
 
 	// Main Frame buffer set up
@@ -146,34 +148,29 @@ int main() {
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
-		example.uiBehaviour(deltaTime);
-
-		ImGui::Begin("Scene Window");
-
-
-		ImVec2 pos = ImGui::GetCursorScreenPos();
-		float dWidth = ImGui::GetWindowWidth();
-		float dHeight = ImGui::GetWindowHeight();
-
-		if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
-		{
-			mainFB.changeScreenSize(dWidth, dHeight);
-		}
-
-		ImGui::GetWindowDrawList()->AddImage(
-			(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
-			ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
-		
-		ImGui::End();
-
-		//  UI
-		if (ImGui::BeginMenu("DebugMenu"))
+		if(ImGui::Begin("Scene Window"))
 		{
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImVec2 pos = ImGui::GetCursorScreenPos();
+			float dWidth = ImGui::GetWindowWidth();
+			float dHeight = ImGui::GetWindowHeight();
+
+			if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
+			{
+				mainFB.changeScreenSize(dWidth, dHeight);
+			}
+
+			ImGui::GetWindowDrawList()->AddImage(
+				(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
+
+			lastWindowWidth = dWidth;
+			lastWindowHeight = dHeight;
 
 			ImGui::End();
 		}
 
+		example.uiBehaviour(deltaTime);
 
 		//ui render	
 		ImGui::Render();
@@ -184,8 +181,7 @@ int main() {
 		
 		/* Poll for and process events */
 		glfwPollEvents();
-		lastWindowWidth = dWidth;
-		lastWindowHeight = dHeight;
+		
 
 	}
 

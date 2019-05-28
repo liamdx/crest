@@ -14,11 +14,16 @@ public:
 
 	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager) 
 	{
-		name = entityName; transform = std::shared_ptr<TransformComponent>(new TransformComponent()); physicsManager = _physicsManager;
+		name = entityName; 
+		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
+		transform->attachedEntity = std::shared_ptr<Entity>(this);
+		physicsManager = _physicsManager;
 	}
 	Entity(const char* entityName)
 	{
-		name = entityName; transform = std::shared_ptr<TransformComponent>(new TransformComponent());
+		name = entityName; 
+		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
+		transform->attachedEntity = std::shared_ptr<Entity>(this);
 	}
 	~Entity() {}
 
@@ -52,7 +57,7 @@ public:
 	void earlyUpdateBehaviour(float deltaTime);
 	void fixedUpdateBehaviour();
 	void updateBehaviour(float deltaTime);
-	void renderBehaviour(float deltaTime);
+	void renderBehaviour(float deltaTime, glm::mat4 view);
 	void uiBehaviour(float deltaTime);
 
 private:

@@ -39,6 +39,7 @@ void childStart(std::shared_ptr<Entity> e) {
 void Scene::startBehaviour()
 {
 	childStart(rootEntity);
+	updateShaderProjections(rootEntity);
 }
 
 void childEarlyUpdate(std::shared_ptr<Entity> e, float deltaTime)
@@ -84,18 +85,19 @@ void Scene::updateBehaviour(float deltaTime)
 	childUpdate(rootEntity, deltaTime);
 }
 
-void childRender(std::shared_ptr<Entity> e, float deltaTime)
+void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 {
-	e->renderBehaviour(deltaTime);
+	e->renderBehaviour(deltaTime, view);
 	for (int i = 0; i < e->children.size(); i++)
 	{
-		childRender(e->children.at(i), deltaTime);
+		childRender(e->children.at(i), deltaTime, view);
 	}
 }
 
 void Scene::renderBehaviour(float deltaTime)
 {
-	childRender(rootEntity, deltaTime);
+	glm::mat4 view = sceneCamera->GetViewMatrix();
+	childRender(rootEntity, deltaTime, view);
 }
 
 
@@ -136,7 +138,22 @@ std::shared_ptr<Entity> Scene::AddModelEntity(Model model)
 
 	for(int i = 0; i < model.meshes.size(); i++)
 	{
-		e->children.emplace_back(AddMeshEntity(model.meshes.at(i)));
+		std::shared_ptr<Entity> newE = AddMeshEntity(model.meshes.at(i));
+		newE->transform->parent = e->transform;
+		e->children.emplace_back(newE);
 	}
 	return e;
+}
+
+void Scene::updateShaderProjections(std::shared_ptr<Entity> e)
+{
+	std::shared_ptr<ShaderComponent> sc = e->GetComponent<ShaderComponent>();
+	
+	if(sc != nullptr)
+		sc->setProjection(sceneCamera->GetProjectionMatrix());
+
+	for(int i = 0; i < e->children.size(); i++)
+	{
+		updateShaderProjections(e->children.at(i));
+	}
 }

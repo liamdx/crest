@@ -16,9 +16,9 @@ void MeshComponent::update(float deltaTime) {
 
 }
 
-void MeshComponent::render(float deltaTime)
+void MeshComponent::render(float deltaTime, glm::mat4 view)
 {
-	draw();
+	draw(view);
 }
 
 
@@ -26,9 +26,10 @@ void MeshComponent::ui(float deltaTime) {
 
 }
 
-void MeshComponent::draw()
+void MeshComponent::draw(glm::mat4 view)
 {
 	shader->shader->use();
+	shader->setView(view);
 	shader->UpdateShader(attachedEntity->transform->getModelMatrix());
 	mesh.Draw(*shader->shader);
 }

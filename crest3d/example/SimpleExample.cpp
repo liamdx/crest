@@ -99,8 +99,8 @@ void SimpleExample::renderBehaviour(float deltaTime)
 	debugShader->shader->setMat4("model", sponzaModel);
 	sponza->Draw(*debugShader->shader);
 
-	cameraEntity->renderBehaviour(deltaTime);
-	debugEntity->renderBehaviour(deltaTime);
+	cameraEntity->renderBehaviour(deltaTime, debugCamera->GetViewMatrix());
+	debugEntity->renderBehaviour(deltaTime, debugCamera->GetViewMatrix());
 }
 
 

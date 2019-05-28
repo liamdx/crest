@@ -27,6 +27,8 @@ public:
 	void renderBehaviour(float deltaTime);
 	void uiBehaviour(float deltaTime);
 
+
+	void updateShaderProjections(std::shared_ptr<Entity> e);
 	std::shared_ptr<CameraComponent> sceneCamera;
 
 private:
