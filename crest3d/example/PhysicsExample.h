@@ -1,3 +1,5 @@
+
+
 #pragma once
 #include "Example.h"
 class PhysicsExample : public Example
@@ -15,7 +17,7 @@ public:
 	void uiBehaviour(float deltaTime) override;
 
 private:
-	std::shared_ptr<PhysicsManager> pm;
+	PhysicsManager pm;
 	std::unique_ptr<Scene> scene;
 	std::shared_ptr<InputManager> input;
 	std::shared_ptr<GLFWwindow> window;

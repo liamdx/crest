@@ -17,7 +17,7 @@ public:
 	void ui(float deltaTime) override;
 
 	std::shared_ptr<rp3d::RigidBody> rib;
-	std::shared_ptr<PhysicsManager> physicsManager;
+	PhysicsManager physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
 	void changeCollisionShape(CollisionShape* newShape);

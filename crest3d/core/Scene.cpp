@@ -2,7 +2,7 @@
 #include "components/MeshComponent.h"
 
 
-Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
+Scene::Scene(const char* _name, PhysicsManager _physicsManager)
 {
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
@@ -53,6 +53,7 @@ void childEarlyUpdate(std::shared_ptr<Entity> e, float deltaTime)
 
 void Scene::earlyUpdateBehaviour(float deltaTime)
 {
+	physicsManager.update(deltaTime);
 	childEarlyUpdate(rootEntity, deltaTime);
 }
 
@@ -125,7 +126,7 @@ std::shared_ptr<Entity> Scene::AddCameraEntity()
 
 std::shared_ptr<Entity> Scene::AddMeshEntity(Mesh mesh)
 {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("."));
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(".", physicsManager));
 	e->AddComponent(new MeshComponent(e, mesh));
 	e->AddComponent(new ShaderComponent(e));
 	return e;

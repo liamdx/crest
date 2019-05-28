@@ -12,7 +12,7 @@ public:
 
 	std::shared_ptr<TransformComponent> transform;
 
-	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager) 
+	Entity(const char* entityName, PhysicsManager _physicsManager) 
 	{
 		name = entityName; 
 		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
@@ -50,7 +50,7 @@ public:
 	std::shared_ptr<Entity> GetChild(int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
 
-	std::shared_ptr<PhysicsManager> physicsManager;
+	PhysicsManager physicsManager;
 	
 	void initBehaviour();
 	void startBehaviour();

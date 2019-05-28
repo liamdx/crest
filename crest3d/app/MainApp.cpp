@@ -15,7 +15,7 @@ int main() {
 
 	//// physics
 	///
-	PhysicsManager pm;
+	// PhysicsManager pm;
 	//float timeStep = 1.0 / 60.0;
 	//float accumulator = 0.0;
 	//decimal factor;
@@ -130,8 +130,6 @@ int main() {
 		//prevTransform = currTransform;
 
 		//std::cout << "RP3d body position: " << interpolatedTransform.getPosition().to_string() << std::endl;
-
-		pm.update(deltaTime);
 		
 		ImGui_ImplGlfwGL3_NewFrame();
 

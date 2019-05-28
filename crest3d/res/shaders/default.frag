@@ -1,4 +1,4 @@
-#version 440
+#version 330
 
 struct Material {
 	sampler2D m_Diffuse;

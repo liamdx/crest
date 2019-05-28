@@ -8,7 +8,7 @@ void RigidbodyComponent::init()
 	physicsManager = attachedEntity->physicsManager;
 	transform = attachedEntity->transform;
 
-	rib = std::shared_ptr<rp3d::RigidBody>(physicsManager->addRigidbody());
+	rib = std::shared_ptr<rp3d::RigidBody>(physicsManager.addRigidbody());
 	currentPhysicsTransform = rib->getTransform();
 	lastPhysicsTransform = currentPhysicsTransform;
 	interpolatedTransform = rp3d::Transform::identity();
@@ -30,8 +30,18 @@ void RigidbodyComponent::start()
 void RigidbodyComponent::earlyUpdate(float deltaTime)
 {
 	currentPhysicsTransform = rib->getTransform();
-	interpolatedTransform = Transform::interpolateTransforms(lastPhysicsTransform, currentPhysicsTransform, physicsManager->getFactor());
+	interpolatedTransform = Transform::interpolateTransforms(lastPhysicsTransform, currentPhysicsTransform, physicsManager.getFactor());
 	lastPhysicsTransform = currentPhysicsTransform;
+
+	auto interpolatedPosition = interpolatedTransform.getPosition();
+	auto interpolatedRotation = interpolatedTransform.getOrientation();
+
+	glm::vec3 finalPosition = glm::vec3(interpolatedPosition.x, interpolatedPosition.y, interpolatedPosition.z);
+	glm::quat finalOrientation = glm::quat(interpolatedRotation.w, interpolatedRotation.x, interpolatedRotation.y, interpolatedRotation.z);
+	glm::vec3 finalEulerAngles = glm::eulerAngles(finalOrientation);
+
+	attachedEntity->transform->setPosition(finalPosition);
+	attachedEntity->transform->setEulerAngles(finalEulerAngles);
 }
 
 void RigidbodyComponent::update(float deltaTime)

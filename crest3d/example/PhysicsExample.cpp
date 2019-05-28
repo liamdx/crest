@@ -3,7 +3,6 @@
 PhysicsExample::PhysicsExample(GLFWwindow* _window)
 {
 	window = std::shared_ptr<GLFWwindow>(_window);
-	pm = std::shared_ptr<PhysicsManager>(new PhysicsManager());
 	scene = std::unique_ptr<Scene>(new Scene("debugScene",pm));
 	input = std::shared_ptr<InputManager>(new InputManager(_window));
 
@@ -14,12 +13,7 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 	cameraPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 	levelRotation = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 	levelPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-}
 
-
-void PhysicsExample::initBehaviour()
-{
-	//temporarily initialise everything here
 
 	Model m("res/models/cyborg/cyborg.obj");
 	Model level("res/models/swamp/map_1.obj");
@@ -27,18 +21,21 @@ void PhysicsExample::initBehaviour()
 	levelEntity = scene->AddModelEntity(level);
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
-		//levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
-		//levelEntity->children.at(i)->GetComponent<RigidbodyComponent>()->rib->setType(BodyType::KINEMATIC);
+		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
 	}
 
 	cyborgEntity = scene->AddModelEntity(m);
-	for(int i = 0; i < cyborgEntity->children.size(); i++)
+	for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
-		//cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
+		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
 	}
 
-	
+}
 
+
+void PhysicsExample::initBehaviour()
+{
+	//temporarily initialise everything her
 
 	cameraEntity = scene->AddCameraEntity();
 	cameraEntity->AddComponent(new CameraControllerComponent(cameraEntity, input));
@@ -47,21 +44,27 @@ void PhysicsExample::initBehaviour()
 
 	cam = cameraEntity->GetComponent<CameraComponent>();
 	
-	cyborgEntity->transform->addPosition(glm::vec3(0, 1, 0));
-	cameraEntity->transform->addPosition(glm::vec3(0, 4, 0));
-	levelEntity->transform->addPosition(glm::vec3(0, -3, 0));
+	//cyborgEntity->transform->addPosition(glm::vec3(0, 1, 0));
+	//cameraEntity->transform->addPosition(glm::vec3(0, 4, 0));
+	//levelEntity->transform->addPosition(glm::vec3(0, -3, 0));
 
 	scene->initBehaviour();
 }
 
 void PhysicsExample::startBehaviour()
 {
+	for (int i = 0; i < levelEntity->children.size(); i++)
+	{
+		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
+		rib->rib->setType(BodyType::KINEMATIC);
+	}
+
+
 	scene->startBehaviour();
 }
 
 void PhysicsExample::earlyUpdateBehaviour(float deltaTime)
 {
-	pm->update(deltaTime);
 	scene->earlyUpdateBehaviour(deltaTime);
 }
 
@@ -76,10 +79,10 @@ void PhysicsExample::updateBehaviour(float deltaTime)
 	
 	//cameraEntity->transform->setPosition(glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z));
 	// cameraEntity->transform->setEulerAngles(glm::vec3(cameraRotation.x, cameraRotation.y, cameraRotation.z));
-	levelEntity->transform->setPosition(glm::vec3(levelPosition.x, levelPosition.y, levelPosition.z));
+	/*levelEntity->transform->setPosition(glm::vec3(levelPosition.x, levelPosition.y, levelPosition.z));
 	levelEntity->transform->setEulerAngles(glm::vec3(levelRotation.x, levelRotation.y, levelRotation.z));
 	cyborgEntity->transform->setPosition(glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z));
-	cyborgEntity->transform->setEulerAngles(glm::vec3(cameraRotation.x, cameraRotation.y, cameraRotation.z));
+	cyborgEntity->transform->setEulerAngles(glm::vec3(cameraRotation.x, cameraRotation.y, cameraRotation.z));*/
 
 }
 

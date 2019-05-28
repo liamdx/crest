@@ -17,8 +17,6 @@ public:
 	rp3d::RigidBody* addRigidbody();
 
 	inline float getFactor() { return factor; }
-
-private:
 	float accumulator, deltaTime, lastFrame, factor;
-	std::unique_ptr<rp3d::DynamicsWorld> world;
+	rp3d::DynamicsWorld world;
 };
