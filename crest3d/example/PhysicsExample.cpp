@@ -2,6 +2,7 @@
 
 PhysicsExample::PhysicsExample(GLFWwindow* _window)
 {
+	pm = std::shared_ptr<PhysicsManager>(new PhysicsManager());
 	window = std::shared_ptr<GLFWwindow>(_window);
 	scene = std::unique_ptr<Scene>(new Scene("debugScene",pm));
 	input = std::shared_ptr<InputManager>(new InputManager(_window));
@@ -19,6 +20,7 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 	Model level("res/models/swamp/map_1.obj");
 
 	levelEntity = scene->AddModelEntity(level);
+	levelEntity->transform->addPosition(glm::vec3(0, -30, 0));
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
@@ -29,6 +31,9 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 	{
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
 	}
+
+	debugRib = std::shared_ptr<rp3d::RigidBody>(pm->addRigidbody());
+
 
 }
 
@@ -48,6 +53,12 @@ void PhysicsExample::initBehaviour()
 	//cameraEntity->transform->addPosition(glm::vec3(0, 4, 0));
 	//levelEntity->transform->addPosition(glm::vec3(0, -3, 0));
 
+	rp3d::Transform initPhysicsT = rp3d::Transform::identity();
+	initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
+	initPhysicsT.setOrientation(rp3d::Quaternion::identity());
+
+	e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
+
 	scene->initBehaviour();
 }
 
@@ -57,8 +68,10 @@ void PhysicsExample::startBehaviour()
 	{
 		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
 		rib->rib->setType(BodyType::KINEMATIC);
+		auto ribTransform = rib->rib->getTransform();
 	}
 
+	debugRib->setType(BodyType::KINEMATIC);
 
 	scene->startBehaviour();
 }
@@ -109,6 +122,12 @@ void PhysicsExample::uiBehaviour(float deltaTime)
 		ImGui::SliderFloat3("Cyborg Position", &cameraPosition.x, -100, 100);
 		ImGui::SliderFloat3("Cyborg Rotation", &cameraRotation.x, -180, 180);
 
+
+		if(ImGui::Button("Add Up Force"))
+		{
+			std::shared_ptr<RigidbodyComponent>r = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
+			r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));
+		}
 		ImGui::End();
 	}
 	scene->uiBehaviour(deltaTime);

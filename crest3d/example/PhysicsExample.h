@@ -17,7 +17,7 @@ public:
 	void uiBehaviour(float deltaTime) override;
 
 private:
-	PhysicsManager pm;
+	std::shared_ptr<PhysicsManager> pm;
 	std::unique_ptr<Scene> scene;
 	std::shared_ptr<InputManager> input;
 	std::shared_ptr<GLFWwindow> window;
@@ -34,6 +34,9 @@ private:
 
 	Cubemap* skybox;
 	Shader* cubemapShader;
+
+	std::shared_ptr<rp3d::RigidBody> debugRib;
+	std::shared_ptr<ProxyShape> e;
 
 	// this stuff needs component-ised
 //skybox faces

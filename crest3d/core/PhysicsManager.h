@@ -6,7 +6,7 @@ class PhysicsManager
 public:
 	PhysicsManager();
 	~PhysicsManager() {};
-	static constexpr float fixedTimeStep = 1.0f / 60.0f;
+	float fixedTimeStep;
 	rp3d::Vector3 gravity;
 
 	void setGravity(glm::vec3 _gravity);
@@ -18,5 +18,5 @@ public:
 
 	inline float getFactor() { return factor; }
 	float accumulator, deltaTime, lastFrame, factor;
-	rp3d::DynamicsWorld world;
+	std::shared_ptr<rp3d::DynamicsWorld> world;
 };

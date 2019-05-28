@@ -8,10 +8,10 @@ class Scene
 {
 public:
 	std::shared_ptr<Entity> rootEntity;
-	PhysicsManager physicsManager;
+	std::shared_ptr<PhysicsManager> physicsManager;
 	std::string name;
 
-	Scene(const char* _name, PhysicsManager _physicsManager);
+	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager);
 
 	std::shared_ptr<Entity> AddEntity();	
 	std::shared_ptr<Entity> AddCameraEntity();

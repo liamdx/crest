@@ -17,7 +17,7 @@ public:
 	void ui(float deltaTime) override;
 
 	std::shared_ptr<rp3d::RigidBody> rib;
-	PhysicsManager physicsManager;
+	std::shared_ptr<PhysicsManager> physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
 	void changeCollisionShape(CollisionShape* newShape);
@@ -31,7 +31,7 @@ private:
 	rp3d::Transform currentPhysicsTransform;
 	rp3d::Transform lastPhysicsTransform;
 	rp3d::Transform interpolatedTransform;
-	std::shared_ptr<rp3d::ProxyShape> shape;
+	rp3d::ProxyShape* shape;
 	glm::vec3 position, eulerAngles;
 
 	float mass;

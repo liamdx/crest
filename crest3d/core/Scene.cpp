@@ -2,7 +2,7 @@
 #include "components/MeshComponent.h"
 
 
-Scene::Scene(const char* _name, PhysicsManager _physicsManager)
+Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 {
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
@@ -53,7 +53,7 @@ void childEarlyUpdate(std::shared_ptr<Entity> e, float deltaTime)
 
 void Scene::earlyUpdateBehaviour(float deltaTime)
 {
-	physicsManager.update(deltaTime);
+	physicsManager->update(deltaTime);
 	childEarlyUpdate(rootEntity, deltaTime);
 }
 
