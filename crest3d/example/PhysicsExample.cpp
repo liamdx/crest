@@ -101,8 +101,6 @@ void PhysicsExample::updateBehaviour(float deltaTime)
 
 void PhysicsExample::renderBehaviour(float deltaTime)
 {
-	std::shared_ptr<CameraComponent> cam = cameraEntity->GetComponent<CameraComponent>();
-
 	cubemapShader->use();
 	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 	cubemapShader->setMat4("view", glm::mat4(glm::mat3(cam->GetViewMatrix())));

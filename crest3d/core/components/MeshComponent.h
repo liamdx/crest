@@ -17,10 +17,13 @@ public:
 	void render(float deltaTime, glm::mat4 view) override;
 	void ui(float deltaTime) override;
 
-
+	bool meshIsConvex;
+	Mesh mesh;
 private:
 	void draw(glm::mat4 view);
-	Mesh mesh;
 	std::shared_ptr<ShaderComponent> shader;
+
+	bool isConvex(std::vector<glm::vec3> points, std::vector<unsigned int> triangles, float threshold);
+
 
 };

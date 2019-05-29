@@ -2,6 +2,8 @@
 
 #include "EngineComponent.h"
 #include "Entity.h"
+#include "MeshComponent.h"
+
 class RigidbodyComponent : public EngineComponent
 {
 public:
@@ -22,6 +24,7 @@ public:
 
 	void changeCollisionShape(CollisionShape* newShape);
 
+	std::unique_ptr<CollisionShape> createConvexMeshShape(std::shared_ptr<MeshComponent> mesh);
 
 	//shape functionality pls
 	inline float getMass() { return mass; }

@@ -34,9 +34,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
-
-	mesh->mFaces;
-
+	std::vector<Face> faces;
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		//vertex
@@ -81,11 +79,15 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
+		Face _face;
+		_face.numIndices = face.mNumIndices;
 
 		for (unsigned int k = 0; k < face.mNumIndices; k++)
 		{
+			_face.indices.emplace_back(face.mIndices[i]);
 			indices.push_back(face.mIndices[k]);
 		}
+		faces.push_back(_face);
 	}
 
 	//material
@@ -114,7 +116,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		//std::cout << diffuseMaps[0].t_Path << " normal map count: " << normalMaps.size() << std::endl;
 	}
 
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices, textures,faces);
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)

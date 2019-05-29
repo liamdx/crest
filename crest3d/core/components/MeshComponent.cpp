@@ -2,6 +2,7 @@
 
 void MeshComponent::init() {
 	shader = attachedEntity->GetComponent<ShaderComponent>();
+	meshIsConvex = isConvex(mesh.getVertexPositions(), mesh.indices, 0.001);
 }
 
 void MeshComponent::start() {
@@ -32,4 +33,34 @@ void MeshComponent::draw(glm::mat4 view)
 	shader->setView(view);
 	shader->UpdateShader(attachedEntity->transform->getModelMatrix());
 	mesh.Draw(*shader->shader);
+}
+
+bool MeshComponent::isConvex(std::vector<glm::vec3> points, std::vector<unsigned int> triangles, float threshold = 0.001)
+{
+	for (unsigned long i = 0; i < triangles.size() / 3; i++)
+	{
+		glm::vec3 A = points[triangles[i * 3 + 0]];
+		glm::vec3 B = points[triangles[i * 3 + 1]];
+		glm::vec3 C = points[triangles[i * 3 + 2]];
+
+		B = B - A;
+		C = C - A;
+
+		glm::vec3 BCNorm =glm::normalize( glm::cross(B,C));  // B.cross(C).normalized();
+
+		// float checkPoint = btVector3(points[0].x - A.x(), points[0].y - A.y(), points[0].z - A.z()).dot(BCNorm);
+		float checkPoint = glm::dot(glm::vec3(points[0].x - A.x, points[0].y - A.y, points[0].z - A.z), BCNorm);
+		for (unsigned long j = 0; j < points.size(); j++)
+		{
+
+			float dist = glm::dot(glm::vec3(points[j].x - A.x, points[j].y - A.y, points[j].z - A.z), BCNorm);
+
+			if (std::abs(checkPoint) > threshold & std::abs(dist) > threshold & checkPoint * dist < 0)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }

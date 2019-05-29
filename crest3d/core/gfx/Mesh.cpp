@@ -93,6 +93,45 @@ void Mesh::TestDraw(Shader shader)
 }
 
 
+std::vector<glm::vec3> Mesh::getVertexPositions()
+{
+	std::vector<glm::vec3> vertexPositions;
+	for(int i =0; i < vertices.size(); i++)
+	{
+		vertexPositions.emplace_back(vertices.at(i).position);
+	}
+
+	return(vertexPositions);
+}
+
+std::vector<float> Mesh::getVertexValues()
+{
+	std::vector<float> v;
+	for(int i = 0; i < vertices.size(); i++)
+	{
+		auto currentVertex = vertices.at(i);
+		for(int j = 0; i < 3; i++)
+		{
+			if(j == 0)
+				v.emplace_back(currentVertex.position.x);
+			if(j == 1)
+				v.emplace_back(currentVertex.position.y);
+			if (j == 2)
+				v.emplace_back(currentVertex.position.z);
+		}
+	}
+
+	return(v);
+}
+
+std::vector<unsigned int> Mesh::getIndexValues()
+{
+	return(indices);
+}
+
+
+
+
 void Mesh::calcMeshBounds()
 {
 	float currentMaxX = 0.0f;

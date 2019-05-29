@@ -12,8 +12,8 @@ struct Vertex {
 
 struct Face
 {
-	std::vector<unsigned int> indices;
-	int numVertices;
+	std::vector<int> indices;
+	int numIndices;
 };
 
 class Mesh {
@@ -21,6 +21,7 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
+	std::vector<Face> faces;
 
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 	{
@@ -32,6 +33,16 @@ public:
 		setupMesh();
 	};
 
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, std::vector<Face> faces)
+	{
+		this->vertices = vertices;
+		this->indices = indices;
+		this->textures = textures;
+		this->faces = faces;
+
+		//calcMeshBounds();
+		setupMesh();
+	};
 	void Draw(Shader shader);
 	void TestDraw(Shader shader);
 	void calcMeshBounds();
@@ -41,5 +52,13 @@ public:
 	void setupMesh();
     float getCullSphereRadius();
 	float xBound, yBound, zBound;
+
+	std::vector<glm::vec3> getVertexPositions();
+	std::vector<float> getVertexValues();
+
+	const int numVertices() { return vertices.size(); }
+	const int numIndices() { return indices.size(); }
+
+	std::vector<unsigned int> getIndexValues();
 
 };

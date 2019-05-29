@@ -56,13 +56,14 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 	deltaX = deltaX * 360.0f * mouseSensitivity * deltaTime;
 	deltaY = deltaY * 360.0f *  mouseSensitivity * deltaTime;
 
-	if (deltaX > 89.0f)
+
+	if (attachedEntity->transform->position.y + deltaY > 89.0f)
 	{
-		deltaX = 89.0f;
+		deltaY = 0.0f;
 	}
-	if (deltaX < -89.0f)
+	if (attachedEntity->transform->position.y - deltaY < -89.0f)
 	{
-		deltaX = -89.0f;
+		deltaY = -0.0f;
 	}
 	
 
