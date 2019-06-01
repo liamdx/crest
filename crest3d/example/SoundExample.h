@@ -2,11 +2,11 @@
 
 #pragma once
 #include "Example.h"
-class PhysicsExample : public Example
+class SoundExample : public Example
 {
 public:
-	PhysicsExample(GLFWwindow* _window);
-	~PhysicsExample() override { delete cubemapShader; delete skybox; };
+	SoundExample(GLFWwindow* _window);
+	~SoundExample() override { delete cubemapShader; delete skybox; };
 
 	void initBehaviour() override;
 	void startBehaviour() override;

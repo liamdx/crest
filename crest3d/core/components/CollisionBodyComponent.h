@@ -1,12 +1,13 @@
-#pragma once
-
 #include "EngineComponent.h"
 #include "Entity.h"
-class RigidbodyComponent : public EngineComponent
+#include "MeshComponent.h"
+
+
+class CollisionBodyComponent : public EngineComponent
 {
 public:
-	RigidbodyComponent(std::shared_ptr<Entity> e) { attachedEntity = e; name = "RigidbodyComponent"; };
-	~RigidbodyComponent() override {};
+	CollisionBodyComponent(std::shared_ptr<Entity> e) { attachedEntity = e; name = "CollisionBodyComponent"; };
+	~CollisionBodyComponent() override {};
 
 	void init() override;
 	void start() override;
@@ -16,23 +17,28 @@ public:
 	void render(float deltaTime, glm::mat4 view) override;
 	void ui(float deltaTime) override;
 
-	std::shared_ptr<rp3d::RigidBody> rib;
+	std::shared_ptr<rp3d::CollisionBody> col;
 	std::shared_ptr<PhysicsManager> physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
 	void changeCollisionShape(CollisionShape* newShape);
+	CollisionShape* createMeshShape();
 
-	//shape functionality pls
-	inline float getMass() { return mass; }
-	inline void setMass(float newMass) { mass = newMass; }
+
+	std::vector<float> collisionMeshVerts;
+	std::vector<int> collisionMeshIndices;
 
 	// react physics stuff
 	rp3d::Transform currentPhysicsTransform;
 	rp3d::Transform lastPhysicsTransform;
 	rp3d::Transform interpolatedTransform;
 	rp3d::ProxyShape* shape;
+
+	rp3d::TriangleVertexArray* triangleArray;
+	rp3d::ConcaveMeshShape* concaveMeshShape;
+	rp3d::TriangleMesh* triangleMesh;
+
 private:
 
 
-	float mass;
 };

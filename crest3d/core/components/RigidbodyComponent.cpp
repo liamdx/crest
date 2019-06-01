@@ -3,8 +3,7 @@
 void RigidbodyComponent::init()
 {
 	mass = 4.0f;
-	position = glm::vec3(0.0);
-	eulerAngles = glm::vec3(0.0);
+	mass = 4.0f;
 	physicsManager = attachedEntity->physicsManager;
 	transform = attachedEntity->transform;
 
@@ -22,27 +21,7 @@ void RigidbodyComponent::init()
 	glm::quat finalOrientation = glm::quat(transform->eulerAngles);
 	initPhysicsT.setOrientation(rp3d::Quaternion(finalOrientation.x, finalOrientation.y, finalOrientation.z, finalOrientation.w));
 
-	auto meshComponent = attachedEntity->GetComponent<MeshComponent>();
-	if (meshComponent != nullptr)
-	{
-		if(meshComponent->meshIsConvex)
-		{
-			attachedEntity->transform->setScale(glm::vec3(1.0));
-			shape = rib->addCollisionShape(createConvexMeshShape(meshComponent).get(), initPhysicsT, mass);
-		}
-		else
-		{
-			// duplicate code, remove me pls
-			shape = rib->addCollisionShape(new rp3d::BoxShape(Vector3(3.0, 1.0, 3.0)), initPhysicsT, mass);
-		}
-		
-	}
-	else
-	{
-		shape = rib->addCollisionShape(new rp3d::BoxShape(Vector3(3.0, 1.0, 3.0)), initPhysicsT, mass);
-	}
-    
-	
+	shape = rib->addCollisionShape(new rp3d::BoxShape(Vector3(attachedEntity->transform->scale.x, attachedEntity->transform->scale.y, attachedEntity->transform->scale.z)), initPhysicsT, mass);
 
 }
 
@@ -96,68 +75,3 @@ void RigidbodyComponent::changeCollisionShape(CollisionShape* newShape)
 	shape = rib->addCollisionShape(newShape, rp3d::Transform::identity(), mass);
 }
 
-
-std::unique_ptr<CollisionShape> RigidbodyComponent::createConvexMeshShape(std::shared_ptr<MeshComponent> mesh)
-{
-	auto vertices = mesh->mesh.getVertexValues();
-	auto indices = mesh->mesh.getIndexValues();
-
-	unsigned int numFaces = mesh->mesh.faces.size();
-	auto polygonFaces = new rp3d::PolygonVertexArray::PolygonFace[numFaces];
-	rp3d::PolygonVertexArray::PolygonFace * face = polygonFaces;
-	int lastStride = mesh->mesh.faces.at(0).numIndices;
-
-	for (int f = 0; f < numFaces; f++) {
-		// First vertex of the face in the indices array
-		face->indexBase = f * lastStride;
-		// Number of vertices in the face
-		face->nbVertices = lastStride;
-		lastStride = mesh->mesh.faces.at(f).numIndices;
-		face++;
-	}
-	// Create the polygon vertex array
-	auto polygonVertexArray = new rp3d::PolygonVertexArray(vertices.size() / 3,
-		vertices.data(), 3 * sizeof(float),
-		indices.data(), sizeof(unsigned int), numFaces, polygonFaces,
-		rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-		rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE)
-		;
-		
-	PolyhedronMesh* phMesh = new rp3d::PolyhedronMesh(polygonVertexArray);
-	// Create the convex mesh collision shape
-	return(std::unique_ptr<rp3d::ConvexMeshShape>(new rp3d::ConvexMeshShape(phMesh)));
-
-	    /*
-		// Description of the six faces of the convex mesh
-		polygonFaces = new rp3d::PolygonVertexArray::PolygonFace[6];
-		rp3d::PolygonVertexArray::PolygonFace * face = polygonFaces;
-		for (int f = 0; f < 6; f++) {
-			// First vertex of the face in the indices array
-			face - > indexBase = f * 4;
-			// Number of vertices in the face
-			face - > nbVertices = 4;
-			face++;
-		}
-		// Create the polygon vertex array
-		polygonVertexArray = new rp3d::PolygonVertexArray(8,
-			vertices, 3 x sizeof(float),
-			indices, sizeof(int), 6, polygonFaces,
-			rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-			rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE)
-			;
-		// Create the polyhedron mesh
-		polyhedronMesh = new rp3d::PolyhedronMesh(polygonVertexArray
-		);
-		// Create the convex mesh collision shape
-		convexMeshShape = new rp3d::ConvexMeshShape(polyhedronMesh);
-
-*/
-}
-
-
-//polygonVertexArray = new rp3d::PolygonVertexArray(8,
-//	vertices, 3 x sizeof(float),
-//	indices, sizeof(int), 6, polygonFaces,
-//	rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-//	rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE)
-//	;

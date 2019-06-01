@@ -652,7 +652,7 @@ class Map {
                 throw std::runtime_error("No item with given key has been found in the map");
             }
 
-            assert(mEntries[entry].keyValue != nullptr);
+            // assert(mEntries[entry].keyValue != nullptr);
 
             return mEntries[entry].keyValue->second;
         }

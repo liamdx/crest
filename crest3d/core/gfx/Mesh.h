@@ -22,6 +22,8 @@ public:
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 	std::vector<Face> faces;
+	std::vector<float> physicsPoints;
+	std::vector<int> physicsIndices;
 
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 	{
@@ -31,6 +33,8 @@ public:
 
 		//calcMeshBounds();
 		setupMesh();
+		physicsPoints = getVertexValues();
+		physicsIndices = getIndexValues();
 	};
 
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, std::vector<Face> faces)
@@ -55,10 +59,10 @@ public:
 
 	std::vector<glm::vec3> getVertexPositions();
 	std::vector<float> getVertexValues();
+	std::vector<int> getIndexValues();
 
 	const int numVertices() { return vertices.size(); }
 	const int numIndices() { return indices.size(); }
 
-	std::vector<unsigned int> getIndexValues();
 
 };

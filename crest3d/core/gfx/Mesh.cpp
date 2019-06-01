@@ -110,23 +110,22 @@ std::vector<float> Mesh::getVertexValues()
 	for(int i = 0; i < vertices.size(); i++)
 	{
 		auto currentVertex = vertices.at(i);
-		for(int j = 0; i < 3; i++)
-		{
-			if(j == 0)
-				v.emplace_back(currentVertex.position.x);
-			if(j == 1)
-				v.emplace_back(currentVertex.position.y);
-			if (j == 2)
-				v.emplace_back(currentVertex.position.z);
-		}
+		v.emplace_back(currentVertex.position.x);
+		v.emplace_back(currentVertex.position.y);
+		v.emplace_back(currentVertex.position.z);
 	}
 
 	return(v);
 }
 
-std::vector<unsigned int> Mesh::getIndexValues()
+std::vector<int> Mesh::getIndexValues()
 {
-	return(indices);
+	std::vector<int> iv;
+	for (int i = 0; i < indices.size(); i++)
+	{
+		iv.emplace_back((int)indices.at(i));
+	}
+	return iv;
 }
 
 

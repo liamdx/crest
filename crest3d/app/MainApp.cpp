@@ -2,6 +2,7 @@
 
 // #include "SimpleExample.h"
 #include "PhysicsExample.h"
+//#include "SoundExample.h"
 
 const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
@@ -12,37 +13,6 @@ int main() {
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
-
-	//// physics
-	///
-	// PhysicsManager pm;
-	//float timeStep = 1.0 / 60.0;
-	//float accumulator = 0.0;
-	//decimal factor;
-
-	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
-	//rp3d::DynamicsWorld world(gravity);
-
-
-	//rp3d::Vector3 initPosition(0.0, 200.0, 0.0);
-	//rp3d::Quaternion initRotation = rp3d::Quaternion::identity();
-	//rp3d::Transform transform(initPosition, initRotation);
-
-	//std::unique_ptr<rp3d::RigidBody> body(world.createRigidBody(transform));
-
-
-	//const std::unique_ptr<rp3d::BoxShape> shape(new rp3d::BoxShape(Vector3(2,2,2)));
-	//body->addCollisionShape(shape.get(), transform, 4.0);
-
-	//rp3d::Transform prevTransform = body->getTransform();
-
-
-	//initPosition = Vector3(0, -100, 0);
-	//transform = Transform(initPosition, initRotation);
-	//std::unique_ptr<rp3d::RigidBody> ground(world.createRigidBody(transform));
-	//const std::unique_ptr<rp3d::BoxShape> groundShape(new rp3d::BoxShape(Vector3(200, 2, 200)));
-	//ground->addCollisionShape(groundShape.get(), transform, 4.0);
-	//ground->setType(BodyType::KINEMATIC);
 
 	//DEBUG
 	int success;
@@ -86,11 +56,61 @@ int main() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// YSE::System().init();
+	YSE::System().init();
 
 	// Example Here 
 	PhysicsExample example(window);
 	example.initBehaviour();
+
+
+
+
+	//debug mesh collider stuff
+	Model colModel("res/models/cyborg/cyborg.obj");
+	Mesh colMesh = colModel.meshes[0];
+
+	int numFaces = colMesh.faces.size();
+	std::vector<float> vertices = colMesh.getVertexValues();
+	std::vector<int> indices = colMesh.getIndexValues();
+
+	rp3d::TriangleVertexArray* triangleArray =
+		new rp3d::TriangleVertexArray(colMesh.vertices.size(), &vertices[0], 3 * sizeof(float), colMesh.indices.size() / 3,
+			&indices[0], 3 * sizeof(int),
+			rp3d::TriangleVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
+			rp3d::TriangleVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
+
+	rp3d::TriangleMesh triangleMesh;
+
+	// Add the triangle vertex array to the triangle mesh 
+	triangleMesh.addSubpart(triangleArray);
+
+	// Create the concave mesh shape 
+	ConcaveMeshShape* concaveMesh = new rp3d::ConcaveMeshShape(&triangleMesh);
+
+	//rp3d::PolygonVertexArray::PolygonFace *polygonFaces = new rp3d::PolygonVertexArray::PolygonFace[numFaces];
+
+	//rp3d::PolygonVertexArray::PolygonFace* face = polygonFaces;
+	//for (int f = 0; f < numFaces; f++) {
+
+	//	// First vertex of the face in the indices array 
+	//	face->indexBase = f * 3;
+
+	//	// Number of vertices in the face 
+	//	face->nbVertices = 3;
+
+	//	face++;
+	//}
+
+	//PolygonVertexArray* polygonVertexArray = new rp3d::PolygonVertexArray(colMesh.vertices.size(), 
+	//	&(vertices[0]), 3 * sizeof(float),
+	//	&(indices[0]), sizeof(int), numFaces, polygonFaces,
+	//	rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
+	//	rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
+
+	//PolyhedronMesh* polyhedronMesh = new rp3d::PolyhedronMesh(polygonVertexArray);
+
+	//ConvexMeshShape* convexMeshShape = new rp3d::ConvexMeshShape(polyhedronMesh);
+
 
 	// Main Frame buffer set up
 	FrameBuffer mainFB;
@@ -110,26 +130,7 @@ int main() {
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		//accumulator += deltaTime;
 
-		//while (accumulator >= timeStep) {
-
-		//	// Update the Dynamics world with a constant time step 
-		//	world.update(timeStep);
-
-		//	// Decrease the accumulated time 
-		//	accumulator -= timeStep;
-		//}
-
-		////Physics debug stuff
-		////
-		////
-		//factor = accumulator / timeStep;
-		//rp3d::Transform currTransform = body->getTransform();
-		//rp3d::Transform interpolatedTransform = Transform::interpolateTransforms(prevTransform, currTransform, factor);
-		//prevTransform = currTransform;
-
-		//std::cout << "RP3d body position: " << interpolatedTransform.getPosition().to_string() << std::endl;
 		
 		ImGui_ImplGlfwGL3_NewFrame();
 

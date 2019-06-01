@@ -87,6 +87,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/reactphysics3d/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/reactphysics3d/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -112,6 +114,8 @@
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/reactphysics3d/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -137,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
+    <ClCompile Include="core\components\CollisionBodyComponent.cpp" />
     <ClCompile Include="core\components\DebugComponent.cpp" />
     <ClCompile Include="core\components\MeshComponent.cpp">
       <SubType>
@@ -168,10 +173,12 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="example\SimpleExample.cpp" />
+    <ClCompile Include="example\SoundExample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\CameraControllerComponent.h" />
+    <ClInclude Include="core\components\CollisionBodyComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
@@ -354,6 +361,7 @@
     <ClInclude Include="example\Example.h" />
     <ClInclude Include="example\PhysicsExample.h" />
     <ClInclude Include="example\SimpleExample.h" />
+    <ClInclude Include="example\SoundExample.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl" />

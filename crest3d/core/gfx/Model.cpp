@@ -84,7 +84,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 
 		for (unsigned int k = 0; k < face.mNumIndices; k++)
 		{
-			_face.indices.emplace_back(face.mIndices[i]);
+			_face.indices.emplace_back(face.mIndices[k]);
 			indices.push_back(face.mIndices[k]);
 		}
 		faces.push_back(_face);

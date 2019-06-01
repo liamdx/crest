@@ -15,6 +15,7 @@
 #include "Entity.h"
 #include "Scene.h"
 
+// the components <3
 #include "components/EngineComponent.h"
 #include "components/DebugComponent.h"
 #include "components/TransformComponent.h"
@@ -22,4 +23,5 @@
 #include "components/ShaderComponent.h"
 #include "components/CameraComponent.h"
 #include "components/RigidbodyComponent.h"
+#include "components/CollisionBodyComponent.h"
 #include "components/CameraControllerComponent.h"

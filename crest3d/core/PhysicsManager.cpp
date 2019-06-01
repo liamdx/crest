@@ -26,8 +26,6 @@ void PhysicsManager::update(float deltaTime)
 	}
 
 	factor = accumulator / fixedTimeStep;
-
-	std::cout << "vle" << std::endl;
 }
 
 rp3d::RigidBody* PhysicsManager::addRigidbody()
@@ -35,3 +33,8 @@ rp3d::RigidBody* PhysicsManager::addRigidbody()
 	return(world->createRigidBody(rp3d::Transform::identity()));
 }
 
+
+rp3d::CollisionBody* PhysicsManager::addCollisionBody()
+{
+	return(world->createCollisionBody(rp3d::Transform::identity()));
+}

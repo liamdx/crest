@@ -1,10 +1,10 @@
-#include "PhysicsExample.h"
+#include "SoundExample.h"
 
-PhysicsExample::PhysicsExample(GLFWwindow* _window)
+SoundExample::SoundExample(GLFWwindow* _window)
 {
 	pm = std::shared_ptr<PhysicsManager>(new PhysicsManager());
 	window = std::shared_ptr<GLFWwindow>(_window);
-	scene = std::shared_ptr<Scene>(new Scene("debugScene",pm));
+	scene = std::shared_ptr<Scene>(new Scene("debugScene", pm));
 	input = std::shared_ptr<InputManager>(new InputManager(_window));
 
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
@@ -15,16 +15,15 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 	levelRotation = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 	levelPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	std::cout << "h";
 
 	Model m("res/models/cyborg/cyborg.obj");
 	Model level("res/models/swamp/map_1.obj");
 
 	levelEntity = scene->AddModelEntity(level);
 	levelEntity->transform->addPosition(glm::vec3(0, -30, 0));
-	for (int i = 0; i < levelEntity->children.size() / 3; i++)
+	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
-		levelEntity->children.at(i)->AddComponent(new CollisionBodyComponent(levelEntity->children.at(i)));
+		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
 	}
 
 	cyborgEntity = scene->AddModelEntity(m);
@@ -33,12 +32,14 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
 	}
 
+	debugRib = std::shared_ptr<rp3d::RigidBody>(pm->addRigidbody());
+
 
 }
 
 
 
-void PhysicsExample::initBehaviour()
+void SoundExample::initBehaviour()
 {
 	//temporarily initialise everything her
 
@@ -48,7 +49,7 @@ void PhysicsExample::initBehaviour()
 	camController->window = window;
 
 	cam = cameraEntity->GetComponent<CameraComponent>();
-	
+
 	//cyborgEntity->transform->addPosition(glm::vec3(0, 1, 0));
 	//cameraEntity->transform->addPosition(glm::vec3(0, 4, 0));
 	//levelEntity->transform->addPosition(glm::vec3(0, -3, 0));
@@ -57,12 +58,12 @@ void PhysicsExample::initBehaviour()
 	initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
 	initPhysicsT.setOrientation(rp3d::Quaternion::identity());
 
-	// e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
+	e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
 
 	scene->initBehaviour();
 }
 
-void PhysicsExample::startBehaviour()
+void SoundExample::startBehaviour()
 {
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
@@ -71,23 +72,25 @@ void PhysicsExample::startBehaviour()
 		auto ribTransform = rib->rib->getTransform();
 	}
 
+	debugRib->setType(BodyType::KINEMATIC);
+
 	scene->startBehaviour();
 }
 
-void PhysicsExample::earlyUpdateBehaviour(float deltaTime)
+void SoundExample::earlyUpdateBehaviour(float deltaTime)
 {
 	scene->earlyUpdateBehaviour(deltaTime);
 }
 
-void PhysicsExample::fixedUpdateBehaviour()
+void SoundExample::fixedUpdateBehaviour()
 {
 	scene->fixedUpdateBehaviour();
 }
 
-void PhysicsExample::updateBehaviour(float deltaTime)
+void SoundExample::updateBehaviour(float deltaTime)
 {
 	scene->updateBehaviour(deltaTime);
-	
+
 	//cameraEntity->transform->setPosition(glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z));
 	// cameraEntity->transform->setEulerAngles(glm::vec3(cameraRotation.x, cameraRotation.y, cameraRotation.z));
 	/*levelEntity->transform->setPosition(glm::vec3(levelPosition.x, levelPosition.y, levelPosition.z));
@@ -97,7 +100,7 @@ void PhysicsExample::updateBehaviour(float deltaTime)
 
 }
 
-void PhysicsExample::renderBehaviour(float deltaTime)
+void SoundExample::renderBehaviour(float deltaTime)
 {
 	cubemapShader->use();
 	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
@@ -109,7 +112,7 @@ void PhysicsExample::renderBehaviour(float deltaTime)
 	scene->renderBehaviour(deltaTime);
 }
 
-void PhysicsExample::uiBehaviour(float deltaTime)
+void SoundExample::uiBehaviour(float deltaTime)
 {
 	if (ImGui::Begin("Physics Example"))
 	{
@@ -119,7 +122,7 @@ void PhysicsExample::uiBehaviour(float deltaTime)
 		ImGui::SliderFloat3("Cyborg Rotation", &cameraRotation.x, -180, 180);
 
 
-		if(ImGui::Button("Add Up Force"))
+		if (ImGui::Button("Add Up Force"))
 		{
 			std::shared_ptr<RigidbodyComponent>r = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
 			r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));

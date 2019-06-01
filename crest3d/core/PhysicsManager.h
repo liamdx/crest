@@ -16,6 +16,8 @@ public:
 
 	rp3d::RigidBody* addRigidbody();
 
+	rp3d::CollisionBody* addCollisionBody();
+
 	inline float getFactor() { return factor; }
 	float accumulator, deltaTime, lastFrame, factor;
 	std::shared_ptr<rp3d::DynamicsWorld> world;
