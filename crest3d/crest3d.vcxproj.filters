@@ -81,12 +81,6 @@
     <ClCompile Include="core\components\CameraComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\components\RigidbodyComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\PhysicsManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="example\EmptyExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,7 +93,13 @@
     <ClCompile Include="example\SoundExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\components\CollisionBodyComponent.cpp">
+    <ClCompile Include="core\ext\quickhull\QuickHull.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\PhysicsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\components\RigidbodyComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -641,12 +641,6 @@
     <ClInclude Include="core\components\CameraComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\components\RigidbodyComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\PhysicsManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="example\EmptyExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -659,7 +653,43 @@
     <ClInclude Include="example\SoundExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\components\CollisionBodyComponent.h">
+    <ClInclude Include="core\ext\quickhull\Structs\Mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\Structs\Plane.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\Structs\Pool.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\Structs\Ray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\Structs\Vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\Structs\VertexDataSource.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\ConvexHull.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\HalfEdgeMesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\MathUtils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\QuickHull.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\quickhull\Types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\PhysicsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\RigidbodyComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

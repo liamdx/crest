@@ -39,7 +39,9 @@ void childStart(std::shared_ptr<Entity> e) {
 void Scene::startBehaviour()
 {
 	childStart(rootEntity);
+	// update every entity with a shader
 	updateShaderProjections(rootEntity);
+	physicsManager->setProjection(sceneCamera->GetProjectionMatrix());
 }
 
 void childEarlyUpdate(std::shared_ptr<Entity> e, float deltaTime)
@@ -98,6 +100,8 @@ void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 void Scene::renderBehaviour(float deltaTime)
 {
 	glm::mat4 view = sceneCamera->GetViewMatrix();
+	physicsManager->setView(view);
+	physicsManager->render(deltaTime);
 	childRender(rootEntity, deltaTime, view);
 }
 

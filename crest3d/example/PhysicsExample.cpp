@@ -15,23 +15,25 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 	levelRotation = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 	levelPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	std::cout << "h";
 
 	Model m("res/models/cyborg/cyborg.obj");
 	Model level("res/models/swamp/map_1.obj");
 
-	levelEntity = scene->AddModelEntity(level);
-	levelEntity->transform->addPosition(glm::vec3(0, -30, 0));
-	for (int i = 0; i < levelEntity->children.size() / 3; i++)
-	{
-		levelEntity->children.at(i)->AddComponent(new CollisionBodyComponent(levelEntity->children.at(i)));
-	}
-
 	cyborgEntity = scene->AddModelEntity(m);
+	cyborgEntity->transform->addPosition(glm::vec3(0, 20, 0));
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
 	}
+
+	levelEntity = scene->AddModelEntity(level);
+	levelEntity->transform->addPosition(glm::vec3(0, -30, 0));
+	for (int i = 0; i < levelEntity->children.size(); i++)
+	{
+		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
+	}
+
+	
 
 
 }
@@ -48,30 +50,33 @@ void PhysicsExample::initBehaviour()
 	camController->window = window;
 
 	cam = cameraEntity->GetComponent<CameraComponent>();
-	
-	//cyborgEntity->transform->addPosition(glm::vec3(0, 1, 0));
-	//cameraEntity->transform->addPosition(glm::vec3(0, 4, 0));
-	//levelEntity->transform->addPosition(glm::vec3(0, -3, 0));
 
-	rp3d::Transform initPhysicsT = rp3d::Transform::identity();
-	initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
-	initPhysicsT.setOrientation(rp3d::Quaternion::identity());
+
+	//rp3d::Transform initPhysicsT = rp3d::Transform::identity();
+	//initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
+	//initPhysicsT.setOrientation(rp3d::Quaternion::identity());
 
 	// e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
 
 	scene->initBehaviour();
+	cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>()->createConvexMeshShape();
+
 }
 
 void PhysicsExample::startBehaviour()
 {
-	for (int i = 0; i < levelEntity->children.size(); i++)
-	{
-		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
-		rib->rib->setType(BodyType::KINEMATIC);
-		auto ribTransform = rib->rib->getTransform();
-	}
+	//for (int i = 0; i < levelEntity->children.size(); i++)
+	//{
+	//	auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
+	//	rib->rib->setType(BodyType::KINEMATIC);
+	//	auto ribTransform = rib->rib->getTransform();
+	//}
+
 
 	scene->startBehaviour();
+
+	cubemapShader->use();
+	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 }
 
 void PhysicsExample::earlyUpdateBehaviour(float deltaTime)
@@ -100,7 +105,6 @@ void PhysicsExample::updateBehaviour(float deltaTime)
 void PhysicsExample::renderBehaviour(float deltaTime)
 {
 	cubemapShader->use();
-	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 	cubemapShader->setMat4("view", glm::mat4(glm::mat3(cam->GetViewMatrix())));
 	cubemapShader->setInt("cubemap", 0);
 
@@ -122,7 +126,7 @@ void PhysicsExample::uiBehaviour(float deltaTime)
 		if(ImGui::Button("Add Up Force"))
 		{
 			std::shared_ptr<RigidbodyComponent>r = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
-			r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));
+			// r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));
 		}
 		ImGui::End();
 	}

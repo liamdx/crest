@@ -35,8 +35,12 @@
 #include "ext/imgui/imgui_internal.h"
 #include "ext/imgui/imconfig.h"
 
-#include "reactphysics3d.h"
-using namespace reactphysics3d;
+//physics lib (g'doy)
+#include "btBulletDynamicsCommon.h"
+
+// from github, used to generate convex hull for meshes
+#include "quickhull/QuickHull.hpp"
+
 
 //camera stuff
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods

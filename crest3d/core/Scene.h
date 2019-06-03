@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "components/CameraComponent.h"
 #include "gfx/Model.h"
+#include "PhysicsManager.h"
 
 class Scene
 {

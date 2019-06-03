@@ -35,6 +35,43 @@ float Mesh::getCullSphereRadius()
 		return zBound;
 }
 
+Mesh::Mesh(std::vector<float> vertexPositions, std::vector<unsigned> indices)
+{
+	this->indices = indices;
+	std::vector<Vertex> newVerts;
+	glm::vec3 currentPosition;
+	Vertex v;
+	int counter = 0;
+
+	for(int i =0; i < vertexPositions.size(); i++)
+	{
+		if (counter == 0)
+		{
+			currentPosition.x = vertexPositions.at(i);
+			counter += 1;
+		}
+		if(counter == 1)
+		{
+			currentPosition.y = vertexPositions.at(i);
+			counter += 1;
+		}
+		if(counter == 2)
+		{
+			currentPosition.z = vertexPositions.at(i);
+			v.position = currentPosition;
+			v.normal = glm::vec3(0.0);
+			v.tangent = glm::vec3(0.0);
+			v.TexCoords = glm::vec2(1.0);
+			newVerts.emplace_back(v);
+			counter = 0;
+		}
+	}
+	this->vertices = newVerts;
+
+	setupMesh();
+}
+
+
 void Mesh::Draw(Shader shader)
 {
 	int diffuseCount = 0;
@@ -158,4 +195,38 @@ void Mesh::calcMeshBounds()
 	xBound = currentMaxX;
 	yBound = currentMaxY;
 	zBound = currentMaxZ;
+}
+
+void Mesh::generateConvexHull()
+{
+	quickhull::QuickHull<float> qh;
+	std::vector<quickhull::Vector3<float>> pointCloud;
+
+	// convert the existing vertices into quickhull format
+	for (int i = 0; i < numVertices(); i++)
+	{
+		glm::vec3 currentVertexPosition = vertices.at(i).position;
+		pointCloud.emplace_back(
+			quickhull::Vector3<float>(
+				currentVertexPosition.x, 
+				currentVertexPosition.y, 
+				currentVertexPosition.z)
+		);
+	}
+
+	// create the hull
+	auto hull = qh.getConvexHull(pointCloud, true, false);
+	auto mesh = qh.getConvexHullAsMesh(&pointCloud[0].x, pointCloud.size(), true);
+	hullIndices = hull.getIndexBuffer();
+	auto vertexBuffer = hull.getVertexBuffer();
+
+	for (int i = 0; i < mesh.m_vertices.size(); i++)
+	{
+		quickhull::Vector3<float> currentPosition = mesh.m_vertices.at(i);
+		hullVertexPositions.emplace_back(currentPosition.x);
+		hullVertexPositions.emplace_back(currentPosition.y);
+		hullVertexPositions.emplace_back(currentPosition.z);
+	}
+
+	std::cout << "built convex hull for mesh" << std::endl;
 }

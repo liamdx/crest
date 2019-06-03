@@ -36,8 +36,8 @@ private:
 	Cubemap* skybox;
 	Shader* cubemapShader;
 
-	std::shared_ptr<rp3d::RigidBody> debugRib;
-	std::shared_ptr<ProxyShape> e;
+	//std::shared_ptr<rp3d::RigidBody> debugRib;
+	//std::shared_ptr<ProxyShape> e;
 
 	// this stuff needs component-ised
 //skybox faces

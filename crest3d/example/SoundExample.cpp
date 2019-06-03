@@ -32,7 +32,7 @@ SoundExample::SoundExample(GLFWwindow* _window)
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
 	}
 
-	debugRib = std::shared_ptr<rp3d::RigidBody>(pm->addRigidbody());
+	//debugRib = std::shared_ptr<rp3d::RigidBody>(pm->addRigidbody());
 
 
 }
@@ -54,25 +54,25 @@ void SoundExample::initBehaviour()
 	//cameraEntity->transform->addPosition(glm::vec3(0, 4, 0));
 	//levelEntity->transform->addPosition(glm::vec3(0, -3, 0));
 
-	rp3d::Transform initPhysicsT = rp3d::Transform::identity();
-	initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
-	initPhysicsT.setOrientation(rp3d::Quaternion::identity());
+	//rp3d::Transform initPhysicsT = rp3d::Transform::identity();
+	//initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
+	//initPhysicsT.setOrientation(rp3d::Quaternion::identity());
 
-	e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
+	//e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
 
 	scene->initBehaviour();
 }
 
 void SoundExample::startBehaviour()
 {
-	for (int i = 0; i < levelEntity->children.size(); i++)
+	/*for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
 		rib->rib->setType(BodyType::KINEMATIC);
 		auto ribTransform = rib->rib->getTransform();
 	}
 
-	debugRib->setType(BodyType::KINEMATIC);
+	debugRib->setType(BodyType::KINEMATIC);*/
 
 	scene->startBehaviour();
 }
@@ -125,7 +125,7 @@ void SoundExample::uiBehaviour(float deltaTime)
 		if (ImGui::Button("Add Up Force"))
 		{
 			std::shared_ptr<RigidbodyComponent>r = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
-			r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));
+			//r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));
 		}
 		ImGui::End();
 	}

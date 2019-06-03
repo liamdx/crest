@@ -1,25 +1,45 @@
 #pragma once
 #include "Common.h"
+#include "Entity.h"
+#include "components/MeshComponent.h"
 
 class PhysicsManager
 {
 public:
 	PhysicsManager();
 	~PhysicsManager() {};
-	float fixedTimeStep;
-	rp3d::Vector3 gravity;
+	
 
-	void setGravity(glm::vec3 _gravity);
+	// should we render the collision meshes?
+	bool debugRender;
+
+
+	// what we do each frame
 	void update(float deltaTime);
+	void render(float deltaTime);
 
-	//add shape functionality
-
-	rp3d::RigidBody* addRigidbody();
-
-	rp3d::CollisionBody* addCollisionBody();
-
+	// getter setters
 	inline float getFactor() { return factor; }
-	float accumulator, deltaTime, lastFrame, factor;
-	std::shared_ptr<rp3d::DynamicsWorld> world;
+	inline void setView(glm::mat4 newView) { view = newView; }
+	inline glm::mat4 getView() { return view; }
+	inline void setProjection(glm::mat4 newProjection) { projection = newProjection; }
+	inline glm::mat4 getProjection() { return projection; }
+
+	// pm functions
+	//RigidBody* addRigidbody();
+	//rp3d::CollisionBody* addCollisionBody();
+	void addPhysicsEntity(std::shared_ptr<Entity> e) { physicsEntities.emplace_back(e); }
+	void updateCollisionMeshes();
+
+
+	// member vars
+	std::vector<Mesh> debugMeshes;
+	std::vector<std::shared_ptr<Entity>> physicsEntities;
+	float accumulator, deltaTime, lastFrame, factor, fixedTimeStep;
+	//rp3d::Vector3 gravity;
+	//std::shared_ptr<rp3d::DynamicsWorld> world;
+	Shader debugShader;
+
+	glm::mat4 view, projection;
 
 };

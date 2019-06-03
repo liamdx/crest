@@ -84,15 +84,15 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/reactphysics3d/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/bullet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <SupportJustMyCode>false</SupportJustMyCode>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/reactphysics3d/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;reactphysics3d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,16 +112,16 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/reactphysics3d/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/bullet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/reactphysics3d/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;reactphysics3d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
-    <ClCompile Include="core\components\CollisionBodyComponent.cpp" />
     <ClCompile Include="core\components\DebugComponent.cpp" />
     <ClCompile Include="core\components\MeshComponent.cpp">
       <SubType>
@@ -149,6 +148,7 @@
     </ClCompile>
     <ClCompile Include="core\components\RigidbodyComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
+    <ClCompile Include="core\ext\quickhull\QuickHull.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
     <ClCompile Include="core\ext\glm\detail\glm.cpp" />
@@ -178,11 +178,21 @@
   <ItemGroup>
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\CameraControllerComponent.h" />
-    <ClInclude Include="core\components\CollisionBodyComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
+    <ClInclude Include="core\ext\quickhull\ConvexHull.hpp" />
+    <ClInclude Include="core\ext\quickhull\HalfEdgeMesh.hpp" />
+    <ClInclude Include="core\ext\quickhull\MathUtils.hpp" />
+    <ClInclude Include="core\ext\quickhull\QuickHull.hpp" />
+    <ClInclude Include="core\ext\quickhull\Structs\Mesh.hpp" />
+    <ClInclude Include="core\ext\quickhull\Structs\Plane.hpp" />
+    <ClInclude Include="core\ext\quickhull\Structs\Pool.hpp" />
+    <ClInclude Include="core\ext\quickhull\Structs\Ray.hpp" />
+    <ClInclude Include="core\ext\quickhull\Structs\Vector3.hpp" />
+    <ClInclude Include="core\ext\quickhull\Structs\VertexDataSource.hpp" />
+    <ClInclude Include="core\ext\quickhull\Types.hpp" />
     <ClInclude Include="core\gfx\Camera.h" />
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\components\DebugComponent.h" />

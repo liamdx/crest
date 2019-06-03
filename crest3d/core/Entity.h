@@ -1,7 +1,8 @@
 #pragma once
 #include "Common.h"
 #include "components/TransformComponent.h"
-#include "PhysicsManager.h"
+
+class PhysicsManager;
 
 class Entity {
 public:

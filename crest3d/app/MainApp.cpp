@@ -62,54 +62,83 @@ int main() {
 	PhysicsExample example(window);
 	example.initBehaviour();
 
+	//bullet physics (exciting times)
+	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
+	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver();
+	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+	dynamicsWorld->setGravity(btVector3(0.0, -10.0, 0.0));
 
 
 
-	//debug mesh collider stuff
-	Model colModel("res/models/cyborg/cyborg.obj");
-	Mesh colMesh = colModel.meshes[0];
+	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
-	int numFaces = colMesh.faces.size();
-	std::vector<float> vertices = colMesh.getVertexValues();
-	std::vector<int> indices = colMesh.getIndexValues();
+	///create a few basic rigid bodies
 
-	rp3d::TriangleVertexArray* triangleArray =
-		new rp3d::TriangleVertexArray(colMesh.vertices.size(), &vertices[0], 3 * sizeof(float), colMesh.indices.size() / 3,
-			&indices[0], 3 * sizeof(int),
-			rp3d::TriangleVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-			rp3d::TriangleVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
+	//the ground is a cube of side 100 at position y = -56.
+	//the sphere will hit it at y = -6, with center at -5
+	{
+		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
-	rp3d::TriangleMesh triangleMesh;
+		collisionShapes.push_back(groundShape);
 
-	// Add the triangle vertex array to the triangle mesh 
-	triangleMesh.addSubpart(triangleArray);
+		btTransform groundTransform;
+		groundTransform.setIdentity();
+		groundTransform.setOrigin(btVector3(0, -56, 0));
 
-	// Create the concave mesh shape 
-	ConcaveMeshShape* concaveMesh = new rp3d::ConcaveMeshShape(&triangleMesh);
+		btScalar mass(0.);
 
-	//rp3d::PolygonVertexArray::PolygonFace *polygonFaces = new rp3d::PolygonVertexArray::PolygonFace[numFaces];
+		//rigidbody is dynamic if and only if mass is non zero, otherwise static
+		bool isDynamic = (mass != 0.f);
 
-	//rp3d::PolygonVertexArray::PolygonFace* face = polygonFaces;
-	//for (int f = 0; f < numFaces; f++) {
+		btVector3 localInertia(0, 0, 0);
+		if (isDynamic)
+			groundShape->calculateLocalInertia(mass, localInertia);
 
-	//	// First vertex of the face in the indices array 
-	//	face->indexBase = f * 3;
+		//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+		btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+		btRigidBody* body = new btRigidBody(rbInfo);
 
-	//	// Number of vertices in the face 
-	//	face->nbVertices = 3;
+		//add the body to the dynamics world
+		dynamicsWorld->addRigidBody(body);
+	}
 
-	//	face++;
-	//}
+	{
+		//create a dynamic rigidbody
 
-	//PolygonVertexArray* polygonVertexArray = new rp3d::PolygonVertexArray(colMesh.vertices.size(), 
-	//	&(vertices[0]), 3 * sizeof(float),
-	//	&(indices[0]), sizeof(int), numFaces, polygonFaces,
-	//	rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-	//	rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
+		//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
+		btCollisionShape* colShape = new btSphereShape(btScalar(1.));
+		collisionShapes.push_back(colShape);
 
-	//PolyhedronMesh* polyhedronMesh = new rp3d::PolyhedronMesh(polygonVertexArray);
+		/// Create Dynamic Objects
+		btTransform startTransform;
+		startTransform.setIdentity();
 
-	//ConvexMeshShape* convexMeshShape = new rp3d::ConvexMeshShape(polyhedronMesh);
+		btScalar mass(1.f);
+
+		//rigidbody is dynamic if and only if mass is non zero, otherwise static
+		bool isDynamic = (mass != 0.f);
+
+		btVector3 localInertia(0, 0, 0);
+		if (isDynamic)
+			colShape->calculateLocalInertia(mass, localInertia);
+
+		startTransform.setOrigin(btVector3(2, 10, 0));
+
+		//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+		btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+		btRigidBody* body = new btRigidBody(rbInfo);
+
+		dynamicsWorld->addRigidBody(body);
+	}
+
+
+
+
+
 
 
 	// Main Frame buffer set up
@@ -121,6 +150,11 @@ int main() {
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
 
+
+	float accumulator = 0.0f;
+	float fixedTimestep = 1.0f / 60.0f;
+	float factor = 0.0f;
+
 	while (!glfwWindowShouldClose(window)) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -131,7 +165,40 @@ int main() {
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		
+		// debug physics stuff
+		accumulator += deltaTime;
+		if (accumulator > 1.0f)
+		{
+			accumulator = 0.0f;
+		}
+		while (accumulator >= fixedTimestep)
+		{
+			// update dynamics world with constant timestep
+			dynamicsWorld->stepSimulation(fixedTimestep, 10);
+			// decrease the accumulated time
+			accumulator -= fixedTimestep;
+		}
+
+		factor = accumulator / fixedTimestep;
+
+
+		//print positions of all objects
+		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
+		{
+			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			btTransform trans;
+			if (body && body->getMotionState())
+			{
+				body->getMotionState()->getWorldTransform(trans);
+			}
+			else
+			{
+				trans = obj->getWorldTransform();
+			}
+			printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+		}
+
 		ImGui_ImplGlfwGL3_NewFrame();
 
 		//Render scene normally

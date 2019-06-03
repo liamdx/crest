@@ -35,6 +35,7 @@ public:
 		setupMesh();
 		physicsPoints = getVertexValues();
 		physicsIndices = getIndexValues();
+		generateConvexHull();
 	};
 
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, std::vector<Face> faces)
@@ -46,7 +47,10 @@ public:
 
 		//calcMeshBounds();
 		setupMesh();
+		generateConvexHull();
 	};
+
+	Mesh(std::vector<float> vertexPositions, std::vector<unsigned int> indices);
 	void Draw(Shader shader);
 	void TestDraw(Shader shader);
 	void calcMeshBounds();
@@ -61,8 +65,16 @@ public:
 	std::vector<float> getVertexValues();
 	std::vector<int> getIndexValues();
 
+	void generateConvexHull();
+
+
 	const int numVertices() { return vertices.size(); }
 	const int numIndices() { return indices.size(); }
 
+	// convex hull stuff 
+	//quickhull::QuickHull<float> qh;
+	//std::vector<quickhull::Vector3<float>> pointCloud;
 
+	std::vector<float> hullVertexPositions;
+	std::vector<unsigned int> hullIndices;
 };
