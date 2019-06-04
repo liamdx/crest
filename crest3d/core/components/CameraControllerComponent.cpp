@@ -54,18 +54,7 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	// do mouseMovement
 	deltaX = deltaX * 360.0f * mouseSensitivity * deltaTime;
-	deltaY = deltaY * 360.0f *  mouseSensitivity * deltaTime;
-
-
-	if (attachedEntity->transform->position.y + deltaY > 89.0f)
-	{
-		deltaY = 0.0f;
-	}
-	if (attachedEntity->transform->position.y - deltaY < -89.0f)
-	{
-		deltaY = -0.0f;
-	}
-	
+	deltaY = deltaY * 360.0f *  mouseSensitivity * deltaTime;	
 
 
 	if (input->GetRightClick())

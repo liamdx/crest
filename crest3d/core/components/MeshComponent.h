@@ -17,9 +17,12 @@ public:
 	void render(float deltaTime, glm::mat4 view) override;
 	void ui(float deltaTime) override;
 
+	void setShouldDraw(bool newValue) { shouldDraw = newValue; }
 	bool meshIsConvex;
 	Mesh mesh;
 private:
+
+	bool shouldDraw;
 	void draw(glm::mat4 view);
 	std::shared_ptr<ShaderComponent> shader;
 

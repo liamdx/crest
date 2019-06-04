@@ -6,22 +6,31 @@ void RigidbodyComponent::init()
 	mass = 4.0f;
 	mass = 4.0f;
 	physicsManager = attachedEntity->physicsManager;
-	physicsManager->addPhysicsEntity(attachedEntity);
 	transform = attachedEntity->transform;
+	transform->setPhysicsOverride(true);
 
-	//rib = std::shared_ptr<RigidBody>(physicsManager->addRigidbody());
-	//currentPhysicsTransform = rib->getTransform();
-	//lastPhysicsTransform = currentPhysicsTransform;
-	//interpolatedTransform = rp3d::Transform::identity();
-	//
-	//glm::vec3 initScale = transform->getScale();
+	shape = std::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(10, 2, 10)));
+	btTransform startTransform;
+	startTransform.setIdentity();
 
-	////rigidbodies start at transform;
-	//rp3d::Transform initPhysicsT = rp3d::Transform::identity();
-	//initPhysicsT.setPosition(rp3d::Vector3(transform->position.x, transform->position.y, transform->position.z));
-	//glm::quat finalOrientation = glm::quat(transform->eulerAngles);
-	//initPhysicsT.setOrientation(rp3d::Quaternion(finalOrientation.x, finalOrientation.y, finalOrientation.z, finalOrientation.w));
-	//shape = rib->addCollisionShape(new rp3d::BoxShape(Vector3(4.0, 1.0, 4.0)), initPhysicsT, mass);
+	btScalar mass(1.f);
+
+	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	bool isDynamic = (mass != 0.f);
+
+	btVector3 localInertia(0, 0, 0);
+	if (isDynamic)
+		shape->calculateLocalInertia(mass, localInertia);
+
+	startTransform.setOrigin(btVector3(0, 0, 0));
+
+	myMotionState = std::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(startTransform));
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState.get(), shape.get(), localInertia);
+	rib = std::shared_ptr<btRigidBody>(new btRigidBody(rbInfo));
+	rib->translate(btVector3(transform->position.x, transform->position.y, transform->position.z));
+
+	physicsManager->addRigidbody(rib, shape);
+	physicsManager->addPhysicsEntity(attachedEntity);
 }
 
 void RigidbodyComponent::start()
@@ -31,7 +40,8 @@ void RigidbodyComponent::start()
 
 void RigidbodyComponent::earlyUpdate(float deltaTime)
 {
-	/*currentPhysicsTransform = rib->getTransform();
+	/*
+	currentPhysicsTransform = rib->getTransform();
 	interpolatedTransform = Transform::interpolateTransforms(lastPhysicsTransform, currentPhysicsTransform, physicsManager->getFactor());
 	lastPhysicsTransform = currentPhysicsTransform;
 
@@ -43,7 +53,32 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 	glm::vec3 finalEulerAngles = glm::eulerAngles(finalOrientation);
 
 	attachedEntity->transform->setPosition(finalPosition);
-	attachedEntity->transform->setEulerAngles(finalEulerAngles);*/
+	attachedEntity->transform->setEulerAngles(finalEulerAngles);
+	*/
+
+	if (rib && rib->getMotionState())
+	{
+		rib->getMotionState()->getWorldTransform(trans);
+	}
+	else
+	{
+		std::cout << "No Motion State " << std::endl;
+	}
+
+	// bleh this is nasty
+	auto interpolatedPosition = trans.getOrigin();
+	auto ir = trans.getRotation();
+	glm::vec3 newPosition = glm::vec3(interpolatedPosition.getX(), interpolatedPosition.getY(), interpolatedPosition.getZ());
+	glm::quat newQuatRotation;
+	newQuatRotation.w = ir.getW();
+	newQuatRotation.x = ir.getX();
+	newQuatRotation.y = ir.getY();
+	newQuatRotation.z = ir.getZ();
+	glm::vec3 newRotation = glm::eulerAngles(newQuatRotation);
+
+	transform->setPosition(newPosition);
+	transform->setEulerAngles(newRotation);
+
 }
 
 void RigidbodyComponent::update(float deltaTime)
@@ -67,13 +102,13 @@ void RigidbodyComponent::ui(float deltaTime)
 	
 }
 
-//
+
 //void RigidbodyComponent::changeCollisionShape(CollisionShape* newShape)
 //{
 //	rib->removeCollisionShape(shape);
 //	shape = rib->addCollisionShape(newShape, rp3d::Transform::identity(), mass);
 //}
-//
+
 void RigidbodyComponent::createConvexMeshShape()
 {
 //	auto meshComponent = attachedEntity->GetComponent<MeshComponent>();

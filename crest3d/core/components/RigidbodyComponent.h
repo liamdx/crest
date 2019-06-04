@@ -20,7 +20,11 @@ public:
 	void render(float deltaTime, glm::mat4 view) override;
 	void ui(float deltaTime) override;
 
-	//std::shared_ptr<rp3d::RigidBody> rib;
+	// Bullet stuff
+	std::shared_ptr<btRigidBody> rib;
+	std::shared_ptr<btCollisionShape> shape;
+	std::shared_ptr< btDefaultMotionState> myMotionState;
+
 	std::shared_ptr<PhysicsManager> physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
@@ -29,22 +33,27 @@ public:
 
 	//shape functionality pls
 	inline float getMass() { return mass; }
-	inline void setMass(float newMass) { mass = newMass; }
+	inline void setMass(float newMass) { mass = newMass; rib->setMassProps(newMass, btVector3(0, 0, 0)); }
 
 	// react physics stuff
-	/*rp3d::Transform currentPhysicsTransform;
+	/*
+	rp3d::Transform currentPhysicsTransform;
 	rp3d::Transform lastPhysicsTransform;
 	rp3d::Transform interpolatedTransform;
-	rp3d::ProxyShape* shape;*/
+	rp3d::ProxyShape* shape;
+	*/
 
 
 private:
 	// convex hull shape stuff
-	/*rp3d::PolygonVertexArray::PolygonFace* face;
+	/*
+	rp3d::PolygonVertexArray::PolygonFace* face;
 	ConvexMeshShape* convexMeshShape;
 	PolyhedronMesh* polyhedronMesh;
 	PolygonVertexArray* polygonVertexArray;
-	rp3d::PolygonVertexArray::PolygonFace *polygonFaces;*/
+	rp3d::PolygonVertexArray::PolygonFace *polygonFaces;
+	*/
+	btTransform trans;
 
 	float mass;
 };

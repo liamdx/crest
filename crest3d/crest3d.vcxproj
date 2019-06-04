@@ -148,6 +148,7 @@
     </ClCompile>
     <ClCompile Include="core\components\RigidbodyComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
+    <ClCompile Include="core\DebugRenderer.cpp" />
     <ClCompile Include="core\ext\quickhull\QuickHull.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
+    <ClInclude Include="core\DebugRenderer.h" />
     <ClInclude Include="core\ext\quickhull\ConvexHull.hpp" />
     <ClInclude Include="core\ext\quickhull\HalfEdgeMesh.hpp" />
     <ClInclude Include="core\ext\quickhull\MathUtils.hpp" />

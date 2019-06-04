@@ -14,6 +14,7 @@ TransformComponent::TransformComponent()
 	worldRight = right;
 	worldForward = forward;
 	model = glm::mat4(1.0);
+	physicsOverride = false;
 	updateModelMatrix();
 }
 
@@ -30,6 +31,7 @@ TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _pare
 	worldRight = right;
 	worldForward = forward;
 	model = glm::mat4(1.0);
+	physicsOverride = false;
 	updateModelMatrix();
 }
 
@@ -175,35 +177,39 @@ void TransformComponent::updateDirectionVectors()
 
 void TransformComponent::update(float deltaTime)
 {
-	if (parent == nullptr)
+	if(!physicsOverride)
 	{
-		position = localPosition;
-	}
-	else
-	{
-		position = parent->position + localPosition;
-	}
+		if (parent == nullptr)
+		{
+			position = localPosition;
+		}
+		else
+		{
+			position = parent->position + localPosition;
+		}
 
 
-	if (parent == nullptr)
-	{
-		eulerAngles = localEulerAngles;
-	}
-	else
-	{
-		eulerAngles = parent->eulerAngles + localEulerAngles;
-	}
+		if (parent == nullptr)
+		{
+			eulerAngles = localEulerAngles;
+		}
+		else
+		{
+			eulerAngles = parent->eulerAngles + localEulerAngles;
+		}
 
 
-	if (parent == nullptr)
-	{
-		scale = localScale;
-	}
-	else
-	{
-		scale = parent->scale + localScale;
-	}
+		if (parent == nullptr)
+		{
+			scale = localScale;
+		}
+		else
+		{
+			scale = parent->scale + localScale;
+		}
 
-	updateModelMatrix();
+		updateModelMatrix();
+	}
+	
 
 }

@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Entity.h"
 #include "components/MeshComponent.h"
+#include "DebugRenderer.h"
 
 class PhysicsManager
 {
@@ -12,6 +13,7 @@ public:
 
 	// should we render the collision meshes?
 	bool debugRender;
+	DebugRenderer debugRenderer;
 
 
 	// what we do each frame
@@ -28,6 +30,7 @@ public:
 	// pm functions
 	//RigidBody* addRigidbody();
 	//rp3d::CollisionBody* addCollisionBody();
+	void addRigidbody(std::shared_ptr<btRigidBody> rib, std::shared_ptr<btCollisionShape> col);
 	void addPhysicsEntity(std::shared_ptr<Entity> e) { physicsEntities.emplace_back(e); }
 	void updateCollisionMeshes();
 
@@ -36,9 +39,14 @@ public:
 	std::vector<Mesh> debugMeshes;
 	std::vector<std::shared_ptr<Entity>> physicsEntities;
 	float accumulator, deltaTime, lastFrame, factor, fixedTimeStep;
-	//rp3d::Vector3 gravity;
-	//std::shared_ptr<rp3d::DynamicsWorld> world;
-	Shader debugShader;
+	//bullet variables
+	btVector3 gravity;
+	btDefaultCollisionConfiguration* collisionConfiguration;
+	btCollisionDispatcher* dispatcher;
+	btBroadphaseInterface* overlappingPairCache;
+	btSequentialImpulseConstraintSolver* solver;
+	btDiscreteDynamicsWorld* dynamicsWorld;
+	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 	glm::mat4 view, projection;
 

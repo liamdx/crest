@@ -100,9 +100,13 @@ void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 void Scene::renderBehaviour(float deltaTime)
 {
 	glm::mat4 view = sceneCamera->GetViewMatrix();
-	physicsManager->setView(view);
-	physicsManager->render(deltaTime);
 	childRender(rootEntity, deltaTime, view);
+
+
+	physicsManager->setView(view);
+	// clear the depth buffer so it draws in front;
+	glClear(GL_DEPTH_BUFFER_BIT);
+	physicsManager->render(deltaTime);
 }
 
 

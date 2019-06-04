@@ -62,78 +62,79 @@ int main() {
 	PhysicsExample example(window);
 	example.initBehaviour();
 
-	//bullet physics (exciting times)
-	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-	btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
-	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver();
-	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-	dynamicsWorld->setGravity(btVector3(0.0, -10.0, 0.0));
+	////bullet physics (exciting times)
+	//btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+	//btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	//btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
+	//btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver();
+	//btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+	//dynamicsWorld->setGravity(btVector3(0.0, -10.0, 0.0));
 
 
 
-	btAlignedObjectArray<btCollisionShape*> collisionShapes;
+	//btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
-	///create a few basic rigid bodies
+	/////create a few basic rigid bodies
 
-	//the ground is a cube of side 100 at position y = -56.
-	//the sphere will hit it at y = -6, with center at -5
-	{
-		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
+	////the ground is a cube of side 100 at position y = -56.
+	////the sphere will hit it at y = -6, with center at -5
+	//{
+	//	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
-		collisionShapes.push_back(groundShape);
+	//	collisionShapes.push_back(groundShape);
 
-		btTransform groundTransform;
-		groundTransform.setIdentity();
-		groundTransform.setOrigin(btVector3(0, -56, 0));
+	//	btTransform groundTransform;
+	//	groundTransform.setIdentity();
+	//	groundTransform.setOrigin(btVector3(0, -56, 0));
 
-		btScalar mass(0.);
+	//	btScalar mass(0.);
 
-		//rigidbody is dynamic if and only if mass is non zero, otherwise static
-		bool isDynamic = (mass != 0.f);
+	//	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	//	bool isDynamic = (mass != 0.f);
 
-		btVector3 localInertia(0, 0, 0);
-		if (isDynamic)
-			groundShape->calculateLocalInertia(mass, localInertia);
+	//	btVector3 localInertia(0, 0, 0);
+	//	if (isDynamic)
+	//		groundShape->calculateLocalInertia(mass, localInertia);
 
-		//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
-		btRigidBody* body = new btRigidBody(rbInfo);
+	//	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+	//	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+	//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+	//	btRigidBody* body = new btRigidBody(rbInfo);
 
-		//add the body to the dynamics world
-		dynamicsWorld->addRigidBody(body);
-	}
+	//	//add the body to the dynamics world
+	//	dynamicsWorld->addRigidBody(body);
+	//}
 
-	{
-		//create a dynamic rigidbody
+	//{
+	//	//create a dynamic rigidbody
 
-		//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-		btCollisionShape* colShape = new btSphereShape(btScalar(1.));
-		collisionShapes.push_back(colShape);
+	//	//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
+	//	btCollisionShape* colShape = new btSphereShape(btScalar(1.));
+	//	collisionShapes.push_back(colShape);
 
-		/// Create Dynamic Objects
-		btTransform startTransform;
-		startTransform.setIdentity();
+	//	/// Create Dynamic Objects
+	//	btTransform startTransform;
+	//	startTransform.setIdentity();
 
-		btScalar mass(1.f);
+	//	btScalar mass(1.f);
 
-		//rigidbody is dynamic if and only if mass is non zero, otherwise static
-		bool isDynamic = (mass != 0.f);
+	//	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	//	bool isDynamic = (mass != 0.f);
 
-		btVector3 localInertia(0, 0, 0);
-		if (isDynamic)
-			colShape->calculateLocalInertia(mass, localInertia);
+	//	btVector3 localInertia(0, 0, 0);
+	//	if (isDynamic)
+	//		colShape->calculateLocalInertia(mass, localInertia);
 
-		startTransform.setOrigin(btVector3(2, 10, 0));
+	//	startTransform.setOrigin(btVector3(2, 10, 0));
 
-		//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-		btRigidBody* body = new btRigidBody(rbInfo);
+	//	//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+	//	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+	//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+	//	btRigidBody* body = new btRigidBody(rbInfo);
 
-		dynamicsWorld->addRigidBody(body);
-	}
+	//	dynamicsWorld->addRigidBody(body);
+
+	//}
 
 
 
@@ -151,9 +152,9 @@ int main() {
 	float lastWindowHeight = 0.0;
 
 
-	float accumulator = 0.0f;
-	float fixedTimestep = 1.0f / 60.0f;
-	float factor = 0.0f;
+	//float accumulator = 0.0f;
+	//float fixedTimestep = 1.0f / 60.0f;
+	//float factor = 0.0f;
 
 	while (!glfwWindowShouldClose(window)) {
 
@@ -166,38 +167,38 @@ int main() {
 		lastFrame = currentFrame;
 
 		// debug physics stuff
-		accumulator += deltaTime;
-		if (accumulator > 1.0f)
-		{
-			accumulator = 0.0f;
-		}
-		while (accumulator >= fixedTimestep)
-		{
-			// update dynamics world with constant timestep
-			dynamicsWorld->stepSimulation(fixedTimestep, 10);
-			// decrease the accumulated time
-			accumulator -= fixedTimestep;
-		}
+		//accumulator += deltaTime;
+		//if (accumulator > 1.0f)
+		//{
+		//	accumulator = 0.0f;
+		//}
+		//while (accumulator >= fixedTimestep)
+		//{
+		//	// update dynamics world with constant timestep
+		//	dynamicsWorld->stepSimulation(fixedTimestep, 10);
+		//	// decrease the accumulated time
+		//	accumulator -= fixedTimestep;
+		//}
 
-		factor = accumulator / fixedTimestep;
+		//factor = accumulator / fixedTimestep;
 
 
-		//print positions of all objects
-		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
-		{
-			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			btTransform trans;
-			if (body && body->getMotionState())
-			{
-				body->getMotionState()->getWorldTransform(trans);
-			}
-			else
-			{
-				trans = obj->getWorldTransform();
-			}
-			printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-		}
+		////print positions of all objects
+		//for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
+		//{
+		//	btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+		//	btRigidBody* body = btRigidBody::upcast(obj);
+		//	btTransform trans;
+		//	if (body && body->getMotionState())
+		//	{
+		//		body->getMotionState()->getWorldTransform(trans);
+		//	}
+		//	else
+		//	{
+		//		trans = obj->getWorldTransform();
+		//	}
+		//	printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+		//}
 
 		ImGui_ImplGlfwGL3_NewFrame();
 

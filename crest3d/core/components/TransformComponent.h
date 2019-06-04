@@ -51,7 +51,10 @@ public:
 	inline void setOwnedEntity(std::shared_ptr<Entity> newEntity) { attachedEntity = newEntity; }
 	inline std::shared_ptr<Entity> getOwnedEntity() { return std::shared_ptr<Entity>(attachedEntity); }
 
+	inline void setPhysicsOverride(bool override) { physicsOverride = override; }
+
 	inline glm::mat4 getModelMatrix() { return model; }
+	inline glm::mat4 setModelMatrix(glm::mat4 newModel) { model = newModel; }
 
 	TransformComponent();
 	TransformComponent(std::shared_ptr<TransformComponent> _parent);
@@ -59,6 +62,7 @@ public:
 
 private:
 	glm::mat4 model;
+	bool physicsOverride;
 	void updateDirectionVectors();
 	void clampRotation(float& value);
 	void clampEulerAngles(glm::vec3& v);

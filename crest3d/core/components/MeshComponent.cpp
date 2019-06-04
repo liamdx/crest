@@ -3,6 +3,7 @@
 void MeshComponent::init() {
 	shader = attachedEntity->GetComponent<ShaderComponent>();
 	meshIsConvex = isConvex(mesh.getVertexPositions(), mesh.indices, 0.001);
+	shouldDraw = true;
 }
 
 void MeshComponent::start() {
@@ -19,7 +20,10 @@ void MeshComponent::update(float deltaTime) {
 
 void MeshComponent::render(float deltaTime, glm::mat4 view)
 {
-	draw(view);
+	if(shouldDraw)
+	{
+		draw(view);
+	}
 }
 
 

@@ -59,18 +59,19 @@ void PhysicsExample::initBehaviour()
 	// e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
 
 	scene->initBehaviour();
-	cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>()->createConvexMeshShape();
+	//cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>()->createConvexMeshShape();
 
 }
 
 void PhysicsExample::startBehaviour()
 {
-	//for (int i = 0; i < levelEntity->children.size(); i++)
-	//{
-	//	auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
+	for (int i = 0; i < levelEntity->children.size(); i++)
+	{
+		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
+		rib->setMass(0.0f);
 	//	rib->rib->setType(BodyType::KINEMATIC);
 	//	auto ribTransform = rib->rib->getTransform();
-	//}
+	}
 
 
 	scene->startBehaviour();
