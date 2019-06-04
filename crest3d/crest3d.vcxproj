@@ -91,7 +91,7 @@
       <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -120,7 +120,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
