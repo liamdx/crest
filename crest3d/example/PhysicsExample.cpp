@@ -69,6 +69,7 @@ void PhysicsExample::startBehaviour()
 	{
 		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
 		rib->setMass(0.0f);
+		rib->setMass(0.0f);
 	//	rib->rib->setType(BodyType::KINEMATIC);
 	//	auto ribTransform = rib->rib->getTransform();
 	}
@@ -93,13 +94,6 @@ void PhysicsExample::fixedUpdateBehaviour()
 void PhysicsExample::updateBehaviour(float deltaTime)
 {
 	scene->updateBehaviour(deltaTime);
-	
-	//cameraEntity->transform->setPosition(glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z));
-	// cameraEntity->transform->setEulerAngles(glm::vec3(cameraRotation.x, cameraRotation.y, cameraRotation.z));
-	/*levelEntity->transform->setPosition(glm::vec3(levelPosition.x, levelPosition.y, levelPosition.z));
-	levelEntity->transform->setEulerAngles(glm::vec3(levelRotation.x, levelRotation.y, levelRotation.z));
-	cyborgEntity->transform->setPosition(glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z));
-	cyborgEntity->transform->setEulerAngles(glm::vec3(cameraRotation.x, cameraRotation.y, cameraRotation.z));*/
 
 }
 

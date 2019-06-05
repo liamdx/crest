@@ -102,10 +102,8 @@ void Scene::renderBehaviour(float deltaTime)
 	glm::mat4 view = sceneCamera->GetViewMatrix();
 	childRender(rootEntity, deltaTime, view);
 
-
 	physicsManager->setView(view);
-	// clear the depth buffer so it draws in front;
-	glClear(GL_DEPTH_BUFFER_BIT);
+	physicsManager->setProjection(sceneCamera->GetProjectionMatrix());
 	physicsManager->render(deltaTime);
 }
 

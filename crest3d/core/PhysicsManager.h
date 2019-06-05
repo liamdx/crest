@@ -13,7 +13,7 @@ public:
 
 	// should we render the collision meshes?
 	bool debugRender;
-	DebugRenderer debugRenderer;
+	DebugRenderer* debugRenderer;
 
 
 	// what we do each frame
@@ -34,7 +34,7 @@ public:
 	void addPhysicsEntity(std::shared_ptr<Entity> e) { physicsEntities.emplace_back(e); }
 	void updateCollisionMeshes();
 
-
+	Shader debugShader;
 	// member vars
 	std::vector<Mesh> debugMeshes;
 	std::vector<std::shared_ptr<Entity>> physicsEntities;

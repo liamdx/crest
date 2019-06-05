@@ -9,7 +9,7 @@ void RigidbodyComponent::init()
 	transform = attachedEntity->transform;
 	transform->setPhysicsOverride(true);
 
-	shape = std::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(10, 2, 10)));
+	shape = std::shared_ptr<btCollisionShape>(new btSphereShape(3.0));
 	btTransform startTransform;
 	startTransform.setIdentity();
 
@@ -22,7 +22,7 @@ void RigidbodyComponent::init()
 	if (isDynamic)
 		shape->calculateLocalInertia(mass, localInertia);
 
-	startTransform.setOrigin(btVector3(0, 0, 0));
+	startTransform.setOrigin(btVector3(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z));
 
 	myMotionState = std::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(startTransform));
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState.get(), shape.get(), localInertia);
