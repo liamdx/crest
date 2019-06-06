@@ -3,6 +3,7 @@
 
 void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT)
 {
+	glViewport(0,0,screenWidth, screenHeight);
 	screenWidth = SCREEN_WIDTH;
 	screenHeight = SCREEN_HEIGHT;
 

@@ -20,10 +20,13 @@ public:
 
 	// member funcs
 	void setPosition(glm::vec3 newPosition);
+	void setPositionAbsolute(glm::vec3 newPosition);
 	void addPosition(glm::vec3 newPosition);
 	void setEulerAngles(glm::vec3 newRotation);
+	void setEulerAnglesAbsolute(glm::vec3 newRotation);
 	void addEulerAngles(glm::vec3 newRotation);
 	void setScale(glm::vec3 newScale);
+	void setScaleAbsolute(glm::vec3 newScale);
 	void addScale(glm::vec3 newScale);
 
 	void updateModelMatrix();

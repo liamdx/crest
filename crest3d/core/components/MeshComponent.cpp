@@ -33,6 +33,7 @@ void MeshComponent::ui(float deltaTime) {
 
 void MeshComponent::draw(glm::mat4 view)
 {
+	attachedEntity->transform->updateModelMatrix();
 	shader->shader->use();
 	shader->setView(view);
 	shader->UpdateShader(attachedEntity->transform->getModelMatrix());

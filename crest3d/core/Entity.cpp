@@ -62,6 +62,7 @@ void Entity::updateBehaviour(float deltaTime)
 	{
 		components.at(i)->update(deltaTime);
 	}
+	
 }
 
 void Entity::renderBehaviour(float deltaTime, glm::mat4 view)

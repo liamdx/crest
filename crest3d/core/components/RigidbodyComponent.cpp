@@ -7,11 +7,11 @@ void RigidbodyComponent::init()
 	mass = 4.0f;
 	physicsManager = attachedEntity->physicsManager;
 	transform = attachedEntity->transform;
-	transform->setPhysicsOverride(true);
+	attachedEntity->transform->update(0.0);
+	attachedEntity->transform->setPhysicsOverride(true);
 
-	shape = std::shared_ptr<btCollisionShape>(new btSphereShape(3.0));
-	btTransform startTransform;
-	startTransform.setIdentity();
+	shape = std::shared_ptr<btCollisionShape>(new btCapsuleShape(3.0, 2.0));
+
 
 	btScalar mass(1.f);
 
@@ -22,13 +22,19 @@ void RigidbodyComponent::init()
 	if (isDynamic)
 		shape->calculateLocalInertia(mass, localInertia);
 
-	startTransform.setOrigin(btVector3(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z));
+	btTransform initialTransform;
+	btVector3 initialPosition(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z);
+	initialTransform.setOrigin(initialPosition);
+	initialTransform.setRotation(btQuaternion::getIdentity());
 
-	myMotionState = std::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(startTransform));
+	myMotionState = std::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(initialTransform));
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState.get(), shape.get(), localInertia);
 	rib = std::shared_ptr<btRigidBody>(new btRigidBody(rbInfo));
-	rib->translate(btVector3(transform->position.x, transform->position.y, transform->position.z));
 
+	
+	//rib->translate(btVector3(transform->position.x, transform->position.y, transform->position.z));
+	rib->setWorldTransform(initialTransform);
+	myMotionState->setWorldTransform(initialTransform);
 	physicsManager->addRigidbody(rib, shape);
 	physicsManager->addPhysicsEntity(attachedEntity);
 }
@@ -40,22 +46,6 @@ void RigidbodyComponent::start()
 
 void RigidbodyComponent::earlyUpdate(float deltaTime)
 {
-	/*
-	currentPhysicsTransform = rib->getTransform();
-	interpolatedTransform = Transform::interpolateTransforms(lastPhysicsTransform, currentPhysicsTransform, physicsManager->getFactor());
-	lastPhysicsTransform = currentPhysicsTransform;
-
-	auto interpolatedPosition = interpolatedTransform.getPosition();
-	auto interpolatedRotation = interpolatedTransform.getOrientation();
-
-	glm::vec3 finalPosition = glm::vec3(interpolatedPosition.x, interpolatedPosition.y, interpolatedPosition.z);
-	glm::quat finalOrientation = glm::quat(interpolatedRotation.w, interpolatedRotation.x, interpolatedRotation.y, interpolatedRotation.z);
-	glm::vec3 finalEulerAngles = glm::eulerAngles(finalOrientation);
-
-	attachedEntity->transform->setPosition(finalPosition);
-	attachedEntity->transform->setEulerAngles(finalEulerAngles);
-	*/
-
 	if (rib && rib->getMotionState())
 	{
 		rib->getMotionState()->getWorldTransform(trans);
@@ -75,15 +65,19 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 	newQuatRotation.y = ir.getY();
 	newQuatRotation.z = ir.getZ();
 	glm::vec3 newRotation = glm::eulerAngles(newQuatRotation);
+	if(newRotation.y == 0.0f)
+	{
+		newRotation.y = 0.01f;
+	}
 
-	transform->setPosition(newPosition);
-	transform->setEulerAngles(newRotation);
-
+	transform->setPositionAbsolute(newPosition);
+	transform->setEulerAnglesAbsolute(newRotation);
 }
 
 void RigidbodyComponent::update(float deltaTime)
 {
 
+	
 }
 
 void RigidbodyComponent::fixedUpdate()

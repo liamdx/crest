@@ -20,14 +20,14 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 	Model level("res/models/swamp/map_1.obj");
 
 	cyborgEntity = scene->AddModelEntity(m);
-	cyborgEntity->transform->addPosition(glm::vec3(0, 20, 0));
+	cyborgEntity->transform->addPosition(glm::vec3(0, 10, 0));
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
 	}
 
 	levelEntity = scene->AddModelEntity(level);
-	levelEntity->transform->addPosition(glm::vec3(0, -30, 0));
+	levelEntity->transform->addPosition(glm::vec3(0, -10, 0));
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
@@ -69,7 +69,6 @@ void PhysicsExample::startBehaviour()
 	{
 		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
 		rib->setMass(0.0f);
-		rib->setMass(0.0f);
 	//	rib->rib->setType(BodyType::KINEMATIC);
 	//	auto ribTransform = rib->rib->getTransform();
 	}
@@ -104,7 +103,7 @@ void PhysicsExample::renderBehaviour(float deltaTime)
 	cubemapShader->setInt("cubemap", 0);
 
 	skybox->Draw(*cubemapShader);
-
+ 
 	scene->renderBehaviour(deltaTime);
 }
 
@@ -121,7 +120,7 @@ void PhysicsExample::uiBehaviour(float deltaTime)
 		if(ImGui::Button("Add Up Force"))
 		{
 			std::shared_ptr<RigidbodyComponent>r = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
-			// r->rib->applyForceToCenterOfMass(rp3d::Vector3(0, 1000, 0));
+			r->rib->applyCentralForce(btVector3(0, 300, 0));
 		}
 		ImGui::End();
 	}
