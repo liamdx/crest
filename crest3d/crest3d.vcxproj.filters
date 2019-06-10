@@ -105,6 +105,9 @@
     <ClCompile Include="app\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="example\EditorPrototyping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -696,6 +699,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\DebugRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="app\IApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\CollisionShapeComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="example\EditorPrototyping.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -21,28 +21,34 @@ void DebugRenderer::drawLine(const btVector3& from, const btVector3& to, const b
 
 void DebugRenderer::bindBuffers()
 {
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	if(LINES.size() > 0)
+	{
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
 
-	glGenBuffers(2, vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-	glBufferData(GL_ARRAY_BUFFER, LINES.size() * sizeof(_LINE), &LINES[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(0);
+		glGenBuffers(2, vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+		glBufferData(GL_ARRAY_BUFFER, LINES.size() * sizeof(_LINE), &LINES[0], GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-	glBufferData(GL_ARRAY_BUFFER, COLORS.size() * sizeof(_COLOR), &COLORS[0], GL_STATIC_DRAW);
-	glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+		glBufferData(GL_ARRAY_BUFFER, COLORS.size() * sizeof(_COLOR), &COLORS[0], GL_STATIC_DRAW);
+		glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(1);
 
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	
 }
 
 
 void DebugRenderer::doDraw()
 {
 	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_LINE_SMOOTH);
+	glLineWidth(2.0);
 	glBindVertexArray(vao);
 	glDrawArrays(GL_LINES, 0, LINES.size() * 2);
 

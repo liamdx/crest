@@ -132,7 +132,7 @@ std::shared_ptr<Entity> Scene::AddCameraEntity()
 
 std::shared_ptr<Entity> Scene::AddMeshEntity(Mesh mesh)
 {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(".", physicsManager));
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity", physicsManager));
 	e->AddComponent(new MeshComponent(e, mesh));
 	e->AddComponent(new ShaderComponent(e));
 	return e;

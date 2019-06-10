@@ -23,37 +23,19 @@ public:
 	// Bullet stuff
 	std::shared_ptr<btRigidBody> rib;
 	std::shared_ptr<btCollisionShape> shape;
-	std::shared_ptr< btDefaultMotionState> myMotionState;
-
+	std::shared_ptr<btDefaultMotionState> myMotionState;
 	std::shared_ptr<PhysicsManager> physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
-	//void changeCollisionShape(CollisionShape* newShape);
+	void changeCollisionShape(btCollisionShape* newShape);
 	void createConvexMeshShape();
 
 	//shape functionality pls
 	inline float getMass() { return mass; }
 	inline void setMass(float newMass) { mass = newMass; rib->setMassProps(newMass, btVector3(0, 0, 0)); }
 
-	// react physics stuff
-	/*
-	rp3d::Transform currentPhysicsTransform;
-	rp3d::Transform lastPhysicsTransform;
-	rp3d::Transform interpolatedTransform;
-	rp3d::ProxyShape* shape;
-	*/
-
 
 private:
-	// convex hull shape stuff
-	/*
-	rp3d::PolygonVertexArray::PolygonFace* face;
-	ConvexMeshShape* convexMeshShape;
-	PolyhedronMesh* polyhedronMesh;
-	PolygonVertexArray* polygonVertexArray;
-	rp3d::PolygonVertexArray::PolygonFace *polygonFaces;
-	*/
 	btTransform trans;
-
 	float mass;
 };

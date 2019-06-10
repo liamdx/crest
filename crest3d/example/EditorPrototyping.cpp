@@ -1,10 +1,10 @@
-#include "PhysicsExample.h"
+#include "EditorPrototyping.h"
 
-PhysicsExample::PhysicsExample(GLFWwindow* _window)
+EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 {
 	pm = std::shared_ptr<PhysicsManager>(new PhysicsManager());
 	window = std::shared_ptr<GLFWwindow>(_window);
-	scene = std::shared_ptr<Scene>(new Scene("debugScene",pm));
+	scene = std::shared_ptr<Scene>(new Scene("debugScene", pm));
 	input = std::shared_ptr<InputManager>(new InputManager(_window));
 
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
@@ -33,14 +33,14 @@ PhysicsExample::PhysicsExample(GLFWwindow* _window)
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
 	}
 
-	
+
 
 
 }
 
 
 
-void PhysicsExample::initBehaviour()
+void EditorPrototyping::initBehaviour()
 {
 	//temporarily initialise everything her
 	cameraEntity = scene->AddCameraEntity();
@@ -62,14 +62,14 @@ void PhysicsExample::initBehaviour()
 
 }
 
-void PhysicsExample::startBehaviour()
+void EditorPrototyping::startBehaviour()
 {
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
 		rib->setMass(0.0f);
-	//	rib->rib->setType(BodyType::KINEMATIC);
-	//	auto ribTransform = rib->rib->getTransform();
+		//	rib->rib->setType(BodyType::KINEMATIC);
+		//	auto ribTransform = rib->rib->getTransform();
 	}
 
 
@@ -79,56 +79,68 @@ void PhysicsExample::startBehaviour()
 	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 }
 
-void PhysicsExample::earlyUpdateBehaviour(float deltaTime)
+void EditorPrototyping::earlyUpdateBehaviour(float deltaTime)
 {
 	scene->earlyUpdateBehaviour(deltaTime);
 }
 
-void PhysicsExample::fixedUpdateBehaviour()
+void EditorPrototyping::fixedUpdateBehaviour()
 {
 	scene->fixedUpdateBehaviour();
 }
 
-void PhysicsExample::updateBehaviour(float deltaTime)
+void EditorPrototyping::updateBehaviour(float deltaTime)
 {
 	scene->updateBehaviour(deltaTime);
 
 }
 
-void PhysicsExample::renderBehaviour(float deltaTime)
+void EditorPrototyping::renderBehaviour(float deltaTime)
 {
 	cubemapShader->use();
 	cubemapShader->setMat4("view", glm::mat4(glm::mat3(cam->GetViewMatrix())));
 	cubemapShader->setInt("cubemap", 0);
 
 	skybox->Draw(*cubemapShader);
- 
+
 	scene->renderBehaviour(deltaTime);
 }
 
-void PhysicsExample::uiBehaviour(float deltaTime)
+void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
-	if (ImGui::Begin("Physics Example"))
+	
+	ImGui::MenuItem("Cunt");
+		if(ImGui::BeginMenu(e->name.c_str()))
+		{
+			for (int i = 0; i < e->children.size(); i++)
+			{
+				ImGuiEntityDebug(e->children.at(i));
+			}
+			ImGui::EndMenu();
+		}
+
+	
+
+	
+	
+	
+
+}
+
+void EditorPrototyping::uiBehaviour(float deltaTime)
+{
+	if (ImGui::Begin("Editor Prototyping"))
 	{
-		ImGui::SliderFloat3("Level Position", &levelPosition.x, -100, 100);
-		ImGui::SliderFloat3("Level Rotation", &levelRotation.x, -180, 180);
-		ImGui::SliderFloat3("Cyborg Position", &cameraPosition.x, -100, 100);
-		ImGui::SliderFloat3("Cyborg Rotation", &cameraRotation.x, -180, 180);
-
-
-		if(ImGui::Button("Add Up Force"))
-		{
-			auto r = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
-			r->rib->applyCentralForce(btVector3(0, 3000, 0));
-		}
-
-		if(ImGui::Button("Debug Draw Swtich"))
-		{
-			bool currentDebugDrawState = pm->debugRender;
-			pm->debugRender = !(currentDebugDrawState);
-		}
-		ImGui::End();
+		ImGui::Text("Bingpot");
 	}
+	ImGui::End();
+
+	if (ImGui::Begin("Hierarchy"))
+	{
+		ImGuiEntityDebug(scene->rootEntity);
+	}
+	ImGui::End();
+
 	scene->uiBehaviour(deltaTime);
 }
 

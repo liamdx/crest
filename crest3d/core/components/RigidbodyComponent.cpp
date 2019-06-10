@@ -96,12 +96,11 @@ void RigidbodyComponent::ui(float deltaTime)
 	
 }
 
+void RigidbodyComponent::changeCollisionShape(btCollisionShape* newShape)
+{
+	
+}
 
-//void RigidbodyComponent::changeCollisionShape(CollisionShape* newShape)
-//{
-//	rib->removeCollisionShape(shape);
-//	shape = rib->addCollisionShape(newShape, rp3d::Transform::identity(), mass);
-//}
 
 void RigidbodyComponent::createConvexMeshShape()
 {

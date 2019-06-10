@@ -1,14 +1,15 @@
 #include "Model.h"
 
-void Model::loadModel(std::string path)
+void Model::loadModel(std::string _path)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
+	const aiScene *scene = importer.ReadFile(_path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 		return;
 	}
+	path = _path;
 	directory = path.substr(0, path.find_last_of('/'));
 
 	std::cout << directory << std::endl;
@@ -109,11 +110,6 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 
 		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "normal");
 		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-
-		//std::cout << diffuseMaps[0].t_Path << " diffuse map count: " << diffuseMaps.size() << std::endl;
-		//std::cout << diffuseMaps[0].t_Path << " specular map count: " << specularMaps.size() << std::endl;
-		//std::cout << diffuseMaps[0].t_Path << " reflection/ambient map count: " << reflectionMaps.size() << std::endl;
-		//std::cout << diffuseMaps[0].t_Path << " normal map count: " << normalMaps.size() << std::endl;
 	}
 
 	return Mesh(vertices, indices, textures,faces);

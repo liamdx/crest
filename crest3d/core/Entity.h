@@ -6,11 +6,16 @@ class PhysicsManager;
 
 class Entity {
 public:
-	std::string name;
 
+	struct EntityLoadInfo
+	{
+		std::string _name;
+		std::vector<std::string> components;
+	};
+
+	std::string name;
 	std::vector<std::shared_ptr<EngineComponent>> components;
 	std::vector<std::shared_ptr<Entity>> children;
-
 	std::shared_ptr<TransformComponent> transform;
 
 	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager) 
@@ -62,38 +67,6 @@ public:
 	void uiBehaviour(float deltaTime);
 
 private:
+	// do we need this?
 	int id;
-
-	/*bool IsConvex(std::vector<vec3> &points, std::vector<int> &triangles, float threshold = 0.001)
-	{
-		for (unsigned long i = 0; i < triangles.size() / 3; i++)
-		{
-
-			vec3 Atmp = points[triangles[i * 3 + 0]];
-			vec3 Btmp = points[triangles[i * 3 + 1]];
-			vec3 Ctmp = points[triangles[i * 3 + 2]];
-
-			btVector3 A(Atmp.x, Atmp.y, Atmp.z);
-			btVector3 B(Btmp.x, Btmp.y, Btmp.z);
-			btVector3 C(Ctmp.x, Ctmp.y, Ctmp.z);
-			B -= A;
-			C -= A;
-
-			btVector3 BCNorm = B.cross(C).normalized();
-
-			float checkPoint = btVector3(points[0].x - A.x(), points[0].y - A.y(), points[0].z - A.z()).dot(BCNorm);
-			for (unsigned long j = 0; j < points.size(); j++)
-			{
-
-				float dist = btVector3(points[j].x - A.x(), points[j].y - A.y(), points[j].z - A.z()).dot(BCNorm);
-
-				if (std::abs(checkPoint) > threshold & std::abs(dist) > threshold & checkPoint * dist < 0)
-				{
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}*/
 };

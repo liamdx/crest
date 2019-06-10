@@ -22,8 +22,9 @@ public:
 	static int CommonTextureLoad(std::string path);
 
 	std::string directory;
+	std::string path;
 
-	void loadModel(std::string path);
+	void loadModel(std::string _path);
 	static void processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity>);
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);

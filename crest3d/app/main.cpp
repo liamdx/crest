@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "PhysicsExample.h"
+#include "EditorPrototyping.h"
 
 const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
@@ -57,9 +57,8 @@ int main() {
 	YSE::System().init();
 
 	// Example Here 
-	PhysicsExample example(window);
+	EditorPrototyping example(window);
 	example.initBehaviour();
-
 
 	// Main Frame buffer set up
 	FrameBuffer mainFB;
@@ -130,9 +129,5 @@ int main() {
 		
 		/* Poll for and process events */
 		glfwPollEvents();
-		
-
 	}
-
-
 }

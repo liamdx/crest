@@ -42,14 +42,17 @@ void PhysicsManager::update(float deltaTime)
 
 void PhysicsManager::render(float deltaTime)
 {
-	debugRenderer->COLORS.clear();
-	debugRenderer->LINES.clear();
-	dynamicsWorld->debugDrawWorld();
-	debugRenderer->bindBuffers();
-	debugShader.use();
-	debugShader.setMat4("view", view);
-	debugShader.setMat4("projection", projection);
-	debugRenderer->doDraw();
+	if(debugRender)
+	{
+		debugRenderer->COLORS.clear();
+		debugRenderer->LINES.clear();
+		dynamicsWorld->debugDrawWorld();
+		debugRenderer->bindBuffers();
+		debugShader.use();
+		debugShader.setMat4("view", view);
+		debugShader.setMat4("projection", projection);
+		debugRenderer->doDraw();
+	}
 }
 
 
