@@ -46,6 +46,19 @@ public:
 			return false;
 		}
 	};
+
+	bool GetKeyR()
+	{
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	bool GetKeyS()
 	{
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)

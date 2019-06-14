@@ -24,6 +24,7 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
+		cyborgEntity->children.at(i)->AddComponent(new CollisionShapeComponent(cyborgEntity->children.at(i)));
 	}
 
 	levelEntity = scene->AddModelEntity(level);
@@ -31,8 +32,10 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
+		levelEntity->children.at(i)->AddComponent(new CollisionShapeComponent(levelEntity->children.at(i)));
 	}
 
+	cyborgRib = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
 
 
 
@@ -92,7 +95,10 @@ void EditorPrototyping::fixedUpdateBehaviour()
 void EditorPrototyping::updateBehaviour(float deltaTime)
 {
 	scene->updateBehaviour(deltaTime);
-
+	if(input->GetKeyR())
+	{
+		cyborgRib->applyCentralForce(glm::vec3(0, 3000, 0));
+	}
 }
 
 void EditorPrototyping::renderBehaviour(float deltaTime)
@@ -108,23 +114,14 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 
 void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
-	
-	ImGui::MenuItem("Cunt");
-		if(ImGui::BeginMenu(e->name.c_str()))
+	if(ImGui::BeginMenu(e->name.c_str()))
+	{
+		for (int i = 0; i < e->children.size(); i++)
 		{
-			for (int i = 0; i < e->children.size(); i++)
-			{
-				ImGuiEntityDebug(e->children.at(i));
-			}
-			ImGui::EndMenu();
+			ImGuiEntityDebug(e->children.at(i));
 		}
-
-	
-
-	
-	
-	
-
+		ImGui::EndMenu();
+	}
 }
 
 void EditorPrototyping::uiBehaviour(float deltaTime)
@@ -132,6 +129,88 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 	if (ImGui::Begin("Editor Prototyping"))
 	{
 		ImGui::Text("Bingpot");
+
+		if(ImGui::TreeNode("Cyborg"))
+		{
+			if (ImGui::Button("Change Mesh Shape to Cube"))
+			{
+				auto c = cyborgEntity->children.at(0)->GetComponent<CollisionShapeComponent>();
+				c->createCubeShape();
+				c->updateRigidbodyShape();
+			}
+
+			if (ImGui::Button("Change Mesh Shape to Sphere"))
+			{
+				auto c = cyborgEntity->children.at(0)->GetComponent<CollisionShapeComponent>();
+				c->createSphereShape();
+				c->updateRigidbodyShape();
+			}
+
+			if (ImGui::Button("Change Mesh Shape to Capsule"))
+			{
+				auto c = cyborgEntity->children.at(0)->GetComponent<CollisionShapeComponent>();
+				c->createCapsuleShape();
+				c->updateRigidbodyShape();
+			}
+			if (ImGui::Button("Change Mesh Shape to Convex Hull"))
+			{
+				auto c = cyborgEntity->children.at(0)->GetComponent<CollisionShapeComponent>();
+				auto m = cyborgEntity->children.at(0)->GetComponent<MeshComponent>();
+				c->createConvexHullShape(m);
+				c->updateRigidbodyShape();
+			}
+
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("Level"))
+		{
+			if (ImGui::Button("Change Mesh Shape to Cube"))
+			{
+				for(int i = 0; i < levelEntity->children.size(); i++)
+				{
+					auto c = levelEntity->children.at(i)->GetComponent<CollisionShapeComponent>();
+					c->createCubeShape();
+					c->updateRigidbodyShape();
+				}
+				
+			}
+
+			if (ImGui::Button("Change Mesh Shape to Sphere"))
+			{
+				for (int i = 0; i < levelEntity->children.size(); i++)
+				{
+					auto c = levelEntity->children.at(i)->GetComponent<CollisionShapeComponent>();
+					c->createSphereShape();
+					c->updateRigidbodyShape();
+				}
+			}
+
+			if (ImGui::Button("Change Mesh Shape to Capsule"))
+			{
+				for (int i = 0; i < levelEntity->children.size(); i++)
+				{
+					auto c = levelEntity->children.at(i)->GetComponent<CollisionShapeComponent>();
+					c->createCapsuleShape();
+					c->updateRigidbodyShape();
+				}
+			}
+			if (ImGui::Button("Change Mesh Shape to Convex Hull"))
+			{
+
+				for (int i = 0; i < levelEntity->children.size(); i++)
+				{
+					auto c = levelEntity->children.at(i)->GetComponent<CollisionShapeComponent>();
+					auto m = levelEntity->children.at(i)->GetComponent<MeshComponent>();
+					c->createConvexHullShape(m);
+					c->updateRigidbodyShape();
+				}
+			}
+
+			ImGui::TreePop();
+		}
+
+
 	}
 	ImGui::End();
 

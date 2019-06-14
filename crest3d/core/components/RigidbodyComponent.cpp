@@ -39,6 +39,12 @@ void RigidbodyComponent::init()
 	physicsManager->addPhysicsEntity(attachedEntity);
 }
 
+void RigidbodyComponent::applyCentralForce(glm::vec3 force)
+{
+	rib->applyCentralForce(btVector3(force.x, force.y, force.z));
+}
+
+
 void RigidbodyComponent::start()
 {
 
@@ -98,42 +104,11 @@ void RigidbodyComponent::ui(float deltaTime)
 
 void RigidbodyComponent::changeCollisionShape(btCollisionShape* newShape)
 {
-	
+	rib->setCollisionShape(newShape);
 }
 
 
 void RigidbodyComponent::createConvexMeshShape()
 {
-//	auto meshComponent = attachedEntity->GetComponent<MeshComponent>();
-//
-//	if(meshComponent != nullptr)
-//	{
-//		int numFaces = meshComponent->mesh.hullIndices.size() / 3;
-//		int numVerts = meshComponent->mesh.hullVertexPositions.size() / 3;
-//
-//		polygonFaces = new rp3d::PolygonVertexArray::PolygonFace[numFaces];
-//
-//		face = polygonFaces;
-//		for (int f = 0; f < numFaces; f++) {
-//
-//			// First vertex of the face in the indices array 
-//			face->indexBase = f * 3;
-//
-//			// Number of vertices in the face 
-//			face->nbVertices = 3;
-//	
-//			face++;
-//		}
-//
-//		polygonVertexArray = new rp3d::PolygonVertexArray(numVerts, 
-//			&(meshComponent->mesh.hullVertexPositions[0]), 3 * sizeof(float),
-//			&(meshComponent->mesh.hullIndices[0]), sizeof(unsigned int), numFaces, polygonFaces,
-//			rp3d::PolygonVertexArray::VertexDataType::VERTEX_FLOAT_TYPE,
-//			rp3d::PolygonVertexArray::IndexDataType::INDEX_INTEGER_TYPE);
-//
-//		polyhedronMesh = new rp3d::PolyhedronMesh(polygonVertexArray);
-//
-//		rp3d::Vector3 scalingVec = rp3d::Vector3(4.0, 1.0, 4.0);
-//		changeCollisionShape(new rp3d::ConvexMeshShape(polyhedronMesh, scalingVec));
-//	}
+
 }

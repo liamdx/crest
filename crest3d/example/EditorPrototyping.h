@@ -17,6 +17,9 @@ public:
 
 
 private:
+
+	std::shared_ptr<RigidbodyComponent> cyborgRib;
+
 	std::shared_ptr<PhysicsManager> pm;
 	std::shared_ptr<Scene> scene;
 	std::shared_ptr<InputManager> input;

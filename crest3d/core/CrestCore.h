@@ -23,4 +23,5 @@
 #include "components/ShaderComponent.h"
 #include "components/CameraComponent.h"
 #include "components/RigidbodyComponent.h"
+#include "components/CollisionShapeComponent.h"
 #include "components/CameraControllerComponent.h"

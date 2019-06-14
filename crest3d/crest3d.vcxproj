@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
+    <ClCompile Include="core\components\CollisionShapeComponent.cpp" />
     <ClCompile Include="core\components\DebugComponent.cpp" />
     <ClCompile Include="core\components\MeshComponent.cpp">
       <SubType>

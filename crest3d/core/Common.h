@@ -37,7 +37,8 @@
 
 //physics lib (g'doy)
 #include "btBulletDynamicsCommon.h"
-
+#include "btBulletCollisionCommon.h"
+#include "BulletCollision/CollisionShapes/btShapeHull.h"
 // from github, used to generate convex hull for meshes
 #include "quickhull/QuickHull.hpp"
 

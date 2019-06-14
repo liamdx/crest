@@ -30,6 +30,8 @@ public:
 	void changeCollisionShape(btCollisionShape* newShape);
 	void createConvexMeshShape();
 
+	void applyCentralForce(glm::vec3 force);
+
 	//shape functionality pls
 	inline float getMass() { return mass; }
 	inline void setMass(float newMass) { mass = newMass; rib->setMassProps(newMass, btVector3(0, 0, 0)); }

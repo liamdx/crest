@@ -6,7 +6,7 @@ class CollisionShapeComponent : public EngineComponent
 {
 public:
 
-	CollisionShapeComponent();
+	CollisionShapeComponent(std::shared_ptr<Entity> e) { attachedEntity = e; rib = e->GetComponent<RigidbodyComponent>(); }
 	~CollisionShapeComponent() override {};
 
 	std::shared_ptr<btCollisionShape> getShape() { return shape; }
@@ -17,7 +17,9 @@ public:
 	void createSphereShape();
 	void createCapsuleShape();
 	void createCubeShape();
-	void createConvexHullShape();
+	void createConvexHullShape(std::shared_ptr<MeshComponent> meshComponent);
+
+	void updateRigidbodyShape();
 
 	// this one may take a bit longer;
 	void createMeshShape();
@@ -26,6 +28,13 @@ public:
 
 private:
 	std::shared_ptr<btCollisionShape> shape;
+	std::shared_ptr<RigidbodyComponent> rib;
 	glm::vec3 scale;
 
+
+
+	// convex hull stuff
+	std::unique_ptr<btShapeHull> shapeHull;
+	std::unique_ptr<btConvexHullShape> convexHullShape;
+	std::vector<btVector3> getConvexHullMeshPoints(Mesh mesh);
 };

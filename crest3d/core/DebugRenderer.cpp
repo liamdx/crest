@@ -46,7 +46,7 @@ void DebugRenderer::bindBuffers()
 
 void DebugRenderer::doDraw()
 {
-	glClear(GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_LINE_SMOOTH);
 	glLineWidth(2.0);
 	glBindVertexArray(vao);
