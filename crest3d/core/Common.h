@@ -31,16 +31,18 @@
 #include "ext/glm/gtx/string_cast.hpp"
 
 #include "ext/imgui/imgui.h"
-#include "ext/imgui/imgui_impl_glfw_gl3.h"
-#include "ext/imgui/imgui_internal.h"
 #include "ext/imgui/imconfig.h"
+
+
+#define IMGUI_IMPL_OPENGL_LOADER_GLEW
+#include "ext/imgui/imgui_impl_glfw.h"
+#include "ext/imgui/imgui_impl_opengl3.h"
 
 //physics lib (g'doy)
 #include "btBulletDynamicsCommon.h"
 #include "btBulletCollisionCommon.h"
 #include "BulletCollision/CollisionShapes/btShapeHull.h"
-// from github, used to generate convex hull for meshes
-#include "quickhull/QuickHull.hpp"
+
 
 
 //camera stuff
