@@ -114,13 +114,13 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 
 void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
-	if(ImGui::BeginMenu(e->name.c_str()))
+	if(ImGui::TreeNode(e->name.c_str()))
 	{
 		for (int i = 0; i < e->children.size(); i++)
 		{
 			ImGuiEntityDebug(e->children.at(i));
 		}
-		ImGui::EndMenu();
+		ImGui::TreePop();
 	}
 }
 

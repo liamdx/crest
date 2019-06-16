@@ -138,14 +138,23 @@ std::shared_ptr<Entity> Scene::AddMeshEntity(Mesh mesh)
 	return e;
 }
 
+std::shared_ptr<Entity> Scene::AddMeshEntity(Mesh mesh, std::string name)
+{
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(name.c_str(), physicsManager));
+	e->AddComponent(new MeshComponent(e, mesh));
+	e->AddComponent(new ShaderComponent(e));
+	return e;
+}
+
+
 std::shared_ptr<Entity> Scene::AddModelEntity(Model model)
 {
 	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	e->name = "modelRoot";
+	e->name = model.name;
 
 	for(int i = 0; i < model.meshes.size(); i++)
 	{
-		std::shared_ptr<Entity> newE = AddMeshEntity(model.meshes.at(i));
+		std::shared_ptr<Entity> newE = AddMeshEntity(model.meshes.at(i), std::to_string(i));
 		newE->transform->parent = e->transform;
 		e->children.emplace_back(newE);
 	}

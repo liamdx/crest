@@ -23,7 +23,7 @@ void CollisionShapeComponent::createConvexHullShape(std::shared_ptr<MeshComponen
 	for (int i = 0; i < mesh.vertices.size(); i++)
 	{
 		btVector3 point = btVector3(mesh.vertices.at(i).position.x, mesh.vertices.at(i).position.y, mesh.vertices.at(i).position.z);
-		_convexHullShape->addPoint(point, false);
+		_convexHullShape->addPoint(point, true);
 	}
 
 	_convexHullShape->recalcLocalAabb();
@@ -32,7 +32,7 @@ void CollisionShapeComponent::createConvexHullShape(std::shared_ptr<MeshComponen
 	convexHullShape = std::unique_ptr<btConvexHullShape>(new btConvexHullShape(
 		(const btScalar*)shapeHull->getVertexPointer(), shapeHull->numVertices(), sizeof(btVector3)));
 	shape = std::shared_ptr<btCollisionShape>(convexHullShape.get());
-	
+	delete _convexHullShape;
 }
 
 

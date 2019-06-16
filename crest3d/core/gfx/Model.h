@@ -23,6 +23,7 @@ public:
 
 	std::string directory;
 	std::string path;
+	std::string name;
 
 	void loadModel(std::string _path);
 	static void processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity>);

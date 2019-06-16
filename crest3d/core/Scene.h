@@ -17,6 +17,7 @@ public:
 	std::shared_ptr<Entity> AddEntity();	
 	std::shared_ptr<Entity> AddCameraEntity();
 	std::shared_ptr<Entity> AddMeshEntity(Mesh mesh);
+	std::shared_ptr<Entity> AddMeshEntity(Mesh mesh, std::string name);
 	std::shared_ptr<Entity> AddModelEntity(Model model);
 
 
