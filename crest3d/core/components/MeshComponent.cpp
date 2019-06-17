@@ -2,7 +2,6 @@
 
 void MeshComponent::init() {
 	shader = attachedEntity->GetComponent<ShaderComponent>();
-	meshIsConvex = isConvex(mesh.getVertexPositions(), mesh.indices, 0.001);
 	shouldDraw = true;
 }
 

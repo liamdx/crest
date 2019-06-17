@@ -41,10 +41,12 @@ int main() {
 
 	// ok to start doing stuff with the opengl window & context
 
+	
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 14.0f);
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -61,6 +63,8 @@ int main() {
 		style.WindowRounding = 0.2f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
+
+	SetImGuiStyle();
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -120,7 +124,7 @@ int main() {
 		mainFB.finishDrawing();
 
 
-		if(ImGui::Begin("Scene Window", NULL, ImVec2(0,0),0,ImGuiWindowFlags_NoMove))
+		if(ImGui::Begin("Scene Window", NULL, ImVec2(0,0)))
 		{
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImVec2 pos = ImGui::GetCursorScreenPos();
@@ -135,7 +139,7 @@ int main() {
 			}
 
 			ImGui::GetWindowDrawList()->AddImage(
-				(void *)mainFB.GetDepthTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
 			lastWindowWidth = dWidth;
@@ -144,6 +148,16 @@ int main() {
 			
 		}
 		ImGui::End();
+
+		if (ImGui::Begin("Depth Window", NULL, ImVec2(0, 0)))
+		{
+			ImGui::GetWindowDrawList()->AddImage(
+				(void *)mainFB.GetDepthTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
+
+		}
+		ImGui::End();
+
 		example.uiBehaviour(deltaTime);
 
 

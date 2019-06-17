@@ -78,8 +78,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)/bin/$(Platform)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)/bin/intermediates/$(Platform)/$(Configuration)/</IntDir>
-    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -121,7 +121,7 @@
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DebugInformationFormat>None</DebugInformationFormat>
       <ShowIncludes>false</ShowIncludes>
-      <EnablePREfast>true</EnablePREfast>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

@@ -33,9 +33,6 @@
     <ClCompile Include="core\ext\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\ext\imgui\imgui_impl_glfw_gl3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\ext\imgui\ImGuiFileDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -570,9 +567,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imgui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\ext\imgui\imgui_impl_glfw_gl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imgui_internal.h">
