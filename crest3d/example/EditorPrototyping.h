@@ -15,6 +15,8 @@ public:
 	void renderBehaviour(float deltaTime) override;
 	void uiBehaviour(float deltaTime) override;
 
+	// use with caution!
+	inline std::shared_ptr<Scene> getScene() { return std::shared_ptr<Scene>(scene); }
 
 private:
 

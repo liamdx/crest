@@ -55,22 +55,3 @@ private:
 
 	unsigned int vao, vbo;
 };
-
-//class debugQuad
-//{
-//public:
-//	debugQuad();
-//	~debugQuad();
-//
-//	void Draw(Shader shader, const char* uniformName, unsigned int textureLocation);
-//
-//	enum quadLocation {
-//		BL = 0, 
-//		TL = 1,
-//		TR = 2,
-//		BR = 3
-//	};
-//	unsigned int vao, vbo;
-//
-//	std::vector<float> getVertices(quadLocation screenLocation);
-//};

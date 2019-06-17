@@ -128,7 +128,11 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 {
 	if (ImGui::Begin("Editor Prototyping"))
 	{
-		ImGui::Text("Bingpot");
+		if (ImGui::Button("Debug Draw"))
+		{
+			bool shouldDebugRender = pm->debugRender;
+			pm->debugRender = !shouldDebugRender;
+		}
 
 		if(ImGui::TreeNode("Cyborg"))
 		{
@@ -210,15 +214,17 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			ImGui::TreePop();
 		}
 
+		if (ImGui::BeginChild("Hierarchy"))
+		{
+			ImGuiEntityDebug(scene->rootEntity);
+		}
+		 ImGui::EndChild();
+
 
 	}
 	ImGui::End();
 
-	if (ImGui::Begin("Hierarchy"))
-	{
-		ImGuiEntityDebug(scene->rootEntity);
-	}
-	ImGui::End();
+	
 
 	scene->uiBehaviour(deltaTime);
 }

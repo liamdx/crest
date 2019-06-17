@@ -80,6 +80,7 @@ screenQuad::screenQuad()
 }
 void screenQuad::Draw(Shader shader, const char* uniformName, unsigned int textureLocation)
 {
+	shader.use();
 	glActiveTexture(GL_TEXTURE0);
 	shader.setInt(uniformName, 0);
 	glBindTexture(GL_TEXTURE_2D, textureLocation);

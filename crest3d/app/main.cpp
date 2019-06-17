@@ -48,7 +48,7 @@ int main() {
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
 
@@ -82,6 +82,8 @@ int main() {
 	// Main Frame buffer set up
 	FrameBuffer mainFB;
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
 	example.startBehaviour();
 	//Mouse input handle
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -92,7 +94,7 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(1.0, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 
 		//Engine time
 		float currentFrame = glfwGetTime();
@@ -117,7 +119,8 @@ int main() {
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
-		if(ImGui::Begin("Scene Window"))
+
+		if(ImGui::Begin("Scene Window", NULL, ImVec2(0,0),0,ImGuiWindowFlags_NoMove))
 		{
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImVec2 pos = ImGui::GetCursorScreenPos();
@@ -127,18 +130,20 @@ int main() {
 			if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
 			{
 				mainFB.changeScreenSize(dWidth, dHeight);
+				glViewport(0, 0, dWidth, dHeight);
+				example.getScene()->sceneCamera->updateProjection(75.0f, dWidth, dHeight);
 			}
 
 			ImGui::GetWindowDrawList()->AddImage(
-				(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				(void *)mainFB.GetDepthTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
 			lastWindowWidth = dWidth;
 			lastWindowHeight = dHeight;
 
-			ImGui::End();
+			
 		}
-
+		ImGui::End();
 		example.uiBehaviour(deltaTime);
 
 
