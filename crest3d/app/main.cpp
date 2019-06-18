@@ -114,11 +114,12 @@ int main() {
 		
 		glCullFace(GL_BACK);
 		
-
-		mainFB.initForDrawing();
 		example.earlyUpdateBehaviour(deltaTime);
 
 		example.updateBehaviour(deltaTime);
+
+		mainFB.initForDrawing();
+
 
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
@@ -165,10 +166,6 @@ int main() {
 
 		// Rendering
 		ImGui::Render();
-		int display_w, display_h;
-		glfwGetFramebufferSize(window, &display_w, &display_h);
-		glViewport(0, 0, display_w, display_h);
-		glClear(GL_COLOR_BUFFER_BIT);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		// Update and Render additional Platform Windows
