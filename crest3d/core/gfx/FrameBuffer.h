@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Shader.h"
 class FrameBuffer
 {
 public:
@@ -15,13 +15,17 @@ public:
 	void finishDrawing();
 
 	inline int GetTexture() { return framebufferTexture; }
-	inline int GetDebugTexture() { return debugTexture; }
 	inline int GetDepthTexture() { return depthTexture; }
 	inline int GetFBO() { return fbo; }
 	inline int GetRBO() { return rbo; }
 
+	// Shader color = GL Texture Slot 7
+	void BindColorTexture(Shader shader);
+	// Shader depth = GL Texture Slot 8
+	void BindDepthTexture(Shader shader);
+
 private:
 	float screenWidth, screenHeight;
-	unsigned int fbo, rbo, framebufferTexture, depthTexture, debugTexture;
+	unsigned int fbo, rbo, framebufferTexture, depthTexture;
 
 };

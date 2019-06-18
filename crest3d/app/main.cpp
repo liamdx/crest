@@ -7,10 +7,10 @@ const float SCREEN_HEIGHT = 720.0;
 
 int main() {
 
-	std::cout << "Hello World!\n";
-
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
+	float exposure = 1.0f;
+	float gamma = 2.2f;
 
 	//DEBUG
 	int success;
@@ -83,10 +83,15 @@ int main() {
 	EditorPrototyping example(window);
 	example.initBehaviour();
 
+	// Framebuffer shader 
+	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
+	screenQuad renderQuad;
+
 	// Main Frame buffer set up
 	FrameBuffer mainFB;
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
-
+	FrameBuffer finalFB;
+	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	example.startBehaviour();
 	//Mouse input handle
@@ -111,19 +116,29 @@ int main() {
 		ImGui::NewFrame();
 
 		//Render scene normally
-		
-		glCullFace(GL_BACK);
-		
+		// glCullFace(GL_BACK);
+		// perform scene pre-render stuff
 		example.earlyUpdateBehaviour(deltaTime);
-
 		example.updateBehaviour(deltaTime);
-
+		// init framebuffer for drawing scene
 		mainFB.initForDrawing();
-
-
+		// draw everything in the scene
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
+
+		glDisable(GL_DEPTH_TEST);
+
+		finalFB.initForDrawing();
+
+		fbShader.use();
+		//fbShader.setFloat("exposure", exposure);
+		//fbShader.setFloat("gamma", gamma);
+		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetDepthTexture());
+
+		finalFB.finishDrawing();
+
+		glEnable(GL_DEPTH_TEST);
 
 		if(ImGui::Begin("Scene Window", NULL, ImVec2(0,0)))
 		{
@@ -131,7 +146,8 @@ int main() {
 			ImVec2 pos = ImGui::GetCursorScreenPos();
 			float dWidth = ImGui::GetWindowWidth();
 			float dHeight = ImGui::GetWindowHeight();
-
+			ImGui::SliderFloat("Exposure", &exposure, 0, 10);
+			ImGui::SliderFloat("Gamma", &gamma, 0, 10);
 			if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
 			{
 				mainFB.changeScreenSize(dWidth, dHeight);
@@ -150,10 +166,10 @@ int main() {
 		}
 		ImGui::End();
 
-		if (ImGui::Begin("Depth Window", NULL, ImVec2(0, 0)))
+		if (ImGui::Begin("Debug Window", NULL, ImVec2(0, 0)))
 		{
 			ImGui::GetWindowDrawList()->AddImage(
-				(void *)mainFB.GetDepthTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				(void *)finalFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
 		}

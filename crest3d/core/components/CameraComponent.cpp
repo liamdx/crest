@@ -6,7 +6,7 @@ CameraComponent::CameraComponent(std::shared_ptr<Entity> e)
 {
 	attachedEntity = e; 
 	name = "CameraComponent";
-	nearPlane = 0.001;
+	nearPlane = 0.5;
 	farPlane = 2000;
 	width = 1280;
 	height = 720;

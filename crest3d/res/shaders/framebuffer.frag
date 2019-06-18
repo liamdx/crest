@@ -1,15 +1,18 @@
-#version 440
 
+#version 330 core
 out vec4 FragColor;
-
+  
 in vec2 vTexCoords;
 
 uniform sampler2D screenTexture;
+uniform float exposure;
 uniform float gamma;
 
-const float offset = 1.0 / 300.0; 
+const float offset = 1.0 / 300.0;  
 
-vec2 offsets[9] = vec2[](
+void main()
+{
+    vec2 offsets[9] = vec2[](
         vec2(-offset,  offset), // top-left
         vec2( 0.0f,    offset), // top-center
         vec2( offset,  offset), // top-right
@@ -21,36 +24,26 @@ vec2 offsets[9] = vec2[](
         vec2( offset, -offset)  // bottom-right    
     );
 
-vec3 col = vec3(0.0);
-
-
-
-void main()
-{
-	//FragColor = texture(screenTexture, vTexCoords);
-
-	
-
-	float kernel[9] = float[] 
-    (0,0,0, 0,1,0, 0,0,0);
-
-    //float kernel[9] = float[](
-    //    -1, -1, -1,
-    //    -1,  9, -1,
-    //    -1, -1, -1
-    //);
+    float kernel[9] = float[](
+        -0, -0, -0,
+        -0,  1, -0,
+        -0, -0, -0
+    );
     
     vec3 sampleTex[9];
     for(int i = 0; i < 9; i++)
     {
         sampleTex[i] = vec3(texture(screenTexture, vTexCoords.st + offsets[i]));
     }
+    vec3 col = vec3(0.0);
     for(int i = 0; i < 9; i++)
         col += sampleTex[i] * kernel[i];
     
-    vec4 fragColor = vec4(col, 1.0);
 
-	FragColor.rgb = pow(fragColor.rgb, vec3(1.0/gamma));
-
-
-}
+    // reinhard tone mapping
+    vec3 mapped = vec3(1.0) - exp(-col * exposure);
+    // Gamma correction 
+    mapped = pow(mapped, vec3(1.0 / gamma));
+  
+    FragColor = vec4(mapped, 1.0);
+} 

@@ -173,7 +173,7 @@ Shader::Shader(const char* vertexPath, const char* geometryPath, const char* fra
 	if (!success)
 	{
 		glGetShaderInfoLog(geoId, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+		std::cout << "ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" << infoLog << std::endl;
 	};
 
 	//Shader program
