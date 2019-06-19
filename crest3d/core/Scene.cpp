@@ -100,6 +100,7 @@ void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 void Scene::renderBehaviour(float deltaTime)
 {
 	glm::mat4 view = sceneCamera->GetViewMatrix();
+	updateSceneLighting();
 	childRender(rootEntity, deltaTime, view);
 
 	physicsManager->setView(view);
@@ -172,4 +173,42 @@ void Scene::updateShaderProjections(std::shared_ptr<Entity> e)
 	{
 		updateShaderProjections(e->children.at(i));
 	}
+}
+
+void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
+{
+	std::shared_ptr<ShaderComponent> sc = e->GetComponent<ShaderComponent>();
+
+	if (sc != nullptr)
+		// do the lighting stuff
+		for(int i = 0; i < lightComponents.size(); i++)
+		{
+			lightComponents.at(i)->Bind(sc);
+		}
+
+	for (int i = 0; i < e->children.size(); i++)
+	{
+		updateShaderLightSources(e);
+	}
+}
+
+void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
+{
+	std::shared_ptr<LightComponent> lc = e->GetComponent<LightComponent>();
+
+	if (lc != nullptr)
+		// do the lighting stuff
+		lightComponents.emplace_back(lc);
+	for (int i = 0; i < e->children.size(); i++)
+	{
+		updateLightComponentsVector(e);
+	}
+	
+}
+
+void Scene::updateSceneLighting()
+{
+	lightComponents.clear();
+	updateLightComponentsVector(rootEntity);
+	updateShaderLightSources(rootEntity);
 }

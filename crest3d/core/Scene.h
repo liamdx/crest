@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Entity.h"
 #include "components/CameraComponent.h"
+#include "components/lighting/LightComponent.h"
 #include "gfx/Model.h"
 #include "PhysicsManager.h"
 
@@ -31,9 +32,13 @@ public:
 
 
 	void updateShaderProjections(std::shared_ptr<Entity> e);
+
+	// might move this to a lighting manager
+	std::vector<std::shared_ptr<LightComponent>> lightComponents;
+	void updateShaderLightSources(std::shared_ptr<Entity> e);
+	void updateSceneLighting();
 	std::shared_ptr<CameraComponent> sceneCamera;
-
 private:
-
+	void updateLightComponentsVector(std::shared_ptr<Entity> e);
 	
 };

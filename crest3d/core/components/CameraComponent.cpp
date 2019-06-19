@@ -6,8 +6,8 @@ CameraComponent::CameraComponent(std::shared_ptr<Entity> e)
 {
 	attachedEntity = e; 
 	name = "CameraComponent";
-	nearPlane = 0.5;
-	farPlane = 2000;
+	nearPlane = 0.1;
+	farPlane = 500;
 	width = 1280;
 	height = 720;
 	fov = 70;

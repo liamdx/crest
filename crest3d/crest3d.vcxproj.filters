@@ -117,6 +117,12 @@
     <ClCompile Include="core\ext\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\components\lighting\DirectionalLightComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\components\lighting\PointLightComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -729,6 +735,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\lighting\DirectionalLightComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\lighting\PointLightComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\lighting\LightComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

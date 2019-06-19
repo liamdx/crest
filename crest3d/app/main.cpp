@@ -9,8 +9,8 @@ int main() {
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
-	float exposure = 1.0f;
-	float gamma = 2.2f;
+	float exposure = 2.22f;
+	float gamma = 0.9f;
 
 	//DEBUG
 	int success;
@@ -84,12 +84,15 @@ int main() {
 	example.initBehaviour();
 
 	// Framebuffer shader 
-	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
+	Shader depthShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
+	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
 	screenQuad renderQuad;
 
 	// Main Frame buffer set up
 	FrameBuffer mainFB;
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
+	FrameBuffer depthFB;
+	depthFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
 	FrameBuffer finalFB;
 	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -130,13 +133,17 @@ int main() {
 		glDisable(GL_DEPTH_TEST);
 
 		finalFB.initForDrawing();
-
 		fbShader.use();
-		//fbShader.setFloat("exposure", exposure);
-		//fbShader.setFloat("gamma", gamma);
-		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetDepthTexture());
+		fbShader.setFloat("exposure", exposure);
+		fbShader.setFloat("gamma", gamma);
+		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetTexture());
 
 		finalFB.finishDrawing();
+
+		depthFB.initForDrawing();
+		depthShader.use();
+		renderQuad.Draw(depthShader, "screenTexture", mainFB.GetDepthTexture());
+		depthFB.finishDrawing();
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -166,7 +173,16 @@ int main() {
 		}
 		ImGui::End();
 
-		if (ImGui::Begin("Debug Window", NULL, ImVec2(0, 0)))
+		if (ImGui::Begin("Depth Window", NULL, ImVec2(0, 0)))
+		{
+			ImGui::GetWindowDrawList()->AddImage(
+				(void *)depthFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
+
+		}
+		ImGui::End();
+
+		if (ImGui::Begin("Final Window", NULL, ImVec2(0, 0)))
 		{
 			ImGui::GetWindowDrawList()->AddImage(
 				(void *)finalFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),

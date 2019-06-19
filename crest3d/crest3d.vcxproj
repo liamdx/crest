@@ -149,6 +149,8 @@
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
     <ClCompile Include="core\components\CollisionShapeComponent.cpp" />
     <ClCompile Include="core\components\DebugComponent.cpp" />
+    <ClCompile Include="core\components\lighting\DirectionalLightComponent.cpp" />
+    <ClCompile Include="core\components\lighting\PointLightComponent.cpp" />
     <ClCompile Include="core\components\MeshComponent.cpp">
       <SubType>
       </SubType>
@@ -191,6 +193,9 @@
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\CameraControllerComponent.h" />
     <ClInclude Include="core\components\CollisionShapeComponent.h" />
+    <ClInclude Include="core\components\lighting\DirectionalLightComponent.h" />
+    <ClInclude Include="core\components\lighting\LightComponent.h" />
+    <ClInclude Include="core\components\lighting\PointLightComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
