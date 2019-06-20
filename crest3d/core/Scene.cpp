@@ -194,7 +194,7 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 
 	for (int i = 0; i < e->children.size(); i++)
 	{
-		updateShaderLightSources(e);
+		updateShaderLightSources(e->children.at(i));
 	}
 }
 
@@ -204,15 +204,19 @@ void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 	{
 		if (e->components.at(i)->name == "DirectionalLightComponent")
 		{
-			DirectionalLightComponent* d = e->components.at(i).get();
-			dirLightComponent = e->components.at(i);
+			
+			dirLightComponent = std::shared_ptr<DirectionalLightComponent>(e->GetComponent<DirectionalLightComponent>());
 		}
 	}
 
-	for (int i = 0; i < e->children.size(); i++)
+	if(e->children.size() > 0)
 	{
-		updateLightComponentsVector(e->children.at(i));
+		for (int i = 0; i < e->children.size(); i++)
+		{
+			updateLightComponentsVector(e->children.at(i));
+		}
 	}
+	
 		
 }
 

@@ -17,8 +17,8 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 
 	Model m("res/models/cyborg/cyborg.obj");
+	// Model level("res/models/sponza/sponza.obj");
 	Model level("res/models/swamp/map_1.obj");
-
 	cyborgEntity = scene->AddModelEntity(m);
 	cyborgEntity->transform->addPosition(glm::vec3(0, 10, 0));
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
@@ -28,6 +28,7 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	}
 
 	levelEntity = scene->AddModelEntity(level);
+	levelEntity->transform->setScale(glm::vec3(0.1));
 	levelEntity->transform->addPosition(glm::vec3(0, -10, 0));
 	for (int i = 0; i < levelEntity->children.size(); i++)
 	{
@@ -97,7 +98,7 @@ void EditorPrototyping::updateBehaviour(float deltaTime)
 	scene->updateBehaviour(deltaTime);
 	if(input->GetKeyR())
 	{
-		cyborgRib->applyCentralForce(glm::vec3(0, 3000, 0));
+		cyborgRib->applyCentralForce(glm::vec3(0, 100, 0));
 	}
 }
 
