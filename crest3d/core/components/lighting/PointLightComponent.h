@@ -2,7 +2,7 @@
 #include "components/lighting/LightComponent.h"
 #include "components/ShaderComponent.h"
 
-class PointLightComponent : public LightComponent
+class PointLightComponent : public EngineComponent
 {
 public:
 
@@ -10,7 +10,7 @@ public:
 	PointLightComponent();
 	void intitalize(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
 	void Bind(std::shared_ptr<ShaderComponent> shader, unsigned int index);
-	void Bind(std::shared_ptr<ShaderComponent> shader) override;
+	void Bind(std::shared_ptr<ShaderComponent> shader) ;
 
 	inline void setAmbient(glm::vec3 newAmbient) { ambient = newAmbient; }
 	inline void setDiffuse(glm::vec3 newDiffuse) { diffuse = newDiffuse; }

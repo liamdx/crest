@@ -1,6 +1,6 @@
 #include "Scene.h"
 #include "components/MeshComponent.h"
-
+#include "components/lighting/DirectionalLightComponent.h"
 
 Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 {
@@ -162,6 +162,15 @@ std::shared_ptr<Entity> Scene::AddModelEntity(Model model)
 	return e;
 }
 
+std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
+{
+	std::shared_ptr<Entity> e = rootEntity->AddEntity();
+	e->name = "Directional Light";
+	e->AddComponent(new DirectionalLightComponent());
+	return(e);
+}
+
+
 void Scene::updateShaderProjections(std::shared_ptr<Entity> e)
 {
 	std::shared_ptr<ShaderComponent> sc = e->GetComponent<ShaderComponent>();
@@ -181,10 +190,7 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 
 	if (sc != nullptr)
 		// do the lighting stuff
-		for(int i = 0; i < lightComponents.size(); i++)
-		{
-			lightComponents.at(i)->Bind(sc);
-		}
+		dirLightComponent->Bind(sc);
 
 	for (int i = 0; i < e->children.size(); i++)
 	{
@@ -194,21 +200,24 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 
 void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 {
-	std::shared_ptr<LightComponent> lc = e->GetComponent<LightComponent>();
+	for(int i = 0; i < e->components.size(); i++)
+	{
+		if (e->components.at(i)->name == "DirectionalLightComponent")
+		{
+			DirectionalLightComponent* d = e->components.at(i).get();
+			dirLightComponent = e->components.at(i);
+		}
+	}
 
-	if (lc != nullptr)
-		// do the lighting stuff
-		lightComponents.emplace_back(lc);
 	for (int i = 0; i < e->children.size(); i++)
 	{
-		updateLightComponentsVector(e);
+		updateLightComponentsVector(e->children.at(i));
 	}
-	
+		
 }
 
 void Scene::updateSceneLighting()
 {
-	lightComponents.clear();
 	updateLightComponentsVector(rootEntity);
 	updateShaderLightSources(rootEntity);
 }

@@ -20,6 +20,7 @@ void DirectionalLightComponent::Bind(std::shared_ptr<ShaderComponent> shader)
 
 DirectionalLightComponent::DirectionalLightComponent(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
 {
+	name = "DirectionalLightComponent";
 	this->direction = direction;
 	this->ambient = ambient;
 	this->diffuse = diffuse;
@@ -28,8 +29,9 @@ DirectionalLightComponent::DirectionalLightComponent(glm::vec3 direction, glm::v
 
 DirectionalLightComponent::DirectionalLightComponent()
 {
-	this->direction = glm::vec3(0.0f);
+	name = "DirectionalLightComponent";
+	this->direction = glm::vec3(-1.0f);
 	this->ambient = glm::vec3(0.0f);
-	this->diffuse = glm::vec3(0.0f);
-	this->specular = glm::vec3(0.0f);
+	this->diffuse = glm::vec3(1.0f);
+	this->specular = glm::vec3(1.0f);
 }

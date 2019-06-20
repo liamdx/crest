@@ -44,11 +44,11 @@ public:
 		{
 			if(typeid(T) == typeid(*components.at(i)))
 			{
-				std::cout << "Found component: " << components.at(i)->name << std::endl;
+				//std::cout << "Found component: " << components.at(i)->name << std::endl;
 				return(std::static_pointer_cast<T>(components.at(i)));
 			}
 		}
-		std::cout << "component not found" << std::endl;
+		//std::cout << "component not found" << std::endl;
 		return nullptr;
 	}
 

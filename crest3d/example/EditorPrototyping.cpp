@@ -37,7 +37,7 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 	cyborgRib = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
 
-
+	scene->AddDirectionalLightEntity();
 
 }
 
