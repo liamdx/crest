@@ -75,7 +75,7 @@ void PhysicsManager::updateCollisionMeshes()
 
 		if(meshComponent != nullptr)
 		{
-			debugMeshes.emplace_back(Mesh(meshComponent->mesh.hullVertexPositions, meshComponent->mesh.hullIndices));
+			debugMeshes.emplace_back(Mesh(meshComponent->mesh->hullVertexPositions, meshComponent->mesh->hullIndices));
 		}
 
 	}

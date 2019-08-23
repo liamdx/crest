@@ -11,8 +11,10 @@ class TransformComponent : public EngineComponent
 public:
 	// FINAL transform
 	glm::vec3 position, eulerAngles, scale;
+	glm::quat rotation;
 	// local transform
 	glm::vec3 localPosition, localEulerAngles, localScale;
+	glm::quat localRotation;
 	// direction vectors
 	glm::vec3 forward, right, up;
 	//world directions
@@ -33,10 +35,12 @@ public:
 
 	inline glm::vec3 getPosition() { return position; };
 	inline glm::vec3 getEulerAngles() { return eulerAngles; };
+	inline glm::quat getRotation() { return rotation; }
 	inline glm::vec3 getScale() { return scale; };
 
 	inline glm::vec3 getLocalPosition() { return localPosition; };
 	inline glm::vec3 getLocalEulerAngles() { return localEulerAngles; };
+	inline glm::quat getLocalRotation() { return localRotation; }
 	inline glm::vec3 getLocalScale() { return localScale; };
 
 	inline glm::vec3 getForward() { return forward; }
@@ -69,4 +73,7 @@ private:
 	void updateDirectionVectors();
 	void clampRotation(float& value);
 	void clampEulerAngles(glm::vec3& v);
+
+	void updateRotation();
+	void updateEulerAngles();
 };

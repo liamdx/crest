@@ -19,10 +19,10 @@ void MeshComponent::update(float deltaTime) {
 
 void MeshComponent::render(float deltaTime, glm::mat4 view)
 {
-	if(shouldDraw)
+	/*if(shouldDraw)
 	{
 		draw(view);
-	}
+	}*/
 }
 
 
@@ -36,7 +36,16 @@ void MeshComponent::draw(glm::mat4 view)
 	shader->shader->use();
 	shader->setView(view);
 	shader->UpdateShader(attachedEntity->transform->getModelMatrix());
-	mesh.Draw(*shader->shader);
+	mesh->Draw(*shader->shader);
+}
+
+void MeshComponent::draw(glm::mat4 view, std::shared_ptr<ShaderComponent> _shader)
+{
+	attachedEntity->transform->updateModelMatrix();
+	// shader->shader->use();
+	// shader->setView(view);
+	_shader->UpdateModel(attachedEntity->transform->getModelMatrix());
+	mesh->Draw(_shader->shader);
 }
 
 bool MeshComponent::isConvex(std::vector<glm::vec3> points, std::vector<unsigned int> triangles, float threshold = 0.001)

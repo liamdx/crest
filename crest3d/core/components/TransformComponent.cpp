@@ -5,8 +5,10 @@ TransformComponent::TransformComponent()
 {
 	name = "TransformComponent";
 	parent = nullptr;
-	position = glm::vec3(0.0); eulerAngles = glm::vec3(0.01); scale = glm::vec3(1.0);
+	position = glm::vec3(0.0); eulerAngles = glm::vec3(0.0); scale = glm::vec3(1.0);
+	rotation = glm::quat(glm::radians(eulerAngles));
 	localPosition = glm::vec3(0.0); localEulerAngles = glm::vec3(0.0); localScale = glm::vec3(1.0);
+	localRotation = glm::quat(glm::radians(localEulerAngles));
 	forward = glm::vec3(0.0, 0.0, -1.0);
 	right = glm::vec3(1.0, 0.0, 0.0);
 	up = glm::vec3(0.0, 1.0, 0.0);
@@ -21,10 +23,12 @@ TransformComponent::TransformComponent()
 
 TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _parent)
 {
-	name = "TransformComponent";
 	parent = _parent;
-	localPosition = glm::vec3(0.0); localEulerAngles = glm::vec3(0.01); localScale = glm::vec3(1.0);
-	position = parent->position + localPosition; eulerAngles = parent->eulerAngles + localEulerAngles; scale = parent->scale + localScale;
+	name = "TransformComponent";
+	position = glm::vec3(0.0); eulerAngles = glm::vec3(0.0); scale = glm::vec3(1.0);
+	rotation = glm::quat(glm::radians(eulerAngles));
+	localPosition = glm::vec3(0.0); localEulerAngles = glm::vec3(0.0); localScale = glm::vec3(1.0);
+	localRotation = glm::quat(glm::radians(localEulerAngles));
 	forward = glm::vec3(0.0, 0.0, -1.0);
 	right = glm::vec3(1.0, 0.0, 0.0);
 	up = glm::vec3(0.0, 1.0, 0.0);
@@ -35,6 +39,7 @@ TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _pare
 	physicsOverride = false;
 	update(0.0);
 	updateModelMatrix();
+	
 }
 
 
@@ -49,14 +54,12 @@ void TransformComponent::setPosition(glm::vec3 newPosition)
 	{
 		position = parent->position + localPosition;
 	}
-	update(0.0f);
-	updateModelMatrix();
+
 }
 
 void TransformComponent::setPositionAbsolute(glm::vec3 newPosition)
 {
 	position = newPosition;
-	updateModelMatrix();
 }
 
 
@@ -71,8 +74,6 @@ void TransformComponent::addPosition(glm::vec3 newPosition)
 	{
 		position = parent->position + localPosition;
 	}
-	update(0.0f);
-	updateModelMatrix();
 }
 
 void TransformComponent::setEulerAngles(glm::vec3 newEulerAngles)
@@ -90,18 +91,16 @@ void TransformComponent::setEulerAngles(glm::vec3 newEulerAngles)
 	}
 
 	// eulerAngles = eulerAngles - lastEuler;
-
-	clampEulerAngles(eulerAngles);
+	updateRotation();
 	updateDirectionVectors();
-	update(0.0f);
-	updateModelMatrix();
+	clampEulerAngles(eulerAngles);
 }
 
 void TransformComponent::setEulerAnglesAbsolute(glm::vec3 newRotation)
 {
 	eulerAngles = newRotation;
-	update(0.0f);
-	updateModelMatrix();
+	updateRotation();
+	updateDirectionVectors();
 }
 
 
@@ -118,11 +117,21 @@ void TransformComponent::addEulerAngles(glm::vec3 newRotation)
 	}
 
 	clampEulerAngles(eulerAngles);
+	updateRotation();
 	updateDirectionVectors();
-	update(0.0f);
-	updateModelMatrix();
 }
 
+void TransformComponent::updateRotation()
+{
+	localRotation = glm::quat(glm::radians(localEulerAngles));
+	rotation = glm::quat(glm::radians(eulerAngles));
+}
+
+void TransformComponent::updateEulerAngles()
+{
+	localEulerAngles = glm::eulerAngles(localRotation);
+	eulerAngles = glm::eulerAngles(rotation);
+}
 
 void TransformComponent::clampEulerAngles(glm::vec3& v)
 {
@@ -154,16 +163,13 @@ void TransformComponent::setScale(glm::vec3 newScale)
 	}
 	else
 	{
-		scale = parent->scale + localScale;
+		scale = glm::vec3(parent->scale.x * localScale.x, parent->scale.y * localScale.y, parent->scale.z * localScale.z);
 	}
-	update(0.0f);
-	updateModelMatrix();
 }
 
 void TransformComponent::setScaleAbsolute(glm::vec3 newScale)
 {
 	scale = newScale;
-	updateModelMatrix();
 }
 
 
@@ -176,18 +182,16 @@ void TransformComponent::addScale(glm::vec3 newScale)
 	}
 	else
 	{
-		scale = parent->scale + localScale;
+		scale = glm::vec3(parent->scale.x * localScale.x, parent->scale.y * localScale.y, parent->scale.z * localScale.z);
 	}
-	update(0.0f);
-	updateModelMatrix();
 }
 
 void TransformComponent::updateModelMatrix()
 {
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, position);
-	model = glm::rotate(model, glm::radians(glm::length(eulerAngles)), glm::normalize(eulerAngles));
+	model = glm::mat4(1.0);
 	model = glm::scale(model, scale);
+	model = model * glm::toMat4(rotation);
+	model = glm::translate(model, position);
 }
 
 
@@ -205,38 +209,22 @@ void TransformComponent::updateDirectionVectors()
 
 void TransformComponent::update(float deltaTime)
 {
-	if (!physicsOverride)
-	{
+	//if (!physicsOverride)
+	//{
 		if (parent == nullptr)
 		{
 			position = localPosition;
-		}
-		else
-		{
-			position = parent->position + localPosition;
-		}
-
-
-		if (parent == nullptr)
-		{
 			eulerAngles = localEulerAngles;
-		}
-		else
-		{
-			eulerAngles = parent->eulerAngles + localEulerAngles;
-		}
-
-
-		if (parent == nullptr)
-		{
 			scale = localScale;
 		}
 		else
 		{
-			scale = parent->scale + localScale;
+			position = parent->localPosition + localPosition;
+			eulerAngles = parent->localEulerAngles + localEulerAngles;
+			scale = parent->localScale * localScale;
 		}
 		updateModelMatrix();
-	}
+	//}
 		
 	
 }

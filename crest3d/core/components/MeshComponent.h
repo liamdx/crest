@@ -7,8 +7,8 @@
 
 class MeshComponent : public EngineComponent
 {
-public: 
-	MeshComponent(std::shared_ptr<Entity> e, Mesh newMesh) : mesh(newMesh) { name = "MeshComponent"; attachedEntity = std::shared_ptr<Entity>(e); };
+public:;
+	   MeshComponent(std::shared_ptr<Entity> e, std::shared_ptr<Mesh> newMesh) { name = "MeshComponent"; attachedEntity = std::shared_ptr<Entity>(e); mesh = newMesh; };
 
 	void init() override;
 	void start() override;
@@ -16,14 +16,15 @@ public:
 	void update(float deltaTime) override;
 	void render(float deltaTime, glm::mat4 view) override;
 	void ui(float deltaTime) override;
-
+	void draw(glm::mat4 view, std::shared_ptr<ShaderComponent> _shader);
 	void setShouldDraw(bool newValue) { shouldDraw = newValue; }
 	bool meshIsConvex;
-	Mesh mesh;
+	std::shared_ptr<Mesh> mesh;
 private:
 
 	bool shouldDraw;
 	void draw(glm::mat4 view);
+	
 	std::shared_ptr<ShaderComponent> shader;
 
 	bool isConvex(std::vector<glm::vec3> points, std::vector<unsigned int> triangles, float threshold);

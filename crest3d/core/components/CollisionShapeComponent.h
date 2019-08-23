@@ -36,5 +36,5 @@ private:
 	// convex hull stuff
 	std::unique_ptr<btShapeHull> shapeHull;
 	std::unique_ptr<btConvexHullShape> convexHullShape;
-	std::vector<btVector3> getConvexHullMeshPoints(Mesh mesh);
+	std::vector<btVector3> getConvexHullMeshPoints(std::shared_ptr<Mesh> mesh);
 };

@@ -22,7 +22,7 @@ void Model::processNode(aiNode *node, const aiScene *scene)
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh(mesh, scene));
+		meshes.push_back(processMesh2(mesh, scene));
 	}
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
@@ -113,6 +113,91 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	}
 
 	return Mesh(vertices, indices, textures,faces);
+}
+
+std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, const aiScene *scene)
+{
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
+	std::vector<Face> faces;
+	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+	{
+		//vertex
+		Vertex vert;
+		vert.position.x = mesh->mVertices[i].x;
+		vert.position.y = mesh->mVertices[i].y;
+		vert.position.z = mesh->mVertices[i].z;
+
+		if (mesh->HasNormals())
+		{
+			vert.normal.x = mesh->mNormals[i].x;
+			vert.normal.y = mesh->mNormals[i].y;
+			vert.normal.z = mesh->mNormals[i].z;
+		}
+
+		if (mesh->HasTangentsAndBitangents())
+		{
+
+			vert.tangent.x = mesh->mTangents[i].x;
+			vert.tangent.y = mesh->mTangents[i].y;
+			vert.tangent.z = mesh->mTangents[i].z;
+
+		}
+		else {
+			vert.tangent = glm::vec3(0.0f);
+		}
+
+		if (mesh->mTextureCoords[0])
+		{
+			vert.TexCoords.x = mesh->mTextureCoords[0][i].x;
+			vert.TexCoords.y = mesh->mTextureCoords[0][i].y;
+		}
+		else {
+			vert.TexCoords = glm::vec2(0.0f);
+		}
+
+		vertices.push_back(vert);
+
+	}
+
+	//indices 
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+	{
+		aiFace face = mesh->mFaces[i];
+		Face _face;
+		_face.numIndices = face.mNumIndices;
+
+		for (unsigned int k = 0; k < face.mNumIndices; k++)
+		{
+			_face.indices.emplace_back(face.mIndices[k]);
+			indices.push_back(face.mIndices[k]);
+		}
+		faces.push_back(_face);
+	}
+
+	//material
+	if (mesh->mMaterialIndex >= 0)
+	{
+		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "diffuse");
+		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+
+
+		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
+		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
+		//Assimp throws issues when importing reflection maps correctly, nano model stores 
+		//Reflection maps as ambient maps, this will obviously need corrected when PBR is implemented
+		std::vector<Texture> reflectionMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "reflection");
+		textures.insert(textures.end(), reflectionMaps.begin(), reflectionMaps.end());
+
+
+		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "normal");
+		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+	}
+
+	return std::shared_ptr<Mesh>(new Mesh(vertices, indices, textures, faces));
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)

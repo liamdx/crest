@@ -20,9 +20,9 @@ void CollisionShapeComponent::createConvexHullShape(std::shared_ptr<MeshComponen
 	auto points = getConvexHullMeshPoints(meshComponent->mesh);
 	auto mesh = meshComponent->mesh;
 	btConvexHullShape* _convexHullShape = new btConvexHullShape();
-	for (int i = 0; i < mesh.vertices.size(); i++)
+	for (int i = 0; i < mesh->vertices.size(); i++)
 	{
-		btVector3 point = btVector3(mesh.vertices.at(i).position.x, mesh.vertices.at(i).position.y, mesh.vertices.at(i).position.z);
+		btVector3 point = btVector3(mesh->vertices.at(i).position.x, mesh->vertices.at(i).position.y, mesh->vertices.at(i).position.z);
 		_convexHullShape->addPoint(point, false);
 	}
 
@@ -46,13 +46,13 @@ void CollisionShapeComponent::updateRigidbodyShape()
 
 // private smaller funcs
 
-std::vector<btVector3> CollisionShapeComponent::getConvexHullMeshPoints(Mesh mesh)
+std::vector<btVector3> CollisionShapeComponent::getConvexHullMeshPoints(std::shared_ptr<Mesh> mesh)
 {
 	std::vector<btVector3> points;
 
-	for(int i = 0; i < mesh.vertices.size(); i++)
+	for(int i = 0; i < mesh->vertices.size(); i++)
 	{
-		btVector3 point = btVector3(mesh.vertices.at(i).position.x, mesh.vertices.at(i).position.x, mesh.vertices.at(i).position.x);
+		btVector3 point = btVector3(mesh->vertices.at(i).position.x, mesh->vertices.at(i).position.x, mesh->vertices.at(i).position.x);
 	}
 
 	return points;

@@ -69,22 +69,10 @@
     <ClCompile Include="core\components\MeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="example\SimpleExample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\components\CameraComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="example\EmptyExample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="example\PhysicsExample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\components\CameraControllerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="example\SoundExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\ext\quickhull\QuickHull.cpp">
@@ -638,16 +626,10 @@
     <ClInclude Include="core\CrestCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="example\Example.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\components\MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="example\SimpleExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\components\ShaderComponent.h">
@@ -659,16 +641,7 @@
     <ClInclude Include="core\components\CameraComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="example\EmptyExample.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="example\PhysicsExample.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\components\CameraControllerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="example\SoundExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\quickhull\Structs\Mesh.hpp">

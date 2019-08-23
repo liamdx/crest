@@ -6,6 +6,7 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 {
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
+	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL));
 }
 
 
@@ -103,6 +104,17 @@ void Scene::renderBehaviour(float deltaTime)
 	updateSceneLighting();
 	childRender(rootEntity, deltaTime, view);
 
+
+	defaultShader->shader->use();
+	defaultShader->setProjection(sceneCamera->GetProjectionMatrix());
+	defaultShader->setView(view);
+	defaultShader->UpdateShader(view);
+	dirLightComponent->Bind(defaultShader);
+	for (std::shared_ptr<MeshComponent> mesh : meshes)
+	{
+		mesh->draw(view, defaultShader);
+	}
+
 	physicsManager->setView(view);
 	physicsManager->setProjection(sceneCamera->GetProjectionMatrix());
 	physicsManager->render(deltaTime);
@@ -131,31 +143,36 @@ std::shared_ptr<Entity> Scene::AddCameraEntity()
 }
 
 
-std::shared_ptr<Entity> Scene::AddMeshEntity(Mesh mesh)
+std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 {
 	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity", physicsManager));
 	e->AddComponent(new MeshComponent(e, mesh));
-	e->AddComponent(new ShaderComponent(e));
 	return e;
 }
 
-std::shared_ptr<Entity> Scene::AddMeshEntity(Mesh mesh, std::string name)
+std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name)
 {
 	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(name.c_str(), physicsManager));
 	e->AddComponent(new MeshComponent(e, mesh));
-	e->AddComponent(new ShaderComponent(e));
+
+	auto mc = e->GetComponent<MeshComponent>();
+	if(mc != nullptr)
+	{
+		meshes.emplace_back(e->GetComponent<MeshComponent>());
+	}
+
 	return e;
 }
 
 
-std::shared_ptr<Entity> Scene::AddModelEntity(Model model)
+std::shared_ptr<Entity> Scene::AddModelEntity(std::shared_ptr<Model> model)
 {
 	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	e->name = model.name;
+	e->name = model->name;
 
-	for(int i = 0; i < model.meshes.size(); i++)
+	for(int i = 0; i < model->meshes.size(); i++)
 	{
-		std::shared_ptr<Entity> newE = AddMeshEntity(model.meshes.at(i), std::to_string(i));
+		std::shared_ptr<Entity> newE = AddMeshEntity(model->meshes.at(i), std::to_string(i));
 		newE->transform->parent = e->transform;
 		e->children.emplace_back(newE);
 	}

@@ -25,11 +25,15 @@ public:
 		shader->setMat4("projection", projection);
 	}
 
+	inline void UpdateModel(glm::mat4 modelMatrix)
+	{
+		shader->setMat4("model", modelMatrix);
+	}
+
 	~ShaderComponent() override {};
 	std::shared_ptr<Shader> shader;
 	inline void setView(glm::mat4 _view) { view = _view; }
 	inline void setProjection(glm::mat4 _projection) { projection = _projection; }
-
 private:
 	glm::mat4 view;
 	glm::mat4 projection;

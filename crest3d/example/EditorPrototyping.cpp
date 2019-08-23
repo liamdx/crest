@@ -16,11 +16,13 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	levelPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 
-	Model m("res/models/cyborg/cyborg.obj");
-	// Model level("res/models/sponza/sponza.obj");
-	Model level("res/models/swamp/map_1.obj");
+	auto m = std::make_shared<Model>("res/models/cyborg/cyborg.obj");
+	auto level = std::make_shared<Model>("res/models/swamp/map_1.obj");
+	//auto level = std::make_shared<Model>("res/models/sponza/sponza.obj");
+
 	cyborgEntity = scene->AddModelEntity(m);
-	cyborgEntity->transform->addPosition(glm::vec3(0, 10, 0));
+	cyborgEntity->transform->addPosition(glm::vec3(0, 90, 0));
+	cyborgEntity->transform->addScale(glm::vec3(3.0));
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
@@ -28,17 +30,17 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	}
 
 	levelEntity = scene->AddModelEntity(level);
-	levelEntity->transform->setScale(glm::vec3(0.1));
-	levelEntity->transform->addPosition(glm::vec3(0, -10, 0));
-	for (int i = 0; i < levelEntity->children.size(); i++)
+	//levelEntity->transform->setScale(glm::vec3(0.01, 0.01, 0.01));
+	levelEntity->transform->addPosition(glm::vec3(0, 0, 0));
+	/*for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
 		levelEntity->children.at(i)->AddComponent(new CollisionShapeComponent(levelEntity->children.at(i)));
-	}
+	}*/
 
 	cyborgRib = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
 
-	scene->AddDirectionalLightEntity();
+	dirLight = scene->AddDirectionalLightEntity();
 
 }
 
@@ -46,39 +48,25 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 void EditorPrototyping::initBehaviour()
 {
-	//temporarily initialise everything her
+	// temporarily initialise everything her
 	cameraEntity = scene->AddCameraEntity();
 	cameraEntity->AddComponent(new CameraControllerComponent(cameraEntity, input));
 	std::shared_ptr<CameraControllerComponent> camController = cameraEntity->GetComponent<CameraControllerComponent>();
 	camController->window = window;
-
 	cam = cameraEntity->GetComponent<CameraComponent>();
-
-
-	//rp3d::Transform initPhysicsT = rp3d::Transform::identity();
-	//initPhysicsT.setPosition(rp3d::Vector3(0, -25, 0));
-	//initPhysicsT.setOrientation(rp3d::Quaternion::identity());
-
-	// e = std::shared_ptr<ProxyShape>(debugRib->addCollisionShape(new rp3d::BoxShape(Vector3(1000.0f, 2.0f, 1000.0f)), initPhysicsT, 5.0));
-
 	scene->initBehaviour();
-	//cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>()->createConvexMeshShape();
-
 }
 
 void EditorPrototyping::startBehaviour()
 {
-	for (int i = 0; i < levelEntity->children.size(); i++)
-	{
-		auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
-		rib->setMass(0.0f);
-		//	rib->rib->setType(BodyType::KINEMATIC);
-		//	auto ribTransform = rib->rib->getTransform();
-	}
-
-
+	//for (int i = 0; i < levelEntity->children.size(); i++)
+	//{
+	//	auto rib = levelEntity->children.at(i)->GetComponent<RigidbodyComponent>();
+	//	rib->setMass(0.0f);
+	//	// rib->rib->setType(BodyType::KINEMATIC);
+	//	// auto ribTransform = rib->rib->getTransform();
+	//}
 	scene->startBehaviour();
-
 	cubemapShader->use();
 	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 }

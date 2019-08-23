@@ -121,6 +121,105 @@ void Mesh::Draw(Shader shader)
 
 }
 
+void Mesh::Draw(std::shared_ptr<Shader> shader)
+{
+	int diffuseCount = 0;
+	int specularCount = 0;
+	int reflectionCount = 0;
+	int normalCount = 0;
+
+
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		if (textures[i].t_Type == "diffuse")
+		{
+			shader->setInt("mat.m_Diffuse", i);
+			diffuseCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+		else if (textures[i].t_Type == "specular")
+		{
+			shader->setInt("mat.m_Specular", i);
+			specularCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+		else if (textures[i].t_Type == "reflection")
+		{
+			shader->setInt("mat.m_Reflection", i);
+			reflectionCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+
+		else if (textures[i].t_Type == "normal")
+		{
+			shader->setInt("mat.m_Normal", i);
+			normalCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+	}
+
+	glBindVertexArray(vao);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	for (int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+	glBindVertexArray(0);
+
+}
+
+
+void Mesh::Draw(Shader* shader)
+{
+	int diffuseCount = 0;
+	int specularCount = 0;
+	int reflectionCount = 0;
+	int normalCount = 0;
+
+
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		if (textures[i].t_Type == "diffuse")
+		{
+			shader->setInt("mat.m_Diffuse", i);
+			diffuseCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+		else if (textures[i].t_Type == "specular")
+		{
+			shader->setInt("mat.m_Specular", i);
+			specularCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+		else if (textures[i].t_Type == "reflection")
+		{
+			shader->setInt("mat.m_Reflection", i);
+			reflectionCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+
+		else if (textures[i].t_Type == "normal")
+		{
+			shader->setInt("mat.m_Normal", i);
+			normalCount += 1;
+			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		}
+	}
+
+	glBindVertexArray(vao);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	for (int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+	glBindVertexArray(0);
+
+}
+
 void Mesh::TestDraw(Shader shader)
 {
 	glBindVertexArray(vao);

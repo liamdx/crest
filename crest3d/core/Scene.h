@@ -18,9 +18,9 @@ public:
 
 	std::shared_ptr<Entity> AddEntity();	
 	std::shared_ptr<Entity> AddCameraEntity();
-	std::shared_ptr<Entity> AddMeshEntity(Mesh mesh);
-	std::shared_ptr<Entity> AddMeshEntity(Mesh mesh, std::string name);
-	std::shared_ptr<Entity> AddModelEntity(Model model);
+	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh);
+	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);
+	std::shared_ptr<Entity> AddModelEntity(std::shared_ptr<Model> model);
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
 
 
@@ -39,6 +39,10 @@ public:
 	void updateShaderLightSources(std::shared_ptr<Entity> e);
 	void updateSceneLighting();
 	std::shared_ptr<CameraComponent> sceneCamera;
+
+	// helping to make stuff more SIMD freindly
+	std::vector<std::shared_ptr<MeshComponent>> meshes;
+	std::shared_ptr<ShaderComponent> defaultShader;
 
 	// lighting stuff
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;

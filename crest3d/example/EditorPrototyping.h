@@ -31,6 +31,7 @@ private:
 	std::shared_ptr<Entity> levelEntity;
 	std::shared_ptr<Entity> cyborgEntity;
 	std::shared_ptr<Entity> cameraEntity;
+	std::shared_ptr<Entity> dirLight;
 
 	ImVec4 levelPosition;
 	ImVec4 levelRotation;

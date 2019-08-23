@@ -52,6 +52,8 @@ public:
 
 	Mesh(std::vector<float> vertexPositions, std::vector<unsigned int> indices);
 	void Draw(Shader shader);
+	void Draw(std::shared_ptr<Shader> shader);
+	void Draw(Shader* shader);
 	void TestDraw(Shader shader);
 	void calcMeshBounds();
 	//physics position;

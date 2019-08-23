@@ -31,8 +31,8 @@ DirectionalLightComponent::DirectionalLightComponent(glm::vec3 direction, glm::v
 DirectionalLightComponent::DirectionalLightComponent()
 {
 	name = "DirectionalLightComponent";
-	this->direction = glm::vec3(-0.5f);
-	this->ambient = glm::vec3(0.0f);
-	this->diffuse = glm::vec3(0.7f);
-	this->specular = glm::vec3(0.1f);
+	this->direction = glm::vec3(1.0f);
+	this->ambient = glm::vec3(0.2f);
+	this->diffuse = glm::vec3(1.0f);
+	this->specular = glm::vec3(0.2f);
 }
