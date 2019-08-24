@@ -3,7 +3,7 @@
 void Entity::AddComponent(EngineComponent* newComponent)
 {
 	bool canEmplace = true;
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		if (components[i]->name == newComponent->name)
 		{
@@ -24,7 +24,7 @@ void Entity::AddComponent(EngineComponent* newComponent)
 
 void Entity::initBehaviour()
 {
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->init();
 	}
@@ -32,7 +32,7 @@ void Entity::initBehaviour()
 
 void Entity::startBehaviour()
 {
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->start();
 	}
@@ -40,7 +40,7 @@ void Entity::startBehaviour()
 
 void Entity::earlyUpdateBehaviour(float deltaTime)
 {
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->earlyUpdate(deltaTime);
 	}
@@ -48,7 +48,7 @@ void Entity::earlyUpdateBehaviour(float deltaTime)
 
 void Entity::fixedUpdateBehaviour()
 {
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->fixedUpdate();
 	}
@@ -58,7 +58,7 @@ void Entity::fixedUpdateBehaviour()
 void Entity::updateBehaviour(float deltaTime)
 {
 	transform->update(deltaTime);
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->update(deltaTime);
 	}
@@ -67,7 +67,7 @@ void Entity::updateBehaviour(float deltaTime)
 
 void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
 {
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->render(deltaTime, view);
 	}
@@ -76,7 +76,7 @@ void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
 
 void Entity::uiBehaviour(float deltaTime)
 {
-	for (int i = 0; i < components.size(); i++)
+	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->ui(deltaTime);
 	}
@@ -88,7 +88,7 @@ std::shared_ptr<Entity> Entity::AddEntity()
 	return(children.at(children.size() - 1));
 }
 
-std::shared_ptr<Entity> Entity::GetChild(int index)
+std::shared_ptr<Entity> Entity::GetChild(unsigned int index)
 {
 	if (index <= (children.size() - 1))
 	{
@@ -101,7 +101,7 @@ std::shared_ptr<Entity> Entity::GetChild(int index)
 
 std::shared_ptr<Entity> Entity::GetChild(const char* name)
 {
-	for(int i =0; i < children.size(); i++)
+	for(unsigned int i =0; i < children.size(); i++)
 	{
 		if (children.at(i)->name == name)
 		{

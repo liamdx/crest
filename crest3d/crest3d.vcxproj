@@ -90,10 +90,13 @@
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/bullet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <SupportJustMyCode>false</SupportJustMyCode>
       <ShowIncludes>false</ShowIncludes>
       <EnablePREfast>true</EnablePREfast>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <EnableModules>true</EnableModules>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -158,10 +161,10 @@
     <ClCompile Include="core\components\RigidbodyComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
     <ClCompile Include="core\DebugRenderer.cpp" />
+    <ClCompile Include="core\ext\imgui\auto\auto.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="core\ext\quickhull\QuickHull.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
     <ClCompile Include="core\ext\glm\detail\glm.cpp" />
@@ -180,9 +183,11 @@
     <ClCompile Include="core\gfx\Shader.cpp" />
     <ClCompile Include="core\Scene.cpp" />
     <ClCompile Include="example\EditorPrototyping.cpp" />
+    <ClCompile Include="core\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\IApp.h" />
+    <ClInclude Include="core\AssetManager.h" />
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\CameraControllerComponent.h" />
     <ClInclude Include="core\components\CollisionShapeComponent.h" />
@@ -194,22 +199,50 @@
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
     <ClInclude Include="core\DebugRenderer.h" />
+    <ClInclude Include="core\ext\imgui\auto.h" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\cast_to_layout_compatible.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\config.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\core14.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\core14_classic.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\core14_loophole.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\core17.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\core17_generated.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\detectors.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\fields_count.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\for_each_field_impl.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\functional.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\io.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\make_flat_tuple_of_references.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\offset_based_getter.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\rvalue_t.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\sequence_tuple.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\size_array.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\stdtuple.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\core.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\functions_for.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\functors.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\global_ops.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\io.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\ops.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\flat\tuple_size.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\core.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\functions_for.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\functors.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\global_ops.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\io.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\ops.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\boost\pfr\precise\tuple_size.hpp" />
+    <ClInclude Include="core\ext\imgui\auto\core.h" />
+    <ClInclude Include="core\ext\imgui\auto\impl_base.h" />
+    <ClInclude Include="core\ext\imgui\auto\impl_glm.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_glfw.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="core\ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="core\ext\imgui\imstb_textedit.h" />
     <ClInclude Include="core\ext\imgui\imstb_truetype.h" />
-    <ClInclude Include="core\ext\quickhull\ConvexHull.hpp" />
-    <ClInclude Include="core\ext\quickhull\HalfEdgeMesh.hpp" />
-    <ClInclude Include="core\ext\quickhull\MathUtils.hpp" />
-    <ClInclude Include="core\ext\quickhull\QuickHull.hpp" />
-    <ClInclude Include="core\ext\quickhull\Structs\Mesh.hpp" />
-    <ClInclude Include="core\ext\quickhull\Structs\Plane.hpp" />
-    <ClInclude Include="core\ext\quickhull\Structs\Pool.hpp" />
-    <ClInclude Include="core\ext\quickhull\Structs\Ray.hpp" />
-    <ClInclude Include="core\ext\quickhull\Structs\Vector3.hpp" />
-    <ClInclude Include="core\ext\quickhull\Structs\VertexDataSource.hpp" />
-    <ClInclude Include="core\ext\quickhull\Types.hpp" />
     <ClInclude Include="core\gfx\Camera.h" />
     <ClInclude Include="core\Common.h" />
     <ClInclude Include="core\components\DebugComponent.h" />
@@ -382,8 +415,8 @@
     <ClInclude Include="core\primitives\Quad.h" />
     <ClInclude Include="core\gfx\Shader.h" />
     <ClInclude Include="core\Scene.h" />
-    <ClInclude Include="core\SceneManager.h" />
     <ClInclude Include="example\EditorPrototyping.h" />
+    <ClInclude Include="core\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl" />

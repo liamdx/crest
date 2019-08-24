@@ -3,6 +3,7 @@
 
 void RigidbodyComponent::init()
 {
+	enabled = true;
 	mass = 4.0f;
 	mass = 4.0f;
 	physicsManager = attachedEntity->physicsManager;
@@ -52,7 +53,9 @@ void RigidbodyComponent::start()
 
 void RigidbodyComponent::earlyUpdate(float deltaTime)
 {
-	if (rib && rib->getMotionState())
+	if (enabled)
+	{
+		if (rib && rib->getMotionState())
 	{
 		rib->getMotionState()->getWorldTransform(trans);
 	}
@@ -78,6 +81,8 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 
 	transform->setPositionAbsolute(newPosition);
 	transform->setEulerAnglesAbsolute(newRotation);
+	}
+	
 }
 
 void RigidbodyComponent::update(float deltaTime)
@@ -88,7 +93,7 @@ void RigidbodyComponent::update(float deltaTime)
 
 void RigidbodyComponent::fixedUpdate()
 {
-	
+	//rib->updateInertiaTensor();
 }
 
 
@@ -102,9 +107,10 @@ void RigidbodyComponent::ui(float deltaTime)
 	
 }
 
-void RigidbodyComponent::changeCollisionShape(btCollisionShape* newShape)
+void RigidbodyComponent::changeCollisionShape(std::shared_ptr<btCollisionShape> newShape)
 {
-	rib->setCollisionShape(newShape);
+	rib->setCollisionShape(newShape.get());
+	shape = newShape;
 }
 
 

@@ -1,6 +1,11 @@
 #pragma once
 
 //core libs
+
+//#define _CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
+
 #include "math.h"
 #include <iostream>
 #include <string>
@@ -15,7 +20,6 @@
 #include <typeinfo>
 
 //external dependencies
-//#include "yse.hpp"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include "ext/stb_image/stb_image.h"
@@ -32,6 +36,7 @@
 
 
 #include "ext/imgui/imgui.h"
+#include "ext/imgui/auto.h"
 #include "ext/imgui/imconfig.h"
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 #include "ext/imgui/imgui_impl_glfw.h"

@@ -14,6 +14,7 @@
 
 #include "Entity.h"
 #include "Scene.h"
+#include  "AssetManager.h"
 
 // the components <3
 #include "components/EngineComponent.h"

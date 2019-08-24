@@ -27,7 +27,7 @@ public:
 	std::shared_ptr<PhysicsManager> physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
-	void changeCollisionShape(btCollisionShape* newShape);
+	void changeCollisionShape(std::shared_ptr<btCollisionShape> newShape);
 	void createConvexMeshShape();
 
 	void applyCentralForce(glm::vec3 force);
@@ -35,6 +35,7 @@ public:
 	//shape functionality pls
 	inline float getMass() { return mass; }
 	inline void setMass(float newMass) { mass = newMass; rib->setMassProps(newMass, btVector3(0, 0, 0)); }
+	bool enabled;
 
 
 private:

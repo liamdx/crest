@@ -7,6 +7,7 @@ const float SCREEN_HEIGHT = 720.0;
 
 int main() {
 
+	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
 	float exposure = 2.22f;
@@ -215,4 +216,6 @@ int main() {
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
+
+	// _CrtDumpMemoryLeaks();
 }

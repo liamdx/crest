@@ -110,6 +110,7 @@ void Scene::renderBehaviour(float deltaTime)
 	defaultShader->setView(view);
 	defaultShader->UpdateShader(view);
 	dirLightComponent->Bind(defaultShader);
+
 	for (std::shared_ptr<MeshComponent> mesh : meshes)
 	{
 		mesh->draw(view, defaultShader);
@@ -183,7 +184,7 @@ std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
 {
 	std::shared_ptr<Entity> e = rootEntity->AddEntity();
 	e->name = "Directional Light";
-	e->AddComponent(new DirectionalLightComponent());
+	e->AddComponent(new DirectionalLightComponent(e));
 	return(e);
 }
 

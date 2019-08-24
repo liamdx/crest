@@ -53,7 +53,7 @@ public:
 	}
 
 	std::shared_ptr<Entity> AddEntity();
-	std::shared_ptr<Entity> GetChild(int index);
+	std::shared_ptr<Entity> GetChild(unsigned int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
 
 	std::shared_ptr<PhysicsManager> physicsManager;

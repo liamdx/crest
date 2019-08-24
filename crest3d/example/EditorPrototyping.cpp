@@ -17,12 +17,12 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 
 	auto m = std::make_shared<Model>("res/models/cyborg/cyborg.obj");
-	auto level = std::make_shared<Model>("res/models/swamp/map_1.obj");
-	//auto level = std::make_shared<Model>("res/models/sponza/sponza.obj");
+	//auto level = std::make_shared<Model>("res/models/swamp/map_1.obj");
+	auto level = std::make_shared<Model>("res/models/sponza/sponza.obj");
 
 	cyborgEntity = scene->AddModelEntity(m);
-	cyborgEntity->transform->addPosition(glm::vec3(0, 90, 0));
-	cyborgEntity->transform->addScale(glm::vec3(3.0));
+	cyborgEntity->transform->addPosition(glm::vec3(0, 0, 0));
+	// cyborgEntity->transform->addScale(glm::vec3(3.0));
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
 		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
@@ -30,8 +30,8 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	}
 
 	levelEntity = scene->AddModelEntity(level);
-	//levelEntity->transform->setScale(glm::vec3(0.01, 0.01, 0.01));
-	levelEntity->transform->addPosition(glm::vec3(0, 0, 0));
+	levelEntity->transform->setScale(glm::vec3(0.01, 0.01, 0.01));
+	levelEntity->transform->addPosition(glm::vec3(0, -10, 0));
 	/*for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
@@ -41,6 +41,7 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	cyborgRib = cyborgEntity->children.at(0)->GetComponent<RigidbodyComponent>();
 
 	dirLight = scene->AddDirectionalLightEntity();
+	dirLightComponent = dirLight->GetComponent<DirectionalLightComponent>();
 
 }
 
@@ -84,7 +85,7 @@ void EditorPrototyping::fixedUpdateBehaviour()
 void EditorPrototyping::updateBehaviour(float deltaTime)
 {
 	scene->updateBehaviour(deltaTime);
-	if(input->GetKeyR())
+	if (input->GetKeyR())
 	{
 		cyborgRib->applyCentralForce(glm::vec3(0, 100, 0));
 	}
@@ -115,7 +116,7 @@ void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 
 void EditorPrototyping::uiBehaviour(float deltaTime)
 {
-	if (ImGui::Begin("Editor Prototyping"))
+	if (ImGui::Begin("Editor Prototyping", NULL, ImGuiWindowFlags_NoMove));
 	{
 		if (ImGui::Button("Debug Draw"))
 		{
@@ -123,8 +124,18 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			pm->debugRender = !shouldDebugRender;
 		}
 
+		if (ImGui::Begin("Directional Light"))
+		{
+			ImGui::Auto(dirLightComponent->direction, "Direction");
+			ImGui::Auto(dirLightComponent->diffuse, "Diffuse");
+			ImGui::Auto(dirLightComponent->ambient, "Ambient");
+			ImGui::Auto(dirLightComponent->specular, "Specular");
+		}
+		ImGui::End();
+
 		if(ImGui::TreeNode("Cyborg"))
 		{
+			// ImGui::Auto(cyborgEntity->transform->position, "Cyborg Position");
 			if (ImGui::Button("Change Mesh Shape to Cube"))
 			{
 				auto c = cyborgEntity->children.at(0)->GetComponent<CollisionShapeComponent>();
@@ -158,6 +169,9 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 
 		if (ImGui::TreeNode("Level"))
 		{
+			ImGui::Auto(levelEntity->transform->localPosition, "Level Position");
+			ImGui::Auto(levelEntity->transform->localEulerAngles, "Level Rotation");
+			ImGui::Auto(levelEntity->transform->localScale, "Level Scale");
 			if (ImGui::Button("Change Mesh Shape to Cube"))
 			{
 				for(int i = 0; i < levelEntity->children.size(); i++)

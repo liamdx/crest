@@ -16,18 +16,32 @@ public:
 		shader = std::shared_ptr<Shader>(new Shader(vertexPath, fragPath));
     	view = glm::mat4(1.0);
 		projection = glm::mat4(1.0);
+
+		modelId = shader->getMat4Location("model");
+		viewId = shader->getMat4Location("view");
+		projectionId = shader->getMat4Location("projection");
 	};
 
 	inline void UpdateShader(glm::mat4 modelMatrix)
 	{
-		shader->setMat4("model", modelMatrix);
-		shader->setMat4("view", view);
-		shader->setMat4("projection", projection);
+		shader->setMat4ID(modelId, modelMatrix);
+		shader->setMat4ID(viewId, view);
+		shader->setMat4ID(projectionId, projection);
 	}
 
 	inline void UpdateModel(glm::mat4 modelMatrix)
 	{
-		shader->setMat4("model", modelMatrix);
+		shader->setMat4ID(modelId, modelMatrix);
+	}
+
+	inline void UpdateView(glm::mat4 viewMatrix)
+	{
+		shader->setMat4ID(viewId, viewMatrix);
+	}
+
+	inline void UpdateProjection(glm::mat4 projectionMatrix)
+	{
+		shader->setMat4ID(projectionId, projectionMatrix);
 	}
 
 	~ShaderComponent() override {};
@@ -38,4 +52,5 @@ private:
 	glm::mat4 view;
 	glm::mat4 projection;
 	std::string _vertexPath, _fragPath;
+	unsigned int modelId, projectionId, viewId;
 };

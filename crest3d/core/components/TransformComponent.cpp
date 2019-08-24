@@ -211,20 +211,55 @@ void TransformComponent::update(float deltaTime)
 {
 	//if (!physicsOverride)
 	//{
+	updateRotation();
+
 		if (parent == nullptr)
 		{
 			position = localPosition;
 			eulerAngles = localEulerAngles;
 			scale = localScale;
+			prevPosition = position;
+			prevEulerAngles = eulerAngles;
+			prevRotation = rotation;
+			prevScale = scale;
 		}
 		else
 		{
 			position = parent->localPosition + localPosition;
 			eulerAngles = parent->localEulerAngles + localEulerAngles;
 			scale = parent->localScale * localScale;
+			prevPosition = position;
+			prevEulerAngles = eulerAngles;
+			prevRotation = rotation;
+			prevScale = scale;
 		}
-		updateModelMatrix();
+
+		if (shouldUpdateModel())
+		{
+			updateModelMatrix();
+		}
 	//}
-		
-	
+}
+
+bool TransformComponent::shouldUpdateModel()
+{
+	if (position != prevPosition)
+	{
+		return true;
+	}
+	else if (rotation != prevRotation)
+	{
+		return true;
+	}
+	else if (eulerAngles != prevEulerAngles)
+	{
+		return true;
+	}
+	else if (scale != prevScale)
+	{
+		return true;
+	}
+
+	return false;
+
 }

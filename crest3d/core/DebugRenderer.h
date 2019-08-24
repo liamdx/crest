@@ -32,11 +32,11 @@ public:
 
 	GLuint vao, vbo[2];
 
-	virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& color) ;
+	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color) override;
 	void draw3dText(const btVector3& location, const char* textString) override;
 	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) override;
-	virtual void setDebugMode(int debugMode);
-	virtual int getDebugMode() const;
+	virtual void setDebugMode(int debugMode) override;
+	virtual int getDebugMode() const override;
 	void drawTriangle(const btVector3& v0, const btVector3& v1, const btVector3& v2, const btVector3& color, btScalar) override;
 
 	void reportErrorWarning(const char* warningString) override;
@@ -44,7 +44,5 @@ public:
 	void doDraw();
 
 	private:
-	GLuint VBO, VAO;
-	glm::mat4 model, view, projection;
 	int _debugMode;
 };
