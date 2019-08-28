@@ -53,8 +53,10 @@ IMGUI_AUTO_DEFINE_INLINE(template<>, char* const,		const char* tmp = var; ImGui:
 IMGUI_AUTO_DEFINE_INLINE(template<>, const char* const,	const char* tmp = var; ImGui::Auto_t<const char*>::Auto(tmp, name);)
 IMGUI_AUTO_DEFINE_BEGIN(template<>, std::string)
 	const std::size_t lines = var.find('\n');
-	if (var.find('\n') != std::string::npos)	ImGui::InputTextMultiline(name.c_str(), var.data(), sizeof(var));
-	else									    ImGui::InputText(name.c_str(), var.data(), sizeof(var));
+	char* cstr = new char[var.length() + 1];
+	strcpy(cstr, var.c_str());
+	if (var.find('\n') != std::string::npos)	ImGui::InputTextMultiline(name.c_str(), cstr, sizeof(var));
+	else									    ImGui::InputText(name.c_str(), cstr, sizeof(var));
 IMGUI_AUTO_DEFINE_END
 IMGUI_AUTO_DEFINE_BEGIN(template<>, const std::string)
 	if(name.empty())	ImGui::TextUnformatted(var.c_str(), var.c_str()+var.length());

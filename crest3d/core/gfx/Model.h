@@ -4,6 +4,7 @@
 #include "assimp\Importer.hpp"
 #include "assimp\scene.h"
 #include "assimp\postprocess.h"
+#include "assimp/cimport.h"
 #include "Entity.h"
 
 class Model {
@@ -29,8 +30,10 @@ public:
 	static void processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity>);
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
-	std::shared_ptr<Mesh> processMesh2(aiMesh *mesh, const aiScene *scene);
+	std::shared_ptr<Mesh> processMesh2(aiMesh *mesh, aiNode* node,  const aiScene *scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 
 	static std::shared_ptr<Entity> loadModelAsEntity(std::string path);
+
+	aiMatrix4x4 currentTransformation;
 };

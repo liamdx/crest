@@ -1,25 +1,23 @@
 #pragma once
 #include "gfx/Model.h";
 
+template<typename  T>
+struct Asset
+{
+	std::string assetPath;
+	std::shared_ptr<T> asset;
+};
 
-static class AssetManager
+
+class AssetManager
 {
 public:
 
-	template<typename  T>
-	struct Asset
-	{
-		std::string assetPath;
-		std::shared_ptr<T> asset;
-	};
+	AssetManager() {};
+	~AssetManager() {};
 	
-	~AssetManager() = default;
+	std::vector<std::shared_ptr<Asset<Model>>> modelAssets;
+	std::vector<std::shared_ptr<Asset<Texture>>> textureAssets;
 
-	std::vector<Asset<Model>> modelAssets;
-
-
-	
-
-private:
-	
+	std::shared_ptr<Asset<Model>> loadModelAsset(const char* path);
 };

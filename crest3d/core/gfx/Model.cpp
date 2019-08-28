@@ -3,7 +3,14 @@
 void Model::loadModel(std::string _path)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(_path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
+	const aiScene *scene = importer.ReadFile(_path, aiProcess_Triangulate | 
+		aiProcess_FlipUVs | 
+		aiProcess_CalcTangentSpace | 
+		aiProcess_GenSmoothNormals | 
+		aiProcess_OptimizeMeshes | 
+		aiProcess_RemoveRedundantMaterials |
+		aiProcess_GlobalScale);
+	
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
@@ -13,16 +20,21 @@ void Model::loadModel(std::string _path)
 	directory = path.substr(0, path.find_last_of('/'));
 	name = path.substr(path.find_last_of('/') + 1, path.find_last_of('.') - 1);
 	std::cout << directory << std::endl;
-
 	processNode(scene->mRootNode, scene);
+
+	std::cout << "done" << std::endl;
 }
 
 void Model::processNode(aiNode *node, const aiScene *scene)
 {
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
+		// node->mTransformation->
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh2(mesh, scene));
+		// node->mTransformation->
+		// node->mTransformation->
+		
+		meshes.push_back(processMesh2(mesh, node, scene));
 	}
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
@@ -36,14 +48,19 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 	std::vector<Face> faces;
+
+	aiMatrix4x4 inv = currentTransformation.Inverse();
+	
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
+		aiVector3D pos = mesh->mVertices[i];
+		aiTransformVecByMatrix4(&pos, &inv);
 		//vertex
 		Vertex vert;
-		vert.position.x = mesh->mVertices[i].x;
-		vert.position.y = mesh->mVertices[i].y;
-		vert.position.z = mesh->mVertices[i].z;
-
+		vert.position.x = pos.x;
+		vert.position.y = pos.y;
+		vert.position.z = pos.z;
+		
 		if (mesh->HasNormals())
 		{
 			vert.normal.x = mesh->mNormals[i].x;
@@ -115,19 +132,30 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	return Mesh(vertices, indices, textures,faces);
 }
 
-std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, const aiScene *scene)
+std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, aiNode* node, const aiScene *scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 	std::vector<Face> faces;
+
+
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		//vertex
+		aiVector3D pos = mesh->mVertices[i];
+		aiTransformVecByMatrix4(&pos, &node->mTransformation.Inverse());
+
 		Vertex vert;
+		/*
 		vert.position.x = mesh->mVertices[i].x;
 		vert.position.y = mesh->mVertices[i].y;
 		vert.position.z = mesh->mVertices[i].z;
+		*/
+
+		vert.position.x = pos.x;
+		vert.position.y = pos.y;
+		vert.position.z = pos.z;
 
 		if (mesh->HasNormals())
 		{

@@ -3,6 +3,7 @@
 EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 {
 	pm = std::shared_ptr<PhysicsManager>(new PhysicsManager());
+	am = std::make_shared<AssetManager>();
 	window = std::shared_ptr<GLFWwindow>(_window);
 	scene = std::shared_ptr<Scene>(new Scene("debugScene", pm));
 	input = std::shared_ptr<InputManager>(new InputManager(_window));
@@ -16,11 +17,11 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	levelPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 
-	auto m = std::make_shared<Model>("res/models/cyborg/cyborg.obj");
-	//auto level = std::make_shared<Model>("res/models/swamp/map_1.obj");
-	auto level = std::make_shared<Model>("res/models/sponza/sponza.obj");
+	auto m = am->loadModelAsset("res/models/cyborg/cyborg.obj");
+	auto level = am->loadModelAsset("res/models/swamp/map_1.obj");
+	// auto level = am->loadModelAsset("res/models/sponza/sponza.obj");
 
-	cyborgEntity = scene->AddModelEntity(m);
+	cyborgEntity = scene->AddModelEntity(m->asset);
 	cyborgEntity->transform->addPosition(glm::vec3(0, 0, 0));
 	// cyborgEntity->transform->addScale(glm::vec3(3.0));
 	for (int i = 0; i < cyborgEntity->children.size(); i++)
@@ -29,8 +30,8 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 		cyborgEntity->children.at(i)->AddComponent(new CollisionShapeComponent(cyborgEntity->children.at(i)));
 	}
 
-	levelEntity = scene->AddModelEntity(level);
-	levelEntity->transform->setScale(glm::vec3(0.01, 0.01, 0.01));
+	levelEntity = scene->AddModelEntity(level->asset);
+	// levelEntity->transform->setScale(glm::vec3(0.01, 0.01, 0.01));
 	levelEntity->transform->addPosition(glm::vec3(0, -10, 0));
 	/*for (int i = 0; i < levelEntity->children.size(); i++)
 	{
@@ -106,6 +107,12 @@ void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
 	if(ImGui::TreeNode(e->name.c_str()))
 	{
+		if(e->GetComponent<MeshComponent>() != nullptr)
+		{
+			auto mc = e->GetComponent<MeshComponent>();
+			ImGui::Auto(mc->shouldDraw, "Draw Mesh");
+		}
+		
 		for (int i = 0; i < e->children.size(); i++)
 		{
 			ImGuiEntityDebug(e->children.at(i));
@@ -118,6 +125,7 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 {
 	if (ImGui::Begin("Editor Prototyping", NULL, ImGuiWindowFlags_NoMove));
 	{
+		
 		if (ImGui::Button("Debug Draw"))
 		{
 			bool shouldDebugRender = pm->debugRender;

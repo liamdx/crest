@@ -111,7 +111,7 @@
     <ClCompile Include="core\ext\imgui\auto\auto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\stdafx.cpp">
+    <ClCompile Include="core\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -801,9 +801,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\auto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\AssetManager.h">

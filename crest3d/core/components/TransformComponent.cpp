@@ -211,13 +211,18 @@ void TransformComponent::update(float deltaTime)
 {
 	//if (!physicsOverride)
 	//{
-	updateRotation();
 
 		if (parent == nullptr)
 		{
 			position = localPosition;
 			eulerAngles = localEulerAngles;
 			scale = localScale;
+			if (shouldUpdateModel())
+			{
+				updateModelMatrix();
+			}
+
+			updateRotation();
 			prevPosition = position;
 			prevEulerAngles = eulerAngles;
 			prevRotation = rotation;
@@ -228,16 +233,19 @@ void TransformComponent::update(float deltaTime)
 			position = parent->localPosition + localPosition;
 			eulerAngles = parent->localEulerAngles + localEulerAngles;
 			scale = parent->localScale * localScale;
+
+			if (shouldUpdateModel())
+			{
+				updateModelMatrix();
+			}
+			updateRotation();
 			prevPosition = position;
 			prevEulerAngles = eulerAngles;
 			prevRotation = rotation;
 			prevScale = scale;
 		}
 
-		if (shouldUpdateModel())
-		{
-			updateModelMatrix();
-		}
+		
 	//}
 }
 

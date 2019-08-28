@@ -84,6 +84,8 @@ int main() {
 	EditorPrototyping example(window);
 	example.initBehaviour();
 
+	
+
 	// Framebuffer shader 
 	Shader depthShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
 	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
@@ -120,7 +122,7 @@ int main() {
 		ImGui::NewFrame();
 
 		//Render scene normally
-		// glCullFace(GL_BACK);
+		glCullFace(GL_BACK);
 		// perform scene pre-render stuff
 		example.earlyUpdateBehaviour(deltaTime);
 		example.updateBehaviour(deltaTime);

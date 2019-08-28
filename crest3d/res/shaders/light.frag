@@ -83,9 +83,6 @@ vec3 calcDirLight(DirLight dirLight, vec3 normal, vec3 fragPosition, vec3 viewDi
 
 
 	vec4 diffuse_texture = texture(mat.m_Diffuse, vTexCoords);
-	
-	if(diffuse_texture.a < 0.1)
-		discard;
 
 	ambient = dirLight.ambient * vec3(diffuse_texture);
 	diffuse = dirLight.diffuse * diff * vec3(diffuse_texture);

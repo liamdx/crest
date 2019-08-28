@@ -20,9 +20,10 @@ public:;
 	void setShouldDraw(bool newValue) { shouldDraw = newValue; }
 	bool meshIsConvex;
 	std::shared_ptr<Mesh> mesh;
+	bool shouldDraw;
 private:
 
-	bool shouldDraw;
+	
 	void draw(glm::mat4 view);
 	
 	std::shared_ptr<ShaderComponent> shader;

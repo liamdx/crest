@@ -7,6 +7,7 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
 	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL));
+	DEBUG_SPHERE_RADIUS = 1.0f;
 }
 
 
@@ -104,13 +105,26 @@ void Scene::renderBehaviour(float deltaTime)
 	updateSceneLighting();
 	childRender(rootEntity, deltaTime, view);
 
-
+	sceneCamera->MakeFrustum();
 	defaultShader->shader->use();
 	defaultShader->setProjection(sceneCamera->GetProjectionMatrix());
 	defaultShader->setView(view);
 	defaultShader->UpdateShader(view);
 	dirLightComponent->Bind(defaultShader);
 
+	//// separate frustum check from mesh drawing, fix this
+	//for (std::shared_ptr<MeshComponent> mesh : meshes)
+	//{
+	//	if (sceneCamera->checkPoint(mesh->attachedEntity->transform->position))
+	//	{
+	//		mesh->shouldDraw = true;
+	//	}
+	//	else
+	//	{
+	//		mesh->shouldDraw = false;
+	//	}
+	//}
+	//
 	for (std::shared_ptr<MeshComponent> mesh : meshes)
 	{
 		mesh->draw(view, defaultShader);

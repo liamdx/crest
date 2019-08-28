@@ -90,7 +90,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/bullet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <SupportJustMyCode>false</SupportJustMyCode>
       <ShowIncludes>false</ShowIncludes>
       <EnablePREfast>true</EnablePREfast>
@@ -125,6 +125,7 @@
       <DebugInformationFormat>None</DebugInformationFormat>
       <ShowIncludes>false</ShowIncludes>
       <EnablePREfast>false</EnablePREfast>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -148,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\AssetManager.cpp" />
     <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
     <ClCompile Include="core\components\CollisionShapeComponent.cpp" />
@@ -183,7 +185,6 @@
     <ClCompile Include="core\gfx\Shader.cpp" />
     <ClCompile Include="core\Scene.cpp" />
     <ClCompile Include="example\EditorPrototyping.cpp" />
-    <ClCompile Include="core\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\IApp.h" />
@@ -416,7 +417,6 @@
     <ClInclude Include="core\gfx\Shader.h" />
     <ClInclude Include="core\Scene.h" />
     <ClInclude Include="example\EditorPrototyping.h" />
-    <ClInclude Include="core\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl" />

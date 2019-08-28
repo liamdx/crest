@@ -39,7 +39,7 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 	}
 	if(input->GetKeyLeftShift())
 	{
-		movementSpeed = initMoveSpeed * 3.0f;
+		movementSpeed = initMoveSpeed * 6.0f;
 	}
 	else
 	{

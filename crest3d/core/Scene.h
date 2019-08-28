@@ -48,6 +48,7 @@ public:
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
 	std::vector <std::shared_ptr<PointLightComponent>> pointLightComponents;
 
+	float DEBUG_SPHERE_RADIUS;
 private:
 	void updateLightComponentsVector(std::shared_ptr<Entity> e);
 	

@@ -25,3 +25,6 @@
 #include "btBulletDynamicsCommon.h"
 #include "btBulletCollisionCommon.h"
 #include "BulletCollision/CollisionShapes/btShapeHull.h"
+
+#include "gfx/Model.h"
+#include "gfx/Shader.h"
