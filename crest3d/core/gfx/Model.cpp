@@ -27,8 +27,10 @@ void Model::loadModel(std::string _path)
 
 void Model::processNode(aiNode *node, const aiScene *scene)
 {
+	debugMatrices.emplace_back(node->mTransformation);
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
+		
 		// node->mTransformation->
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 		// node->mTransformation->
@@ -228,6 +230,30 @@ std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, aiNode* node, const aiSc
 	return std::shared_ptr<Mesh>(new Mesh(vertices, indices, textures, faces));
 }
 
+TextureType Model::convertTextureType(aiTextureType t)
+{
+	if (t == aiTextureType_HEIGHT)
+	{
+		return TextureType::normal;
+	}
+	else if (t == aiTextureType::aiTextureType_AMBIENT)
+	{
+		return TextureType::reflection;
+	}
+	else if (t == aiTextureType::aiTextureType_DIFFUSE)
+	{
+		return TextureType::diffuse;
+	}
+	else if (t == aiTextureType::aiTextureType_SPECULAR)
+	{
+		return TextureType::specular;
+	}
+	else if (t == aiTextureType::aiTextureType_DISPLACEMENT)
+	{
+		return TextureType::ao;
+	}
+}
+
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
 {
 	std::vector<Texture> textures;
@@ -256,7 +282,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
 			std::string textureLoadPath = directory + "/" + str.C_Str();
 
 			texture.t_Id = TextureFromFile(textureLoadPath.c_str(), directory);
-			texture.t_Type = typeName;
+			texture.t_Type = convertTextureType(type);
 			std::cout << typeName << std::endl;
 			texture.t_Path = str.C_Str();
 			std::cout << texture.t_Path << std::endl;
@@ -408,17 +434,8 @@ std::shared_ptr<Entity> Model::loadModelAsEntity(std::string path)
 void Model::processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity> previousEntity)
 {
 
-	
-
-
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		//std::shared_ptr<Entity> e(new Entity(node->mName.C_Str()));
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		// meshes.push_back(processMesh(mesh, scene));
-	}
-	for (unsigned int i = 0; i < node->mNumChildren; i++)
-	{
-		// processNode(node->mChildren[i], scene);
 	}
 }

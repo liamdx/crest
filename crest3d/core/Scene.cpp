@@ -6,7 +6,7 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 {
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
-	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL));
+	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/pbr.vert", "res/shaders/pbr.frag"));
 	DEBUG_SPHERE_RADIUS = 1.0f;
 }
 
@@ -103,7 +103,7 @@ void Scene::renderBehaviour(float deltaTime)
 {
 	glm::mat4 view = sceneCamera->GetViewMatrix();
 	updateSceneLighting();
-	childRender(rootEntity, deltaTime, view);
+	// childRender(rootEntity, deltaTime, view);
 
 	sceneCamera->MakeFrustum();
 	defaultShader->shader->use();
@@ -111,7 +111,7 @@ void Scene::renderBehaviour(float deltaTime)
 	defaultShader->setView(view);
 	defaultShader->UpdateShader(view);
 	dirLightComponent->Bind(defaultShader);
-
+	defaultShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
 	//// separate frustum check from mesh drawing, fix this
 	//for (std::shared_ptr<MeshComponent> mesh : meshes)
 	//{

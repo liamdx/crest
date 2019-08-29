@@ -2,9 +2,20 @@
 
 #include "Common.h"
 
+enum TextureType {
+	diffuse,
+	normal, 
+	specular,
+	reflection,
+	metallic,
+	roughness,
+	ao,
+	unknown
+};
+
 struct Texture {
 	unsigned int t_Id;
-	std::string t_Type;
+	TextureType t_Type;
 	std::string t_Path;
 };
 
@@ -34,6 +45,10 @@ public:
 	unsigned int getUniformLocation(const std::string &name);
 
 
+	static std::string textureTypeToShaderName(TextureType t);
+	std::map<TextureType, unsigned int> textureIdMappings;
+
 private:
+	void fillMappings();
 
 };

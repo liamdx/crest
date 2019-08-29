@@ -83,31 +83,35 @@ void Mesh::Draw(Shader shader)
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
-		if (textures[i].t_Type == "diffuse")
-		{
-			shader.setInt("mat.m_Diffuse", i);
-			diffuseCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-		else if (textures[i].t_Type == "specular")
-		{
-			shader.setInt("mat.m_Specular", i);
-			specularCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-		else if (textures[i].t_Type == "reflection")
-		{
-			shader.setInt("mat.m_Reflection", i);
-			reflectionCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
+		unsigned int uniformLocation = shader.textureIdMappings[textures[i].t_Type];
+		shader.setIntID(uniformLocation, i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
 
-		else if (textures[i].t_Type == "normal")
-		{
-			shader.setInt("mat.m_Normal", i);
-			normalCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
+		//if (textures[i].t_Type == TextureType::diffuse)
+		//{
+		//	shader.setInt("mat.m_Diffuse", i);
+		//	diffuseCount += 1;
+		//	glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		//}
+		//else if (textures[i].t_Type == TextureType::specular)
+		//{
+		//	shader.setInt("mat.m_Specular", i);
+		//	specularCount += 1;
+		//	glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		//}
+		//else if (textures[i].t_Type == TextureType::reflection)
+		//{
+		//	shader.setInt("mat.m_Reflection", i);
+		//	reflectionCount += 1;
+		//	glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		//}
+
+		//else if (textures[i].t_Type == TextureType::normal)
+		//{
+		//	shader.setInt("mat.m_Normal", i);
+		//	normalCount += 1;
+		//	glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+		//}
 	}
 
 	glBindVertexArray(vao);
@@ -132,31 +136,35 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
-		if (textures[i].t_Type == "diffuse")
+		unsigned int uniformLocation = shader->textureIdMappings[textures[i].t_Type];
+		shader->setIntID(uniformLocation, i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
+
+		/*if (textures[i].t_Type == TextureType::diffuse)
 		{
 			shader->setInt("mat.m_Diffuse", i);
 			diffuseCount += 1;
 			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
 		}
-		else if (textures[i].t_Type == "specular")
+		else if (textures[i].t_Type == TextureType::specular)
 		{
 			shader->setInt("mat.m_Specular", i);
 			specularCount += 1;
 			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
 		}
-		else if (textures[i].t_Type == "reflection")
+		else if (textures[i].t_Type == TextureType::reflection)
 		{
 			shader->setInt("mat.m_Reflection", i);
 			reflectionCount += 1;
 			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
 		}
 
-		else if (textures[i].t_Type == "normal")
+		else if (textures[i].t_Type == TextureType::normal)
 		{
 			shader->setInt("mat.m_Normal", i);
 			normalCount += 1;
 			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
+		}*/
 	}
 
 	glBindVertexArray(vao);
@@ -182,31 +190,9 @@ void Mesh::Draw(Shader* shader)
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
-		if (textures[i].t_Type == "diffuse")
-		{
-			shader->setInt("mat.m_Diffuse", i);
-			diffuseCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-		else if (textures[i].t_Type == "specular")
-		{
-			shader->setInt("mat.m_Specular", i);
-			specularCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-		else if (textures[i].t_Type == "reflection")
-		{
-			shader->setInt("mat.m_Reflection", i);
-			reflectionCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-
-		else if (textures[i].t_Type == "normal")
-		{
-			shader->setInt("mat.m_Normal", i);
-			normalCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
+		unsigned int uniformLocation = shader->textureIdMappings[textures[i].t_Type];
+		shader->setIntID(uniformLocation, i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
 	}
 
 	glBindVertexArray(vao);

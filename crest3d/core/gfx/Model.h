@@ -36,4 +36,8 @@ public:
 	static std::shared_ptr<Entity> loadModelAsEntity(std::string path);
 
 	aiMatrix4x4 currentTransformation;
+	std::vector<aiMatrix4x4> debugMatrices;
+
+private:
+	TextureType convertTextureType(aiTextureType t);
 };

@@ -85,6 +85,7 @@ Shader::Shader(const char* vertexPath, const char* fragPath)
 	glDeleteShader(vertexId);
 	glDeleteShader(fragId);
 
+	fillMappings();
 
 }
 
@@ -193,6 +194,8 @@ Shader::Shader(const char* vertexPath, const char* geometryPath, const char* fra
 	glDeleteShader(vertexId);
 	glDeleteShader(fragId);
 	glDeleteShader(geoId);
+
+	fillMappings();
 }
 
 
@@ -274,4 +277,53 @@ unsigned int Shader::getMat4Location(const std::string &name)
 unsigned int Shader::getUniformLocation(const std::string &name)
 {
 	return glGetUniformLocation(id, name.c_str());
+}
+
+std::string Shader::textureTypeToShaderName(TextureType t)
+{
+	if (t == TextureType::diffuse)
+	{
+		return("mat.m_Diffuse");
+	}
+
+	if (t == TextureType::specular)
+	{
+		return("mat.m_Specular");
+	}
+
+	if (t == TextureType::reflection)
+	{
+		return("mat.m_Reflection");
+	}
+
+	if (t == TextureType::normal)
+	{
+		return("mat.m_Normal");
+	}
+
+	if (t == TextureType::metallic)
+	{
+		return("mat.m_Metallic");
+	}
+
+	if (t == TextureType::roughness)
+	{
+		return("mat.m_Roughness");
+	}
+
+	if (t == TextureType::ao)
+	{
+		return("mat.m_AO");
+	}
+}
+
+void Shader::fillMappings()
+{
+	for (int TextureTypeInt = 0; TextureTypeInt <= 7; TextureTypeInt++)
+	{
+		TextureType t = static_cast<TextureType>(TextureTypeInt);
+		std::string shaderString = textureTypeToShaderName(t);
+		unsigned int shaderId = getUniformLocation(shaderString);
+		textureIdMappings.insert(std::pair<TextureType, unsigned int>(t, shaderId));
+	}
 }

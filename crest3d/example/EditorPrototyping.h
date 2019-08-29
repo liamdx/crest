@@ -35,10 +35,9 @@ private:
 	std::shared_ptr<Entity> dirLight;
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
 
-	ImVec4 levelPosition;
-	ImVec4 levelRotation;
-	ImVec4 cameraPosition;
-	ImVec4 cameraRotation;
+	std::shared_ptr<Asset<Texture>> defaultRoughness;
+	std::shared_ptr<Asset<Texture>> defaultMetallic;
+	std::shared_ptr<Asset<Texture>> defaultAO;
 
 	Cubemap* skybox;
 	Shader* cubemapShader;

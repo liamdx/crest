@@ -11,15 +11,9 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
 	skybox = new Cubemap(faces);
 
-	cameraRotation = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-	cameraPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-	levelRotation = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-	levelPosition = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-
-
 	auto m = am->loadModelAsset("res/models/cyborg/cyborg.obj");
-	auto level = am->loadModelAsset("res/models/swamp/map_1.obj");
-	// auto level = am->loadModelAsset("res/models/sponza/sponza.obj");
+	//auto level = am->loadModelAsset("res/models/swamp/map_1.obj");
+	auto level = am->loadModelAsset("res/models/sponza/sponza.fbx");
 
 	cyborgEntity = scene->AddModelEntity(m->asset);
 	cyborgEntity->transform->addPosition(glm::vec3(0, 0, 0));
@@ -43,6 +37,14 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 	dirLight = scene->AddDirectionalLightEntity();
 	dirLightComponent = dirLight->GetComponent<DirectionalLightComponent>();
+
+	// very messy, move this else where
+	defaultAO = am->loadTextureAsset("res/textures/default_ao.png");
+	defaultAO->asset->t_Type = TextureType::ao;
+	defaultRoughness = am->loadTextureAsset("res/textures/default_roughness.png");
+	defaultRoughness->asset->t_Type = TextureType::roughness;
+	defaultMetallic = am->loadTextureAsset("res/textures/default_metallic.png");
+	defaultMetallic->asset->t_Type = TextureType::metallic;
 
 }
 
@@ -100,6 +102,10 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 
 	skybox->Draw(*cubemapShader);
 
+	scene->defaultShader->shader->use();
+	scene->defaultShader->shader->setInt("mat.m_AO", defaultAO->asset->t_Id);
+	scene->defaultShader->shader->setInt("mat.m_Roughness", defaultRoughness->asset->t_Id);
+	scene->defaultShader->shader->setInt("mat.m_Metallic", defaultMetallic->asset->t_Id);
 	scene->renderBehaviour(deltaTime);
 }
 
@@ -131,6 +137,17 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			bool shouldDebugRender = pm->debugRender;
 			pm->debugRender = !shouldDebugRender;
 		}
+
+		if (ImGui::Button("Reload Default Shader"))
+		{
+			scene->defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL));
+		}
+
+		if (ImGui::Button("Reload PBR Shader"))
+		{
+			scene->defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/pbr.vert", "res/shaders/pbr.frag"));
+		}
+
 
 		if (ImGui::Begin("Directional Light"))
 		{

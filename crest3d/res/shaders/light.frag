@@ -69,26 +69,19 @@ uniform vec3 viewPosition;
 vec3 calcDirLight(DirLight dirLight, vec3 normal, vec3 fragPosition, vec3 viewDir)
 {
 	//vec3 lightDir = normalize(-dirLight.direction);
-	vec3 lightDir = normalize(dirLight.direction - fragPosition);
-	vec3 viewDirection = normalize(viewPosition - fragPosition);
-	vec3 halfwayDir = normalize(lightDir + viewDirection);
-
+	vec3 lightDir = normalize(-dirLight.direction);
 	float diff = max(dot(normal, lightDir), 0.0);
-	vec3 reflectDir = reflect(-lightDir,normal);
-	float spec = pow(max(dot(normal, halfwayDir), 0.0), mat.m_Shininess);
+	// vec3 reflectDir = reflect(-lightDir,normal);
+	float spec = pow(max(dot(normal, lightDir), 0.0), mat.m_Shininess);
 
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
 
 
-	vec4 diffuse_texture = texture(mat.m_Diffuse, vTexCoords);
-
-	ambient = dirLight.ambient * vec3(diffuse_texture);
-	diffuse = dirLight.diffuse * diff * vec3(diffuse_texture);
+	ambient = dirLight.ambient * vec3(texture(mat.m_Diffuse, vTexCoords));
+	diffuse = dirLight.diffuse * diff * vec3(texture(mat.m_Diffuse, vTexCoords));
 	specular = dirLight.specular * spec * vec3(texture(mat.m_Specular, vTexCoords));
-
-
 
 	return (ambient  + diffuse + specular);
 
@@ -96,8 +89,8 @@ vec3 calcDirLight(DirLight dirLight, vec3 normal, vec3 fragPosition, vec3 viewDi
 
 vec3 calcPointLight(PointLight pointLight, vec3 normal, vec3 fragPosition, vec3 viewDir)
 {
-	//vec3 lightDir = normalize(pointLight.position - fragPosition);
-	vec3 lightDir = normalize(dirLight.direction - fragPosition);
+	vec3 lightDir = normalize(pointLight.position - fragPosition);
+	//vec3 lightDir = normalize(pointLight.direction - fragPosition);
 	vec3 reflectDir = reflect(-lightDir,normal);	
 	vec3 viewDirection = normalize(viewPosition - fragPosition);
 	vec3 halfwayDir = normalize(lightDir + viewDirection);
@@ -179,6 +172,11 @@ vec3 calcSpotLight(SpotLight spotLight, vec3 normal, vec3 fragPosition, vec3 vie
 
 void main()
 {
+	vec4 texture = texture(mat.m_Diffuse, vTexCoords);
+	
+	if(texture.a < 0.1)
+		discard;
+	
 	vec3 norm = normalize(normal);
 	vec3 viewDirection = normalize(viewPosition - fragPosition);
 

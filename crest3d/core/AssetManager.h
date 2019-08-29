@@ -20,4 +20,5 @@ public:
 	std::vector<std::shared_ptr<Asset<Texture>>> textureAssets;
 
 	std::shared_ptr<Asset<Model>> loadModelAsset(const char* path);
+	std::shared_ptr<Asset<Texture>> loadTextureAsset(const char* path);
 };
