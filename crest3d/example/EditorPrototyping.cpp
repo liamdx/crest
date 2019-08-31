@@ -5,15 +5,15 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	pm = std::shared_ptr<PhysicsManager>(new PhysicsManager());
 	am = std::make_shared<AssetManager>();
 	window = std::shared_ptr<GLFWwindow>(_window);
-	scene = std::shared_ptr<Scene>(new Scene("debugScene", pm));
+	scene = std::shared_ptr<Scene>(new Scene("debugScene", pm, am));
 	input = std::shared_ptr<InputManager>(new InputManager(_window));
 
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
 	skybox = new Cubemap(faces);
 
 	auto m = am->loadModelAsset("res/models/cyborg/cyborg.obj");
-	//auto level = am->loadModelAsset("res/models/swamp/map_1.obj");
-	auto level = am->loadModelAsset("res/models/sponza/sponza.fbx");
+	auto level = am->loadModelAsset("res/models/swamp/map_1.obj");
+	// auto level = am->loadModelAsset("res/models/sponza/sponza.fbx");
 
 	cyborgEntity = scene->AddModelEntity(m->asset);
 	cyborgEntity->transform->addPosition(glm::vec3(0, 0, 0));
@@ -25,7 +25,7 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 	}
 
 	levelEntity = scene->AddModelEntity(level->asset);
-	// levelEntity->transform->setScale(glm::vec3(0.01, 0.01, 0.01));
+	levelEntity->transform->setScale(glm::vec3(0.03, 0.03, 0.03));
 	levelEntity->transform->addPosition(glm::vec3(0, -10, 0));
 	/*for (int i = 0; i < levelEntity->children.size(); i++)
 	{
@@ -37,15 +37,6 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 	dirLight = scene->AddDirectionalLightEntity();
 	dirLightComponent = dirLight->GetComponent<DirectionalLightComponent>();
-
-	// very messy, move this else where
-	defaultAO = am->loadTextureAsset("res/textures/default_ao.png");
-	defaultAO->asset->t_Type = TextureType::ao;
-	defaultRoughness = am->loadTextureAsset("res/textures/default_roughness.png");
-	defaultRoughness->asset->t_Type = TextureType::roughness;
-	defaultMetallic = am->loadTextureAsset("res/textures/default_metallic.png");
-	defaultMetallic->asset->t_Type = TextureType::metallic;
-
 }
 
 
@@ -103,9 +94,7 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 	skybox->Draw(*cubemapShader);
 
 	scene->defaultShader->shader->use();
-	scene->defaultShader->shader->setInt("mat.m_AO", defaultAO->asset->t_Id);
-	scene->defaultShader->shader->setInt("mat.m_Roughness", defaultRoughness->asset->t_Id);
-	scene->defaultShader->shader->setInt("mat.m_Metallic", defaultMetallic->asset->t_Id);
+	
 	scene->renderBehaviour(deltaTime);
 }
 

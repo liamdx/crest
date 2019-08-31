@@ -160,7 +160,7 @@ vec3 calculateDirectionalLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float rough
     vec3 L = normalize(-dirLight.direction);
     vec3 H = normalize(V + L);
 
-    vec3 radiance = dirLight.diffuse;
+    vec3 radiance = dirLight.diffuse * 10;
 
     // Cook-Torrance BRDF
     float NDF = DistributionGGX(N, H, roughness);   
@@ -189,8 +189,11 @@ vec3 calculateDirectionalLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float rough
     return (kD * albedo / PI + specular) * radiance * NdotL;
 }
 void main()
-{		
-    vec3 albedo     = pow(texture(mat.m_Diffuse, TexCoords).rgb, vec3(2.2));
+{
+    vec4 rawTex = texture(mat.m_Diffuse, TexCoords);
+    if(rawTex.a < 0.3)
+        discard;		
+    vec3 albedo     = pow(rawTex.rgb, vec3(2.2));
     float metallic  = texture(mat.m_Metallic, TexCoords).r;
     float roughness = texture(mat.m_Roughness, TexCoords).r;
     float ao        = texture(mat.m_AO, TexCoords).r;

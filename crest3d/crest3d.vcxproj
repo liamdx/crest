@@ -99,8 +99,9 @@
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/yse/lib;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2test.lib</AdditionalDependencies>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/bullet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DebugInformationFormat>None</DebugInformationFormat>
       <ShowIncludes>false</ShowIncludes>
@@ -131,8 +132,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/GLFW/lib;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/yse/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2test.lib</AdditionalDependencies>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,6 +169,7 @@
     <ClCompile Include="core\ext\imgui\auto\auto.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="core\ext\imgui\imgui_impl_sdl.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_widgets.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
@@ -242,6 +245,7 @@
     <ClInclude Include="core\ext\imgui\auto\impl_glm.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_glfw.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="core\ext\imgui\imgui_impl_sdl.h" />
     <ClInclude Include="core\ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="core\ext\imgui\imstb_textedit.h" />
     <ClInclude Include="core\ext\imgui\imstb_truetype.h" />

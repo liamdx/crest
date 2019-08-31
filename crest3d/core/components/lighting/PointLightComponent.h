@@ -6,8 +6,8 @@ class PointLightComponent : public EngineComponent
 {
 public:
 
-	PointLightComponent(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
-	PointLightComponent();
+	PointLightComponent(std::shared_ptr<Entity> e, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
+	PointLightComponent(std::shared_ptr<Entity> e);
 	void intitalize(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
 	void Bind(std::shared_ptr<ShaderComponent> shader, unsigned int index);
 	void Bind(std::shared_ptr<ShaderComponent> shader) ;

@@ -38,16 +38,20 @@
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/auto.h"
 #include "ext/imgui/imconfig.h"
+
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
+
 #include "ext/imgui/imgui_impl_glfw.h"
 #include "ext/imgui/imgui_impl_opengl3.h"
+#include "ext/imgui/imgui_impl_sdl.h"
 
 //physics lib (g'doy)
 #include "btBulletDynamicsCommon.h"
 #include "btBulletCollisionCommon.h"
 #include "BulletCollision/CollisionShapes/btShapeHull.h"
 
-
+#define SDL_MAIN_HANDLED
+#include "SDL2/SDL.h"
 
 //camera stuff
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods

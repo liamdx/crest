@@ -8,6 +8,17 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
 	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/pbr.vert", "res/shaders/pbr.frag"));
 	DEBUG_SPHERE_RADIUS = 1.0f;
+	assetManager = nullptr;
+}
+
+Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager, std::shared_ptr<AssetManager> _assetManager)
+{
+	physicsManager = _physicsManager;
+	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
+	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/pbr.vert", "res/shaders/pbr.frag"));
+	assetManager = _assetManager;
+	DEBUG_SPHERE_RADIUS = 1.0f;
+
 }
 
 
@@ -127,6 +138,9 @@ void Scene::renderBehaviour(float deltaTime)
 	//
 	for (std::shared_ptr<MeshComponent> mesh : meshes)
 	{
+		defaultShader->shader->setIntID(defaultShader->shader->textureIdMappings[TextureType::ao], assetManager->defaultAO->asset->t_Id);
+		defaultShader->shader->setIntID(defaultShader->shader->textureIdMappings[TextureType::roughness], assetManager->defaultRoughness->asset->t_Id);
+		defaultShader->shader->setIntID(defaultShader->shader->textureIdMappings[TextureType::metallic], assetManager->defaultMetallic->asset->t_Id);
 		mesh->draw(view, defaultShader);
 	}
 
@@ -202,6 +216,15 @@ std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
 	return(e);
 }
 
+std::shared_ptr<Entity> Scene::AddPointLightEntity()
+{
+	std::shared_ptr<Entity> e = rootEntity->AddEntity();
+	std::string s = "Point Light " + pointLightComponents.size();
+	e->name = s;
+	// e->AddComponent(new PointLightComponent(e));
+	// e->AddComponent(new PointLightComponent(e));
+	return(e);
+}
 
 void Scene::updateShaderProjections(std::shared_ptr<Entity> e)
 {
@@ -232,12 +255,16 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 
 void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 {
-	for(int i = 0; i < e->components.size(); i++)
+	pointLightComponents.clear();
+	for (int i = 0; i < e->components.size(); i++)
 	{
 		if (e->components.at(i)->name == "DirectionalLightComponent")
 		{
-			
 			dirLightComponent = std::shared_ptr<DirectionalLightComponent>(e->GetComponent<DirectionalLightComponent>());
+		}
+		if (e->components.at(i)->name == "PointLightComponent")
+		{
+			pointLightComponents.emplace_back(std::shared_ptr<PointLightComponent>(e->GetComponent<PointLightComponent>()));
 		}
 	}
 

@@ -61,7 +61,7 @@ DirectionalLightComponent::DirectionalLightComponent(std::shared_ptr<Entity> e)
 {
 	name = "DirectionalLightComponent";
 	attachedEntity = e;
-	this->direction = glm::vec3(0.9f);
+	this->direction = glm::vec3(-0.9f);
 	this->ambient = glm::vec3(0.3f);
 	this->diffuse = glm::vec3(1.0f);
 	this->specular = glm::vec3(0.2f);

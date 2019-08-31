@@ -1,7 +1,7 @@
 #include "components/lighting/PointLightComponent.h"
 #include "Entity.h"
 
-PointLightComponent::PointLightComponent(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance)
+PointLightComponent::PointLightComponent(std::shared_ptr<Entity> e, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance)
 {
 	this->position = position;
 	this->ambient = ambient;
@@ -11,14 +11,14 @@ PointLightComponent::PointLightComponent(glm::vec3 position, glm::vec3 ambient, 
 	this->distance = distance;
 }
 
-PointLightComponent::PointLightComponent()
+PointLightComponent::PointLightComponent(std::shared_ptr<Entity> e)
 {
 	this->position = glm::vec3(0.0f);
 	this->ambient = glm::vec3(0.0f);
-	this->diffuse = glm::vec3(0.0f);
+	this->diffuse = glm::vec3(1.0f);
 	this->specular = glm::vec3(0.0f);
-	this->intensity = 0.0f;
-	this->distance = 1.0f;
+	this->intensity = 1.0f;
+	this->distance = 5.0f;
 }
 
 void PointLightComponent::intitalize(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance)

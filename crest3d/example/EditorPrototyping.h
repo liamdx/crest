@@ -35,17 +35,9 @@ private:
 	std::shared_ptr<Entity> dirLight;
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
 
-	std::shared_ptr<Asset<Texture>> defaultRoughness;
-	std::shared_ptr<Asset<Texture>> defaultMetallic;
-	std::shared_ptr<Asset<Texture>> defaultAO;
-
 	Cubemap* skybox;
 	Shader* cubemapShader;
 
-	//std::shared_ptr<rp3d::RigidBody> debugRib;
-	//std::shared_ptr<ProxyShape> e;
-
-	// this stuff needs component-ised
 //skybox faces
 	std::vector<std::string> faces
 	{

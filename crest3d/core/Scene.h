@@ -6,15 +6,18 @@
 #include "components/lighting/PointLightComponent.h"
 #include "gfx/Model.h"
 #include "PhysicsManager.h"
+#include "AssetManager.h"
 
 class Scene
 {
 public:
 	std::shared_ptr<Entity> rootEntity;
 	std::shared_ptr<PhysicsManager> physicsManager;
+	std::shared_ptr<AssetManager> assetManager;
 	std::string name;
 
 	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager);
+	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager, std::shared_ptr<AssetManager> _assetManager);
 
 	std::shared_ptr<Entity> AddEntity();	
 	std::shared_ptr<Entity> AddCameraEntity();
@@ -22,6 +25,7 @@ public:
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);
 	std::shared_ptr<Entity> AddModelEntity(std::shared_ptr<Model> model);
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
+	std::shared_ptr<Entity> AddPointLightEntity();
 
 
 	void initBehaviour();

@@ -7,11 +7,24 @@ const float SCREEN_HEIGHT = 720.0;
 
 int main() {
 
-	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	SDL_Init(SDL_INIT_EVERYTHING);
+
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
 	float exposure = 2.22f;
 	float gamma = 0.9f;
+
+	SDL_Window* sdl_window = SDL_CreateWindow("SDL2 ImGui Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
+	SDL_GLContext mainContext = SDL_GL_CreateContext(sdl_window);
+	SDL_Renderer* sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
+	// ImGuiSDL::Initialize(sdl_renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+	SDL_GL_SetSwapInterval(0);
 
 	//DEBUG
 	int success;
@@ -67,9 +80,11 @@ int main() {
 
 	SetImGuiStyle();
 
-	// Setup Platform/Renderer bindings
+	//// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 130");
+    ImGui_ImplOpenGL3_Init("#version 130");
+
+	// ImGui_ImplSDL2_InitForOpenGL(sdl_window, mainContext);
 	
 
 	//Enable depth
@@ -106,10 +121,11 @@ int main() {
 	float lastWindowHeight = 0.0;
 
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	while (!glfwWindowShouldClose(window)) {
+	while (1) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+
 
 		//Engine time
 		float currentFrame = glfwGetTime();
@@ -119,7 +135,9 @@ int main() {
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
+		// ImGui_ImplSDL2_NewFrame(sdl_window);
 		ImGui::NewFrame();
+
 
 		//Render scene normally
 		glCullFace(GL_BACK);
@@ -202,6 +220,8 @@ int main() {
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		// ImGuiSDL::Render(ImGui::GetDrawData());
+		// ImGui_ImplSd
 
 		// Update and Render additional Platform Windows
 		// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
@@ -217,7 +237,8 @@ int main() {
 		glfwSwapBuffers(window);
 		/* Poll for and process events */
 		glfwPollEvents();
+
+		SDL_GL_SwapWindow(sdl_window);
 	}
 
-	// _CrtDumpMemoryLeaks();
 }

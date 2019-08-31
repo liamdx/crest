@@ -1,5 +1,15 @@
 #include "AssetManager.h"
 
+AssetManager::AssetManager()
+{
+	defaultAO = loadTextureAsset("res/textures/default_ao.png");
+	defaultAO->asset->t_Type = TextureType::ao;
+	defaultMetallic = loadTextureAsset("res/textures/default_metallic.png");
+	defaultMetallic->asset->t_Type = TextureType::metallic;
+	defaultRoughness = loadTextureAsset("res/textures/default_roughness.png");
+	defaultRoughness->asset->t_Type = TextureType::roughness;
+}
+
 std::shared_ptr<Asset<Model>> AssetManager::loadModelAsset(const char* path)
 {
 	std::shared_ptr<Model> m = std::make_shared<Model>(path);
@@ -21,3 +31,4 @@ std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 	asset->assetPath = path;
 	return asset;
 }
+
