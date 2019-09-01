@@ -7,6 +7,7 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager)
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
 	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/pbr.vert", "res/shaders/pbr.frag"));
+	defaultAnimShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/anim.vert", "res/shaders/anim.frag"));
 	DEBUG_SPHERE_RADIUS = 1.0f;
 	assetManager = nullptr;
 }
@@ -16,6 +17,7 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager,
 	physicsManager = _physicsManager;
 	rootEntity = std::shared_ptr<Entity>(new Entity("root", physicsManager));
 	defaultShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/pbr.vert", "res/shaders/pbr.frag"));
+	defaultAnimShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/anim.vert", "res/shaders/anim.frag"));
 	assetManager = _assetManager;
 	DEBUG_SPHERE_RADIUS = 1.0f;
 
@@ -121,8 +123,9 @@ void Scene::renderBehaviour(float deltaTime)
 	defaultShader->setProjection(sceneCamera->GetProjectionMatrix());
 	defaultShader->setView(view);
 	defaultShader->UpdateShader(view);
-	dirLightComponent->Bind(defaultShader);
+	updateShaderComponentLightSources(defaultShader);
 	defaultShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
+
 	//// separate frustum check from mesh drawing, fix this
 	//for (std::shared_ptr<MeshComponent> mesh : meshes)
 	//{
@@ -136,17 +139,52 @@ void Scene::renderBehaviour(float deltaTime)
 	//	}
 	//}
 	//
+
+	bindDefaultTextures(defaultShader);
 	for (std::shared_ptr<MeshComponent> mesh : meshes)
 	{
-		defaultShader->shader->setIntID(defaultShader->shader->textureIdMappings[TextureType::ao], assetManager->defaultAO->asset->t_Id);
-		defaultShader->shader->setIntID(defaultShader->shader->textureIdMappings[TextureType::roughness], assetManager->defaultRoughness->asset->t_Id);
-		defaultShader->shader->setIntID(defaultShader->shader->textureIdMappings[TextureType::metallic], assetManager->defaultMetallic->asset->t_Id);
 		mesh->draw(view, defaultShader);
 	}
 
+	defaultAnimShader->shader->use();
+	defaultAnimShader->setProjection(sceneCamera->GetProjectionMatrix());
+	defaultAnimShader->setView(view);
+	defaultAnimShader->UpdateShader(view);
+	defaultAnimShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
+	updateShaderComponentLightSources(defaultAnimShader);
+
+	bindDefaultTextures(defaultAnimShader);
+	for (std::shared_ptr<AnimatedModelComponent> anim : animatedModels)
+	{
+		anim->draw(view, defaultAnimShader);
+	}
 	physicsManager->setView(view);
 	physicsManager->setProjection(sceneCamera->GetProjectionMatrix());
 	physicsManager->render(deltaTime);
+}
+
+void Scene::bindDefaultTextures(std::shared_ptr<ShaderComponent> sc)
+{
+	// Diffuse
+	glActiveTexture(GL_TEXTURE0);
+	sc->shader->setIntID(sc->shader->textureIdMappings[TextureType::diffuse], 0);
+	glBindTexture(GL_TEXTURE_2D, assetManager->defaultDiffuse->asset->t_Id);
+	// Normal
+	glActiveTexture(GL_TEXTURE1);
+	sc->shader->setIntID(sc->shader->textureIdMappings[TextureType::normal], 1);
+	glBindTexture(GL_TEXTURE_2D, assetManager->defaultNormal->asset->t_Id);
+	// AO
+	glActiveTexture(GL_TEXTURE2);
+	sc->shader->setIntID(sc->shader->textureIdMappings[TextureType::ao], 2);
+	glBindTexture(GL_TEXTURE_2D, assetManager->defaultAO->asset->t_Id);
+	// Roughness
+	glActiveTexture(GL_TEXTURE3);
+	sc->shader->setIntID(sc->shader->textureIdMappings[TextureType::roughness], 3);
+	glBindTexture(GL_TEXTURE_2D, assetManager->defaultRoughness->asset->t_Id);
+	// metallic
+	glActiveTexture(GL_TEXTURE4);
+	sc->shader->setIntID(sc->shader->textureIdMappings[TextureType::metallic], 4);
+	glBindTexture(GL_TEXTURE_2D, assetManager->defaultMetallic->asset->t_Id);
 }
 
 
@@ -208,6 +246,18 @@ std::shared_ptr<Entity> Scene::AddModelEntity(std::shared_ptr<Model> model)
 	return e;
 }
 
+std::shared_ptr<Entity> Scene::AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model)
+{
+	std::shared_ptr<Entity> e = rootEntity->AddEntity();
+	e->name = model->directory;
+	e->AddComponent(new AnimatedModelComponent(e, model));
+	auto amc = e->GetComponent<AnimatedModelComponent>();
+	amc->getBoneShaderIDLocations(defaultAnimShader);
+	animatedModels.emplace_back(amc);
+	return e;
+}
+
+
 std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
 {
 	std::shared_ptr<Entity> e = rootEntity->AddEntity();
@@ -219,10 +269,13 @@ std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
 std::shared_ptr<Entity> Scene::AddPointLightEntity()
 {
 	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	std::string s = "Point Light " + pointLightComponents.size();
+	std::stringstream ss;
+	ss << "Point Light " << (pointLightComponents.size() + 1);
+	std::string s = ss.str();
 	e->name = s;
-	// e->AddComponent(new PointLightComponent(e));
-	// e->AddComponent(new PointLightComponent(e));
+	e->AddComponent(new PointLightComponent(e));
+	auto plc = e->GetComponent<PointLightComponent>();
+	pointLightComponents.emplace_back(plc);
 	return(e);
 }
 
@@ -243,9 +296,7 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 {
 	std::shared_ptr<ShaderComponent> sc = e->GetComponent<ShaderComponent>();
 
-	if (sc != nullptr)
-		// do the lighting stuff
-		dirLightComponent->Bind(sc);
+	updateShaderComponentLightSources(sc);
 
 	for (int i = 0; i < e->children.size(); i++)
 	{
@@ -253,19 +304,37 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 	}
 }
 
+void Scene::updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> sc)
+{
+
+	if (sc != nullptr) {
+		// do the lighting stuff
+		dirLightComponent->Bind(sc);
+		sc->SetNumPointLights(pointLightComponents.size());
+		for (int i = 0; i < pointLightComponents.size(); i++)
+		{
+			pointLightComponents.at(i)->Bind(sc, i);
+		}
+	}
+		
+
+
+	
+}
+
 void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 {
-	pointLightComponents.clear();
+	// pointLightComponents.clear();
 	for (int i = 0; i < e->components.size(); i++)
 	{
 		if (e->components.at(i)->name == "DirectionalLightComponent")
 		{
 			dirLightComponent = std::shared_ptr<DirectionalLightComponent>(e->GetComponent<DirectionalLightComponent>());
 		}
-		if (e->components.at(i)->name == "PointLightComponent")
+		/*if (e->components.at(i)->name == "PointLightComponent")
 		{
 			pointLightComponents.emplace_back(std::shared_ptr<PointLightComponent>(e->GetComponent<PointLightComponent>()));
-		}
+		}*/
 	}
 
 	if(e->children.size() > 0)
@@ -282,5 +351,5 @@ void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 void Scene::updateSceneLighting()
 {
 	updateLightComponentsVector(rootEntity);
-	updateShaderLightSources(rootEntity);
+	// updateShaderLightSources(rootEntity);
 }

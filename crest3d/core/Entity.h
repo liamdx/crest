@@ -33,6 +33,8 @@ public:
 	}
 	~Entity() {}
 
+	void Delete();
+	
 	void AddComponent(EngineComponent* newComponent);
 
 	// template method only works in .h file without round-about bs

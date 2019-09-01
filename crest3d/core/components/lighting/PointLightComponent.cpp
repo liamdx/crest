@@ -3,6 +3,8 @@
 
 PointLightComponent::PointLightComponent(std::shared_ptr<Entity> e, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance)
 {
+	this->attachedEntity = e;
+	this->name = "PointLightComponent";
 	this->position = position;
 	this->ambient = ambient;
 	this->diffuse = diffuse;
@@ -13,6 +15,8 @@ PointLightComponent::PointLightComponent(std::shared_ptr<Entity> e, glm::vec3 po
 
 PointLightComponent::PointLightComponent(std::shared_ptr<Entity> e)
 {
+	this->attachedEntity = e;
+	this->name = "PointLightComponent";
 	this->position = glm::vec3(0.0f);
 	this->ambient = glm::vec3(0.0f);
 	this->diffuse = glm::vec3(1.0f);
@@ -37,7 +41,7 @@ void PointLightComponent::Bind(std::shared_ptr<ShaderComponent> shader, unsigned
 	ss << "pointLights[" << index << "].";
 	std::string s = ss.str();
 
-	shader->shader->setVec3(s + "position", position);
+	shader->shader->setVec3(s + "position", attachedEntity->transform->position);
 	shader->shader->setVec3(s + "ambient", ambient);
 	shader->shader->setVec3(s + "diffuse", diffuse);
 	shader->shader->setVec3(s + "specular", specular);
@@ -51,7 +55,7 @@ void PointLightComponent::Bind(std::shared_ptr<ShaderComponent> shader)
 	ss << "debugLight.";
 	std::string s = ss.str();
 
-	shader->shader->setVec3(s + "position", position);
+	shader->shader->setVec3(s + "position", attachedEntity->transform->position);
 	shader->shader->setVec3(s + "ambient", ambient);
 	shader->shader->setVec3(s + "diffuse", diffuse);
 	shader->shader->setVec3(s + "specular", specular);
@@ -60,7 +64,3 @@ void PointLightComponent::Bind(std::shared_ptr<ShaderComponent> shader)
 
 }
 
-void PointLightComponent::update(float deltaTime)
-{
-	this->position = attachedEntity->transform->position;
-}

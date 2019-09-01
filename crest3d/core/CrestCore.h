@@ -2,6 +2,7 @@
 #include "Common.h"
 
 #include "gfx/Model.h"
+#include "gfx/AnimatedModel.h"
 #include "gfx/Camera.h"
 #include "gfx/Cubemap.h"
 #include "gfx/FrameBuffer.h"
@@ -21,6 +22,7 @@
 #include "components/DebugComponent.h"
 #include "components/TransformComponent.h"
 #include "components/MeshComponent.h"
+#include "components/AnimatedModelComponent.h"
 #include "components/ShaderComponent.h"
 #include "components/CameraComponent.h"
 #include "components/RigidbodyComponent.h"

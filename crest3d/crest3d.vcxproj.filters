@@ -117,6 +117,12 @@
     <ClCompile Include="core\ext\imgui\imgui_impl_sdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\gfx\AnimatedModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\components\AnimatedModelComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -813,6 +819,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imgui_impl_sdl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\gfx\AnimatedModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\AnimatedModelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -90,6 +90,8 @@ int main() {
 	//Enable depth
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_MULTISAMPLE);
+	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -108,11 +110,11 @@ int main() {
 
 	// Main Frame buffer set up
 	FrameBuffer mainFB;
-	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
+	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, true);
 	FrameBuffer depthFB;
-	depthFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
+	depthFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
 	FrameBuffer finalFB;
-	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
+	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
 
 	example.startBehaviour();
 	//Mouse input handle
@@ -138,19 +140,18 @@ int main() {
 		// ImGui_ImplSDL2_NewFrame(sdl_window);
 		ImGui::NewFrame();
 
-
 		//Render scene normally
 		glCullFace(GL_BACK);
+
+		mainFB.initForDrawing();
 		// perform scene pre-render stuff
 		example.earlyUpdateBehaviour(deltaTime);
-		example.updateBehaviour(deltaTime);
-		// init framebuffer for drawing scene
-		mainFB.initForDrawing();
+		example.updateBehaviour(deltaTime);		
 		// draw everything in the scene
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
-
+		
 		glDisable(GL_DEPTH_TEST);
 
 		finalFB.initForDrawing();

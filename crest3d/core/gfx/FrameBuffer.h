@@ -3,11 +3,11 @@
 class FrameBuffer
 {
 public:
-	FrameBuffer(){}
+	FrameBuffer() {}
 
-	~FrameBuffer() {};
+	~FrameBuffer() {}
 
-	void initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT);
+	void initialise(float SCREEN_WIDTH, float, bool multiSample);
 
 	void changeScreenSize(float newWidth, float newHeight);
 
@@ -26,6 +26,9 @@ public:
 
 private:
 	float screenWidth, screenHeight;
-	unsigned int fbo, rbo, framebufferTexture, depthTexture;
+	unsigned int fbo, rbo, msFbo;
+	unsigned int framebufferTexture, msFramebufferTexture, depthTexture;
+
+	bool isMultiSample;
 
 };

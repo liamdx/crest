@@ -20,8 +20,8 @@ public:
 	bool checkPoint(glm::vec3 position);
 	
 	void MakeFrustum();
-private:
 	float fov;
+private:
 	float width, height;
 	float nearPlane, farPlane;
 	glm::mat4 projection;

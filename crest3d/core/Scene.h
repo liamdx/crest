@@ -4,7 +4,7 @@
 #include "components/CameraComponent.h"
 #include "components/lighting/DirectionalLightComponent.h"
 #include "components/lighting/PointLightComponent.h"
-#include "gfx/Model.h"
+#include "components/AnimatedModelComponent.h"
 #include "PhysicsManager.h"
 #include "AssetManager.h"
 
@@ -24,6 +24,7 @@ public:
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh);
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);
 	std::shared_ptr<Entity> AddModelEntity(std::shared_ptr<Model> model);
+	std::shared_ptr<Entity> AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model);
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
 	std::shared_ptr<Entity> AddPointLightEntity();
 
@@ -41,12 +42,16 @@ public:
 
 	// might move this to a lighting manager
 	void updateShaderLightSources(std::shared_ptr<Entity> e);
+	void updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> sc);
 	void updateSceneLighting();
 	std::shared_ptr<CameraComponent> sceneCamera;
 
 	// helping to make stuff more SIMD freindly
 	std::vector<std::shared_ptr<MeshComponent>> meshes;
+	std::vector<std::shared_ptr<AnimatedModelComponent>> animatedModels;
+	
 	std::shared_ptr<ShaderComponent> defaultShader;
+	std::shared_ptr<ShaderComponent> defaultAnimShader;
 
 	// lighting stuff
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
@@ -55,5 +60,5 @@ public:
 	float DEBUG_SPHERE_RADIUS;
 private:
 	void updateLightComponentsVector(std::shared_ptr<Entity> e);
-	
+	void bindDefaultTextures(std::shared_ptr<ShaderComponent> sc);
 };

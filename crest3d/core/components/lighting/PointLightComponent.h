@@ -18,13 +18,13 @@ public:
 	inline void setDistance(float newDistance) { distance = newDistance; }
 	inline void setIntensity(float newIntensity) { intensity = newIntensity; }
 
-	void update(float deltaTime) override;
-
-private:
 	glm::vec3 position;
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 	float intensity;
 	float distance;
+
+private:
+	
 };

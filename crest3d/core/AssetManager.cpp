@@ -2,6 +2,10 @@
 
 AssetManager::AssetManager()
 {
+	defaultDiffuse = loadTextureAsset("res/textures/default_diffuse.png");
+	defaultDiffuse->asset->t_Type = TextureType::diffuse;
+	defaultNormal = loadTextureAsset("res/textures/default_normal.png");
+	defaultNormal->asset->t_Type = TextureType::normal;
 	defaultAO = loadTextureAsset("res/textures/default_ao.png");
 	defaultAO->asset->t_Type = TextureType::ao;
 	defaultMetallic = loadTextureAsset("res/textures/default_metallic.png");
@@ -19,6 +23,19 @@ std::shared_ptr<Asset<Model>> AssetManager::loadModelAsset(const char* path)
 	modelAssets.emplace_back(asset);
 	return asset;
 }
+
+std::shared_ptr<Asset<AnimatedModel>> AssetManager::loadAnimatedModelAsset(const char* path)
+{
+	std::shared_ptr<AnimatedModel> m = std::make_shared<AnimatedModel>();
+	std::shared_ptr<Asset<AnimatedModel>> asset = std::make_shared<Asset<AnimatedModel>>();
+	m->LoadMesh(path);
+	asset->asset = m;
+	asset->assetPath = path;
+	animatedModelAssets.emplace_back(asset);
+	return asset;
+	
+}
+
 
 std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 {

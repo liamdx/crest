@@ -1,5 +1,12 @@
 #include "Entity.h"
 
+void Entity::Delete()
+{
+	this->~Entity();
+	std::cout << "Entity Deleted" << std::endl;
+	std::cout << "Something else can happen here!" << std::endl;
+}
+
 void Entity::AddComponent(EngineComponent* newComponent)
 {
 	bool canEmplace = true;

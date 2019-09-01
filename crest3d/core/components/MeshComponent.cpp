@@ -35,7 +35,6 @@ void MeshComponent::draw(glm::mat4 view)
 	if(shouldDraw)
 	{
 		attachedEntity->transform->updateModelMatrix();
-		shader->shader->use();
 		shader->setView(view);
 		shader->UpdateShader(attachedEntity->transform->getModelMatrix());
 		mesh->Draw(*shader->shader);

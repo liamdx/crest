@@ -37,13 +37,13 @@ struct PointLight
 };
 
 // num lights
-uniform int numPointLights = 64;
+uniform int numPointLights = 32;
 
 // material parameters
 uniform Material mat;
 
 uniform DirLight dirLight;
-uniform PointLight pointLights[64];
+uniform PointLight pointLights[32];
 
 uniform vec3 viewPosition;
 
@@ -61,7 +61,7 @@ const float PI = 3.14159265359;
 
 vec3 getNormalFromMap()
 {
-    vec3 tangentNormal = texture(mat.m_Normal, TexCoords).xyz * 2.0 - 1.0;
+    vec3 tangentNormal =texture(mat.m_Normal, TexCoords).xyz * 2.0 - 1.0;
 
     vec3 Q1  = dFdx(WorldPos);
     vec3 Q2  = dFdy(WorldPos);
@@ -122,10 +122,10 @@ vec3 calculatePointLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float roughness, 
     // calculate per-light radiance
     vec3 L = normalize(pl.position - WorldPos);
     vec3 H = normalize(V + L);
-    float distance = pl.distance;
 
+    float distance = length(pl.position - WorldPos);
     float attenuation = 1.0 / (distance * distance);
-    vec3 radiance = pl.diffuse * attenuation;
+    vec3 radiance = pl.diffuse * (attenuation * pl.distance);
 
     // Cook-Torrance BRDF
     float NDF = DistributionGGX(N, H, roughness);   
@@ -149,9 +149,9 @@ vec3 calculatePointLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float roughness, 
 
     // scale light by NdotL
     float NdotL = max(dot(N, L), 0.0);        
-
+    vec3 diffuse = NdotL * albedo; 
     // add to outgoing radiance Lo
-    return (kD * albedo / PI + specular) * radiance * NdotL;  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
+    return (kD * diffuse / PI + specular) * radiance * NdotL;  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
 }
 
 
@@ -160,7 +160,7 @@ vec3 calculateDirectionalLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float rough
     vec3 L = normalize(-dirLight.direction);
     vec3 H = normalize(V + L);
 
-    vec3 radiance = dirLight.diffuse * 10;
+    vec3 radiance = dirLight.diffuse;
 
     // Cook-Torrance BRDF
     float NDF = DistributionGGX(N, H, roughness);   
@@ -183,16 +183,17 @@ vec3 calculateDirectionalLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float rough
     kD *= 1.0 - metallic;	  
 
     // scale light by NdotL
-    float NdotL = max(dot(N, L), 0.0);        
+    float NdotL = max(dot(N, L), 0.0); 
+    vec3 diffuse = NdotL * albedo;       
 
     // add to outgoing radiance Lo
-    return (kD * albedo / PI + specular) * radiance * NdotL;
+    return (kD * diffuse / PI + specular) * radiance * NdotL;
 }
 void main()
 {
     vec4 rawTex = texture(mat.m_Diffuse, TexCoords);
-    if(rawTex.a < 0.3)
-        discard;		
+    if(rawTex.a <= 0.0 && rawTex.r <= 0)
+         discard;		
     vec3 albedo     = pow(rawTex.rgb, vec3(2.2));
     float metallic  = texture(mat.m_Metallic, TexCoords).r;
     float roughness = texture(mat.m_Roughness, TexCoords).r;
@@ -211,14 +212,14 @@ void main()
 
     Lo += calculateDirectionalLight(albedo, N, F0, V, roughness, metallic);
 
-    // for(int i = 0; i < numPointLights; ++i) 
-    // {
-    //     Lo += calculatePointLight(albedo, N, F0, V, roughness, pointLights[i])  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
-    // }   
+    for(int i = 0; i < numPointLights; i++) 
+    {
+         Lo += calculatePointLight(albedo, N, F0, V, roughness, metallic, pointLights[i]);  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
+    }   
     
     // ambient lighting (note that the next IBL tutorial will replace 
     // this ambient lighting with environment lighting).
-    vec3 ambient = vec3(0.03) * albedo * ao;
+    vec3 ambient = dirLight.ambient * albedo * ao;
     
     vec3 color = ambient + Lo;
 

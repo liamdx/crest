@@ -20,8 +20,9 @@ public:
 
 private:
 
+	// bleh
 	std::shared_ptr<RigidbodyComponent> cyborgRib;
-
+	// every scene needs these, should be organised in a game manager
 	std::shared_ptr<AssetManager> am;
 	std::shared_ptr<PhysicsManager> pm;
 	std::shared_ptr<Scene> scene;
@@ -29,8 +30,10 @@ private:
 	std::shared_ptr<GLFWwindow> window;
 	std::shared_ptr<CameraComponent> cam;
 
+	// specific to this example
 	std::shared_ptr<Entity> levelEntity;
 	std::shared_ptr<Entity> cyborgEntity;
+	std::shared_ptr<Entity> animEntity;
 	std::shared_ptr<Entity> cameraEntity;
 	std::shared_ptr<Entity> dirLight;
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;

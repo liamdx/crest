@@ -319,7 +319,7 @@ std::string Shader::textureTypeToShaderName(TextureType t)
 
 void Shader::fillMappings()
 {
-	for (int TextureTypeInt = 0; TextureTypeInt <= 7; TextureTypeInt++)
+	for (int TextureTypeInt = 0; TextureTypeInt <= 8; TextureTypeInt++)
 	{
 		TextureType t = static_cast<TextureType>(TextureTypeInt);
 		std::string shaderString = textureTypeToShaderName(t);

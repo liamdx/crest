@@ -20,6 +20,7 @@ public:
 		modelId = shader->getMat4Location("model");
 		viewId = shader->getMat4Location("view");
 		projectionId = shader->getMat4Location("projection");
+		numPointLightsId = shader->getIntLocation("numPointLights");
 	};
 
 	inline void UpdateShader(glm::mat4 modelMatrix)
@@ -44,6 +45,11 @@ public:
 		shader->setMat4ID(projectionId, projectionMatrix);
 	}
 
+	inline void SetNumPointLights(unsigned int numPointLights)
+	{
+		shader->setIntID(numPointLightsId, numPointLights);
+	}
+
 	~ShaderComponent() override {};
 	std::shared_ptr<Shader> shader;
 	inline void setView(glm::mat4 _view) { view = _view; }
@@ -53,4 +59,5 @@ private:
 	glm::mat4 projection;
 	std::string _vertexPath, _fragPath;
 	unsigned int modelId, projectionId, viewId;
+	unsigned int numPointLightsId;
 };
