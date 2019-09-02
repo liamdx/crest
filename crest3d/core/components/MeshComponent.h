@@ -18,6 +18,7 @@ public:;
 	void ui(float deltaTime) override;
 	void draw(glm::mat4 view, std::shared_ptr<ShaderComponent> _shader);
 	void setShouldDraw(bool newValue) { shouldDraw = newValue; }
+	
 	bool meshIsConvex;
 	std::shared_ptr<Mesh> mesh;
 	bool shouldDraw;
@@ -25,8 +26,6 @@ private:
 
 	
 	void draw(glm::mat4 view);
-	
-	std::shared_ptr<ShaderComponent> shader;
 
 	bool isConvex(std::vector<glm::vec3> points, std::vector<unsigned int> triangles, float threshold);
 

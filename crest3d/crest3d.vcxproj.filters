@@ -827,6 +827,9 @@
     <ClInclude Include="core\components\AnimatedModelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\EngineManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl">

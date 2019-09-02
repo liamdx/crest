@@ -1,7 +1,6 @@
 #include "MeshComponent.h"
 
 void MeshComponent::init() {
-	shader = attachedEntity->GetComponent<ShaderComponent>();
 	shouldDraw = true;
 }
 
@@ -19,10 +18,7 @@ void MeshComponent::update(float deltaTime) {
 
 void MeshComponent::render(float deltaTime, glm::mat4 view)
 {
-	/*if(shouldDraw)
-	{
-		draw(view);
-	}*/
+	
 }
 
 
@@ -30,24 +26,11 @@ void MeshComponent::ui(float deltaTime) {
 
 }
 
-void MeshComponent::draw(glm::mat4 view)
-{
-	if(shouldDraw)
-	{
-		attachedEntity->transform->updateModelMatrix();
-		shader->setView(view);
-		shader->UpdateShader(attachedEntity->transform->getModelMatrix());
-		mesh->Draw(*shader->shader);
-	}
-}
 
 void MeshComponent::draw(glm::mat4 view, std::shared_ptr<ShaderComponent> _shader)
 {
 	if (shouldDraw)
 	{
-		// attachedEntity->transform->updateModelMatrix();
-		// shader->shader->use();
-		// shader->setView(view);
 		_shader->UpdateModel(attachedEntity->transform->getModelMatrix());
 		mesh->Draw(_shader->shader);
 	}

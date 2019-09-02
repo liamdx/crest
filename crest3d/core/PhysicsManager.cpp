@@ -65,18 +65,4 @@ void PhysicsManager::addRigidbody(std::shared_ptr<btRigidBody> rib, std::shared_
 }
 
 
-void PhysicsManager::updateCollisionMeshes()
-{
-	debugMeshes.clear();
-	for(int i =0; i < physicsEntities.size(); i++)
-	{
-		auto e = physicsEntities.at(i);
-		auto meshComponent = e->GetComponent<MeshComponent>();
 
-		if(meshComponent != nullptr)
-		{
-			debugMeshes.emplace_back(Mesh(meshComponent->mesh->hullVertexPositions, meshComponent->mesh->hullIndices));
-		}
-
-	}
-}

@@ -28,15 +28,11 @@ public:
 	inline glm::mat4 getProjection() { return projection; }
 
 	// pm functions
-	//RigidBody* addRigidbody();
-	//rp3d::CollisionBody* addCollisionBody();
 	void addRigidbody(std::shared_ptr<btRigidBody> rib, std::shared_ptr<btCollisionShape> col);
 	void addPhysicsEntity(std::shared_ptr<Entity> e) { physicsEntities.emplace_back(e); }
-	void updateCollisionMeshes();
 
 	Shader debugShader;
 	// member vars
-	std::vector<Mesh> debugMeshes;
 	std::vector<std::shared_ptr<Entity>> physicsEntities;
 	float accumulator, deltaTime, lastFrame, factor, fixedTimeStep;
 	//bullet variables
