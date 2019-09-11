@@ -34,9 +34,9 @@ public:
 	~Entity() {}
 
 	void Delete();
+	inline void SetId(unsigned int newId) { id = newId; }
 	
 	void AddComponent(EngineComponent* newComponent);
-
 	// template method only works in .h file without round-about bs
 	// any way to keep this in cpp?
 	template <class T>
@@ -67,7 +67,5 @@ public:
 	void renderBehaviour(float deltaTime, glm::mat4 view);
 	void uiBehaviour(float deltaTime);
 
-private:
-	// do we need this?
 	int id;
 };

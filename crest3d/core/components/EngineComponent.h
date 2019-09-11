@@ -5,6 +5,7 @@ class Entity;
 class EngineComponent {
 public:
 	const char* name;
+	unsigned int id;
 	std::shared_ptr<Entity> attachedEntity = nullptr;
 
 	EngineComponent(const char* componentName = "EngineComponent") { name = componentName; }
@@ -16,4 +17,6 @@ public:
 	virtual void fixedUpdate() {};
 	virtual void render(float deltaTime, glm::mat4 view) {};
 	virtual void ui(float deltaTime) {};
+
+	inline void SetId(unsigned int newId) { id = newId; }
 };

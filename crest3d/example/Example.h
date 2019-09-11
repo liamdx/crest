@@ -6,16 +6,18 @@ class Example {
 public:
 
 	virtual ~Example() {};
+	void initialise(std::shared_ptr<Example> e) { engineManager = std::make_unique<EngineManager>(e); }
 	virtual void initBehaviour() {};
 	virtual void startBehaviour() {};
 	virtual void earlyUpdateBehaviour(float deltaTime) {};
 	virtual void fixedUpdateBehaviour() {};
 	virtual void updateBehaviour(float deltaTime) {};
-
-	// should we pass view matrix through the render pass?
-	// ease passing the view matrix from camera around, 
-	// could be done in a better way?
 	virtual void renderBehaviour(float deltaTime) {};
 	virtual void uiBehaviour(float deltaTime) {};
+
+	std::map<std::string, std::shared_ptr<Entity>> entities;
+	std::map<std::string, std::shared_ptr<EngineComponent>> components;
+
+	std::unique_ptr<EngineManager> engineManager;
 
 };

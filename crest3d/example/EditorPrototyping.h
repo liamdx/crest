@@ -19,16 +19,12 @@ public:
 	inline std::shared_ptr<Scene> getScene() { return std::shared_ptr<Scene>(scene); }
 
 private:
-
-	// bleh
-	std::shared_ptr<RigidbodyComponent> cyborgRib;
 	// every scene needs these, should be organised in a game manager
 	std::shared_ptr<AssetManager> am;
 	std::shared_ptr<PhysicsManager> pm;
 	std::shared_ptr<Scene> scene;
 	std::shared_ptr<InputManager> input;
 	std::shared_ptr<GLFWwindow> window;
-	std::shared_ptr<CameraComponent> cam;
 
 	// specific to this example
 	std::shared_ptr<Entity> levelEntity;
@@ -37,6 +33,7 @@ private:
 	std::shared_ptr<Entity> cameraEntity;
 	std::shared_ptr<Entity> dirLight;
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
+	std::shared_ptr<CameraComponent> cam;
 
 	Cubemap* skybox;
 	Shader* cubemapShader;

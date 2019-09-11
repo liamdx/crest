@@ -5,8 +5,10 @@
 #include "components/lighting/DirectionalLightComponent.h"
 #include "components/lighting/PointLightComponent.h"
 #include "components/AnimatedModelComponent.h"
-#include "PhysicsManager.h"
+#include "components/MeshComponent.h"
 #include "AssetManager.h"
+#include "ShaderManager.h"
+#include "PhysicsManager.h"
 
 class Scene
 {

@@ -7,24 +7,24 @@ const float SCREEN_HEIGHT = 720.0;
 
 int main() {
 
-	SDL_Init(SDL_INIT_EVERYTHING);
+	// SDL_Init(SDL_INIT_EVERYTHING);
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
-	float exposure = 2.22f;
-	float gamma = 0.9f;
+	float exposure = 2.2f;
+	float gamma = 0.912f;
 
-	SDL_Window* sdl_window = SDL_CreateWindow("SDL2 ImGui Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
-	SDL_GLContext mainContext = SDL_GL_CreateContext(sdl_window);
-	SDL_Renderer* sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
-	// ImGuiSDL::Initialize(sdl_renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+	//SDL_Window* sdl_window = SDL_CreateWindow("SDL2 ImGui Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
+	//SDL_GLContext mainContext = SDL_GL_CreateContext(sdl_window);
+	//SDL_Renderer* sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
+	//// ImGuiSDL::Initialize(sdl_renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
-	SDL_GL_SetSwapInterval(0);
+	//SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+	//SDL_GL_SetSwapInterval(0);
 
 	//DEBUG
 	int success;
@@ -82,7 +82,7 @@ int main() {
 
 	//// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 130");
+    ImGui_ImplOpenGL3_Init("#version 330");
 
 	// ImGui_ImplSDL2_InitForOpenGL(sdl_window, mainContext);
 	
@@ -99,6 +99,7 @@ int main() {
 
 	// Example Here 
 	EditorPrototyping example(window);
+
 	example.initBehaviour();
 
 	
@@ -121,7 +122,7 @@ int main() {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
-
+	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	while (1) {
 
@@ -180,6 +181,8 @@ int main() {
 			if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
 			{
 				mainFB.changeScreenSize(dWidth, dHeight);
+				depthFB.changeScreenSize(dWidth, dHeight);
+				finalFB.changeScreenSize(dWidth, dHeight);
 				glViewport(0, 0, dWidth, dHeight);
 				example.getScene()->sceneCamera->updateProjection(75.0f, dWidth, dHeight);
 			}
@@ -239,7 +242,7 @@ int main() {
 		/* Poll for and process events */
 		glfwPollEvents();
 
-		SDL_GL_SwapWindow(sdl_window);
+		// SDL_GL_SwapWindow(sdl_window);
 	}
 
 }

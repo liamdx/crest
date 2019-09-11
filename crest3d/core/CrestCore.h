@@ -7,15 +7,13 @@
 #include "gfx/Cubemap.h"
 #include "gfx/FrameBuffer.h"
 
-#include "InputManager.h"
 
 #include "primitives/Quad.h"
 #include "primitives/Cube.h"
 #include "PhysicsManager.h"
 
 #include "Entity.h"
-#include "Scene.h"
-#include "AssetManager.h"
+#include "EngineManager.h"
 
 // the components <3
 #include "components/EngineComponent.h"
