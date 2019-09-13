@@ -126,6 +126,9 @@
     <ClCompile Include="core\ShaderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\gfx\ShadowMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -692,9 +695,6 @@
     <ClInclude Include="core\components\lighting\PointLightComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\components\lighting\LightComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\ext\imgui\auto\boost\pfr\detail\cast_to_layout_compatible.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -831,6 +831,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\gfx\ShadowMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\lighting\LightComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

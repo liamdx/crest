@@ -3,7 +3,7 @@
 #include "components/lighting/LightComponent.h"
 #include "components/ShaderComponent.h"
 
-class DirectionalLightComponent : public EngineComponent
+class DirectionalLightComponent : public LightComponent
 {
 public:
 	void initialize(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);

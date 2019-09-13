@@ -2,7 +2,7 @@
 #include "components/lighting/LightComponent.h"
 #include "components/ShaderComponent.h"
 
-class PointLightComponent : public EngineComponent
+class PointLightComponent : public LightComponent
 {
 public:
 

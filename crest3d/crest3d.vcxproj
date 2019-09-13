@@ -187,6 +187,7 @@
     <ClCompile Include="app\main.cpp" />
     <ClCompile Include="core\gfx\Mesh.cpp" />
     <ClCompile Include="core\gfx\Model.cpp" />
+    <ClCompile Include="core\gfx\ShadowMap.cpp" />
     <ClCompile Include="core\PhysicsManager.cpp" />
     <ClCompile Include="core\primitives\Cube.cpp" />
     <ClCompile Include="core\primitives\Quad.cpp" />
@@ -420,6 +421,7 @@
     <ClInclude Include="core\ext\stb_image\stb_image.h" />
     <ClInclude Include="core\gfx\FrameBuffer.h" />
     <ClInclude Include="core\gfx\Material.h" />
+    <ClInclude Include="core\gfx\ShadowMap.h" />
     <ClInclude Include="core\InputManager.h" />
     <ClInclude Include="core\gfx\Mesh.h" />
     <ClInclude Include="core\gfx\Model.h" />
