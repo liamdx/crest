@@ -12,7 +12,7 @@ class EngineManager
 {
 public:
 
-	EngineManager(GLFWwindow* _window);
+	EngineManager(GLFWwindow* _window, Example* _example);
 	~EngineManager() {};
 
 	void initialise();
@@ -49,4 +49,7 @@ public:
 	void deleteComponentInScene(std::shared_ptr<Entity> e, unsigned int _id);
 
 	std::shared_ptr<Entity> getEntity(std::shared_ptr<Entity> e, unsigned int _id);
+
+private:
+	const unsigned int currentSceneIndex = 0;
 };

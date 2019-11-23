@@ -46,11 +46,8 @@ Cubemap::Cubemap(std::vector<std::string> textures_faces)
 
 void Cubemap::Draw(Shader shader)
 {
-	//glm::mat4 skyboxview = glm::mat4(glm::mat3(cameraViewMatrix));
 	glDepthFunc(GL_LEQUAL);
 	shader.use();
-	//shader.setMat4("projection", projectionMatrix);
-	//shader.setMat4("view", skyboxview);
 
 	glBindVertexArray(vao);
 	glActiveTexture(GL_TEXTURE0);
@@ -64,7 +61,6 @@ void Cubemap::Draw(Shader shader)
 	glBindVertexArray(0);
 
 	glDepthFunc(GL_LESS);
-	//glDepthMask(GL_TRUE);
 }
 
 void Cubemap::Bind(Shader shader)

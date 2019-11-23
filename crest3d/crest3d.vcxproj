@@ -263,7 +263,6 @@
     <ClInclude Include="core\components\TransformComponent.h" />
     <ClInclude Include="core\gfx\Cubemap.h" />
     <ClInclude Include="core\components\EngineComponent.h" />
-    <ClInclude Include="core\Debug.h" />
     <ClInclude Include="core\Entity.h" />
     <ClInclude Include="core\ext\filesystem.h" />
     <ClInclude Include="core\ext\glm\common.hpp" />

@@ -14,7 +14,7 @@ public:
 	void Bind(Shader shader);
 private:
 
-	float skyboxVertices[108] = {
+	const float skyboxVertices[108] = {
 		// positions
 		-1.0f,  1.0f, -1.0f,
 		-1.0f, -1.0f, -1.0f,

@@ -5,8 +5,8 @@
 class DebugRenderer : public btIDebugDraw
 {
 public:
-	DebugRenderer(void);
-	virtual ~DebugRenderer(void);
+	DebugRenderer(void) {} ;
+	virtual ~DebugRenderer(void) {};
 
 	struct _LINE {
 		glm::vec3 from;

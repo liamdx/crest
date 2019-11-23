@@ -4,6 +4,8 @@
 
 class PhysicsManager;
 
+class EngineManager;
+
 class Entity {
 public:
 
@@ -18,12 +20,12 @@ public:
 	std::vector<std::shared_ptr<Entity>> children;
 	std::shared_ptr<TransformComponent> transform;
 
-	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager)
+	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _pm)
 	{
+		physicsManager = _pm;
 		name = entityName;
 		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
 		transform->attachedEntity = std::shared_ptr<Entity>(this);
-		physicsManager = _physicsManager;
 	}
 	Entity(const char* entityName)
 	{
@@ -58,6 +60,7 @@ public:
 	std::shared_ptr<Entity> GetChild(const char* name);
 
 	std::shared_ptr<PhysicsManager> physicsManager;
+	// EngineManager& engineManager;
 
 	void initBehaviour();
 	void startBehaviour();

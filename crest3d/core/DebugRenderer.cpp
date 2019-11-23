@@ -1,13 +1,5 @@
 #include "DebugRenderer.h"
 
-DebugRenderer::DebugRenderer()
-{
-}
-
-DebugRenderer::~DebugRenderer()
-{
-}
-
 void DebugRenderer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 {
 	LINES.push_back(_LINE(glm::vec3(from.getX(), from.getY(), from.getZ()), glm::vec3(to.getX(), to.getY(), to.getZ())));
@@ -43,7 +35,6 @@ void DebugRenderer::bindBuffers()
 
 void DebugRenderer::doDraw()
 {
-	//glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_LINE_SMOOTH);
 	glLineWidth(2.0);
 	glBindVertexArray(vao);
@@ -54,9 +45,12 @@ void DebugRenderer::doDraw()
 
 void DebugRenderer::draw3dText(const btVector3& location, const char* textString)
 {
+	// still to implement
 }
 void DebugRenderer::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 {
+	// still to implement
+	// .. draw a sphere with a special shader?
 }
 
 int DebugRenderer::getDebugMode() const
@@ -76,4 +70,5 @@ void DebugRenderer::reportErrorWarning(const char* warningString)
 
 void DebugRenderer::drawTriangle(const btVector3& v0, const btVector3& v1, const btVector3& v2, const btVector3& color, btScalar)
 {
+	// still to implement
 }

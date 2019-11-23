@@ -1,7 +1,7 @@
 #include "EngineManager.h"
 #include "Example.h"
 
-EngineManager::EngineManager(GLFWwindow* _window)
+EngineManager::EngineManager(GLFWwindow* _window, Example* _example)
 {
 	/*example = _example;
 	physicsManager = std::shared_ptr<PhysicsManager>(new PhysicsManager());
@@ -9,18 +9,20 @@ EngineManager::EngineManager(GLFWwindow* _window)
 	shaderManager = std::make_shared<ShaderManager>();
 	scene = std::shared_ptr<Scene>(new Scene("debugScene", physicsManager, assetManager));
 	input = std::shared_ptr<InputManager>(new InputManager(window.get()));*/
+
+	example = std::unique_ptr<Example>(_example);
 }
 
 unsigned int EngineManager::makeUniqueComponentID()
 {
-	auto newId = componentIds.size();
+	unsigned int newId = componentIds.size();
 	componentIds.emplace_back(newId);
 	return(newId);
 }
 
 unsigned int EngineManager::makeUniqueEntityID()
 {
-	auto newId = entityIds.size();
+	unsigned int newId = entityIds.size();
 	entityIds.emplace_back(newId);
 	return(newId);
 }
