@@ -24,6 +24,8 @@ public:
 	std::shared_ptr<btRigidBody> rib;
 	std::shared_ptr<btCollisionShape> shape;
 	std::shared_ptr<btDefaultMotionState> myMotionState;
+
+	// references
 	std::shared_ptr<PhysicsManager> physicsManager;
 	std::shared_ptr<TransformComponent> transform;
 
@@ -36,9 +38,8 @@ public:
 	inline float getMass() { return mass; }
 	inline void setMass(float newMass) { mass = newMass; rib->setMassProps(newMass, btVector3(0, 0, 0)); }
 	bool enabled;
-
+	float mass;
 
 private:
 	btTransform trans;
-	float mass;
 };

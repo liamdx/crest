@@ -4,7 +4,7 @@
 
 CameraComponent::CameraComponent(std::shared_ptr<Entity> e)
 {
-	attachedEntity = e; 
+	attachedEntity = e;
 	name = "CameraComponent";
 	nearPlane = 0.1;
 	farPlane = 1000;
@@ -13,7 +13,6 @@ CameraComponent::CameraComponent(std::shared_ptr<Entity> e)
 	fov = 70;
 	updateProjection(fov, width, height);
 }
-
 
 glm::mat4 CameraComponent::GetViewProjectionMatrix()
 {
@@ -30,7 +29,6 @@ glm::mat4 CameraComponent::GetViewMatrix()
 		attachedEntity->transform->position + attachedEntity->transform->forward,
 		attachedEntity->transform->up);
 }
-
 
 void CameraComponent::updateProjection(float _fov, float _width, float _height)
 {
@@ -54,7 +52,7 @@ void CameraComponent::MakeFrustum()
 
 	//// near plane
 	//glm::vec4 np;
-	//np.x = vp[3][0] + vp[2][0]; 
+	//np.x = vp[3][0] + vp[2][0];
 	//np.y = vp[3][1] + vp[2][1];
 	//np.z = vp[3][2] + vp[2][2];
 	//np.w = vp[3][3] + vp[2][3];
@@ -132,7 +130,7 @@ void CameraComponent::MakeFrustum()
 	clip[3][3] = view[3][0] * projection[0][3] + view[3][1] * projection[1][3] + view[3][2] * projection[2][3] + view[3][3] * projection[3][3];
 
 	frustumPlanes.clear();
-	
+
 	glm::vec4 rp;
 	rp.x = clip[0][3] - clip[0][0];
 	rp.y = clip[1][3] - clip[1][0];
@@ -156,7 +154,7 @@ void CameraComponent::MakeFrustum()
 	bp.w = clip[3][3] + clip[3][1];
 	bp = normalizePlane(bp);
 	frustumPlanes.emplace_back(bp);
-	
+
 	glm::vec4 tp;
 	tp.x = clip[0][3] - clip[0][1];
 	tp.y = clip[1][3] - clip[1][1];
@@ -180,7 +178,6 @@ void CameraComponent::MakeFrustum()
 	bkp.w = clip[3][3] + clip[3][2];
 	bkp = normalizePlane(bkp);
 	frustumPlanes.emplace_back(bkp);
-	
 }
 
 float CameraComponent::planeDotCoord(glm::vec4 a, glm::vec3 b)
@@ -190,9 +187,9 @@ float CameraComponent::planeDotCoord(glm::vec4 a, glm::vec3 b)
 
 bool CameraComponent::checkSphere(glm::vec3 position, float radius)
 {
-	for(unsigned int i = 0; i < 6; i++)
+	for (unsigned int i = 0; i < 6; i++)
 	{
-		if(planeDotCoord(frustumPlanes[i], position) < -radius)
+		if (planeDotCoord(frustumPlanes[i], position) < -radius)
 		{
 			return false;
 		}
@@ -205,7 +202,7 @@ bool CameraComponent::checkPoint(glm::vec3 position)
 	for (unsigned int i = 0; i < 6; i++)
 	{
 		float d = planeDotCoord(frustumPlanes[i], position);
-		if(d <= 0)
+		if (d <= 0)
 		{
 			return false;
 		}
@@ -229,9 +226,4 @@ glm::vec4 CameraComponent::normalizePlane(glm::vec4 plane)
 	normVec.w = plane.w / magnitude;
 
 	return normVec;
-	
 }
-
-
-
-

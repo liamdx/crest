@@ -1,16 +1,15 @@
 #include "EngineManager.h"
 #include "Example.h"
 
-EngineManager::EngineManager(std::shared_ptr<Example> _example)
+EngineManager::EngineManager(GLFWwindow* _window)
 {
-	example = _example;
+	/*example = _example;
 	physicsManager = std::shared_ptr<PhysicsManager>(new PhysicsManager());
 	assetManager = std::make_shared<AssetManager>();
 	shaderManager = std::make_shared<ShaderManager>();
 	scene = std::shared_ptr<Scene>(new Scene("debugScene", physicsManager, assetManager));
-	input = std::shared_ptr<InputManager>(new InputManager(window.get()));
+	input = std::shared_ptr<InputManager>(new InputManager(window.get()));*/
 }
-
 
 unsigned int EngineManager::makeUniqueComponentID()
 {
@@ -26,7 +25,6 @@ unsigned int EngineManager::makeUniqueEntityID()
 	return(newId);
 }
 
-
 std::shared_ptr<Entity> EngineManager::AddCameraEntity()
 {
 	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
@@ -36,7 +34,6 @@ std::shared_ptr<Entity> EngineManager::AddCameraEntity()
 	e->SetId(makeUniqueEntityID());
 	return e;
 }
-
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 {
@@ -62,7 +59,6 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh,
 
 	return e;
 }
-
 
 std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> model)
 {
@@ -90,7 +86,6 @@ std::shared_ptr<Entity> EngineManager::AddAnimatedModelEntity(std::shared_ptr<An
 	scene->animatedModels.emplace_back(amc);
 	return e;
 }
-
 
 std::shared_ptr<Entity> EngineManager::AddDirectionalLightEntity()
 {
@@ -142,7 +137,6 @@ void EngineManager::deleteComponentInScene(std::shared_ptr<Entity> e, unsigned i
 			deleteComponentInScene(e->children.at(i), _id);
 		}
 	}
-
 }
 
 void EngineManager::deleteComponentInExample(unsigned int _id)
@@ -150,20 +144,19 @@ void EngineManager::deleteComponentInExample(unsigned int _id)
 	std::map<std::string, std::shared_ptr<EngineComponent>>::iterator it = example->components.begin();
 	std::string componentToDelete = "";
 	bool shouldDelete = false;
-	while(it != example->components.end())
+	while (it != example->components.end())
 	{
 		unsigned int componentId = it->second->id;
-		if(componentId == _id)
+		if (componentId == _id)
 		{
 			componentToDelete = it->first;
 			shouldDelete = true;
 		}
 	}
-	if(shouldDelete)
+	if (shouldDelete)
 	{
 		example->components.erase(componentToDelete);
 	}
-	
 }
 
 std::shared_ptr<Entity> EngineManager::getEntity(std::shared_ptr<Entity> e, unsigned int _id)
@@ -181,15 +174,14 @@ std::shared_ptr<Entity> EngineManager::getEntity(std::shared_ptr<Entity> e, unsi
 	}
 }
 
-
 void EngineManager::DeleteEntity(unsigned int entityId)
 {
 	std::shared_ptr<Entity> e = nullptr;
 	e = getEntity(scene->rootEntity, entityId);
 	std::cout << "Entity num components before deletion : " << std::to_string(e->components.size()) << std::endl;
-	if(e != nullptr)
+	if (e != nullptr)
 	{
-		for(int i = 0; i < e->components.size(); i++)
+		for (int i = 0; i < e->components.size(); i++)
 		{
 			DeleteComponent(e->components.at(i)->id);
 		}
@@ -197,15 +189,14 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 	std::cout << "Entity num components after deletion : " << std::to_string(e->components.size()) << std::endl;
 }
 
-
 void EngineManager::DeleteComponent(unsigned int componentId)
 {
-	if(scene->dirLightComponent->id == componentId)
+	if (scene->dirLightComponent->id == componentId)
 	{
 		scene->dirLightComponent = nullptr;
 	}
 
-	for(int i = 0; i < scene->pointLightComponents.size(); i++)
+	for (int i = 0; i < scene->pointLightComponents.size(); i++)
 	{
 		auto plc = scene->pointLightComponents.at(i);
 		if (plc->id == componentId)
@@ -214,8 +205,8 @@ void EngineManager::DeleteComponent(unsigned int componentId)
 			break;
 		}
 	}
-	
-	for(int i = 0; i < scene->meshes.size(); i++)
+
+	for (int i = 0; i < scene->meshes.size(); i++)
 	{
 		auto mc = scene->meshes.at(i);
 		if (mc->id == componentId)
@@ -234,8 +225,7 @@ void EngineManager::DeleteComponent(unsigned int componentId)
 			break;
 		}
 	}
-	
+
 	deleteComponentInScene(scene->rootEntity, componentId);
 	deleteComponentInExample(componentId);
 }
-

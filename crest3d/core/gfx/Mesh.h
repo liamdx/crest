@@ -60,7 +60,7 @@ public:
 
 	unsigned int vao, vbo, ibo;
 	void setupMesh();
-    float getCullSphereRadius();
+	float getCullSphereRadius();
 	float xBound, yBound, zBound;
 
 	std::vector<glm::vec3> getVertexPositions();
@@ -69,11 +69,10 @@ public:
 
 	void generateConvexHull();
 
-
 	const int numVertices() { return vertices.size(); }
 	const int numIndices() { return indices.size(); }
 
-	// convex hull stuff 
+	// convex hull stuff
 	//quickhull::QuickHull<float> qh;
 	//std::vector<quickhull::Vector3<float>> pointCloud;
 

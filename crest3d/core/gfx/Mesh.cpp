@@ -22,7 +22,6 @@ void Mesh::setupMesh()
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tangent));
 
-
 	glBindVertexArray(0);
 }
 float Mesh::getCullSphereRadius()
@@ -43,19 +42,19 @@ Mesh::Mesh(std::vector<float> vertexPositions, std::vector<unsigned> indices)
 	Vertex v;
 	int counter = 0;
 
-	for(int i =0; i < vertexPositions.size(); i++)
+	for (int i = 0; i < vertexPositions.size(); i++)
 	{
 		if (counter == 0)
 		{
 			currentPosition.x = vertexPositions.at(i);
 			counter += 1;
 		}
-		if(counter == 1)
+		if (counter == 1)
 		{
 			currentPosition.y = vertexPositions.at(i);
 			counter += 1;
 		}
-		if(counter == 2)
+		if (counter == 2)
 		{
 			currentPosition.z = vertexPositions.at(i);
 			v.position = currentPosition;
@@ -71,14 +70,12 @@ Mesh::Mesh(std::vector<float> vertexPositions, std::vector<unsigned> indices)
 	setupMesh();
 }
 
-
 void Mesh::Draw(Shader shader)
 {
 	int diffuseCount = 0;
 	int specularCount = 0;
 	int reflectionCount = 0;
 	int normalCount = 0;
-
 
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -122,7 +119,6 @@ void Mesh::Draw(Shader shader)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	glBindVertexArray(0);
-
 }
 
 void Mesh::Draw(std::shared_ptr<Shader> shader)
@@ -131,7 +127,6 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 	int specularCount = 0;
 	int reflectionCount = 0;
 	int normalCount = 0;
-
 
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -175,9 +170,7 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	glBindVertexArray(0);
-
 }
-
 
 void Mesh::Draw(Shader* shader)
 {
@@ -185,7 +178,6 @@ void Mesh::Draw(Shader* shader)
 	int specularCount = 0;
 	int reflectionCount = 0;
 	int normalCount = 0;
-
 
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -203,7 +195,6 @@ void Mesh::Draw(Shader* shader)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	glBindVertexArray(0);
-
 }
 
 void Mesh::TestDraw(Shader shader)
@@ -211,14 +202,12 @@ void Mesh::TestDraw(Shader shader)
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-
 }
-
 
 std::vector<glm::vec3> Mesh::getVertexPositions()
 {
 	std::vector<glm::vec3> vertexPositions;
-	for(int i =0; i < vertices.size(); i++)
+	for (int i = 0; i < vertices.size(); i++)
 	{
 		vertexPositions.emplace_back(vertices.at(i).position);
 	}
@@ -229,7 +218,7 @@ std::vector<glm::vec3> Mesh::getVertexPositions()
 std::vector<float> Mesh::getVertexValues()
 {
 	std::vector<float> v;
-	for(int i = 0; i < vertices.size(); i++)
+	for (int i = 0; i < vertices.size(); i++)
 	{
 		auto currentVertex = vertices.at(i);
 		v.emplace_back(currentVertex.position.x);
@@ -249,9 +238,6 @@ std::vector<int> Mesh::getIndexValues()
 	}
 	return iv;
 }
-
-
-
 
 void Mesh::calcMeshBounds()
 {
@@ -284,5 +270,4 @@ void Mesh::calcMeshBounds()
 
 void Mesh::generateConvexHull()
 {
-
 }

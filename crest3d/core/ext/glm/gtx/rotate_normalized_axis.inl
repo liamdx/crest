@@ -16,7 +16,7 @@ namespace glm
 
 		vec<3, T, Q> const axis(v);
 
-		vec<3, T, Q> const temp((static_cast<T>(1) - c) * axis);
+		vec<3, T, Q> const temp((static_cast<T>(1) - c)* axis);
 
 		mat<4, 4, T, Q> Rotate;
 		Rotate[0][0] = c + temp[0] * axis[0];
@@ -52,7 +52,7 @@ namespace glm
 		T const AngleRad(angle);
 		T const Sin = sin(AngleRad * T(0.5));
 
-		return q * qua<T, Q>(cos(AngleRad * static_cast<T>(0.5)), Tmp.x * Sin, Tmp.y * Sin, Tmp.z * Sin);
+		return q * qua<T, Q>(cos(AngleRad * static_cast<T>(0.5)), Tmp.x* Sin, Tmp.y* Sin, Tmp.z* Sin);
 		//return gtc::quaternion::cross(q, tquat<T, Q>(cos(AngleRad * T(0.5)), Tmp.x * fSin, Tmp.y * fSin, Tmp.z * fSin));
 	}
 }//namespace glm

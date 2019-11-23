@@ -17,7 +17,7 @@ Cube::Cube(std::string texturePath) {
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
 	glBindVertexArray(0);
-	tex.t_Id = Model::TextureFromFile(tex.t_Path.c_str(),"");
+	tex.t_Id = Model::TextureFromFile(tex.t_Path.c_str(), "");
 }
 Cube::Cube()
 {
@@ -56,7 +56,7 @@ void Cube::Draw(Shader shader)
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void Cube::Draw(Shader shader,  unsigned int skyboxId)
+void Cube::Draw(Shader shader, unsigned int skyboxId)
 {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxId);
@@ -66,7 +66,7 @@ void Cube::Draw(Shader shader,  unsigned int skyboxId)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	glBindVertexArray(vao);	
+	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glActiveTexture(GL_TEXTURE0);
 }
@@ -78,6 +78,6 @@ void Cube::TestDraw(Shader shader)
 	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glActiveTexture(GL_TEXTURE0);
-	
+
 	glEnable(GL_CULL_FACE);
 }

@@ -39,9 +39,7 @@ TransformComponent::TransformComponent(std::shared_ptr<TransformComponent> _pare
 	physicsOverride = false;
 	update(0.0);
 	updateModelMatrix();
-	
 }
-
 
 void TransformComponent::setPosition(glm::vec3 newPosition)
 {
@@ -54,14 +52,12 @@ void TransformComponent::setPosition(glm::vec3 newPosition)
 	{
 		position = parent->position + localPosition;
 	}
-
 }
 
 void TransformComponent::setPositionAbsolute(glm::vec3 newPosition)
 {
 	position = newPosition;
 }
-
 
 void TransformComponent::addPosition(glm::vec3 newPosition)
 {
@@ -103,7 +99,6 @@ void TransformComponent::setEulerAnglesAbsolute(glm::vec3 newRotation)
 	updateDirectionVectors();
 }
 
-
 void TransformComponent::addEulerAngles(glm::vec3 newRotation)
 {
 	localEulerAngles = localEulerAngles + newRotation;
@@ -142,17 +137,15 @@ void TransformComponent::clampEulerAngles(glm::vec3& v)
 
 void TransformComponent::clampRotation(float& value)
 {
-	if(value >= 180.0f)
+	if (value >= 180.0f)
 	{
 		value -= -360.0f;
 	}
-	else if(value <= -180.0f)
+	else if (value <= -180.0f)
 	{
 		value += 360.0f;
 	}
-
 }
-
 
 void TransformComponent::setScale(glm::vec3 newScale)
 {
@@ -171,7 +164,6 @@ void TransformComponent::setScaleAbsolute(glm::vec3 newScale)
 {
 	scale = newScale;
 }
-
 
 void TransformComponent::addScale(glm::vec3 newScale)
 {
@@ -194,14 +186,13 @@ void TransformComponent::updateModelMatrix()
 	model = glm::translate(model, position);
 }
 
-
 void TransformComponent::updateDirectionVectors()
 {
 	glm::vec3 front = glm::vec3(0.0);
 	front.x = glm::cos(glm::radians(eulerAngles.y)) * glm::cos(glm::radians(eulerAngles.x));
 	front.y = glm::sin(glm::radians(eulerAngles.x));
 	front.z = glm::sin(glm::radians(eulerAngles.y)) * glm::cos(glm::radians(eulerAngles.x));
-	
+
 	forward = glm::normalize(front);
 	right = glm::normalize(glm::cross(front, worldUp)); // forward should be world up
 	up = glm::normalize(glm::cross(right, forward));
@@ -211,41 +202,39 @@ void TransformComponent::update(float deltaTime)
 {
 	//if (!physicsOverride)
 	//{
-
-		if (parent == nullptr)
+	if (parent == nullptr)
+	{
+		position = localPosition;
+		eulerAngles = localEulerAngles;
+		scale = localScale;
+		if (shouldUpdateModel())
 		{
-			position = localPosition;
-			eulerAngles = localEulerAngles;
-			scale = localScale;
-			if (shouldUpdateModel())
-			{
-				updateModelMatrix();
-			}
-
-			updateRotation();
-			prevPosition = position;
-			prevEulerAngles = eulerAngles;
-			prevRotation = rotation;
-			prevScale = scale;
-		}
-		else
-		{
-			position = parent->localPosition + localPosition;
-			eulerAngles = parent->localEulerAngles + localEulerAngles;
-			scale = parent->localScale * localScale;
-
-			if (shouldUpdateModel())
-			{
-				updateModelMatrix();
-			}
-			updateRotation();
-			prevPosition = position;
-			prevEulerAngles = eulerAngles;
-			prevRotation = rotation;
-			prevScale = scale;
+			updateModelMatrix();
 		}
 
-		
+		updateRotation();
+		prevPosition = position;
+		prevEulerAngles = eulerAngles;
+		prevRotation = rotation;
+		prevScale = scale;
+	}
+	else
+	{
+		position = parent->localPosition + localPosition;
+		eulerAngles = parent->localEulerAngles + localEulerAngles;
+		scale = parent->localScale * localScale;
+
+		if (shouldUpdateModel())
+		{
+			updateModelMatrix();
+		}
+		updateRotation();
+		prevPosition = position;
+		prevEulerAngles = eulerAngles;
+		prevRotation = rotation;
+		prevScale = scale;
+	}
+
 	//}
 }
 
@@ -269,5 +258,4 @@ bool TransformComponent::shouldUpdateModel()
 	}
 
 	return false;
-
 }

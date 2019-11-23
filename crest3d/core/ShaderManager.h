@@ -6,7 +6,6 @@ public:
 	ShaderManager();
 	~ShaderManager() {};
 
-
 	std::shared_ptr<ShaderComponent> defaultShader;
 	std::shared_ptr<ShaderComponent> defaultAnimShader;
 	// further shaders to be added

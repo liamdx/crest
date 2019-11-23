@@ -66,17 +66,15 @@ int ImGuiFileDialog::FilterIndex = 0;
 
 ImGuiFileDialog::ImGuiFileDialog()
 {
-	
 }
 
 ImGuiFileDialog::~ImGuiFileDialog()
 {
-
 }
 
 /* Alphabetical sorting */
 static int alphaSort(
-	const void *a, const void *b)
+	const void* a, const void* b)
 {
 	return strcoll(((dirent*)a)->d_name, ((dirent*)b)->d_name);
 }
@@ -91,7 +89,7 @@ static bool stringComparator(FileInfoStruct a, FileInfoStruct b)
 
 void ImGuiFileDialog::ScanDir(std::string vPath)
 {
-	struct dirent **files = 0;
+	struct dirent** files = 0;
 	int i = 0;
 	int n = 0;
 
@@ -100,7 +98,7 @@ void ImGuiFileDialog::ScanDir(std::string vPath)
 	if (m_CurrentPath_Decomposition.size() == 0)
 	{
 		// get currentPath
-		DIR *currentDir = opendir(vPath.c_str());
+		DIR* currentDir = opendir(vPath.c_str());
 		if (currentDir == 0) // path not existing
 		{
 			vPath = "."; // current  app path
@@ -119,14 +117,14 @@ void ImGuiFileDialog::ScanDir(std::string vPath)
 			return;
 		}
 	}
-	
+
 	/* Scan files in directory */
 	n = scandir(vPath.c_str(), &files, NULL, alphaSort);
 	if (n >= 0)
 	{
 		for (i = 0; i < n; i++)
 		{
-			struct dirent *ent = files[i];
+			struct dirent* ent = files[i];
 
 			FileInfoStruct infos;
 
@@ -138,7 +136,7 @@ void ImGuiFileDialog::ScanDir(std::string vPath)
 				if (lpt != std::string::npos)
 					infos.ext = infos.fileName.substr(lpt);
 			}
-			
+
 			if (infos.fileName != ".")
 			{
 				switch (ent->d_type)
@@ -164,7 +162,7 @@ void ImGuiFileDialog::ScanDir(std::string vPath)
 
 void ImGuiFileDialog::SetCurrentDir(std::string vPath)
 {
-	DIR *dir = opendir(vPath.c_str());
+	DIR* dir = opendir(vPath.c_str());
 	if (dir == 0)
 	{
 		vPath = ".";
@@ -207,7 +205,7 @@ bool ImGuiFileDialog::FileDialog(const char* vName, const char* vFilters, std::s
 	ImGui::Begin(vName);
 
 	if (vPath.size() == 0) vPath = ".";
-	
+
 	if (m_FileList.size() == 0)
 	{
 		if (vDefaultFileName.size() > 0)
@@ -215,7 +213,7 @@ bool ImGuiFileDialog::FileDialog(const char* vName, const char* vFilters, std::s
 			ResetBuffer(FileNameBuffer);
 			AppendToBuffer(FileNameBuffer, MAX_FILE_DIALOG_NAME_BUFFER, vDefaultFileName);
 		}
-		
+
 		ScanDir(vPath);
 	}
 
@@ -225,7 +223,7 @@ bool ImGuiFileDialog::FileDialog(const char* vName, const char* vFilters, std::s
 		itPathDecomp != m_CurrentPath_Decomposition.end(); ++itPathDecomp)
 	{
 		if (itPathDecomp != m_CurrentPath_Decomposition.begin())
-			ImGui::SameLine(); 
+			ImGui::SameLine();
 		if (ImGui::Button((*itPathDecomp).c_str()))
 		{
 			ComposeNewPath(itPathDecomp);
@@ -241,7 +239,7 @@ bool ImGuiFileDialog::FileDialog(const char* vName, const char* vFilters, std::s
 	for (std::vector<FileInfoStruct>::iterator it = m_FileList.begin(); it != m_FileList.end(); ++it)
 	{
 		FileInfoStruct infos = *it;
-		
+
 		bool show = true;
 
 		std::string str;
@@ -328,7 +326,7 @@ bool ImGuiFileDialog::FileDialog(const char* vName, const char* vFilters, std::s
 			}
 		}
 	}
-	
+
 	if (ImGui::Button("Cancel"))
 	{
 		IsOk = false;

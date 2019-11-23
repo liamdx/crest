@@ -43,107 +43,106 @@
 /// \podops for other ways to define operators and more details.
 ///
 /// \b This \b header \b contains:
-namespace boost { namespace pfr {
+namespace boost {
+	namespace pfr {
+		namespace detail {
+			///////////////////// Helper typedef that it used by all the enable_not_*_comp_t
+			template <template <class, class> class Detector, class T>
+			using enable_not_comp_base_t = typename std::enable_if<
+				not_appliable<Detector, T const&, T const&>::value,
+				bool
+			>::type;
 
-namespace detail {
+			///////////////////// std::enable_if_t like functions that enable only if types do not support operation and are PODs
 
-///////////////////// Helper typedef that it used by all the enable_not_*_comp_t
-    template <template <class, class> class Detector, class T>
-    using enable_not_comp_base_t = typename std::enable_if<
-        not_appliable<Detector, T const&, T const&>::value,
-        bool
-    >::type;
+			template <class T> using enable_not_eq_comp_t = enable_not_comp_base_t<comp_eq_detector, T>;
+			template <class T> using enable_not_ne_comp_t = enable_not_comp_base_t<comp_ne_detector, T>;
+			template <class T> using enable_not_lt_comp_t = enable_not_comp_base_t<comp_lt_detector, T>;
+			template <class T> using enable_not_le_comp_t = enable_not_comp_base_t<comp_le_detector, T>;
+			template <class T> using enable_not_gt_comp_t = enable_not_comp_base_t<comp_gt_detector, T>;
+			template <class T> using enable_not_ge_comp_t = enable_not_comp_base_t<comp_ge_detector, T>;
 
-///////////////////// std::enable_if_t like functions that enable only if types do not support operation and are PODs
+			template <class Stream, class Type>
+			using enable_not_ostreamable_t = typename std::enable_if<
+				not_appliable<ostreamable_detector, Stream&, Type const&>::value,
+				Stream&
+			>::type;
 
-    template <class T> using enable_not_eq_comp_t = enable_not_comp_base_t<comp_eq_detector, T>;
-    template <class T> using enable_not_ne_comp_t = enable_not_comp_base_t<comp_ne_detector, T>;
-    template <class T> using enable_not_lt_comp_t = enable_not_comp_base_t<comp_lt_detector, T>;
-    template <class T> using enable_not_le_comp_t = enable_not_comp_base_t<comp_le_detector, T>;
-    template <class T> using enable_not_gt_comp_t = enable_not_comp_base_t<comp_gt_detector, T>;
-    template <class T> using enable_not_ge_comp_t = enable_not_comp_base_t<comp_ge_detector, T>;
+			template <class Stream, class Type>
+			using enable_not_istreamable_t = typename std::enable_if<
+				not_appliable<istreamable_detector, Stream&, Type&>::value,
+				Stream&
+			>::type;
+		} // namespace detail
 
-    template <class Stream, class Type>
-    using enable_not_ostreamable_t = typename std::enable_if<
-        not_appliable<ostreamable_detector, Stream&, Type const&>::value,
-        Stream&
-    >::type;
-
-    template <class Stream, class Type>
-    using enable_not_istreamable_t = typename std::enable_if<
-        not_appliable<istreamable_detector, Stream&, Type&>::value,
-        Stream&
-    >::type;
-} // namespace detail
-
-namespace ops {
+		namespace ops {
 #ifdef BOOST_PFR_DOXYGEN_INVOKED
-    template <class T> bool operator==(const T& lhs, const T& rhs) noexcept;
-    template <class T> bool operator!=(const T& lhs, const T& rhs) noexcept;
-    template <class T> bool operator< (const T& lhs, const T& rhs) noexcept;
-    template <class T> bool operator> (const T& lhs, const T& rhs) noexcept;
-    template <class T> bool operator<=(const T& lhs, const T& rhs) noexcept;
-    template <class T> bool operator>=(const T& lhs, const T& rhs) noexcept;
+			template <class T> bool operator==(const T& lhs, const T& rhs) noexcept;
+			template <class T> bool operator!=(const T& lhs, const T& rhs) noexcept;
+			template <class T> bool operator< (const T& lhs, const T& rhs) noexcept;
+			template <class T> bool operator> (const T& lhs, const T& rhs) noexcept;
+			template <class T> bool operator<=(const T& lhs, const T& rhs) noexcept;
+			template <class T> bool operator>=(const T& lhs, const T& rhs) noexcept;
 
-    template <class Char, class Traits, class T>
-    std::basic_ostream<Char, Traits>& operator<<(std::basic_ostream<Char, Traits>& out, const T& value);
+			template <class Char, class Traits, class T>
+			std::basic_ostream<Char, Traits>& operator<<(std::basic_ostream<Char, Traits>& out, const T& value);
 
-    template <class Char, class Traits, class T>
-    std::basic_istream<Char, Traits>& operator>>(std::basic_istream<Char, Traits>& in, T& value);
+			template <class Char, class Traits, class T>
+			std::basic_istream<Char, Traits>& operator>>(std::basic_istream<Char, Traits>& in, T& value);
 
-    /// \brief helper function for Boost
-    template <class T> std::size_t hash_value(const T& value) noexcept;
+			/// \brief helper function for Boost
+			template <class T> std::size_t hash_value(const T& value) noexcept;
 #else
-    template <class T>
-    static detail::enable_not_eq_comp_t<T> operator==(const T& lhs, const T& rhs) noexcept {
-        return equal_to<T>{}(lhs, rhs);
-    }
+			template <class T>
+			static detail::enable_not_eq_comp_t<T> operator==(const T& lhs, const T& rhs) noexcept {
+				return equal_to<T>{}(lhs, rhs);
+			}
 
-    template <class T>
-    static detail::enable_not_ne_comp_t<T> operator!=(const T& lhs, const T& rhs) noexcept {
-        return not_equal<T>{}(lhs, rhs);
-    }
+			template <class T>
+			static detail::enable_not_ne_comp_t<T> operator!=(const T& lhs, const T& rhs) noexcept {
+				return not_equal<T>{}(lhs, rhs);
+			}
 
-    template <class T>
-    static detail::enable_not_lt_comp_t<T> operator<(const T& lhs, const T& rhs) noexcept {
-        return less<T>{}(lhs, rhs);
-    }
+			template <class T>
+			static detail::enable_not_lt_comp_t<T> operator<(const T& lhs, const T& rhs) noexcept {
+				return less<T>{}(lhs, rhs);
+			}
 
-    template <class T>
-    static detail::enable_not_gt_comp_t<T> operator>(const T& lhs, const T& rhs) noexcept {
-        return greater<T>{}(lhs, rhs);
-    }
+			template <class T>
+			static detail::enable_not_gt_comp_t<T> operator>(const T& lhs, const T& rhs) noexcept {
+				return greater<T>{}(lhs, rhs);
+			}
 
-    template <class T>
-    static detail::enable_not_le_comp_t<T> operator<=(const T& lhs, const T& rhs) noexcept {
-        return less_equal<T>{}(lhs, rhs);
-    }
+			template <class T>
+			static detail::enable_not_le_comp_t<T> operator<=(const T& lhs, const T& rhs) noexcept {
+				return less_equal<T>{}(lhs, rhs);
+			}
 
-    template <class T>
-    static detail::enable_not_ge_comp_t<T> operator>=(const T& lhs, const T& rhs) noexcept {
-        return greater_equal<T>{}(lhs, rhs);
-    }
+			template <class T>
+			static detail::enable_not_ge_comp_t<T> operator>=(const T& lhs, const T& rhs) noexcept {
+				return greater_equal<T>{}(lhs, rhs);
+			}
 
-    template <class Char, class Traits, class T>
-    static detail::enable_not_ostreamable_t<std::basic_ostream<Char, Traits>, T> operator<<(std::basic_ostream<Char, Traits>& out, const T& value) {
-        boost::pfr::write(out, value);
-        return out;
-    }
+			template <class Char, class Traits, class T>
+			static detail::enable_not_ostreamable_t<std::basic_ostream<Char, Traits>, T> operator<<(std::basic_ostream<Char, Traits>& out, const T& value) {
+				boost::pfr::write(out, value);
+				return out;
+			}
 
-    template <class Char, class Traits, class T>
-    static detail::enable_not_istreamable_t<std::basic_istream<Char, Traits>, T> operator>>(std::basic_istream<Char, Traits>& in, T& value) {
-        boost::pfr::read(in, value);
-        return in;
-    }
+			template <class Char, class Traits, class T>
+			static detail::enable_not_istreamable_t<std::basic_istream<Char, Traits>, T> operator>>(std::basic_istream<Char, Traits>& in, T& value) {
+				boost::pfr::read(in, value);
+				return in;
+			}
 
-    template <class T>
-    static std::enable_if_t<std::is_pod<T>::value, std::size_t> hash_value(const T& value) noexcept {
-        return hash<T>{}(value);
-    }
+			template <class T>
+			static std::enable_if_t<std::is_pod<T>::value, std::size_t> hash_value(const T& value) noexcept {
+				return hash<T>{}(value);
+			}
 
 #endif
-} // namespace ops
-
-}} // namespace boost::pfr
+		} // namespace ops
+	}
+} // namespace boost::pfr
 
 #endif // BOOST_PFR_PRECISE_OPS_HPP

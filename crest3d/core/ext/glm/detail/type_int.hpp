@@ -12,9 +12,9 @@
 #	include <cstdint>
 #endif
 
-namespace glm{
-namespace detail
-{
+namespace glm {
+	namespace detail
+	{
 #	if GLM_HAS_EXTENDED_INTEGER_TYPE
 		typedef std::int8_t					int8;
 		typedef std::int16_t				int16;
@@ -27,26 +27,26 @@ namespace detail
 		typedef std::uint64_t				uint64;
 #	else
 #		if(defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) // C99 detected, 64 bit types available
-			typedef int64_t					sint64;
-			typedef uint64_t				uint64;
+		typedef int64_t					sint64;
+		typedef uint64_t				uint64;
 
 #		elif GLM_COMPILER & GLM_COMPILER_VC
-			typedef signed __int64			sint64;
-			typedef unsigned __int64		uint64;
+		typedef signed __int64			sint64;
+		typedef unsigned __int64		uint64;
 
 #		elif GLM_COMPILER & GLM_COMPILER_GCC
 #			pragma GCC diagnostic ignored "-Wlong-long"
-			__extension__ typedef signed long long		sint64;
-			__extension__ typedef unsigned long long	uint64;
+		__extension__ typedef signed long long		sint64;
+		__extension__ typedef unsigned long long	uint64;
 
 #		elif (GLM_COMPILER & GLM_COMPILER_CLANG)
 #			pragma clang diagnostic ignored "-Wc++11-long-long"
-			typedef signed long	long		sint64;
-			typedef unsigned long long		uint64;
+		typedef signed long	long		sint64;
+		typedef unsigned long long		uint64;
 
 #		else//unknown compiler
-			typedef signed long	long		sint64;
-			typedef unsigned long long		uint64;
+		typedef signed long	long		sint64;
+		typedef unsigned long long		uint64;
 #		endif//GLM_COMPILER
 
 		typedef signed char					int8;
@@ -60,13 +60,13 @@ namespace detail
 		typedef uint64						uint64;
 #endif//
 
-	typedef signed int						lowp_int_t;
-	typedef signed int						mediump_int_t;
-	typedef signed int						highp_int_t;
+		typedef signed int						lowp_int_t;
+		typedef signed int						mediump_int_t;
+		typedef signed int						highp_int_t;
 
-	typedef unsigned int					lowp_uint_t;
-	typedef unsigned int					mediump_uint_t;
-	typedef unsigned int					highp_uint_t;
+		typedef unsigned int					lowp_uint_t;
+		typedef unsigned int					mediump_uint_t;
+		typedef unsigned int					highp_uint_t;
 
 #	if GLM_HAS_MAKE_SIGNED
 		using std::make_signed;
@@ -201,7 +201,7 @@ namespace detail
 			typedef unsigned long long type;
 		};
 #	endif//GLM_HAS_MAKE_SIGNED
-}//namespace detail
+	}//namespace detail
 
 	typedef detail::int8					int8;
 	typedef detail::int16					int16;
@@ -215,7 +215,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// Low qualifier signed integer.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -302,5 +301,4 @@ namespace detail
 	GLM_STATIC_ASSERT(sizeof(glm::uint32) == 4, "uint32 size isn't 4 bytes on this platform");
 	GLM_STATIC_ASSERT(sizeof(glm::uint64) == 8, "uint64 size isn't 8 bytes on this platform");
 #endif//GLM_STATIC_ASSERT_NULL
-
 }//namespace glm

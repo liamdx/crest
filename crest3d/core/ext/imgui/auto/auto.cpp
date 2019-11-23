@@ -29,14 +29,14 @@ void ImGui::ShowAutoTestWindow()
 	if (!ImGui::Begin("ImGui::Auto() Test Window")) { ImGui::End(); return; }
 	auto myCollapsingHeader = [](const char* name)->bool
 	{
-		ImGuiStyle & style = ImGui::GetStyle();
+		ImGuiStyle& style = ImGui::GetStyle();
 		ImGui::PushStyleColor(ImGuiCol_Header, style.Colors[ImGuiCol_Button]);
 		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, style.Colors[ImGuiCol_ButtonHovered]);
 		ImGui::PushStyleColor(ImGuiCol_HeaderActive, style.Colors[ImGuiCol_ButtonActive]);
 		bool b = ImGui::CollapsingHeader(name);
 		ImGui::PopStyleColor(3);
 		return b;
-};
+	};
 	if (myCollapsingHeader("About ImGui::Auto()"))
 	{
 		ImGui::Auto(R"comment(
@@ -76,7 +76,7 @@ The libary uses partial template specialization, so definitions can overlap, the
 However, using large, nested structs can lead to slow compilation.
 Container data, large structs and tuples are hidden by default.
 )comment");
-		if(ImGui::TreeNode("TODO-s"))
+		if (ImGui::TreeNode("TODO-s"))
 		{
 			ImGui::Auto(R"todos(
 	1	Insert items to (non-const) set, map, list, ect
@@ -160,7 +160,7 @@ Container data, large structs and tuples are hidden by default.
 		ImGui::Auto(R"code(
 	static ImVec4 f4 = {1.5f,2.1f,3.4f,4.3f};
 	ImGui::Auto(f4, "f4");)code");
-		static ImVec4 f4 = {1.5f,2.1f,3.4f,4.3f};
+		static ImVec4 f4 = { 1.5f,2.1f,3.4f,4.3f };
 		ImGui::Auto(f4, "f4");
 
 		ImGui::NewLine(); ImGui::Separator();
@@ -168,7 +168,7 @@ Container data, large structs and tuples are hidden by default.
 		ImGui::Auto(R"code(
 	static const ImVec2 f2 = {1.f,2.f};
 	ImGui::Auto(f2, "f2");)code");
-		static const ImVec2 f2 = {1.f,2.f};
+		static const ImVec2 f2 = { 1.f,2.f };
 		ImGui::Auto(f2, "f2");
 
 		ImGui::Unindent();
@@ -251,7 +251,7 @@ Container data, large structs and tuples are hidden by default.
 		ImGui::Auto(R"code(
 	static float *pf = nullptr;
 	ImGui::Auto(pf, "pf");)code");
-		static float *pf = nullptr;
+		static float* pf = nullptr;
 		ImGui::Auto(pf, "pf");
 
 		ImGui::NewLine(); ImGui::Separator();
@@ -259,7 +259,7 @@ Container data, large structs and tuples are hidden by default.
 		ImGui::Auto(R"code(
 	static int i=10, *pi=&i;
 	ImGui::Auto(pi, "pi");)code");
-		static int i = 10, *pi = &i;
+		static int i = 10, * pi = &i;
 		ImGui::Auto(pi, "pi");
 
 		ImGui::NewLine(); ImGui::Separator();
@@ -267,7 +267,7 @@ Container data, large structs and tuples are hidden by default.
 		ImGui::Auto(R"code(
 	static const std::string cs= "I cannot be changed!", * cps=&cs;
 	ImGui::Auto(cps, "cps");)code");
-		static const std::string cs = "I cannot be changed!", *cps = &cs;
+		static const std::string cs = "I cannot be changed!", * cps = &cs;
 		ImGui::Auto(cps, "cps");
 
 		ImGui::NewLine(); ImGui::Separator();
@@ -276,16 +276,15 @@ Container data, large structs and tuples are hidden by default.
 	static std::string str = "I can be changed! (my pointee cannot)";
 	static std::string *const strpc = &str;)code");
 		static std::string str = "I can be changed! (my pointee cannot)";
-		static std::string *const strpc = &str;
+		static std::string* const strpc = &str;
 		ImGui::Auto(strpc, "strpc");
 
 		ImGui::NewLine(); ImGui::Separator();
 		ImGui::Auto(R"code(
 	static std::array<float,5> farray = { 1.2, 3.4, 5.6, 7.8, 9.0 };
 	ImGui::Auto(farray, "std::array");)code");
-		static std::array<float, 5> farray = { 1.2, 3.4 , 5.6, 7.8, 9.0};
+		static std::array<float, 5> farray = { 1.2, 3.4 , 5.6, 7.8, 9.0 };
 		ImGui::Auto(farray, "std::array");
-
 
 		ImGui::NewLine(); ImGui::Separator();
 
@@ -297,7 +296,7 @@ Container data, large structs and tuples are hidden by default.
 
 		ImGui::Unindent();
 	}
-	if(myCollapsingHeader("5. Pairs and Tuples"))
+	if (myCollapsingHeader("5. Pairs and Tuples"))
 	{
 		ImGui::Indent();
 
@@ -336,7 +335,6 @@ Container data, large structs and tuples are hidden by default.
 	ImGui::Auto(consttuple, "consttuple");)code");
 		const std::tuple<int, const char*, ImVec2> consttuple = { 42, "Smaller tuples are inlined", {3.1f,3.2f} };
 		ImGui::Auto(consttuple, "consttuple");
-
 
 		ImGui::Unindent();
 	}
@@ -405,7 +403,7 @@ Container data, large structs and tuples are hidden by default.
 		struct C
 		{
 			std::list<B> vec;
-			A *a;
+			A* a;
 		};
 		static C c = { {{"Container inside a struct!", A() }}, &a };
 		ImGui::Auto(c, "c");
@@ -431,7 +429,7 @@ Container data, large structs and tuples are hidden by default.
 	static glm::vec2 v2 = { 1.3f,2.f };
 	ImGui::Auto(v2,"v2");)code");
 		static glm::vec2 v2 = { 1.3f,2.f };
-		ImGui::Auto(v2,"v2");
+		ImGui::Auto(v2, "v2");
 
 		ImGui::NewLine(); ImGui::Separator();
 
@@ -444,24 +442,24 @@ Container data, large structs and tuples are hidden by default.
 		ImGui::Auto(R"code(
 	static glm::vec4 v4 = glm::vec4(v2, 3.14f,1.f);
 	ImGui::Auto(v4,"v4");)code");
-		static const glm::vec4 v4 = glm::vec4(v2, 3.14f,1.f);
-		ImGui::Auto(v4,"v4");
+		static const glm::vec4 v4 = glm::vec4(v2, 3.14f, 1.f);
+		ImGui::Auto(v4, "v4");
 
 		ImGui::NewLine(); ImGui::Separator();
 
 		ImGui::Auto(R"code(
 	static const glm::mat2 m2 = {1,2,3,4};
 	ImGui::Auto(m2,"m2");)code");
-		static const glm::mat2 m2 = {1,2,3,4};
-		ImGui::Auto(m2,"m2");
+		static const glm::mat2 m2 = { 1,2,3,4 };
+		ImGui::Auto(m2, "m2");
 
 		ImGui::NewLine(); ImGui::Separator();
 
 		ImGui::Auto(R"code(
 	static glm::mat4 m4 = glm::rotate<float>(14.5, glm::vec3{1.f,2.f,3.f});
 	ImGui::Auto(m4,"m4");)code");
-		static glm::mat4 m4 = glm::rotate<float>(14.5, glm::vec3{1.f,2.f,3.f});
-		ImGui::Auto(m4,"m4");
+		static glm::mat4 m4 = glm::rotate<float>(14.5, glm::vec3{ 1.f,2.f,3.f });
+		ImGui::Auto(m4, "m4");
 	}
 #endif // _IMGUI_AUTO_GLM_
 
@@ -469,5 +467,5 @@ Container data, large structs and tuples are hidden by default.
 }
 
 #else
-	void ImGui::ShowAutoTestWindow(){}
+void ImGui::ShowAutoTestWindow() {}
 #endif

@@ -1,10 +1,6 @@
 #pragma once
 
-//core libs
-
-//#define _CRTDBG_MAP_ALLOC
-//#include <stdlib.h>
-//#include <crtdbg.h>
+#include "stdafx.h";
 
 #include "math.h"
 #include <iostream>
@@ -14,7 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <iostream> 
+#include <iostream>
 #include <memory>
 #include <map>
 #include <typeinfo>
@@ -33,7 +29,6 @@
 #include "ext/glm/gtc/type_ptr.hpp"
 #include "ext/glm/gtx/quaternion.hpp"
 #include "ext/glm/gtx/string_cast.hpp"
-
 
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/auto.h"
@@ -77,7 +72,7 @@ const float ZOOM = 45.0f;
 #define SYSOUT_F(f, ...)      _RPT1( 0, f, __VA_ARGS__ ) // For Visual studio
 #endif
 
-#ifndef speedtest__             
+#ifndef speedtest__
 #define speedtest__(data)   for (long blockTime = NULL; (blockTime == NULL ? (blockTime = clock()) != NULL : false); SYSOUT_F(data "%.9fs", (double) (clock() - blockTime) / CLOCKS_PER_SEC))
 #endif
 
@@ -124,5 +119,4 @@ static void SetImGuiStyle()
 	colors[ImGuiCol_TextSelectedBg] = ImVec4(1.00f, 1.00f, 1.00f, 0.35f);
 	colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 	colors[ImGuiCol_DragDropTarget] = ImVec4(1.00f, 1.00f, 0.00f, 0.90f);
-
 }

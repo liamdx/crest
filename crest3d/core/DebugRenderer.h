@@ -43,6 +43,6 @@ public:
 	void bindBuffers();
 	void doDraw();
 
-	private:
+private:
 	int _debugMode;
 };

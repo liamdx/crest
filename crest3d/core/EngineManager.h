@@ -12,18 +12,18 @@ class EngineManager
 {
 public:
 
-	EngineManager(std::shared_ptr<Example> _example);
+	EngineManager(GLFWwindow* _window);
 	~EngineManager() {};
 
 	void initialise();
-	
-	std::shared_ptr<ShaderManager> shaderManager = nullptr;
-	std::shared_ptr<PhysicsManager> physicsManager = nullptr;
-	std::shared_ptr<AssetManager> assetManager = nullptr;
-	std::shared_ptr<Scene> scene = nullptr;
-	std::shared_ptr<InputManager> input = nullptr;
-	std::shared_ptr<Example> example = nullptr;
-	std::shared_ptr<GLFWwindow> window = nullptr;
+
+	std::unique_ptr<ShaderManager> shaderManager;
+	std::unique_ptr<PhysicsManager> physicsManager;
+	std::unique_ptr<AssetManager> assetManager;
+	std::unique_ptr<Scene> scene;
+	std::unique_ptr<InputManager> input;
+	std::unique_ptr<Example> example;
+
 	// need to rewrite input manager to allow for SDL window
 	// std::unique_ptr<SDLWindow> window;
 

@@ -18,14 +18,12 @@ float clampAngle(float input)
 	return ret;
 }
 
-
 void DirectionalLightComponent::clampDirection()
 {
 	direction.x = clampAngle(direction.x);
 	direction.y = clampAngle(direction.y);
 	direction.z = clampAngle(direction.z);
 }
-
 
 void DirectionalLightComponent::initialize(glm::vec3 direction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
 {
@@ -66,4 +64,3 @@ DirectionalLightComponent::DirectionalLightComponent(std::shared_ptr<Entity> e)
 	this->diffuse = glm::vec3(1.0f);
 	this->specular = glm::vec3(0.2f);
 }
-

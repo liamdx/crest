@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "EngineComponent.h"
@@ -6,7 +5,7 @@
 class CameraComponent : public EngineComponent
 {
 public:
-	CameraComponent(std::shared_ptr<Entity> e); 
+	CameraComponent(std::shared_ptr<Entity> e);
 	~CameraComponent() override {};
 
 	glm::mat4 GetViewProjectionMatrix();
@@ -18,7 +17,7 @@ public:
 	// culling checks
 	bool checkSphere(glm::vec3 position, float radius);
 	bool checkPoint(glm::vec3 position);
-	
+
 	void MakeFrustum();
 	float fov;
 private:
@@ -29,4 +28,4 @@ private:
 
 	glm::vec4 normalizePlane(glm::vec4 plane);
 	float planeDotCoord(glm::vec4 a, glm::vec3 b);
-}; 
+};

@@ -9,12 +9,10 @@ class PhysicsManager
 public:
 	PhysicsManager();
 	~PhysicsManager() {};
-	
 
 	// should we render the collision meshes?
 	bool debugRender;
 	DebugRenderer* debugRenderer;
-
 
 	// what we do each frame
 	void update(float deltaTime);
@@ -45,5 +43,4 @@ public:
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 	glm::mat4 view, projection;
-
 };

@@ -49,6 +49,7 @@ public:
 
 	void update(float deltaTime) override;
 
+	// reference
 	std::shared_ptr<TransformComponent> parent = nullptr;
 
 	inline void setParent(std::shared_ptr<TransformComponent> newParent) { parent = newParent; }

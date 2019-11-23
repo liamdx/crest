@@ -7,12 +7,12 @@ void CollisionShapeComponent::createSphereShape()
 
 void CollisionShapeComponent::createCapsuleShape()
 {
-	shape = std::shared_ptr<btCollisionShape>(new btCapsuleShape(1,2));
+	shape = std::shared_ptr<btCollisionShape>(new btCapsuleShape(1, 2));
 }
 
 void CollisionShapeComponent::createCubeShape()
 {
-	shape = std::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1,1,1)));
+	shape = std::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1, 1, 1)));
 }
 
 void CollisionShapeComponent::createConvexHullShape(std::shared_ptr<MeshComponent> meshComponent)
@@ -28,13 +28,12 @@ void CollisionShapeComponent::createConvexHullShape(std::shared_ptr<MeshComponen
 
 	_convexHullShape->recalcLocalAabb();
 	shapeHull = std::unique_ptr<btShapeHull>(new btShapeHull(_convexHullShape));
-	shapeHull->buildHull(0,1);    // note: parameter is ignored by buildHull
+	shapeHull->buildHull(0, 1);    // note: parameter is ignored by buildHull
 	convexHullShape = std::unique_ptr<btConvexHullShape>(new btConvexHullShape(
 		(const btScalar*)shapeHull->getVertexPointer(), shapeHull->numVertices(), sizeof(btVector3)));
 	shape = std::shared_ptr<btCollisionShape>(convexHullShape.get());
 	delete _convexHullShape;
 }
-
 
 void CollisionShapeComponent::updateRigidbodyShape()
 {
@@ -44,14 +43,13 @@ void CollisionShapeComponent::updateRigidbodyShape()
 	rib->applyCentralForce(glm::vec3(0, 500, 0));
 }
 
-
 // private smaller funcs
 
 std::vector<btVector3> CollisionShapeComponent::getConvexHullMeshPoints(std::shared_ptr<Mesh> mesh)
 {
 	std::vector<btVector3> points;
 
-	for(unsigned int i = 0; i < mesh->vertices.size(); i++)
+	for (unsigned int i = 0; i < mesh->vertices.size(); i++)
 	{
 		btVector3 point = btVector3(mesh->vertices.at(i).position.x, mesh->vertices.at(i).position.x, mesh->vertices.at(i).position.x);
 	}

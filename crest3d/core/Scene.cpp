@@ -20,15 +20,12 @@ Scene::Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager,
 	defaultAnimShader = std::shared_ptr<ShaderComponent>(new ShaderComponent(NULL, "res/shaders/anim.vert", "res/shaders/anim.frag"));
 	assetManager = _assetManager;
 	DEBUG_SPHERE_RADIUS = 1.0f;
-
 }
-
 
 std::shared_ptr<Entity> Scene::AddEntity()
 {
 	return(rootEntity->AddEntity());
 }
-
 
 void childInit(std::shared_ptr<Entity> e) {
 	e->initBehaviour();
@@ -74,7 +71,7 @@ void Scene::earlyUpdateBehaviour(float deltaTime)
 	childEarlyUpdate(rootEntity, deltaTime);
 }
 
-void childFixedUpdate(std::shared_ptr<Entity> e )
+void childFixedUpdate(std::shared_ptr<Entity> e)
 {
 	e->fixedUpdateBehaviour();
 	for (int i = 0; i < e->children.size(); i++)
@@ -87,7 +84,6 @@ void Scene::fixedUpdateBehaviour()
 {
 	childFixedUpdate(rootEntity);
 }
-
 
 void childUpdate(std::shared_ptr<Entity> e, float deltaTime)
 {
@@ -187,7 +183,6 @@ void Scene::bindDefaultTextures(std::shared_ptr<ShaderComponent> sc)
 	glBindTexture(GL_TEXTURE_2D, assetManager->defaultMetallic->asset->t_Id);
 }
 
-
 void childUi(std::shared_ptr<Entity> e, float deltaTime)
 {
 	e->uiBehaviour(deltaTime);
@@ -209,7 +204,6 @@ std::shared_ptr<Entity> Scene::AddCameraEntity()
 	return e;
 }
 
-
 std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 {
 	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity", physicsManager));
@@ -223,7 +217,7 @@ std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::st
 	e->AddComponent(new MeshComponent(e, mesh));
 
 	auto mc = e->GetComponent<MeshComponent>();
-	if(mc != nullptr)
+	if (mc != nullptr)
 	{
 		meshes.emplace_back(e->GetComponent<MeshComponent>());
 	}
@@ -231,13 +225,12 @@ std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::st
 	return e;
 }
 
-
 std::shared_ptr<Entity> Scene::AddModelEntity(std::shared_ptr<Model> model)
 {
 	std::shared_ptr<Entity> e = rootEntity->AddEntity();
 	e->name = model->name;
 
-	for(int i = 0; i < model->meshes.size(); i++)
+	for (int i = 0; i < model->meshes.size(); i++)
 	{
 		std::shared_ptr<Entity> newE = AddMeshEntity(model->meshes.at(i), std::to_string(i));
 		newE->transform->parent = e->transform;
@@ -256,7 +249,6 @@ std::shared_ptr<Entity> Scene::AddAnimatedModelEntity(std::shared_ptr<AnimatedMo
 	animatedModels.emplace_back(amc);
 	return e;
 }
-
 
 std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
 {
@@ -282,11 +274,11 @@ std::shared_ptr<Entity> Scene::AddPointLightEntity()
 void Scene::updateShaderProjections(std::shared_ptr<Entity> e)
 {
 	std::shared_ptr<ShaderComponent> sc = e->GetComponent<ShaderComponent>();
-	
-	if(sc != nullptr)
+
+	if (sc != nullptr)
 		sc->setProjection(sceneCamera->GetProjectionMatrix());
 
-	for(int i = 0; i < e->children.size(); i++)
+	for (int i = 0; i < e->children.size(); i++)
 	{
 		updateShaderProjections(e->children.at(i));
 	}
@@ -306,7 +298,6 @@ void Scene::updateShaderLightSources(std::shared_ptr<Entity> e)
 
 void Scene::updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> sc)
 {
-
 	if (sc != nullptr) {
 		// do the lighting stuff
 		dirLightComponent->Bind(sc);
@@ -316,10 +307,6 @@ void Scene::updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> s
 			pointLightComponents.at(i)->Bind(sc, i);
 		}
 	}
-		
-
-
-	
 }
 
 void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
@@ -337,15 +324,13 @@ void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 		}*/
 	}
 
-	if(e->children.size() > 0)
+	if (e->children.size() > 0)
 	{
 		for (int i = 0; i < e->children.size(); i++)
 		{
 			updateLightComponentsVector(e->children.at(i));
 		}
 	}
-	
-		
 }
 
 void Scene::updateSceneLighting()

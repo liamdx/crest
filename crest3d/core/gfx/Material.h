@@ -3,7 +3,6 @@
 #include "Shader.h"
 
 class Material {
-	
 public:
 	Material() {};
 	~Material() {};
@@ -11,5 +10,4 @@ public:
 	std::vector<std::shared_ptr<Texture>> maps;
 
 	inline void addMap(std::shared_ptr<Texture> t) { maps.emplace_back(t); }
-
 };

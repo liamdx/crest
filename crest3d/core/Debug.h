@@ -4,5 +4,4 @@
 
 static class Debug
 {
-
 };

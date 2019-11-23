@@ -14,27 +14,26 @@
 #include "../detail/sequence_tuple.hpp"
 #include "../detail/core14.hpp"
 
-namespace boost { namespace pfr {
+namespace boost {
+	namespace pfr {
+		/// \brief Has a static const member variable `value` that contains fields count in a \flattening{flattened} T.
+		///
+		/// \b Example:
+		/// \code
+		///     std::array<int, boost::pfr::flat_tuple_size<my_structure>::value > a;
+		/// \endcode
+		template <class T>
+		using flat_tuple_size = boost::pfr::detail::size_t_<decltype(boost::pfr::detail::tie_as_flat_tuple(std::declval<T&>()))::size_v>;
 
-/// \brief Has a static const member variable `value` that contains fields count in a \flattening{flattened} T.
-///
-/// \b Example:
-/// \code
-///     std::array<int, boost::pfr::flat_tuple_size<my_structure>::value > a;
-/// \endcode
-template <class T>
-using flat_tuple_size = boost::pfr::detail::size_t_<decltype(boost::pfr::detail::tie_as_flat_tuple(std::declval<T&>()))::size_v>;
-
-
-/// \brief `flat_tuple_size_v` is a template variable that contains fields count in a \flattening{flattened} T.
-///
-/// \b Example:
-/// \code
-///     std::array<int, boost::pfr::flat_tuple_size_v<my_structure> > a;
-/// \endcode
-template <class T>
-constexpr std::size_t flat_tuple_size_v = flat_tuple_size<T>::value;
-
-}} // namespace boost::pfr
+		/// \brief `flat_tuple_size_v` is a template variable that contains fields count in a \flattening{flattened} T.
+		///
+		/// \b Example:
+		/// \code
+		///     std::array<int, boost::pfr::flat_tuple_size_v<my_structure> > a;
+		/// \endcode
+		template <class T>
+		constexpr std::size_t flat_tuple_size_v = flat_tuple_size<T>::value;
+	}
+} // namespace boost::pfr
 
 #endif // BOOST_PFR_FLAT_TUPLE_SIZE_HPP

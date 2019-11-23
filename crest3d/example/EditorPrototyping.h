@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Example.h"
 class EditorPrototyping : public Example
@@ -38,7 +37,7 @@ private:
 	Cubemap* skybox;
 	Shader* cubemapShader;
 
-//skybox faces
+	//skybox faces
 	std::vector<std::string> faces
 	{
 		"res/textures/violentdays/violentdays_rt.png",
@@ -48,5 +47,4 @@ private:
 		"res/textures/violentdays/violentdays_bk.png",
 		"res/textures/violentdays/violentdays_ft.png"
 	};
-
 };

@@ -6,7 +6,9 @@ class Example {
 public:
 
 	virtual ~Example() {};
-	void initialise(std::shared_ptr<Example> e) { engineManager = std::make_unique<EngineManager>(e); }
+	void initialise(std::shared_ptr<Example> e) {
+		//engineManager = std::make_unique<EngineManager>(e);
+		}
 	virtual void initBehaviour() {};
 	virtual void startBehaviour() {};
 	virtual void earlyUpdateBehaviour(float deltaTime) {};
@@ -18,6 +20,5 @@ public:
 	std::map<std::string, std::shared_ptr<Entity>> entities;
 	std::map<std::string, std::shared_ptr<EngineComponent>> components;
 
-	std::unique_ptr<EngineManager> engineManager;
-
+	// bstd::unique_ptr<EngineManager> engineManager;
 };

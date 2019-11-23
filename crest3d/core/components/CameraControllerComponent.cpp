@@ -37,7 +37,7 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
 		attachedEntity->transform->addPosition(-(attachedEntity->transform->getUp()) * movementSpeed * deltaTime);
 	}
-	if(input->GetKeyLeftShift())
+	if (input->GetKeyLeftShift())
 	{
 		movementSpeed = initMoveSpeed * 6.0f;
 	}
@@ -54,14 +54,12 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	// do mouseMovement
 	deltaX = deltaX * 360.0f * mouseSensitivity * deltaTime;
-	deltaY = deltaY * 360.0f *  mouseSensitivity * deltaTime;	
-
+	deltaY = deltaY * 360.0f * mouseSensitivity * deltaTime;
 
 	if (input->GetRightClick())
 	{
 		glfwSetInputMode(window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		attachedEntity->transform->addEulerAngles(glm::vec3(deltaY, deltaX, 0));
-
 	}
 	else
 	{
@@ -69,7 +67,7 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 	}
 }
 
-CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e ,std::shared_ptr<InputManager> _input)
+CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, std::shared_ptr<InputManager> _input)
 {
 	attachedEntity = e;
 	name = "CameraControllerComponent";
@@ -80,4 +78,3 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e ,
 	movementSpeed = 5.0f;
 	initMoveSpeed = movementSpeed;
 }
-

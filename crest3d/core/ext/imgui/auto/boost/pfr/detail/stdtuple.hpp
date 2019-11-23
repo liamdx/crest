@@ -14,22 +14,24 @@
 
 #include "sequence_tuple.hpp"
 
-namespace boost { namespace pfr { namespace detail {
+namespace boost {
+	namespace pfr {
+		namespace detail {
+			template <class T, std::size_t... I>
+			constexpr auto make_stdtuple_from_tietuple(const T& t, std::index_sequence<I...>) noexcept {
+				return std::make_tuple(
+					boost::pfr::detail::sequence_tuple::get<I>(t)...
+				);
+			}
 
-template <class T, std::size_t... I>
-constexpr auto make_stdtuple_from_tietuple(const T& t, std::index_sequence<I...>) noexcept {
-    return std::make_tuple(
-        boost::pfr::detail::sequence_tuple::get<I>(t)...
-    );
-}
-
-template <class T, std::size_t... I>
-constexpr auto make_stdtiedtuple_from_tietuple(const T& t, std::index_sequence<I...>) noexcept {
-    return std::tie(
-        boost::pfr::detail::sequence_tuple::get<I>(t)...
-    );
-}
-
-}}} // namespace boost::pfr::detail
+			template <class T, std::size_t... I>
+			constexpr auto make_stdtiedtuple_from_tietuple(const T& t, std::index_sequence<I...>) noexcept {
+				return std::tie(
+					boost::pfr::detail::sequence_tuple::get<I>(t)...
+				);
+			}
+		}
+	}
+} // namespace boost::pfr::detail
 
 #endif // BOOST_PFR_DETAIL_STDTUPLE_HPP

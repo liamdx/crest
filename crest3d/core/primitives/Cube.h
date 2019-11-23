@@ -10,9 +10,9 @@ public:
 	Cube();
 	~Cube();
 	void Draw(Shader shader);
-	void Draw(Shader shader,  unsigned int skyboxId);
+	void Draw(Shader shader, unsigned int skyboxId);
 	void TestDraw(Shader shader);
-	
+
 private:
 	float cubeVertices[504] = {
 		// positions          // normals           // texture coords //tangents  // bitangents
@@ -58,7 +58,6 @@ private:
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,0.0f
 	};
-
 
 	unsigned int vao, vbo;
 };

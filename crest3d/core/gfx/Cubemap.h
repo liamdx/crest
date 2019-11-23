@@ -15,7 +15,7 @@ public:
 private:
 
 	float skyboxVertices[108] = {
-		// positions          
+		// positions
 		-1.0f,  1.0f, -1.0f,
 		-1.0f, -1.0f, -1.0f,
 		1.0f, -1.0f, -1.0f,

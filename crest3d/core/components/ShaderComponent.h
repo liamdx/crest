@@ -9,12 +9,12 @@ class ShaderComponent : public EngineComponent
 public:
 	ShaderComponent(std::shared_ptr<Entity> e, const char* vertexPath = "res/shaders/light.vert", const char* fragPath = "res/shaders/light.frag")
 	{
-		name = "ShaderComponent"; 
-		_vertexPath = vertexPath; 
-		_fragPath = fragPath; 
+		name = "ShaderComponent";
+		_vertexPath = vertexPath;
+		_fragPath = fragPath;
 		attachedEntity = std::shared_ptr<Entity>(e);
 		shader = std::shared_ptr<Shader>(new Shader(vertexPath, fragPath));
-    	view = glm::mat4(1.0);
+		view = glm::mat4(1.0);
 		projection = glm::mat4(1.0);
 
 		modelId = shader->getMat4Location("model");

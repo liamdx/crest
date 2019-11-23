@@ -18,18 +18,20 @@
 //  * better type safety - you can validate at compile time that only rvalue reference is passed into the function
 //  * documentation and readability - rvalue_t<T> is much better than T&&+SFINAE
 
-namespace boost { namespace pfr { namespace detail {
-
-/// Binds to rvalues only, no copying allowed.
-template <class T
+namespace boost {
+	namespace pfr {
+		namespace detail {
+			/// Binds to rvalues only, no copying allowed.
+			template <class T
 #ifdef BOOST_PFR_DETAIL_STRICT_RVALUE_TESTING
-    , class = std::enable_if_t<std::is_rvalue_reference<T&&>::value>
+				, class = std::enable_if_t<std::is_rvalue_reference<T&&>::value>
 #endif
->
-using rvalue_t = T&&;
+			>
+				using rvalue_t = T&&;
 
-/// Binds to mutable lvalues only
-
-}}} // namespace boost::pfr::detail
+			/// Binds to mutable lvalues only
+		}
+	}
+} // namespace boost::pfr::detail
 
 #endif // BOOST_PFR_DETAIL_RVALUE_T_HPP

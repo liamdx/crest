@@ -2,7 +2,6 @@
 
 #include "Common.h"
 
-
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera
 {
@@ -62,7 +61,6 @@ public:
 			if (direction == RIGHT)
 				Position += Right * velocity;
 		}
-
 	}
 
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
@@ -72,7 +70,6 @@ public:
 		{
 			xoffset *= MouseSensitivity;
 			yoffset *= MouseSensitivity;
-			
 
 			Yaw = xoffset;
 			Pitch = yoffset;
@@ -89,7 +86,6 @@ public:
 			// Update Front, Right and Up Vectors using the updated Euler angles
 			updateCameraVectors();
 		}
-
 	}
 
 	// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
@@ -104,7 +100,6 @@ public:
 			if (Zoom >= 45.0f)
 				Zoom = 45.0f;
 		}
-
 	}
 	// Custom implementation of the LookAt function
 	glm::mat4 calculate_lookAt_matrix(glm::vec3 position, glm::vec3 target, glm::vec3 worldUp)
@@ -138,7 +133,6 @@ public:
 		return rotation * translation; // Remember to read from right to left (first translation then rotation)
 	}
 
-
 	// Don't forget to replace glm::lookAt with your own version
 	// view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	//view = calculate_lookAt_matrix(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -160,6 +154,4 @@ private:
 		Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 		Up = glm::normalize(glm::cross(Right, Front));
 	}
-
-
 };

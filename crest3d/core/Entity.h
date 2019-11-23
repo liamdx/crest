@@ -18,24 +18,24 @@ public:
 	std::vector<std::shared_ptr<Entity>> children;
 	std::shared_ptr<TransformComponent> transform;
 
-	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager) 
+	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _physicsManager)
 	{
-		name = entityName; 
+		name = entityName;
 		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
 		transform->attachedEntity = std::shared_ptr<Entity>(this);
 		physicsManager = _physicsManager;
 	}
 	Entity(const char* entityName)
 	{
-		name = entityName; 
+		name = entityName;
 		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
 		transform->attachedEntity = std::shared_ptr<Entity>(this);
 	}
 	~Entity() {}
 
-	void Delete();
 	inline void SetId(unsigned int newId) { id = newId; }
-	
+
+	void AddComponent(std::shared_ptr<EngineComponent> newComponent);
 	void AddComponent(EngineComponent* newComponent);
 	// template method only works in .h file without round-about bs
 	// any way to keep this in cpp?
@@ -44,7 +44,7 @@ public:
 	{
 		for (int i = 0; i < components.size(); i++)
 		{
-			if(typeid(T) == typeid(*components.at(i)))
+			if (typeid(T) == typeid(*components.at(i)))
 			{
 				return(std::static_pointer_cast<T>(components.at(i)));
 			}
@@ -58,7 +58,7 @@ public:
 	std::shared_ptr<Entity> GetChild(const char* name);
 
 	std::shared_ptr<PhysicsManager> physicsManager;
-	
+
 	void initBehaviour();
 	void startBehaviour();
 	void earlyUpdateBehaviour(float deltaTime);

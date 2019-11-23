@@ -7,10 +7,9 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT, bool multi
 	glViewport(0, 0, screenWidth, screenHeight);
 	screenWidth = SCREEN_WIDTH;
 	screenHeight = SCREEN_HEIGHT;
-	
-	if(isMultiSample)
-	{
 
+	if (isMultiSample)
+	{
 		//Frame buffer set up
 		glGenFramebuffers(1, &fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -21,7 +20,7 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT, bool multi
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, screenWidth, screenHeight, 0, GL_RGBA, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, framebufferTexture, 0);		
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, framebufferTexture, 0);
 
 		// depth attachment
 		glGenTextures(1, &depthTexture);
@@ -37,7 +36,6 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT, bool multi
 		unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_DEPTH_ATTACHMENT };
 		glDrawBuffers(2, attachments);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 
 		// MSAA framebuffer
 		glGenFramebuffers(1, &msFbo);
@@ -57,7 +55,6 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT, bool multi
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		
 	}
 	else
 	{
@@ -89,12 +86,7 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT, bool multi
 		glDrawBuffers(2, attachments);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	
-
-	
 }
-
-
 
 void FrameBuffer::changeScreenSize(float newWidth, float newHeight)
 {
@@ -106,33 +98,28 @@ void FrameBuffer::changeScreenSize(float newWidth, float newHeight)
 
 void FrameBuffer::initForDrawing()
 {
-	if(isMultiSample)
+	if (isMultiSample)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, msFbo);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-		
 	}
 	else
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // | GL_STENCIL_BUFFER_BIT included
 	}
-	
-
 }
 
-void FrameBuffer::finishDrawing() 
+void FrameBuffer::finishDrawing()
 {
-	if(isMultiSample)
+	if (isMultiSample)
 	{
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, msFbo);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 		glBlitFramebuffer(0, 0, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-		
 	}
-	
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-	
 }
 
 void FrameBuffer::BindColorTexture(Shader shader)
@@ -148,4 +135,3 @@ void FrameBuffer::BindDepthTexture(Shader shader)
 	shader.setInt("depthTexture", 8);
 	glBindTexture(GL_TEXTURE_2D, depthTexture);
 }
-

@@ -3,12 +3,12 @@
 void Model::loadModel(std::string _path)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(_path, aiProcess_Triangulate | 
-		aiProcess_FlipUVs | 
-		aiProcess_CalcTangentSpace | 
-		aiProcess_GenSmoothNormals | 
-		aiProcess_OptimizeMeshes );
-	
+	const aiScene* scene = importer.ReadFile(_path, aiProcess_Triangulate |
+		aiProcess_FlipUVs |
+		aiProcess_CalcTangentSpace |
+		aiProcess_GenSmoothNormals |
+		aiProcess_OptimizeMeshes);
+
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
@@ -23,17 +23,16 @@ void Model::loadModel(std::string _path)
 	std::cout << "done" << std::endl;
 }
 
-void Model::processNode(aiNode *node, const aiScene *scene)
+void Model::processNode(aiNode* node, const aiScene* scene)
 {
 	debugMatrices.emplace_back(node->mTransformation);
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		
 		// node->mTransformation->
-		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		// node->mTransformation->
 		// node->mTransformation->
-		
+
 		meshes.push_back(processMesh2(mesh, node, scene));
 	}
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -42,7 +41,7 @@ void Model::processNode(aiNode *node, const aiScene *scene)
 	}
 }
 
-Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -50,7 +49,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	std::vector<Face> faces;
 
 	aiMatrix4x4 inv = currentTransformation.Inverse();
-	
+
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		aiVector3D pos = mesh->mVertices[i];
@@ -60,7 +59,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		vert.position.x = pos.x;
 		vert.position.y = pos.y;
 		vert.position.z = pos.z;
-		
+
 		if (mesh->HasNormals())
 		{
 			vert.normal.x = mesh->mNormals[i].x;
@@ -70,11 +69,9 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 
 		if (mesh->HasTangentsAndBitangents())
 		{
-
 			vert.tangent.x = mesh->mTangents[i].x;
 			vert.tangent.y = mesh->mTangents[i].y;
 			vert.tangent.z = mesh->mTangents[i].z;
-
 		}
 		else {
 			vert.tangent = glm::vec3(0.0f);
@@ -90,10 +87,9 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 		}
 
 		vertices.push_back(vert);
-
 	}
 
-	//indices 
+	//indices
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
@@ -111,34 +107,31 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	//material
 	if (mesh->mMaterialIndex >= 0)
 	{
-		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-
 
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
-		//Assimp throws issues when importing reflection maps correctly, nano model stores 
+		//Assimp throws issues when importing reflection maps correctly, nano model stores
 		//Reflection maps as ambient maps, this will obviously need corrected when PBR is implemented
 		std::vector<Texture> reflectionMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "reflection");
 		textures.insert(textures.end(), reflectionMaps.begin(), reflectionMaps.end());
-
 
 		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "normal");
 		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 	}
 
-	return Mesh(vertices, indices, textures,faces);
+	return Mesh(vertices, indices, textures, faces);
 }
 
-std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, aiNode* node, const aiScene *scene)
+std::shared_ptr<Mesh> Model::processMesh2(aiMesh* mesh, aiNode* node, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 	std::vector<Face> faces;
-
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
@@ -166,11 +159,9 @@ std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, aiNode* node, const aiSc
 
 		if (mesh->HasTangentsAndBitangents())
 		{
-
 			vert.tangent.x = mesh->mTangents[i].x;
 			vert.tangent.y = mesh->mTangents[i].y;
 			vert.tangent.z = mesh->mTangents[i].z;
-
 		}
 		else {
 			vert.tangent = glm::vec3(0.0f);
@@ -186,10 +177,9 @@ std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, aiNode* node, const aiSc
 		}
 
 		vertices.push_back(vert);
-
 	}
 
-	//indices 
+	//indices
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
@@ -207,19 +197,17 @@ std::shared_ptr<Mesh> Model::processMesh2(aiMesh *mesh, aiNode* node, const aiSc
 	//material
 	if (mesh->mMaterialIndex >= 0)
 	{
-		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-
 
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
-		//Assimp throws issues when importing reflection maps correctly, nano model stores 
+		//Assimp throws issues when importing reflection maps correctly, nano model stores
 		//Reflection maps as ambient maps, this will obviously need corrected when PBR is implemented
 		std::vector<Texture> reflectionMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "reflection");
 		textures.insert(textures.end(), reflectionMaps.begin(), reflectionMaps.end());
-
 
 		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "normal");
 		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
@@ -252,7 +240,7 @@ TextureType Model::convertTextureType(aiTextureType t)
 	}
 }
 
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
+std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
 	std::vector<Texture> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -262,7 +250,6 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
 		std::cout << &str << std::endl;
 
 		bool shouldSkip = false;
-
 
 		for (unsigned int j = 0; j < textures_loaded.size(); j++)
 		{
@@ -287,12 +274,11 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
 			textures.push_back(texture);
 			textures_loaded.push_back(texture);
 		}
-
 	}
 	return textures;
 }
 
-int Model::TextureFromFile(char const *path, const std::string& directory)
+int Model::TextureFromFile(char const* path, const std::string& directory)
 {
 	unsigned int id;
 	std::cout << path << std::endl;
@@ -307,12 +293,11 @@ int Model::TextureFromFile(char const *path, const std::string& directory)
 	// load and generate the texture
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(false);
-	unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 	std::cout << path << std::endl;
 
 	if (data != nullptr)
 	{
-
 		GLenum format;
 
 		if (nrChannels == 1)
@@ -348,8 +333,6 @@ int Model::TextureFromFile(char const *path, const std::string& directory)
 		stbi_image_free(data);
 		return NULL;
 	}
-
-
 }
 
 int Model::CommonTextureLoad(std::string path)
@@ -368,12 +351,11 @@ int Model::CommonTextureLoad(std::string path)
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(false);
 	const char* _path = path.c_str();
-	unsigned char *data = stbi_load(_path, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(_path, &width, &height, &nrChannels, 0);
 	std::cout << path << std::endl;
 
 	if (data != nullptr)
 	{
-
 		GLenum format;
 
 		if (nrChannels == 1)
@@ -409,13 +391,12 @@ int Model::CommonTextureLoad(std::string path)
 		stbi_image_free(data);
 		return NULL;
 	}
-
 }
 
 std::shared_ptr<Entity> Model::loadModelAsEntity(std::string path)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
@@ -429,11 +410,10 @@ std::shared_ptr<Entity> Model::loadModelAsEntity(std::string path)
 	return nullptr;
 }
 
-void Model::processNodeForEntity(aiNode *node, const aiScene *scene, std::shared_ptr<Entity> previousEntity)
+void Model::processNodeForEntity(aiNode* node, const aiScene* scene, std::shared_ptr<Entity> previousEntity)
 {
-
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 	}
 }

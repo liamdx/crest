@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 #include "gfx/Model.h"
 
 class Quad
@@ -22,14 +22,12 @@ public:
 		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
 		1.0f,  0.5f,  0.0f,  1.0f,  0.0f
 	};
-	
 
 private:
 	unsigned int vao, vbo;
 };
 
 class screenQuad {
-
 	// usage
 
 	// fbShader.use();

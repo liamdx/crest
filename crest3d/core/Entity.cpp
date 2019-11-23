@@ -1,12 +1,5 @@
 #include "Entity.h"
 
-void Entity::Delete()
-{
-	this->~Entity();
-	std::cout << "Entity Deleted" << std::endl;
-	std::cout << "Something else can happen here!" << std::endl;
-}
-
 void Entity::AddComponent(EngineComponent* newComponent)
 {
 	bool canEmplace = true;
@@ -26,7 +19,26 @@ void Entity::AddComponent(EngineComponent* newComponent)
 		std::cout << "Entity: " << name << "already has a " << newComponent->name << std::endl;
 		delete newComponent;
 	}
-	
+}
+
+void Entity::AddComponent(std::shared_ptr<EngineComponent> newComponent)
+{
+	bool canEmplace = true;
+	for (unsigned int i = 0; i < components.size(); i++)
+	{
+		if (components[i]->name == newComponent->name)
+		{
+			canEmplace = false;
+		}
+	}
+	if (canEmplace)
+	{
+		components.emplace_back(newComponent);
+	}
+	else
+	{
+		std::cout << "Entity: " << name << "already has a " << newComponent->name << std::endl;
+	}
 }
 
 void Entity::initBehaviour()
@@ -61,7 +73,6 @@ void Entity::fixedUpdateBehaviour()
 	}
 }
 
-
 void Entity::updateBehaviour(float deltaTime)
 {
 	transform->update(deltaTime);
@@ -69,7 +80,6 @@ void Entity::updateBehaviour(float deltaTime)
 	{
 		components.at(i)->update(deltaTime);
 	}
-	
 }
 
 void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
@@ -79,7 +89,6 @@ void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
 		components.at(i)->render(deltaTime, view);
 	}
 }
-
 
 void Entity::uiBehaviour(float deltaTime)
 {
@@ -108,14 +117,13 @@ std::shared_ptr<Entity> Entity::GetChild(unsigned int index)
 
 std::shared_ptr<Entity> Entity::GetChild(const char* name)
 {
-	for(unsigned int i =0; i < children.size(); i++)
+	for (unsigned int i = 0; i < children.size(); i++)
 	{
 		if (children.at(i)->name == name)
 		{
 			return(std::shared_ptr<Entity>(children.at(i)));
 		}
 	}
-	
 
 	std::cout << "no child found of name " << name << std::endl;
 	return nullptr;

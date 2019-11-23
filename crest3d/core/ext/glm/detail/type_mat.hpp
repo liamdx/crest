@@ -5,12 +5,12 @@
 
 #include "qualifier.hpp"
 
-namespace glm{
-namespace detail
-{
-	template<length_t C, length_t R, typename T, qualifier Q>
-	struct outerProduct_trait{};
-}//namespace detail
+namespace glm {
+	namespace detail
+	{
+		template<length_t C, length_t R, typename T, qualifier Q>
+		struct outerProduct_trait {};
+	}//namespace detail
 
 #if GLM_HAS_TEMPLATE_ALIASES
 	template <typename T, qualifier Q = defaultp> using tmat2x2 = mat<2, 2, T, Q>;
@@ -29,7 +29,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 columns of 2 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -76,7 +75,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 columns of 3 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -102,7 +100,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 columns of 4 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -128,7 +125,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 columns of 2 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -154,7 +150,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 columns of 3 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -201,7 +196,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 columns of 4 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -227,7 +221,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 columns of 2 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -253,7 +246,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 columns of 3 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -277,10 +269,8 @@ namespace detail
 
 	/// @}
 
-
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 columns of 4 components matrix of low qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -327,7 +317,6 @@ namespace detail
 
 	/// @addtogroup core_types
 	/// @{
-
 	//////////////////////////
 	// Float definition
 
@@ -419,7 +408,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 columns of 2 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -460,7 +448,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 columns of 3 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -483,7 +470,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 columns of 4 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -506,7 +492,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 columns of 2 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -529,7 +514,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 columns of 3 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -570,7 +554,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 columns of 4 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -593,7 +576,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 columns of 2 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -616,7 +598,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 columns of 3 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
@@ -639,7 +620,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 columns of 4 components matrix of low qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>

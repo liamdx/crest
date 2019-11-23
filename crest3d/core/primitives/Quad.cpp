@@ -10,9 +10,9 @@ Quad::Quad(std::string texturePath) {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices[0], GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 *sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),(void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 
 	glBindVertexArray(0);
 	tex.t_Id = Model::TextureFromFile(tex.t_Path.c_str(), "");
@@ -35,7 +35,6 @@ Quad::Quad()
 }
 Quad::~Quad()
 {
-
 }
 void Quad::Draw(Shader shader)
 {
@@ -76,7 +75,6 @@ screenQuad::screenQuad()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
 }
 void screenQuad::Draw(Shader shader, const char* uniformName, unsigned int textureLocation)
 {
@@ -94,12 +92,11 @@ void screenQuad::Draw(Shader shader, const char* uniformName, unsigned int textu
 
 screenQuad::~screenQuad()
 {
-
 }
 //
 //std::vector<float> debugQuad::getVertices(quadLocation screenLocation)
 //{
-//	
+//
 //	if (screenLocation == 1)
 //	{
 //		std::vector<float> vertices = {}

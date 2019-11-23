@@ -6,5 +6,5 @@ class ShaderComponent;
 class LightComponent : public EngineComponent
 {
 public:
-	virtual void Bind(std::shared_ptr<ShaderComponent>) {} ;
+	virtual void Bind(std::shared_ptr<ShaderComponent>) {};
 };

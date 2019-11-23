@@ -7,7 +7,6 @@
 #define BOOST_PFR_PRECISE_GLOBAL_OPS_HPP
 #pragma once
 
-
 #include <imgui/auto/boost/pfr/detail/config.hpp>
 
 #include <imgui/auto/boost/pfr/precise/functors.hpp>
@@ -38,80 +37,82 @@
 ///
 /// \b This \b header \b defines:
 /// @cond
-namespace boost { namespace pfr { namespace detail {
-
-    template <class T, class U>
-    using enable_comparisons = std::enable_if_t<
-        std::is_same<T, U>::value,
-        bool
-    >;
-
-}}} // namespace boost::pfr::detail
+namespace boost {
+	namespace pfr {
+		namespace detail {
+			template <class T, class U>
+			using enable_comparisons = std::enable_if_t<
+				std::is_same<T, U>::value,
+				bool
+			>;
+		}
+	}
+} // namespace boost::pfr::detail
 /// @endcond
 
 #ifdef BOOST_PFR_DOXYGEN_INVOKED
-    template <class T> bool operator==(const T& lhs, const T& rhs);
-    template <class T> bool operator!=(const T& lhs, const T& rhs);
-    template <class T> bool operator< (const T& lhs, const T& rhs);
-    template <class T> bool operator> (const T& lhs, const T& rhs);
-    template <class T> bool operator<=(const T& lhs, const T& rhs);
-    template <class T> bool operator>=(const T& lhs, const T& rhs);
+template <class T> bool operator==(const T& lhs, const T& rhs);
+template <class T> bool operator!=(const T& lhs, const T& rhs);
+template <class T> bool operator< (const T& lhs, const T& rhs);
+template <class T> bool operator> (const T& lhs, const T& rhs);
+template <class T> bool operator<=(const T& lhs, const T& rhs);
+template <class T> bool operator>=(const T& lhs, const T& rhs);
 
-    template <class Char, class Traits, class T>
-    std::basic_ostream<Char, Traits>& operator<<(std::basic_ostream<Char, Traits>& out, const T& value);
+template <class Char, class Traits, class T>
+std::basic_ostream<Char, Traits>& operator<<(std::basic_ostream<Char, Traits>& out, const T& value);
 
-    template <class Char, class Traits, class T>
-    std::basic_istream<Char, Traits>& operator>>(std::basic_istream<Char, Traits>& in, T& value);
+template <class Char, class Traits, class T>
+std::basic_istream<Char, Traits>& operator>>(std::basic_istream<Char, Traits>& in, T& value);
 
-    /// \brief helper function for Boost unordered containers and boost::hash<>.
-    template <class T> std::size_t hash_value(const T& value);
+/// \brief helper function for Boost unordered containers and boost::hash<>.
+template <class T> std::size_t hash_value(const T& value);
 #else
-    template <class T, class U>
-    static boost::pfr::detail::enable_comparisons<T, U> operator==(const T& lhs, const U& rhs) {
-        return ::boost::pfr::equal_to<T>{}(lhs, rhs);
-    }
+template <class T, class U>
+static boost::pfr::detail::enable_comparisons<T, U> operator==(const T& lhs, const U& rhs) {
+	return ::boost::pfr::equal_to<T>{}(lhs, rhs);
+}
 
-    template <class T, class U>
-    static boost::pfr::detail::enable_comparisons<T, U> operator!=(const T& lhs, const U& rhs) {
-        return ::boost::pfr::not_equal<T>{}(lhs, rhs);
-    }
+template <class T, class U>
+static boost::pfr::detail::enable_comparisons<T, U> operator!=(const T& lhs, const U& rhs) {
+	return ::boost::pfr::not_equal<T>{}(lhs, rhs);
+}
 
-    template <class T, class U>
-    static boost::pfr::detail::enable_comparisons<T, U> operator<(const T& lhs, const U& rhs) {
-        return ::boost::pfr::less<T>{}(lhs, rhs);
-    }
+template <class T, class U>
+static boost::pfr::detail::enable_comparisons<T, U> operator<(const T& lhs, const U& rhs) {
+	return ::boost::pfr::less<T>{}(lhs, rhs);
+}
 
-    template <class T, class U>
-    static boost::pfr::detail::enable_comparisons<T, U> operator>(const T& lhs, const U& rhs) {
-        return ::boost::pfr::greater<T>{}(lhs, rhs);
-    }
+template <class T, class U>
+static boost::pfr::detail::enable_comparisons<T, U> operator>(const T& lhs, const U& rhs) {
+	return ::boost::pfr::greater<T>{}(lhs, rhs);
+}
 
-    template <class T, class U>
-    static boost::pfr::detail::enable_comparisons<T, U> operator<=(const T& lhs, const U& rhs) {
-        return ::boost::pfr::less_equal<T>{}(lhs, rhs);
-    }
+template <class T, class U>
+static boost::pfr::detail::enable_comparisons<T, U> operator<=(const T& lhs, const U& rhs) {
+	return ::boost::pfr::less_equal<T>{}(lhs, rhs);
+}
 
-    template <class T, class U>
-    static boost::pfr::detail::enable_comparisons<T, U> operator>=(const T& lhs, const U& rhs) {
-        return ::boost::pfr::greater_equal<T>{}(lhs, rhs);
-    }
+template <class T, class U>
+static boost::pfr::detail::enable_comparisons<T, U> operator>=(const T& lhs, const U& rhs) {
+	return ::boost::pfr::greater_equal<T>{}(lhs, rhs);
+}
 
-    template <class Char, class Traits, class T>
-    static std::enable_if_t<std::is_pod<T>::value, std::basic_ostream<Char, Traits>&> operator<<(std::basic_ostream<Char, Traits>& out, const T& value) {
-        ::boost::pfr::write(out, value);
-        return out;
-    }
+template <class Char, class Traits, class T>
+static std::enable_if_t<std::is_pod<T>::value, std::basic_ostream<Char, Traits>&> operator<<(std::basic_ostream<Char, Traits>& out, const T& value) {
+	::boost::pfr::write(out, value);
+	return out;
+}
 
-    template <class Char, class Traits, class T>
-    static std::enable_if_t<std::is_pod<T>::value, std::basic_istream<Char, Traits>&> operator>>(std::basic_istream<Char, Traits>& in, T& value) {
-        ::boost::pfr::read(in, value);
-        return in;
-    }
+template <class Char, class Traits, class T>
+static std::enable_if_t<std::is_pod<T>::value, std::basic_istream<Char, Traits>&> operator>>(std::basic_istream<Char, Traits>& in, T& value) {
+	::boost::pfr::read(in, value);
+	return in;
+}
 
-    template <class T>
-    static std::size_t hash_value(const T& value) {
-        return ::boost::pfr::hash<T>{}(value);
-    }
+template <class T>
+static std::size_t hash_value(const T& value) {
+	return ::boost::pfr::hash<T>{}(value);
+}
 #endif
 
 #endif // BOOST_PFR_PRECISE_GLOBAL_OPS_HPP

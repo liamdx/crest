@@ -12,17 +12,17 @@ private:
 public:
 	static std::string getPath(const std::string& path)
 	{
-		static std::string(*pathBuilder)(std::string const &) = getPathBuilder();
+		static std::string(*pathBuilder)(std::string const&) = getPathBuilder();
 		return (*pathBuilder)(path);
 	}
 
 private:
-	static std::string const & getRoot()
+	static std::string const& getRoot()
 	{
 		size_t requiredSize = 14;
 		static char* const envRoot = getenv("GEFA3D_ROOT_PATH");
 		//getenv_s(&requiredSize, envRoot, requiredSize,"LOGL_ROOT_PATH");
-		static char const * givenRoot = (envRoot != nullptr ? envRoot : logl_root);
+		static char const* givenRoot = (envRoot != nullptr ? envRoot : logl_root);
 		static std::string root = (givenRoot != nullptr ? givenRoot : "");
 		return root;
 	}
@@ -45,7 +45,4 @@ private:
 	{
 		return "../../../" + path;
 	}
-
-
 };
-

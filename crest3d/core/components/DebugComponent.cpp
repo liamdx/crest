@@ -1,9 +1,7 @@
 #include "DebugComponent.h"
 #include "Common.h"
 void DebugComponent::start() {
-
 	std::cout << "DebugComponent: Override function executing on start()" << std::endl;
-
 }
 
 void DebugComponent::earlyUpdate(float deltaTime) {

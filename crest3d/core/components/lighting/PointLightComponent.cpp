@@ -61,6 +61,4 @@ void PointLightComponent::Bind(std::shared_ptr<ShaderComponent> shader)
 	shader->shader->setVec3(s + "specular", specular);
 	shader->shader->setFloat(s + "intensity", intensity);
 	shader->shader->setFloat(s + "distance", distance);
-
 }
-

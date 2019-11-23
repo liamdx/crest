@@ -30,7 +30,7 @@ public:
 public:
 	static ImGuiFileDialog* Instance()
 	{
-		static ImGuiFileDialog *_instance = new ImGuiFileDialog();
+		static ImGuiFileDialog* _instance = new ImGuiFileDialog();
 		return _instance;
 	}
 
@@ -49,4 +49,3 @@ private:
 	void SetCurrentDir(std::string vPath);
 	void ComposeNewPath(std::vector<std::string>::iterator vIter);
 };
-

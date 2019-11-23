@@ -20,7 +20,7 @@ ShadowMap::ShadowMap(ShadowMapType _type)
 
 void ShadowMap::start()
 {
-	// directional 
+	// directional
 	if (type == ShadowMapType::directional)
 	{
 		glGenFramebuffers(1, &depthMapFBO);
@@ -59,7 +59,6 @@ void ShadowMap::start()
 		glReadBuffer(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	
 }
 
 void ShadowMap::renderLightView(glm::vec3 cameraPosition, std::vector<MeshComponent> meshes)
@@ -67,7 +66,6 @@ void ShadowMap::renderLightView(glm::vec3 cameraPosition, std::vector<MeshCompon
 	if (type == ShadowMapType::directional)
 	{
 		// directional draw
-
 	}
 	else if (type == ShadowMapType::point)
 	{

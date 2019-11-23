@@ -6,7 +6,6 @@ const float SCREEN_WIDTH = 1280.0;
 const float SCREEN_HEIGHT = 720.0;
 
 int main() {
-
 	// SDL_Init(SDL_INIT_EVERYTHING);
 
 	float deltaTime = 0.0;
@@ -30,7 +29,7 @@ int main() {
 	int success;
 	char infoLog[512];
 	//GL initialisation
-	GLFWwindow * window;
+	GLFWwindow* window;
 
 	/* Initialize the library */
 	if (!glfwInit())
@@ -55,7 +54,6 @@ int main() {
 
 	// ok to start doing stuff with the opengl window & context
 
-	
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -67,8 +65,6 @@ int main() {
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
-
-
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -82,10 +78,9 @@ int main() {
 
 	//// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplOpenGL3_Init("#version 330");
 
 	// ImGui_ImplSDL2_InitForOpenGL(sdl_window, mainContext);
-	
 
 	//Enable depth
 	glEnable(GL_DEPTH_TEST);
@@ -97,14 +92,12 @@ int main() {
 
 	YSE::System().init();
 
-	// Example Here 
+	// Example Here
 	EditorPrototyping example(window);
 
 	example.initBehaviour();
 
-	
-
-	// Framebuffer shader 
+	// Framebuffer shader
 	Shader depthShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
 	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
 	screenQuad renderQuad;
@@ -122,19 +115,16 @@ int main() {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
-	
+
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	while (1) {
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-
 
 		//Engine time
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -147,12 +137,11 @@ int main() {
 		mainFB.initForDrawing();
 		// perform scene pre-render stuff
 		example.earlyUpdateBehaviour(deltaTime);
-		example.updateBehaviour(deltaTime);		
+		example.updateBehaviour(deltaTime);
 		// draw everything in the scene
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
-		
 		glDisable(GL_DEPTH_TEST);
 
 		finalFB.initForDrawing();
@@ -170,7 +159,7 @@ int main() {
 
 		glEnable(GL_DEPTH_TEST);
 
-		if(ImGui::Begin("Scene Window", NULL, ImVec2(0,0)))
+		if (ImGui::Begin("Scene Window", NULL, ImVec2(0, 0)))
 		{
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImVec2 pos = ImGui::GetCursorScreenPos();
@@ -188,38 +177,31 @@ int main() {
 			}
 
 			ImGui::GetWindowDrawList()->AddImage(
-				(void *)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				(void*)mainFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
 			lastWindowWidth = dWidth;
 			lastWindowHeight = dHeight;
-
-			
 		}
 		ImGui::End();
 
 		if (ImGui::Begin("Depth Window", NULL, ImVec2(0, 0)))
 		{
 			ImGui::GetWindowDrawList()->AddImage(
-				(void *)depthFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				(void*)depthFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
-
 		}
 		ImGui::End();
 
 		if (ImGui::Begin("Final Window", NULL, ImVec2(0, 0)))
 		{
 			ImGui::GetWindowDrawList()->AddImage(
-				(void *)finalFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				(void*)finalFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
-
 		}
 		ImGui::End();
 
 		example.uiBehaviour(deltaTime);
-
-
-
 
 		// Rendering
 		ImGui::Render();
@@ -244,5 +226,4 @@ int main() {
 
 		// SDL_GL_SwapWindow(sdl_window);
 	}
-
 }

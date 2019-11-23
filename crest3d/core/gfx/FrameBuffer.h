@@ -30,5 +30,4 @@ private:
 	unsigned int framebufferTexture, msFramebufferTexture, depthTexture;
 
 	bool isMultiSample;
-
 };

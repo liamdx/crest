@@ -33,9 +33,7 @@ std::shared_ptr<Asset<AnimatedModel>> AssetManager::loadAnimatedModelAsset(const
 	asset->assetPath = path;
 	animatedModelAssets.emplace_back(asset);
 	return asset;
-	
 }
-
 
 std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 {
@@ -49,3 +47,65 @@ std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 	return asset;
 }
 
+void AssetManager::removeModelAsset(unsigned _assetID)
+{
+	int indexToRemove;
+	for (unsigned int i = 0; i < modelAssets.size(); i++)
+	{
+		if (modelAssets.at(i)->assetID == _assetID)
+		{
+			indexToRemove = i;
+		}
+	}
+	modelAssets.erase(modelAssets.begin() + indexToRemove);
+	removeAssetID(_assetID);
+}
+
+void AssetManager::removeAnimatedModelAsset(unsigned _assetID)
+{
+	int indexToRemove;
+	for (unsigned int i = 0; i < animatedModelAssets.size(); i++)
+	{
+		if (animatedModelAssets.at(i)->assetID == _assetID)
+		{
+			indexToRemove = i;
+		}
+	}
+	animatedModelAssets.erase(animatedModelAssets.begin() + indexToRemove);
+	removeAssetID(_assetID);
+}
+
+void AssetManager::removeTextureAsset(unsigned _assetID)
+{
+	int indexToRemove;
+	for (unsigned int i = 0; i < textureAssets.size(); i++)
+	{
+		if (textureAssets.at(i)->assetID == _assetID)
+		{
+			indexToRemove = i;
+		}
+	}
+
+	textureAssets.erase(textureAssets.begin() + indexToRemove);
+	removeAssetID(_assetID);
+}
+
+unsigned int AssetManager::getUniqueAssetID()
+{
+	int newAssetId = assetCounter + 1;
+	assetIDs.emplace_back(newAssetId);
+	return newAssetId;
+}
+
+void AssetManager::removeAssetID(unsigned assetID)
+{
+	unsigned int indexToRemove;
+	for (int i = 0; i < assetIDs.size(); i++)
+	{
+		if (assetIDs.at(i) == assetID)
+		{
+			indexToRemove = i;
+		}
+	}
+	assetIDs.erase(assetIDs.begin() + indexToRemove);
+}

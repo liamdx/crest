@@ -13,4 +13,3 @@
 #include <imgui/auto/boost/pfr/flat.hpp>
 
 #endif // BOOST_PFR_HPP
-

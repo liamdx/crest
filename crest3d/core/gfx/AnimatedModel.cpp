@@ -17,26 +17,21 @@ void AnimatedModel::VertexBoneData::AddBoneData(unsigned int BoneID, float Weigh
 	}
 
 	// should never get here - more bones than we have space for
-	
 }
 
 AnimatedModel::AnimatedModel()
 {
-	
 	m_NumBones = 0;
 	m_pScene = NULL;
 }
-
 
 AnimatedModel::~AnimatedModel()
 {
 	Clear();
 }
 
-
 void AnimatedModel::Clear()
 {
-
 	if (m_Buffers[0] != 0) {
 		glDeleteBuffers(ARRAY_SIZE_IN_ELEMENTS(m_Buffers), m_Buffers);
 	}
@@ -50,7 +45,6 @@ void AnimatedModel::Clear()
 	m_NumBones = 0;
 	m_NumVertices = 0;
 }
-
 
 bool AnimatedModel::LoadMesh(const std::string& filepath)
 {
@@ -67,7 +61,7 @@ bool AnimatedModel::LoadMesh(const std::string& filepath)
 
 	bool Ret = false;
 	//replace with old loader stuff
-	m_pScene = m_Importer.ReadFile(filepath.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes | aiProcess_JoinIdenticalVertices );
+	m_pScene = m_Importer.ReadFile(filepath.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenSmoothNormals | aiProcess_OptimizeMeshes | aiProcess_JoinIdenticalVertices);
 
 	if (m_pScene) {
 		directory = filepath.substr(0, filepath.find_last_of('/'));
@@ -75,8 +69,6 @@ bool AnimatedModel::LoadMesh(const std::string& filepath)
 		std::cout << "DEBUG: Directory = " << directory << std::endl;
 		m_GlobalInverseTransform = aiToGlm(m_pScene->mRootNode->mTransformation.Inverse());
 		Ret = InitFromScene(m_pScene, filepath);
-		
-		
 	}
 	else {
 		printf("Error parsing '%s': '%s'\n", filepath.c_str(), m_Importer.GetErrorString());
@@ -90,7 +82,6 @@ bool AnimatedModel::LoadMesh(const std::string& filepath)
 	//			return pNodeAnim;*/
 	//	std::map <std::string, const aiNodeAnim*> cm;
 	//	for (unsigned int j = 0; i < m_pScene->mAnimations[i]->mNumChannels; i++) {
-
 	//		cm[m_pScene->mAnimations[i]->mChannels[j]->mNodeName.data] = m_pScene->mAnimations[i] ->mChannels[j];
 
 	//	}
@@ -111,10 +102,8 @@ glm::mat4 AnimatedModel::aiToGlm(aiMatrix4x4 ai_matr)
 	result[2].x = ai_matr.a3; result[2].y = ai_matr.b3; result[2].z = ai_matr.c3; result[2].w = ai_matr.d3;
 	result[3].x = ai_matr.a4; result[3].y = ai_matr.b4; result[3].z = ai_matr.c4; result[3].w = ai_matr.d4;
 
-
 	return result;
 }
-
 
 bool AnimatedModel::InitFromScene(const aiScene* pScene, const std::string& Filename)
 {
@@ -131,9 +120,8 @@ bool AnimatedModel::InitFromScene(const aiScene* pScene, const std::string& File
 	unsigned int NumVertices = 0;
 	unsigned int NumIndices = 0;
 
-
 	// Count the number of vertices and indices
-	for (unsigned int i = 0; i <pScene->mNumMeshes; i++) {
+	for (unsigned int i = 0; i < pScene->mNumMeshes; i++) {
 		m_Entries[i].MaterialIndex = pScene->mMeshes[i]->mMaterialIndex;
 		m_Entries[i].NumIndices = pScene->mMeshes[i]->mNumFaces * 3;
 		m_Entries[i].BaseVertex = NumVertices;
@@ -195,7 +183,6 @@ bool AnimatedModel::InitFromScene(const aiScene* pScene, const std::string& File
 	return true;
 }
 
-
 void AnimatedModel::InitMesh(unsigned int MeshIndex,
 	const aiMesh* paiMesh,
 	std::vector<glm::vec3>& Positions,
@@ -220,7 +207,6 @@ void AnimatedModel::InitMesh(unsigned int MeshIndex,
 	{
 		LoadBones(MeshIndex, paiMesh, Bones);
 	}
-	
 
 	// Populate the index buffer
 	for (unsigned int i = 0; i < paiMesh->mNumFaces; i++) {
@@ -230,32 +216,24 @@ void AnimatedModel::InitMesh(unsigned int MeshIndex,
 		Indices.push_back(Face.mIndices[1]);
 		Indices.push_back(Face.mIndices[2]);
 	}
-
-	
-
-
-	
-
 }
 
-std::vector<Texture> AnimatedModel::getMeshMaterial(const aiMesh *  mesh, const aiScene * scene)
+std::vector<Texture> AnimatedModel::getMeshMaterial(const aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Texture> textures;
 	if (mesh->mMaterialIndex >= 0)
 	{
-		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-
 
 		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
-		//Assimp throws issues when importing reflection maps correctly, nano model stores 
+		//Assimp throws issues when importing reflection maps correctly, nano model stores
 		//Reflection maps as ambient maps, this will obviously need corrected when PBR is implemented
 		std::vector<Texture> reflectionMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "reflection");
 		textures.insert(textures.end(), reflectionMaps.begin(), reflectionMaps.end());
-
 
 		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "normal");
 		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
@@ -282,7 +260,6 @@ void AnimatedModel::LoadBones(unsigned int MeshIndex, const aiMesh* pMesh, std::
 			BoneInfo bi;
 			m_BoneInfo.push_back(bi);
 
-			
 			aiMatrix4x4 AssimpMatrix = pMesh->mBones[i]->mOffsetMatrix;
 
 			m_BoneInfo[BoneIndex].BoneOffset = aiToGlm(AssimpMatrix);
@@ -295,16 +272,14 @@ void AnimatedModel::LoadBones(unsigned int MeshIndex, const aiMesh* pMesh, std::
 		std::cout << "num vertices per bone: " << pMesh->mBones[i]->mNumWeights << std::endl;
 
 		for (unsigned int j = 0; j < pMesh->mBones[i]->mNumWeights; j++) {
-						
 			unsigned int VertexID = m_Entries[MeshIndex].BaseVertex + pMesh->mBones[i]->mWeights[j].mVertexId;
 			float Weight = pMesh->mBones[i]->mWeights[j].mWeight;
 			Bones[VertexID].AddBoneData(BoneIndex, Weight);
 		}
-
 	}
 }
 
-std::vector<Texture> AnimatedModel::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
+std::vector<Texture> AnimatedModel::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
 	std::vector<Texture> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -322,9 +297,6 @@ std::vector<Texture> AnimatedModel::loadMaterialTextures(aiMaterial *mat, aiText
 		{
 			location = -1;
 		}
-		
-
-		
 
 		std::cout << "location = " << location << std::endl;
 
@@ -342,7 +314,6 @@ std::vector<Texture> AnimatedModel::loadMaterialTextures(aiMaterial *mat, aiText
 			std::cout << &str << std::endl;
 
 			bool shouldSkip = false;
-
 
 			for (unsigned int j = 0; j < m_Textures.size(); j++)
 			{
@@ -376,16 +347,11 @@ std::vector<Texture> AnimatedModel::loadMaterialTextures(aiMaterial *mat, aiText
 			std::string finalpath = loadpath.substr(pos);
 			std::cout << "loadpath after op: " << finalpath << std::endl;
 		}*/
-		
-		
-		
-		
-
 	}
 	return textures;
 }
 
-int AnimatedModel::TextureFromFile(char const *path, const std::string& directory)
+int AnimatedModel::TextureFromFile(char const* path, const std::string& directory)
 {
 	unsigned int id;
 	std::cout << path << std::endl;
@@ -400,12 +366,11 @@ int AnimatedModel::TextureFromFile(char const *path, const std::string& director
 	// load and generate the texture
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(false);
-	unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 	std::cout << path << std::endl;
 
 	if (data != nullptr)
 	{
-
 		GLenum format;
 
 		if (nrChannels == 1)
@@ -441,8 +406,6 @@ int AnimatedModel::TextureFromFile(char const *path, const std::string& director
 		stbi_image_free(data);
 		return NULL;
 	}
-
-
 }
 
 int AnimatedModel::EmbeddedTexture(int index)
@@ -459,7 +422,7 @@ int AnimatedModel::EmbeddedTexture(int index)
 	// load and generate the texture
 	int width, height, nrChannels;
 
-	auto * data = m_pScene->mTextures[0]->pcData;
+	auto* data = m_pScene->mTextures[0]->pcData;
 
 	width = m_pScene->mTextures[0]->mWidth;
 	height = m_pScene->mTextures[0]->mHeight;
@@ -499,17 +462,15 @@ void AnimatedModel::Draw(Shader shader)
 			GL_UNSIGNED_INT,
 			(void*)(sizeof(unsigned int) * m_Entries[i].BaseIndex),
 			m_Entries[i].BaseVertex);
-		
-		
-			for (unsigned int j = 0; j < m_Entries[i].Textures.size(); j++)
-			{
-				glActiveTexture(GL_TEXTURE0 + i);
-				glBindTexture(GL_TEXTURE_2D, 0);
-			}
-		
+
+		for (unsigned int j = 0; j < m_Entries[i].Textures.size(); j++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 	}
 
-	// Make sure the VAO is not changed from the outside    
+	// Make sure the VAO is not changed from the outside
 	glBindVertexArray(0);
 }
 
@@ -535,14 +496,11 @@ void AnimatedModel::Draw(std::shared_ptr<ShaderComponent> shader)
 			GL_UNSIGNED_INT,
 			(void*)(sizeof(unsigned int) * m_Entries[i].BaseIndex),
 			m_Entries[i].BaseVertex);
-
 	}
 
-	// Make sure the VAO is not changed from the outside    
+	// Make sure the VAO is not changed from the outside
 	glBindVertexArray(0);
 }
-
-
 
 unsigned int AnimatedModel::FindPosition(float AnimationTime, const aiNodeAnim* pNodeAnim)
 {
@@ -556,7 +514,6 @@ unsigned int AnimatedModel::FindPosition(float AnimationTime, const aiNodeAnim* 
 
 	return 0;
 }
-
 
 unsigned int AnimatedModel::FindRotation(float AnimationTime, const aiNodeAnim* pNodeAnim)
 {
@@ -573,7 +530,6 @@ unsigned int AnimatedModel::FindRotation(float AnimationTime, const aiNodeAnim* 
 	return 0;
 }
 
-
 unsigned int AnimatedModel::FindScaling(float AnimationTime, const aiNodeAnim* pNodeAnim)
 {
 	assert(pNodeAnim->mNumScalingKeys > 0);
@@ -588,7 +544,6 @@ unsigned int AnimatedModel::FindScaling(float AnimationTime, const aiNodeAnim* p
 
 	return 0;
 }
-
 
 void AnimatedModel::CalcInterpolatedPosition(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
 {
@@ -613,7 +568,6 @@ void AnimatedModel::CalcInterpolatedPosition(aiVector3D& Out, float AnimationTim
 	//Out = Out.Normalize();
 }
 
-
 void AnimatedModel::CalcInterpolatedRotation(aiQuaternion& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
 {
 	// we need at least two values to interpolate...
@@ -636,7 +590,6 @@ void AnimatedModel::CalcInterpolatedRotation(aiQuaternion& Out, float AnimationT
 	aiQuaternion::Interpolate(Out, StartRotationQ, EndRotationQ, Factor);
 	Out = Out.Normalize();
 }
-
 
 void AnimatedModel::CalcInterpolatedScaling(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim)
 {
@@ -661,13 +614,12 @@ void AnimatedModel::CalcInterpolatedScaling(aiVector3D& Out, float AnimationTime
 	//Out.Normalize();
 }
 
-
 void AnimatedModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, const aiMatrix4x4 ParentTransform)
 {
 	std::string NodeName(pNode->mName.data);
-	  
+
 	aiAnimation* pAnimation = currentAnimation;
-	
+
 	aiMatrix4x4 NodeTransformation = pNode->mTransformation;
 
 	aiNodeAnim* pNodeAnim = FindNodeAnim(pAnimation, NodeName);
@@ -679,22 +631,19 @@ void AnimatedModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, 
 		aiMatrix4x4 scaling_mat;
 		aiMatrix4x4::Scaling(Scaling, scaling_mat);
 
-
-
 		// Interpolate rotation and generate rotation transformation matrix
 		aiQuaternion RotationQ;
 		CalcInterpolatedRotation(RotationQ, AnimationTime, pNodeAnim);
 		aiMatrix4x4 rotating_mat = aiMatrix4x4(RotationQ.GetMatrix());
-		
+
 		// Interpolate translation and generate translation transformation matrix
 		aiVector3D Translation;
 		CalcInterpolatedPosition(Translation, AnimationTime, pNodeAnim);
 		aiMatrix4x4 translate_mat;
 		aiMatrix4x4::Translation(Translation, translate_mat);
 		// Combine the above transformations
-		
+
 		NodeTransformation = translate_mat * rotating_mat * scaling_mat;
-		
 	}
 
 	aiMatrix4x4 GlobalTransformation;
@@ -706,16 +655,14 @@ void AnimatedModel::ReadNodeHeirarchy(float AnimationTime, const aiNode* pNode, 
 		//fix this aitoglm
 		m_BoneInfo[BoneIndex].FinalTransformation = m_GlobalInverseTransform * aiToGlm(GlobalTransformation) * m_BoneInfo[BoneIndex].BoneOffset;
 	}
-	
+
 	for (int i = 0; i < pNode->mNumChildren; i++) {
 		ReadNodeHeirarchy(AnimationTime, pNode->mChildren[i], GlobalTransformation);
 	}
-
 }
 
 void AnimatedModel::LoadTextureToMesh(unsigned int index, Texture texture)
 {
-	
 	if (texture.t_Type == TextureType::diffuse)
 	{
 		for (int i = 0; i < m_Entries[index].Textures.size(); i++)
@@ -759,8 +706,6 @@ void AnimatedModel::LoadTextureToMesh(unsigned int index, Texture texture)
 			}
 		}
 	}
-
-	
 }
 
 void AnimatedModel::BoneTransform(float TimeInSeconds, std::vector<glm::mat4>& Transforms)
@@ -777,17 +722,16 @@ void AnimatedModel::BoneTransform(float TimeInSeconds, std::vector<glm::mat4>& T
 
 	for (int i = 0; i < m_NumBones; i++) {
 		Transforms[i] = m_BoneInfo[i].FinalTransformation;
-		
 	}
 }
 
 void AnimatedModel::fillNodeMappings()
 {
-	for(unsigned int i= 0; i < m_pScene->mNumAnimations; i++)
+	for (unsigned int i = 0; i < m_pScene->mNumAnimations; i++)
 	{
 		auto currentAnim = m_pScene->mAnimations[i];
 		nodeMappings[currentAnim] = std::map<std::string, aiNodeAnim*>();
-		for(unsigned int j =0; j < currentAnim->mNumChannels; j++)
+		for (unsigned int j = 0; j < currentAnim->mNumChannels; j++)
 		{
 			aiNodeAnim* node = currentAnim->mChannels[j];
 			std::string nodeName = node->mNodeName.data;
@@ -797,10 +741,8 @@ void AnimatedModel::fillNodeMappings()
 	}
 }
 
-
 aiNodeAnim* AnimatedModel::FindNodeAnim(aiAnimation* pAnimation, std::string NodeName)
 {
-
 	//can this be done more efficiently?
 	/*for (unsigned int i = 0; i < pAnimation->mNumChannels; i++) {
 		aiNodeAnim* pNodeAnim = pAnimation->mChannels[i];
@@ -810,14 +752,12 @@ aiNodeAnim* AnimatedModel::FindNodeAnim(aiAnimation* pAnimation, std::string Nod
 		}
 	}*/
 
-
 	/*for (unsigned int i = 0; i < pAnimation->mNumChannels; i++) {
 		if (std::string(pAnimation->mChannels[i]->mNodeName.data) == NodeName) {
 			const aiNodeAnim* pNodeAnim = pAnimation->mChannels[i];
 			return pNodeAnim;
 		}
 	}
-
 
 */
 	return(nodeMappings[pAnimation][NodeName]);

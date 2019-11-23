@@ -7,18 +7,18 @@
 #include "type_int.hpp"
 #include "compute_vector_relational.hpp"
 
-namespace glm{
-namespace detail
-{
-	template<typename T, std::size_t size, bool aligned>
-	struct storage
+namespace glm {
+	namespace detail
 	{
-		typedef struct type {
-			uint8 data[size];
-		} type;
-	};
+		template<typename T, std::size_t size, bool aligned>
+		struct storage
+		{
+			typedef struct type {
+				uint8 data[size];
+			} type;
+		};
 
-	#define GLM_ALIGNED_STORAGE_TYPE_STRUCT(x) \
+#define GLM_ALIGNED_STORAGE_TYPE_STRUCT(x) \
 		template<typename T> \
 		struct storage<T, x, true> { \
 			GLM_ALIGNED_STRUCT(x) type { \
@@ -26,16 +26,16 @@ namespace detail
 			}; \
 		};
 
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(1)
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(2)
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(4)
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(8)
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(16)
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(32)
-	GLM_ALIGNED_STORAGE_TYPE_STRUCT(64)
+		GLM_ALIGNED_STORAGE_TYPE_STRUCT(1)
+			GLM_ALIGNED_STORAGE_TYPE_STRUCT(2)
+			GLM_ALIGNED_STORAGE_TYPE_STRUCT(4)
+			GLM_ALIGNED_STORAGE_TYPE_STRUCT(8)
+			GLM_ALIGNED_STORAGE_TYPE_STRUCT(16)
+			GLM_ALIGNED_STORAGE_TYPE_STRUCT(32)
+			GLM_ALIGNED_STORAGE_TYPE_STRUCT(64)
 
 #	if GLM_ARCH & GLM_ARCH_SSE2_BIT
-		template<>
+			template<>
 		struct storage<float, 16, true>
 		{
 			typedef glm_vec4 type;
@@ -52,31 +52,31 @@ namespace detail
 		{
 			typedef glm_uvec4 type;
 		};
-/*
-#	else
-		typedef union __declspec(align(16)) glm_128
-		{
-			unsigned __int8 data[16];
-		} glm_128;
+		/*
+		#	else
+				typedef union __declspec(align(16)) glm_128
+				{
+					unsigned __int8 data[16];
+				} glm_128;
 
-		template<>
-		struct storage<float, 16, true>
-		{
-			typedef glm_128 type;
-		};
+				template<>
+				struct storage<float, 16, true>
+				{
+					typedef glm_128 type;
+				};
 
-		template<>
-		struct storage<int, 16, true>
-		{
-			typedef glm_128 type;
-		};
+				template<>
+				struct storage<int, 16, true>
+				{
+					typedef glm_128 type;
+				};
 
-		template<>
-		struct storage<unsigned int, 16, true>
-		{
-			typedef glm_128 type;
-		};
-*/
+				template<>
+				struct storage<unsigned int, 16, true>
+				{
+					typedef glm_128 type;
+				};
+		*/
 #	endif
 
 #	if (GLM_ARCH & GLM_ARCH_AVX_BIT)
@@ -100,7 +100,7 @@ namespace detail
 			typedef glm_u64vec4 type;
 		};
 #	endif
-}//namespace detail
+	}//namespace detail
 
 #if GLM_HAS_TEMPLATE_ALIASES
 	template <typename T, qualifier Q = defaultp> using tvec2 = vec<2, T, Q>;
@@ -110,7 +110,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 2 components vector of high single-qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -220,7 +219,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 3 components vector of high single-qualifier floating-point numbers.
 	/// There is no guarantee on the actual qualifier.
 	///
@@ -327,7 +325,6 @@ namespace detail
 
 	/// @addtogroup core_precision
 	/// @{
-
 	/// 4 components vector of high single-qualifier floating-point numbers.
 	///
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
@@ -422,7 +419,6 @@ namespace detail
 
 	/// @addtogroup core_types
 	/// @{
-
 	// -- Default float definition --
 
 #if(defined(GLM_PRECISION_LOWP_FLOAT))

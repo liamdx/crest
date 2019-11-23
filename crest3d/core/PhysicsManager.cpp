@@ -23,26 +23,24 @@ void PhysicsManager::update(float deltaTime)
 {
 	accumulator += deltaTime;
 
-	if(accumulator > 1.0f)
+	if (accumulator > 1.0f)
 	{
 		accumulator = 0.0f;
 	}
 	while (accumulator >= fixedTimeStep) {
-
-		// Update the Dynamics world with a constant time step 
+		// Update the Dynamics world with a constant time step
 		dynamicsWorld->stepSimulation(fixedTimeStep, 10);
 
-		// Decrease the accumulated time 
+		// Decrease the accumulated time
 		accumulator -= fixedTimeStep;
 	}
 
 	factor = accumulator / fixedTimeStep;
 }
 
-
 void PhysicsManager::render(float deltaTime)
 {
-	if(debugRender)
+	if (debugRender)
 	{
 		debugRenderer->COLORS.clear();
 		debugRenderer->LINES.clear();
@@ -55,14 +53,8 @@ void PhysicsManager::render(float deltaTime)
 	}
 }
 
-
-
 void PhysicsManager::addRigidbody(std::shared_ptr<btRigidBody> rib, std::shared_ptr<btCollisionShape> col)
 {
-
 	collisionShapes.push_back(col.get());
 	dynamicsWorld->addRigidBody(rib.get());
 }
-
-
-

@@ -21,7 +21,7 @@ public:
 	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager);
 	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager, std::shared_ptr<AssetManager> _assetManager);
 
-	std::shared_ptr<Entity> AddEntity();	
+	std::shared_ptr<Entity> AddEntity();
 	std::shared_ptr<Entity> AddCameraEntity();
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh);
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);
@@ -30,7 +30,6 @@ public:
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
 	std::shared_ptr<Entity> AddPointLightEntity();
 
-
 	void initBehaviour();
 	void startBehaviour();
 	void earlyUpdateBehaviour(float deltaTime);
@@ -38,7 +37,6 @@ public:
 	void updateBehaviour(float deltaTime);
 	void renderBehaviour(float deltaTime);
 	void uiBehaviour(float deltaTime);
-
 
 	void updateShaderProjections(std::shared_ptr<Entity> e);
 
@@ -51,7 +49,7 @@ public:
 	// helping to make stuff more SIMD freindly
 	std::vector<std::shared_ptr<MeshComponent>> meshes;
 	std::vector<std::shared_ptr<AnimatedModelComponent>> animatedModels;
-	
+
 	std::shared_ptr<ShaderComponent> defaultShader;
 	std::shared_ptr<ShaderComponent> defaultAnimShader;
 

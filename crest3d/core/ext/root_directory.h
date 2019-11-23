@@ -1,2 +1,2 @@
 #pragma once
-const char * logl_root = "${SolutionDir}";
+const char* logl_root = "${SolutionDir}";

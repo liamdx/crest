@@ -77,5 +77,3 @@
 /**/
 
 #endif // BOOST_PFR_PRECISE_FUNCTIONS_FOR_HPP
-
-

@@ -24,14 +24,12 @@ public:
 	// this one may take a bit longer;
 	void createMeshShape();
 
-
-
 private:
+
+	// hmm, maybe references?
 	std::shared_ptr<btCollisionShape> shape;
 	std::shared_ptr<RigidbodyComponent> rib;
 	glm::vec3 scale;
-
-
 
 	// convex hull stuff
 	std::unique_ptr<btShapeHull> shapeHull;

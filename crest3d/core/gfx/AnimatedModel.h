@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "assimp/anim.h"
 #include "gfx/Model.h"
 #include "components/ShaderComponent.h"
@@ -52,7 +51,7 @@ public:
 		std::vector<Texture> Textures;
 	};
 
-	bool LoadMesh(const std::string &filepath);
+	bool LoadMesh(const std::string& filepath);
 
 	void Draw(Shader shader);
 	void Draw(std::shared_ptr<ShaderComponent> shader);
@@ -62,7 +61,7 @@ public:
 		return m_NumBones;
 	}
 
-	void BoneTransform(float TimeInSeconds, std::vector<glm::mat4> &Transforms);
+	void BoneTransform(float TimeInSeconds, std::vector<glm::mat4>& Transforms);
 
 	float currentAnimationLengthInSeconds;
 
@@ -85,8 +84,7 @@ public:
 
 private:
 
-	#define NUM_BONES_PER_VERTEX 4
-	
+#define NUM_BONES_PER_VERTEX 4
 
 	struct VertexBoneData
 	{
@@ -102,13 +100,10 @@ private:
 		{
 			ZERO_MEM(IDs);
 			ZERO_MEM(Weights);
-
 		}
 
 		void AddBoneData(unsigned int BoneID, float Weight);
-
 	};
-
 
 	void CalcInterpolatedScaling(aiVector3D& Out, float AnimationTime, const aiNodeAnim* pNodeAnim);
 	void CalcInterpolatedRotation(aiQuaternion& Out, float AnimationTime, const aiNodeAnim* pNodeAnim);
@@ -128,9 +123,9 @@ private:
 		std::vector<unsigned int>& Indices);
 	void LoadBones(unsigned int MeshIndex, const aiMesh* paiMesh, std::vector<VertexBoneData>& Bones);
 	glm::mat4 aiToGlm(aiMatrix4x4 ai_matr);
-	std::vector<Texture> getMeshMaterial(const aiMesh * mesh, const aiScene * scene);
-	std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
-	static int TextureFromFile(char const *path, const std::string& directory);
+	std::vector<Texture> getMeshMaterial(const aiMesh* mesh, const aiScene* scene);
+	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+	static int TextureFromFile(char const* path, const std::string& directory);
 	int EmbeddedTexture(int index);
 
 	void Clear();
@@ -148,5 +143,4 @@ private:
 	aiAnimation* currentAnimation;
 	const aiScene* m_pScene;
 	Assimp::Importer m_Importer;
-	
 };

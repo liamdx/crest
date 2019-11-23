@@ -7,7 +7,7 @@
 class ShadowMap
 {
 public:
-	enum ShadowMapType{
+	enum ShadowMapType {
 		directional,
 		point,
 		spot

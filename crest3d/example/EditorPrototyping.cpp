@@ -39,10 +39,7 @@ EditorPrototyping::EditorPrototyping(GLFWwindow* _window)
 
 	dirLight = scene->AddDirectionalLightEntity();
 	dirLightComponent = dirLight->GetComponent<DirectionalLightComponent>();
-
 }
-
-
 
 void EditorPrototyping::initBehaviour()
 {
@@ -50,7 +47,7 @@ void EditorPrototyping::initBehaviour()
 
 	dirLightComponent->diffuse = glm::vec3(0.0);
 	dirLightComponent->ambient = glm::vec3(0.05);
-	
+
 	auto pl1 = scene->AddPointLightEntity();
 	pl1->transform->setPosition(glm::vec3(24.8, 3.7, 0.0));
 	auto plc1 = pl1->GetComponent<PointLightComponent>();
@@ -86,7 +83,7 @@ void EditorPrototyping::initBehaviour()
 	auto plc6 = pl6->GetComponent<PointLightComponent>();
 	plc6->setDiffuse(glm::vec3(1.0f, 0.9f, 0.7f));
 	plc6->setDistance(7.4f);
-	
+
 	// temporarily initialise everything her
 	cameraEntity = scene->AddCameraEntity();
 	cameraEntity->AddComponent(new CameraControllerComponent(cameraEntity, input));
@@ -108,8 +105,6 @@ void EditorPrototyping::startBehaviour()
 	scene->startBehaviour();
 	cubemapShader->use();
 	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
-
-	
 }
 
 void EditorPrototyping::earlyUpdateBehaviour(float deltaTime)
@@ -136,13 +131,13 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 	skybox->Draw(*cubemapShader);
 
 	scene->defaultShader->shader->use();
-	
+
 	scene->renderBehaviour(deltaTime);
 }
 
 void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
-	if(ImGui::TreeNode(e->name.c_str()))
+	if (ImGui::TreeNode(e->name.c_str()))
 	{
 		if (ImGui::TreeNode("Transform"))
 		{
@@ -152,14 +147,14 @@ void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			ImGui::TreePop();
 		}
 
-		if(e->GetComponent<MeshComponent>() != nullptr)
+		if (e->GetComponent<MeshComponent>() != nullptr)
 		{
-			if(ImGui::TreeNode("MeshComponent"))
+			if (ImGui::TreeNode("MeshComponent"))
 			{
 				auto mc = e->GetComponent<MeshComponent>();
 				ImGui::Auto(mc->shouldDraw, "Draw Mesh");
 				ImGui::TreePop();
-			}			
+			}
 		}
 
 		if (e->GetComponent<PointLightComponent>() != nullptr)
@@ -186,15 +181,31 @@ void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			}
 		}
 
+		if (e->GetComponent<RigidbodyComponent>() != nullptr)
+		{
+			if (ImGui::TreeNode("Rigidbody Component"))
+			{
+				auto rbc = e->GetComponent<RigidbodyComponent>();
+				ImGui::Auto(rbc->mass, "Rigidbody Mass");
+				ImGui::TreePop();
+			}
+		}
+
+		if (ImGui::Button("Add Rigidbody to component"))
+		{
+			auto rib = std::make_shared<RigidbodyComponent>(e);
+			e->AddComponent(rib);
+			e->AddComponent(new CollisionShapeComponent(e));
+			rib->init();
+			rib->setMass(0.0f);
+		}
+
 		for (int i = 0; i < e->children.size(); i++)
 		{
 			ImGuiEntityDebug(e->children.at(i));
 		}
 
-		if (ImGui::Button("Delete"))
-		{
-			e->Delete();
-		}
+		
 		ImGui::TreePop();
 	}
 }
@@ -203,7 +214,6 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 {
 	if (ImGui::Begin("Editor Prototyping", NULL, ImGuiWindowFlags_NoMove));
 	{
-		
 		if (ImGui::Button("Debug Draw"))
 		{
 			bool shouldDebugRender = pm->debugRender;
@@ -239,33 +249,25 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 				auto _model = am->loadModelAsset(text);
 				scene->AddModelEntity(_model->asset);
 			}
-
 		}
 		// load animated model
 		{
 			static char text[512] = "res/models/stormtrooper/silly_dancing.fbx";
 			ImGui::InputText("Animated Model Path", text, IM_ARRAYSIZE(text));
-			if(ImGui::Button("Load New AnimatedModel Entity"))
+			if (ImGui::Button("Load New AnimatedModel Entity"))
 			{
 				auto _anim = am->loadAnimatedModelAsset(text);
 				scene->AddAnimatedModelEntity(_anim->asset);
 			}
-			
 		}
 
 		if (ImGui::BeginChild("Hierarchy"))
 		{
 			ImGuiEntityDebug(scene->rootEntity);
 		}
-		 ImGui::EndChild();
-
-
+		ImGui::EndChild();
 	}
 	ImGui::End();
 
-	
-
 	scene->uiBehaviour(deltaTime);
 }
-
-
