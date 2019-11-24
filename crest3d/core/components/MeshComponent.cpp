@@ -1,7 +1,7 @@
 #include "MeshComponent.h"
 
 void MeshComponent::init() {
-	shouldDraw = true;
+	
 }
 
 void MeshComponent::start() {

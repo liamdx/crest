@@ -34,11 +34,13 @@
 #include "ext/imgui/auto.h"
 #include "ext/imgui/imconfig.h"
 #include "ext/imgui/imnodes.h"
+#include "ext/imgui/ImGuiFileDialog.h"
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 
 #include "ext/imgui/imgui_impl_glfw.h"
 #include "ext/imgui/imgui_impl_opengl3.h"
+
 // #include "ext/imgui/imgui_impl_sdl.h"
 
 //physics lib (g'doy)

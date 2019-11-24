@@ -8,7 +8,8 @@
 class MeshComponent : public EngineComponent
 {
 public:;
-	  MeshComponent(std::shared_ptr<Entity> e, std::shared_ptr<Mesh> newMesh) { name = "MeshComponent"; attachedEntity = std::shared_ptr<Entity>(e); mesh = newMesh; };
+	  MeshComponent(std::shared_ptr<Entity> e, std::shared_ptr<Mesh> newMesh) { name = "MeshComponent"; attachedEntity = std::shared_ptr<Entity>(e); mesh = newMesh; shouldDraw = true;
+	  };
 
 	  void init() override;
 	  void start() override;
