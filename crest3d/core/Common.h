@@ -33,6 +33,7 @@
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/auto.h"
 #include "ext/imgui/imconfig.h"
+#include "ext/imgui/imnodes.h"
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 

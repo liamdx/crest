@@ -175,6 +175,7 @@
     <ClCompile Include="core\ext\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="core\ext\imgui\imnodes.cpp" />
     <ClCompile Include="core\gfx\AnimatedModel.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="core\ext\imgui\auto\impl_glm.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_glfw.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="core\ext\imgui\imnodes.h" />
     <ClInclude Include="core\ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="core\ext\imgui\imstb_textedit.h" />
     <ClInclude Include="core\ext\imgui\imstb_truetype.h" />

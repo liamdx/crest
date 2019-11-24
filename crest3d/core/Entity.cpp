@@ -23,6 +23,7 @@ void Entity::AddComponent(EngineComponent* newComponent)
 	}
 	if (canEmplace)
 	{
+		newComponent->SetId(engineManager->makeUniqueComponentID());
 		components.emplace_back(newComponent);
 	}
 	else
@@ -44,6 +45,7 @@ void Entity::AddComponent(std::shared_ptr<EngineComponent> newComponent)
 	}
 	if (canEmplace)
 	{
+		newComponent->SetId(engineManager->makeUniqueComponentID());
 		components.emplace_back(newComponent);
 	}
 	else

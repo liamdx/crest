@@ -20,15 +20,6 @@ public:
 
 	Scene(const char* _name, EngineManager* em);
 
-	std::shared_ptr<Entity> AddEntity();
-	std::shared_ptr<Entity> AddCameraEntity();
-	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh);
-	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);
-	std::shared_ptr<Entity> AddModelEntity(std::shared_ptr<Model> model);
-	std::shared_ptr<Entity> AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model);
-	std::shared_ptr<Entity> AddDirectionalLightEntity();
-	std::shared_ptr<Entity> AddPointLightEntity();
-
 	void initBehaviour();
 	void startBehaviour();
 	void earlyUpdateBehaviour(float deltaTime);

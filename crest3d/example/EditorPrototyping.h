@@ -20,16 +20,6 @@ public:
 
 private:
 	// every scene needs these, should be organised in a game manager
-
-	// specific to this example
-	std::shared_ptr<Entity> levelEntity;
-	std::shared_ptr<Entity> cyborgEntity;
-	std::shared_ptr<Entity> animEntity;
-	std::shared_ptr<Entity> cameraEntity;
-	std::shared_ptr<Entity> dirLight;
-	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
-	std::shared_ptr<CameraComponent> cam;
-
 	Cubemap* skybox;
 	Shader* cubemapShader;
 

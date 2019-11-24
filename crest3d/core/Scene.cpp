@@ -12,11 +12,6 @@ Scene::Scene(const char* _name, EngineManager* em)
 }
 
 
-std::shared_ptr<Entity> Scene::AddEntity()
-{
-	return(rootEntity->AddEntity());
-}
-
 void childInit(std::shared_ptr<Entity> e) {
 	e->initBehaviour();
 	for (int i = 0; i < e->children.size(); i++)
@@ -112,20 +107,6 @@ void Scene::renderBehaviour(float deltaTime)
 	updateShaderComponentLightSources(engineManager->shaderManager->defaultShader);
 	engineManager->shaderManager->defaultShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
 
-	//// separate frustum check from mesh drawing, fix this
-	//for (std::shared_ptr<MeshComponent> mesh : meshes)
-	//{
-	//	if (sceneCamera->checkPoint(mesh->attachedEntity->transform->position))
-	//	{
-	//		mesh->shouldDraw = true;
-	//	}
-	//	else
-	//	{
-	//		mesh->shouldDraw = false;
-	//	}
-	//}
-	//
-
 	bindDefaultTextures(engineManager->shaderManager->defaultShader);
 	for (std::shared_ptr<MeshComponent> mesh : meshes)
 	{
@@ -184,81 +165,6 @@ void childUi(std::shared_ptr<Entity> e, float deltaTime)
 void Scene::uiBehaviour(float deltaTime)
 {
 	childUi(rootEntity, deltaTime);
-}
-
-std::shared_ptr<Entity> Scene::AddCameraEntity()
-{
-	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	e->AddComponent(new CameraComponent(e));
-	sceneCamera = e->GetComponent<CameraComponent>();
-	return e;
-}
-
-std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh)
-{
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity", nullptr));
-	e->AddComponent(new MeshComponent(e, mesh));
-	return e;
-}
-
-std::shared_ptr<Entity> Scene::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name)
-{
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(name.c_str(), nullptr));
-	e->AddComponent(new MeshComponent(e, mesh));
-
-	auto mc = e->GetComponent<MeshComponent>();
-	if (mc != nullptr)
-	{
-		meshes.emplace_back(e->GetComponent<MeshComponent>());
-	}
-
-	return e;
-}
-
-std::shared_ptr<Entity> Scene::AddModelEntity(std::shared_ptr<Model> model)
-{
-	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	e->name = model->name;
-
-	for (int i = 0; i < model->meshes.size(); i++)
-	{
-		std::shared_ptr<Entity> newE = AddMeshEntity(model->meshes.at(i), std::to_string(i));
-		newE->transform->parent = e->transform;
-		e->children.emplace_back(newE);
-	}
-	return e;
-}
-
-std::shared_ptr<Entity> Scene::AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model)
-{
-	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	e->name = model->directory;
-	e->AddComponent(new AnimatedModelComponent(e, model));
-	auto amc = e->GetComponent<AnimatedModelComponent>();
-	amc->getBoneShaderIDLocations(engineManager->shaderManager->defaultAnimShader);
-	animatedModels.emplace_back(amc);
-	return e;
-}
-
-std::shared_ptr<Entity> Scene::AddDirectionalLightEntity()
-{
-	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	e->name = "Directional Light";
-	e->AddComponent(new DirectionalLightComponent(e));
-	return(e);
-}
-
-std::shared_ptr<Entity> Scene::AddPointLightEntity()
-{
-	std::shared_ptr<Entity> e = rootEntity->AddEntity();
-	std::stringstream ss;
-	ss << "Point Light " << (pointLightComponents.size() + 1);
-	std::string s = ss.str();
-	e->name = s;
-	e->AddComponent(new PointLightComponent(e));
-	auto plc = e->GetComponent<PointLightComponent>();
-	pointLightComponents.emplace_back(plc);
-	return(e);
 }
 
 void Scene::updateShaderProjections(std::shared_ptr<Entity> e)
