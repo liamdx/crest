@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "InputManager.h"
+#include "Debug.h"
 
 class Example;
 
@@ -23,6 +24,7 @@ public:
 	std::unique_ptr<Scene> scene;
 	std::shared_ptr<InputManager> input;
 	std::unique_ptr<Example> example;
+	std::unique_ptr<Debug> debug;
 
 	// probably should be made generic (likely wil switch to SDL at somepoint) 
 	GLFWwindow* window;

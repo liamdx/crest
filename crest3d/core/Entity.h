@@ -22,6 +22,7 @@ public:
 	~Entity() {}
 
 	inline void SetId(unsigned int newId) { id = newId; }
+	inline unsigned int GetID() { return id; }
 
 	void AddComponent(std::shared_ptr<EngineComponent> newComponent);
 	void AddComponent(EngineComponent* newComponent);
@@ -37,7 +38,8 @@ public:
 				return(std::static_pointer_cast<T>(components.at(i)));
 			}
 		}
-		// std::cout << "component not found" << std::endl;
+		std::string error = "Could not find component ";
+		error += typeid(T).name();
 		return nullptr;
 	}
 
@@ -45,6 +47,7 @@ public:
 	std::shared_ptr<Entity> GetChild(unsigned int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
 
+	
 	EngineManager* engineManager;
 
 	void initBehaviour();
@@ -55,5 +58,7 @@ public:
 	void renderBehaviour(float deltaTime, glm::mat4 view);
 	void uiBehaviour(float deltaTime);
 
+private:
+	void ConsoleError(std::string error);
 	int id;
 };

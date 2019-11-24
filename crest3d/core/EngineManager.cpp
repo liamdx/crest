@@ -9,6 +9,7 @@ EngineManager::EngineManager()
 	shaderManager = std::make_unique<ShaderManager>();
 	scene = std::unique_ptr<Scene>(new Scene("debugScene", this));
 	input = std::unique_ptr<InputManager>(new InputManager(window));
+	debug = std::make_unique<Debug>();
 }
 
 
@@ -94,7 +95,9 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 	e->SetId(makeUniqueEntityID());
 	auto mc = e->GetComponent<MeshComponent>();
 	mc->SetId(makeUniqueComponentID());
+	debug->console->Log<EngineManager>("Creating Mesh Entity");
 	return e;
+	
 }
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name)
@@ -107,7 +110,7 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh,
 	{
 		scene->meshes.emplace_back(e->GetComponent<MeshComponent>());
 	}
-
+	debug->console->Log<EngineManager>("Creating Mesh Entity");
 	return e;
 }
 
@@ -123,6 +126,7 @@ std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> mod
 		newE->transform->parent = e->transform;
 		e->children.emplace_back(newE);
 	}
+	debug->console->Log<EngineManager>("Creating Model Entity");
 	return e;
 }
 
@@ -136,6 +140,7 @@ std::shared_ptr<Entity> EngineManager::AddAnimatedModelEntity(std::shared_ptr<An
 	auto amc = e->GetComponent<AnimatedModelComponent>();
 	amc->getBoneShaderIDLocations(shaderManager->defaultAnimShader);
 	scene->animatedModels.emplace_back(amc);
+	debug->console->Log<EngineManager>("Creating Animated Model Entity");
 	return e;
 }
 
@@ -147,6 +152,7 @@ std::shared_ptr<Entity> EngineManager::AddDirectionalLightEntity()
 	e->SetId(makeUniqueEntityID());
 	e->AddComponent(new DirectionalLightComponent(e));
 	auto dl = e->GetComponent<DirectionalLightComponent>();
+	debug->console->Log<EngineManager>("Creating Directional Light Entity");
 	return(e);
 }
 
@@ -162,6 +168,7 @@ std::shared_ptr<Entity> EngineManager::AddPointLightEntity()
 	e->AddComponent(new PointLightComponent(e));
 	auto plc = e->GetComponent<PointLightComponent>();
 	scene->pointLightComponents.emplace_back(plc);
+	debug->console->Log<EngineManager>("Creating Point Light Entity");
 	return(e);
 }
 
@@ -213,7 +220,7 @@ void EngineManager::deleteComponentInExample(unsigned int _id)
 
 std::shared_ptr<Entity> EngineManager::getEntity(std::shared_ptr<Entity> e, unsigned int _id)
 {
-	if (e->id == _id)
+	if (e->GetID() == _id)
 	{
 		return e;
 	}

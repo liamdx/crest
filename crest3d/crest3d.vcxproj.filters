@@ -845,6 +845,9 @@
     <ClInclude Include="core\ext\imgui\imnodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="core\ext\glm\detail\func_common.inl">

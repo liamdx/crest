@@ -211,6 +211,7 @@
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
+    <ClInclude Include="core\Debug.h" />
     <ClInclude Include="core\DebugRenderer.h" />
     <ClInclude Include="core\EngineManager.h" />
     <ClInclude Include="core\ext\imgui\auto.h" />

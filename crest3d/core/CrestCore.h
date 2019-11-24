@@ -13,6 +13,8 @@
 
 #include "Entity.h"
 
+#include "Debug.h"
+
 // the components <3
 #include "components/EngineComponent.h"
 #include "components/DebugComponent.h"

@@ -10,6 +10,11 @@ Entity::Entity(const char* entityName, EngineManager* _em)
 	transform->attachedEntity = std::shared_ptr<Entity>(this);
 }
 
+void Entity::ConsoleError(std::string error)
+{
+	engineManager->debug->console->Warn<Entity>(error.c_str(), id);
+}
+
 
 void Entity::AddComponent(EngineComponent* newComponent)
 {
@@ -28,7 +33,9 @@ void Entity::AddComponent(EngineComponent* newComponent)
 	}
 	else
 	{
-		std::cout << "Entity: " << name << "already has a " << newComponent->name << std::endl;
+		std::string error = "Could not add ";
+		error += typeid(newComponent).name();
+		engineManager->debug->console->Warn<Entity>(error.c_str(), id);
 		delete newComponent;
 	}
 }
@@ -50,7 +57,9 @@ void Entity::AddComponent(std::shared_ptr<EngineComponent> newComponent)
 	}
 	else
 	{
-		std::cout << "Entity: " << name << "already has a " << newComponent->name << std::endl;
+		std::string error = "Could not add ";
+		error += typeid(newComponent).name();
+		engineManager->debug->console->Warn<Entity>(error.c_str(), id);
 	}
 }
 
@@ -124,7 +133,8 @@ std::shared_ptr<Entity> Entity::GetChild(unsigned int index)
 		return(std::shared_ptr<Entity>(children.at(index)));
 	}
 
-	std::cout << "no child found at index " << index << std::endl;
+	std::string error = "Could not find child";
+	engineManager->debug->console->Warn<Entity>(error.c_str(), id);
 	return nullptr;
 }
 
@@ -138,6 +148,8 @@ std::shared_ptr<Entity> Entity::GetChild(const char* name)
 		}
 	}
 
-	std::cout << "no child found of name " << name << std::endl;
+	std::string error = "Could not find child : ";
+	error += name;
+	engineManager->debug->console->Warn<Entity>(error.c_str(), id);
 	return nullptr;
 }
