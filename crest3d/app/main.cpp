@@ -13,47 +13,16 @@ int main() {
 	float exposure = 2.2f;
 	float gamma = 0.912f;
 
-	//SDL_Window* sdl_window = SDL_CreateWindow("SDL2 ImGui Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
-	//SDL_GLContext mainContext = SDL_GL_CreateContext(sdl_window);
-	//SDL_Renderer* sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
-	//// ImGuiSDL::Initialize(sdl_renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-
-	//SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
-	//SDL_GL_SetSwapInterval(0);
-
 	//DEBUG
 	int success;
 	char infoLog[512];
-	//GL initialisation
-	GLFWwindow* window;
 
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
 
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Crest", NULL, NULL);
+	EngineManager* engineManager = new EngineManager();
+	EditorPrototyping example(engineManager);
+	engineManager->initialiseExample(&example);
 
-	if (!window) {
-		glfwTerminate();
-		return -1;
-	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	if (glewInit() != GLEW_OK) {
-		std::cout << "failed to initalise glew" << std::endl;
-	}
-
-	glfwSwapInterval(0);
-
-	// ok to start doing stuff with the opengl window & context
-
+	
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -62,9 +31,7 @@ int main() {
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-	//io.ConfigViewportsNoAutoMerge = true;
-	//io.ConfigViewportsNoTaskBarIcon = true;
+	// io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -77,23 +44,8 @@ int main() {
 	SetImGuiStyle();
 
 	//// Setup Platform/Renderer bindings
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(engineManager->window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
-
-	// ImGui_ImplSDL2_InitForOpenGL(sdl_window, mainContext);
-
-	//Enable depth
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_MULTISAMPLE);
-	glCullFace(GL_BACK);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	YSE::System().init();
-
-	// Example Here
-	EditorPrototyping example(window);
 
 	example.initBehaviour();
 
@@ -111,13 +63,14 @@ int main() {
 	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
 
 	example.startBehaviour();
+	
 	//Mouse input handle
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glfwSetInputMode(engineManager->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
 
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	while (1) {
+	while (!glfwWindowShouldClose(engineManager->window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 
@@ -173,7 +126,7 @@ int main() {
 				depthFB.changeScreenSize(dWidth, dHeight);
 				finalFB.changeScreenSize(dWidth, dHeight);
 				glViewport(0, 0, dWidth, dHeight);
-				example.getScene()->sceneCamera->updateProjection(75.0f, dWidth, dHeight);
+				engineManager->scene->sceneCamera->updateProjection(75.0f, dWidth, dHeight);
 			}
 
 			ImGui::GetWindowDrawList()->AddImage(
@@ -220,10 +173,12 @@ int main() {
 			glfwMakeContextCurrent(backup_current_context);
 		}
 
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(engineManager->window);
 		/* Poll for and process events */
 		glfwPollEvents();
 
 		// SDL_GL_SwapWindow(sdl_window);
 	}
+
+	
 }

@@ -58,12 +58,12 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	if (input->GetRightClick())
 	{
-		glfwSetInputMode(window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		attachedEntity->transform->addEulerAngles(glm::vec3(deltaY, deltaX, 0));
 	}
 	else
 	{
-		glfwSetInputMode(window.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
 

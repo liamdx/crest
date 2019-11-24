@@ -2,8 +2,6 @@
 #include "Common.h"
 #include "components/TransformComponent.h"
 
-class PhysicsManager;
-
 class EngineManager;
 
 class Entity {
@@ -20,19 +18,7 @@ public:
 	std::vector<std::shared_ptr<Entity>> children;
 	std::shared_ptr<TransformComponent> transform;
 
-	Entity(const char* entityName, std::shared_ptr<PhysicsManager> _pm)
-	{
-		physicsManager = _pm;
-		name = entityName;
-		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
-		transform->attachedEntity = std::shared_ptr<Entity>(this);
-	}
-	Entity(const char* entityName)
-	{
-		name = entityName;
-		transform = std::shared_ptr<TransformComponent>(new TransformComponent());
-		transform->attachedEntity = std::shared_ptr<Entity>(this);
-	}
+	Entity(const char* entityName, EngineManager* _em);
 	~Entity() {}
 
 	inline void SetId(unsigned int newId) { id = newId; }
@@ -59,8 +45,7 @@ public:
 	std::shared_ptr<Entity> GetChild(unsigned int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
 
-	std::shared_ptr<PhysicsManager> physicsManager;
-	// EngineManager& engineManager;
+	EngineManager* engineManager;
 
 	void initBehaviour();
 	void startBehaviour();

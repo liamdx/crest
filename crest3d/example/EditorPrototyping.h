@@ -1,9 +1,12 @@
 #pragma once
+
+#include "EngineManager.h"
 #include "Example.h"
+
 class EditorPrototyping : public Example
 {
 public:
-	EditorPrototyping(GLFWwindow* _window);
+	EditorPrototyping(EngineManager* em);
 	~EditorPrototyping() override { delete cubemapShader; delete skybox; };
 
 	void initBehaviour() override;
@@ -14,16 +17,9 @@ public:
 	void renderBehaviour(float deltaTime) override;
 	void uiBehaviour(float deltaTime) override;
 
-	// use with caution!
-	inline std::shared_ptr<Scene> getScene() { return std::shared_ptr<Scene>(scene); }
 
 private:
 	// every scene needs these, should be organised in a game manager
-	std::shared_ptr<AssetManager> am;
-	std::shared_ptr<PhysicsManager> pm;
-	std::shared_ptr<Scene> scene;
-	std::shared_ptr<InputManager> input;
-	std::shared_ptr<GLFWwindow> window;
 
 	// specific to this example
 	std::shared_ptr<Entity> levelEntity;

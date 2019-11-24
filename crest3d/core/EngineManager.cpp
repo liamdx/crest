@@ -1,17 +1,58 @@
 #include "EngineManager.h"
 #include "Example.h"
 
-EngineManager::EngineManager(GLFWwindow* _window, Example* _example)
+EngineManager::EngineManager()
 {
-	/*example = _example;
-	physicsManager = std::shared_ptr<PhysicsManager>(new PhysicsManager());
-	assetManager = std::make_shared<AssetManager>();
-	shaderManager = std::make_shared<ShaderManager>();
-	scene = std::shared_ptr<Scene>(new Scene("debugScene", physicsManager, assetManager));
-	input = std::shared_ptr<InputManager>(new InputManager(window.get()));*/
+	initialise(800, 600);
+	physicsManager = std::make_unique<PhysicsManager>();
+	assetManager = std::make_unique<AssetManager>();
+	shaderManager = std::make_unique<ShaderManager>();
+	scene = std::unique_ptr<Scene>(new Scene("debugScene", this));
+	input = std::unique_ptr<InputManager>(new InputManager(window));
+}
 
+
+int EngineManager::initialise(int screenWidth, int screenHeight)
+{
+	/* Initialize the library */
+	if (!glfwInit())
+		return -1;
+
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(screenWidth, screenHeight, "Crest", NULL, NULL);
+
+	if (!window) {
+		glfwTerminate();
+		return -1;
+	}
+
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
+
+	if (glewInit() != GLEW_OK) {
+		std::cout << "failed to initalise glew" << std::endl;
+	}
+
+	glfwSwapInterval(0);
+
+	// ok to start doing stuff with the opengl window & context
+
+	//Enable depth
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_MULTISAMPLE);
+	glCullFace(GL_BACK);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	YSE::System().init();
+}
+
+void EngineManager::initialiseExample(Example* _example)
+{
 	example = std::unique_ptr<Example>(_example);
 }
+
 
 unsigned int EngineManager::makeUniqueComponentID()
 {
@@ -39,7 +80,7 @@ std::shared_ptr<Entity> EngineManager::AddCameraEntity()
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity"));
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity", nullptr));
 	e->AddComponent(new MeshComponent(e, mesh));
 	e->SetId(makeUniqueEntityID());
 	auto mc = e->GetComponent<MeshComponent>();
@@ -49,7 +90,7 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name)
 {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(name.c_str()));
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(name.c_str(), nullptr));
 	e->AddComponent(new MeshComponent(e, mesh));
 	e->SetId(makeUniqueEntityID());
 	auto mc = e->GetComponent<MeshComponent>();
@@ -230,4 +271,9 @@ void EngineManager::DeleteComponent(unsigned int componentId)
 
 	deleteComponentInScene(scene->rootEntity, componentId);
 	deleteComponentInExample(componentId);
+}
+
+void EngineManager::shutdown()
+{
+	
 }

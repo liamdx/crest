@@ -14,12 +14,11 @@ class Scene
 {
 public:
 	std::shared_ptr<Entity> rootEntity;
-	std::shared_ptr<PhysicsManager> physicsManager;
-	std::shared_ptr<AssetManager> assetManager;
+
+	EngineManager* engineManager;
 	std::string name;
 
-	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager);
-	Scene(const char* _name, std::shared_ptr<PhysicsManager> _physicsManager, std::shared_ptr<AssetManager> _assetManager);
+	Scene(const char* _name, EngineManager* em);
 
 	std::shared_ptr<Entity> AddEntity();
 	std::shared_ptr<Entity> AddCameraEntity();
@@ -43,16 +42,12 @@ public:
 	// might move this to a lighting manager
 	void updateShaderLightSources(std::shared_ptr<Entity> e);
 	void updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> sc);
+	
 	void updateSceneLighting();
 	std::shared_ptr<CameraComponent> sceneCamera;
-
 	// helping to make stuff more SIMD freindly
 	std::vector<std::shared_ptr<MeshComponent>> meshes;
 	std::vector<std::shared_ptr<AnimatedModelComponent>> animatedModels;
-
-	std::shared_ptr<ShaderComponent> defaultShader;
-	std::shared_ptr<ShaderComponent> defaultAnimShader;
-
 	// lighting stuff
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
 	std::vector <std::shared_ptr<PointLightComponent>> pointLightComponents;

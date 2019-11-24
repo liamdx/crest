@@ -1,4 +1,15 @@
 #include "Entity.h"
+#include "EngineManager.h"
+#include "Example.h"
+
+Entity::Entity(const char* entityName, EngineManager* _em) 
+{
+	engineManager = _em;
+	name = entityName;
+	transform = std::shared_ptr<TransformComponent>(new TransformComponent());
+	transform->attachedEntity = std::shared_ptr<Entity>(this);
+}
+
 
 void Entity::AddComponent(EngineComponent* newComponent)
 {
@@ -100,7 +111,7 @@ void Entity::uiBehaviour(float deltaTime)
 
 std::shared_ptr<Entity> Entity::AddEntity()
 {
-	children.emplace_back(new Entity("Entity", physicsManager));
+	children.emplace_back(new Entity("Entity", nullptr));
 	return(children.at(children.size() - 1));
 }
 

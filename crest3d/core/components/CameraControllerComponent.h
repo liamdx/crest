@@ -13,7 +13,7 @@ public:
 
 	// can be turned in to references
 	std::shared_ptr<InputManager> input;
-	std::shared_ptr<GLFWwindow> window;
+	GLFWwindow* window;
 
 	float mouseSensitivity;
 	float movementSpeed;

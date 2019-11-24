@@ -1,8 +1,6 @@
 #pragma once
 
-#include "ShaderManager.h"
-#include "PhysicsManager.h"
-#include "AssetManager.h"
+
 #include "Scene.h"
 #include "InputManager.h"
 
@@ -12,20 +10,23 @@ class EngineManager
 {
 public:
 
-	EngineManager(GLFWwindow* _window, Example* _example);
-	~EngineManager() {};
+	EngineManager();
+	~EngineManager();
 
-	void initialise();
+	int initialise(int screenWidth, int screenHeight);
+	void initialiseExample(Example* _example);
+	void shutdown();
 
 	std::unique_ptr<ShaderManager> shaderManager;
 	std::unique_ptr<PhysicsManager> physicsManager;
 	std::unique_ptr<AssetManager> assetManager;
 	std::unique_ptr<Scene> scene;
-	std::unique_ptr<InputManager> input;
+	std::shared_ptr<InputManager> input;
 	std::unique_ptr<Example> example;
 
-	// need to rewrite input manager to allow for SDL window
-	// std::unique_ptr<SDLWindow> window;
+	// probably should be made generic (likely wil switch to SDL at somepoint) 
+	GLFWwindow* window;
+
 
 	std::vector<unsigned int> componentIds;
 	std::vector<unsigned int> entityIds;

@@ -1,13 +1,11 @@
 #include "components/RigidbodyComponent.h"
 #include "components/MeshComponent.h"
+#include "EngineManager.h"
 
 void RigidbodyComponent::init()
 {
 	enabled = true;
 	mass = 4.0f;
-	mass = 4.0f;
-	physicsManager = attachedEntity->physicsManager;
-	transform = attachedEntity->transform;
 	attachedEntity->transform->update(0.0);
 	attachedEntity->transform->setPhysicsOverride(true);
 
@@ -34,8 +32,8 @@ void RigidbodyComponent::init()
 	//rib->translate(btVector3(transform->position.x, transform->position.y, transform->position.z));
 	rib->setWorldTransform(initialTransform);
 	myMotionState->setWorldTransform(initialTransform);
-	physicsManager->addRigidbody(rib, shape);
-	physicsManager->addPhysicsEntity(attachedEntity);
+	attachedEntity->engineManager->physicsManager->addRigidbody(rib, shape);
+	attachedEntity->engineManager->physicsManager->addPhysicsEntity(attachedEntity);
 }
 
 void RigidbodyComponent::applyCentralForce(glm::vec3 force)
@@ -76,8 +74,8 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 			newRotation.y = 0.01f;
 		}
 
-		transform->setPositionAbsolute(newPosition);
-		transform->setEulerAnglesAbsolute(newRotation);
+		attachedEntity->transform->setPositionAbsolute(newPosition);
+		attachedEntity->transform->setEulerAnglesAbsolute(newRotation);
 	}
 }
 

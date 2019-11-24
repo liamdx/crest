@@ -25,10 +25,6 @@ public:
 	std::shared_ptr<btCollisionShape> shape;
 	std::shared_ptr<btDefaultMotionState> myMotionState;
 
-	// references
-	std::shared_ptr<PhysicsManager> physicsManager;
-	std::shared_ptr<TransformComponent> transform;
-
 	void changeCollisionShape(std::shared_ptr<btCollisionShape> newShape);
 	void createConvexMeshShape();
 

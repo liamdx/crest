@@ -12,7 +12,6 @@
 #include "PhysicsManager.h"
 
 #include "Entity.h"
-#include "EngineManager.h"
 
 // the components <3
 #include "components/EngineComponent.h"
