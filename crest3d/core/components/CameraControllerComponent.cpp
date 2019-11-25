@@ -67,8 +67,6 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
-
-	attachedEntity->engineManager->debug->console->Message<CameraControllerComponent>("Hey this is calling on early update :D", id);
 }
 
 CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, std::shared_ptr<InputManager> _input)

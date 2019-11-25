@@ -25,6 +25,7 @@ public:;
 	  std::shared_ptr<Mesh> mesh;
 	  bool shouldDraw;
 private:
+	int i = 0;
 
 	void draw(glm::mat4 view);
 
