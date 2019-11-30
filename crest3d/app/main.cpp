@@ -47,7 +47,8 @@ int main() {
 	}
 
 	SetImGuiStyle();
-
+	YSE::System().init();
+	
 	//// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(engineManager->window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
@@ -77,6 +78,12 @@ int main() {
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
 
+	float soundCounter = 0.0f;
+	
+	YSE::sound* debugSound = new YSE::sound();
+	debugSound->create("res/audio/clap.wav");
+	debugSound->play();
+	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	while (!glfwWindowShouldClose(engineManager->window)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -86,6 +93,13 @@ int main() {
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+
+		soundCounter += deltaTime;
+		if(soundCounter >= 1.0f)
+		{
+			debugSound->play();
+			soundCounter = 0.0f;
+		}
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -224,6 +238,7 @@ int main() {
 		
 		example.uiBehaviour(deltaTime);
 
+		YSE::System().update();
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -245,9 +260,11 @@ int main() {
 		/* Poll for and process events */
 		glfwPollEvents();
 
+		
 		// SDL_GL_SwapWindow(sdl_window);
 	}
 
+	YSE::System().close();
 	imnodes::Shutdown();
 
 	

@@ -21,22 +21,29 @@ public:
 	std::map<std::string, std::shared_ptr<EngineComponent>> components;
 
 	template<class T>
-	std::shared_ptr<T> GetUsableComponent()
+	std::shared_ptr<T> GetUsableComponent(const char* path)
 	{
 		if(std::is_base_of<EngineComponent, T>())
 		{
 			// iterate through the map of components, i know this shit is ugly.
-			for (auto const& [key, val] : components)
+			std::map<std::string, std::shared_ptr<EngineComponent>>::iterator it;
+			
+			for (it = components.begin(); it != components.end(); it++)
 			{
-				if(typeid(T) == typeid(val.get()))
+				std::cout << "Example, looping through keys: " << it->first << std::endl;
+				auto item = std::static_pointer_cast<T>(it->second);
+				std::cout << "Type of this component: " << typeid(item).name() << std::endl;
+				
+				if(typeid(std::shared_ptr<T>) == typeid(item))
 				{
-					return(val);
+					return item;
 				}
 			}
 		}
 		else
 		{
 			std::cout << "The component you are trying to fetch does not derive from EngineComponent\n";
+			return nullptr;
 		}
 	}
 	

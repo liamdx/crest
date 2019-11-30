@@ -44,6 +44,17 @@ std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 	std::shared_ptr<Asset<Texture>> asset = std::make_shared<Asset<Texture>>();
 	asset->asset = t;
 	asset->assetPath = path;
+	textureAssets.emplace_back(asset);
+	return asset;
+}
+
+std::shared_ptr<Asset<AudioFile>> AssetManager::loadAudioAsset(const char* path)
+{
+	std::shared_ptr<AudioFile> a = std::make_shared<AudioFile>(path);
+	std::shared_ptr<Asset<AudioFile>> asset = std::make_shared<Asset<AudioFile>>();
+	asset->asset = a;
+	asset->assetPath = path;
+	audioAssets.emplace_back(asset);
 	return asset;
 }
 
@@ -89,6 +100,22 @@ void AssetManager::removeTextureAsset(unsigned _assetID)
 	textureAssets.erase(textureAssets.begin() + indexToRemove);
 	removeAssetID(_assetID);
 }
+
+void AssetManager::removeAudioAsset(unsigned _assetID)
+{
+	int indexToRemove;
+	for (unsigned int i = 0; i < audioAssets.size(); i++)
+	{
+		if (audioAssets.at(i)->assetID == _assetID)
+		{
+			indexToRemove = i;
+		}
+	}
+
+	audioAssets.erase(audioAssets.begin() + indexToRemove);
+	removeAssetID(_assetID);
+}
+
 
 unsigned int AssetManager::getUniqueAssetID()
 {

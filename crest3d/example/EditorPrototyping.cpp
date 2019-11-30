@@ -10,7 +10,8 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
 	//auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
-
+	auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
+	
 	Entity *someEntity = new Entity("N", engineManager);
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
@@ -33,6 +34,9 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 
 	entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
 	entities["animEntity"]->transform->addPosition(glm::vec3(-4.0, 0.0, 0.0));
+	entities["animEntity"]->AddComponent(new AudioComponent());
+	components["someAudioComponent"] = entities["animEntity"]->GetComponent<AudioComponent>();
+	
 
 	entities["dirLight"] = engineManager->AddDirectionalLightEntity();
 	components["dirLightComponent"] = entities.at("dirLight")->GetComponent<DirectionalLightComponent>();
@@ -94,7 +98,9 @@ void EditorPrototyping::startBehaviour()
 {
 	
 
-	std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
+	// std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
+	std::shared_ptr<DirectionalLightComponent> dir = GetUsableComponent < DirectionalLightComponent>("dirLightComponent");
+	std::shared_ptr<CameraComponent> cam = GetUsableComponent<CameraComponent>("cam");
 
 	engineManager->scene->startBehaviour();
 	cubemapShader->use();

@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="core\AssetManager.cpp" />
     <ClCompile Include="core\components\AnimatedModelComponent.cpp" />
+    <ClCompile Include="core\components\AudioComponent.cpp" />
     <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
     <ClCompile Include="core\components\CollisionShapeComponent.cpp" />
@@ -200,7 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\AssetManager.h" />
+    <ClInclude Include="core\AudioManager.h" />
     <ClInclude Include="core\components\AnimatedModelComponent.h" />
+    <ClInclude Include="core\components\AudioComponent.h" />
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\CameraControllerComponent.h" />
     <ClInclude Include="core\components\CollisionShapeComponent.h" />
