@@ -7,7 +7,7 @@ void RigidbodyComponent::init()
 	enabled = true;
 	mass = 4.0f;
 	attachedEntity->transform->update(0.0);
-	attachedEntity->transform->setPhysicsOverride(true);
+	// attachedEntity->transform->setPhysicsOverride(true);
 
 	shape = std::shared_ptr<btCollisionShape>(new btCapsuleShape(3.0, 2.0));
 
@@ -74,8 +74,8 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 			newRotation.y = 0.01f;
 		}
 
-		attachedEntity->transform->setPositionAbsolute(newPosition);
-		attachedEntity->transform->setEulerAnglesAbsolute(newRotation);
+		attachedEntity->transform->position = (newPosition);
+		attachedEntity->transform->eulerAngles = (newRotation);
 	}
 }
 

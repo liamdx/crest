@@ -26,3 +26,4 @@
 #include "components/RigidbodyComponent.h"
 #include "components/CollisionShapeComponent.h"
 #include "components/CameraControllerComponent.h"
+#include "components/AudioComponent.h"

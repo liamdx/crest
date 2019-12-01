@@ -71,26 +71,62 @@ unsigned int EngineManager::makeUniqueEntityID()
 
 std::shared_ptr<Entity> EngineManager::AddEntity()
 {
-	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
-	e->SetId(makeUniqueEntityID());
+	unsigned int entityID = makeUniqueEntityID();
+	std::string name = "Entity: " + entityID;
+	std::shared_ptr<Entity> e = std::make_shared<Entity>(name.c_str(), this, scene->rootEntity);
+	e->transform->attachedEntity = e;
+	scene->rootEntity->AddChild(e);
+	e->SetId(entityID);
+	return e;
+}
+
+std::shared_ptr<Entity> EngineManager::AddEntity(std::shared_ptr<Entity> parent)
+{
+	unsigned int entityID = makeUniqueEntityID();
+	std::string name = "Entity: " + entityID;
+	std::shared_ptr<Entity> e = std::make_shared<Entity>(name.c_str(), this, parent);
+	e->transform->attachedEntity = e;
+	parent->AddChild(e);
+	e->SetId(entityID);
 	return e;
 }
 
 
+std::shared_ptr<Entity> EngineManager::AddEntity(const char* name)
+{
+	unsigned int entityID = makeUniqueEntityID();
+	std::shared_ptr<Entity> e = std::make_shared<Entity>(name, this, scene->rootEntity);
+	e->transform->attachedEntity = e;
+	scene->rootEntity->AddChild(e);
+	e->SetId(entityID);
+	return e;
+}
+
+std::shared_ptr<Entity> EngineManager::AddEntity(std::shared_ptr<Entity> parent, const char* name)
+{
+	unsigned int entityID = makeUniqueEntityID();
+	std::shared_ptr<Entity> e = std::make_shared<Entity>(name, this, parent);
+	e->transform->attachedEntity = e;
+	parent->AddChild(e);
+	e->SetId(entityID);
+	return e;
+}
+
+
+
 std::shared_ptr<Entity> EngineManager::AddCameraEntity()
 {
-	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
+	std::shared_ptr<Entity> e = AddEntity("Camera Entity");
 	e->engineManager = this;
 	e->AddComponent(new CameraComponent(e));
 	scene->sceneCamera = e->GetComponent<CameraComponent>();
 	scene->sceneCamera->SetId(makeUniqueComponentID());
-	e->SetId(makeUniqueEntityID());
 	return e;
 }
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity("Mesh Entity", this));
+	std::shared_ptr<Entity> e = AddEntity("Mesh Entity");
 	e->AddComponent(new MeshComponent(e, mesh));
 	e->SetId(makeUniqueEntityID());
 	auto mc = e->GetComponent<MeshComponent>();
@@ -102,7 +138,7 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name)
 {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(name.c_str(), this));
+	std::shared_ptr<Entity> e = AddEntity(name.c_str());
 	e->AddComponent(new MeshComponent(e, mesh));
 	e->SetId(makeUniqueEntityID());
 	auto mc = e->GetComponent<MeshComponent>();
@@ -116,14 +152,14 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh,
 
 std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> model)
 {
-	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
+	std::shared_ptr<Entity> e = AddEntity();
 	e->engineManager = this;
 	e->name = model->name;
 	e->SetId(makeUniqueEntityID());
 	for (int i = 0; i < model->meshes.size(); i++)
 	{
 		std::shared_ptr<Entity> newE = AddMeshEntity(model->meshes.at(i), std::to_string(i));
-		newE->transform->parent = e->transform;
+		newE->transform->setParent(e->transform);
 		e->children.emplace_back(newE);
 	}
 	debug->console->Log<EngineManager>("Creating Model Entity");
@@ -132,7 +168,7 @@ std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> mod
 
 std::shared_ptr<Entity> EngineManager::AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model)
 {
-	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
+	std::shared_ptr<Entity> e = AddEntity();
 	e->engineManager = this;
 	e->SetId(makeUniqueEntityID());
 	e->name = model->directory;
@@ -146,7 +182,7 @@ std::shared_ptr<Entity> EngineManager::AddAnimatedModelEntity(std::shared_ptr<An
 
 std::shared_ptr<Entity> EngineManager::AddDirectionalLightEntity()
 {
-	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
+	std::shared_ptr<Entity> e = AddEntity();
 	e->engineManager = this;
 	e->name = "Directional Light";
 	e->SetId(makeUniqueEntityID());
@@ -158,7 +194,7 @@ std::shared_ptr<Entity> EngineManager::AddDirectionalLightEntity()
 
 std::shared_ptr<Entity> EngineManager::AddPointLightEntity()
 {
-	std::shared_ptr<Entity> e = scene->rootEntity->AddEntity();
+	std::shared_ptr<Entity> e = AddEntity();
 	e->engineManager = this;
 	std::stringstream ss;
 	ss << "Point Light " << (scene->pointLightComponents.size() + 1);

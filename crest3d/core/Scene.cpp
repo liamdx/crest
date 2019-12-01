@@ -6,9 +6,10 @@
 
 Scene::Scene(const char* _name, EngineManager* em)
 {
-	rootEntity = std::shared_ptr<Entity>(new Entity("root", nullptr));
-	DEBUG_SPHERE_RADIUS = 1.0f;
 	engineManager = em;
+	rootEntity = std::shared_ptr<Entity>(new Entity("root", engineManager, nullptr));
+	rootEntity->transform->setParent(nullptr);
+	DEBUG_SPHERE_RADIUS = 1.0f;
 }
 
 

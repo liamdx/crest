@@ -2,12 +2,21 @@
 #include "EngineManager.h"
 #include "Example.h"
 
-Entity::Entity(const char* entityName, EngineManager* _em) 
+Entity::Entity(const char* entityName, EngineManager* _em, std::shared_ptr<Entity> e)
 {
 	engineManager = _em;
 	name = entityName;
 	transform = std::shared_ptr<TransformComponent>(new TransformComponent());
-	transform->attachedEntity = std::shared_ptr<Entity>(this);
+	parent = e;
+	if(parent != nullptr)
+	{
+		transform->setParent(parent->transform);
+	}
+	else
+	{
+		transform->setParent(nullptr);
+	}
+	
 }
 
 void Entity::ConsoleError(std::string error)
@@ -31,6 +40,7 @@ void Entity::AddComponent(EngineComponent* newComponent)
 		newComponent->SetId(engineManager->makeUniqueComponentID());
 		newComponent->init();
 		newComponent->start();
+		// newComponent->attachedEntity = std::make_shared<Entity>(*this);
 		components.emplace_back(newComponent);
 	}
 	else
@@ -85,6 +95,7 @@ void Entity::startBehaviour()
 
 void Entity::earlyUpdateBehaviour(float deltaTime)
 {
+	
 	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->earlyUpdate(deltaTime);
@@ -110,6 +121,7 @@ void Entity::updateBehaviour(float deltaTime)
 
 void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
 {
+	transform->render(deltaTime, view);
 	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components.at(i)->render(deltaTime, view);
@@ -124,11 +136,11 @@ void Entity::uiBehaviour(float deltaTime)
 	}
 }
 
-std::shared_ptr<Entity> Entity::AddEntity()
+void Entity::AddChild(std::shared_ptr<Entity> e)
 {
-	children.emplace_back(new Entity("Entity", nullptr));
-	return(children.at(children.size() - 1));
+	children.emplace_back(e);
 }
+
 
 std::shared_ptr<Entity> Entity::GetChild(unsigned int index)
 {

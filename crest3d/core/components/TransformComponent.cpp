@@ -180,10 +180,21 @@ void TransformComponent::addScale(glm::vec3 newScale)
 
 void TransformComponent::updateModelMatrix()
 {
-	model = glm::mat4(1.0);
-	model = glm::scale(model, scale);
-	model = model * glm::toMat4(rotation);
-	model = glm::translate(model, position);
+	rotation = glm::quat(glm::radians(eulerAngles));
+	
+	localModelMatrix = glm::translate(glm::mat4(1.0), position);
+	localModelMatrix = localModelMatrix * glm::mat4(rotation);
+	localModelMatrix = glm::scale(localModelMatrix, scale);
+
+	if(parent != nullptr)
+	{
+		model = parent->getModelMatrix() * localModelMatrix;
+	}
+	else
+	{
+		model = localModelMatrix;
+	}
+	
 }
 
 void TransformComponent::updateDirectionVectors()
@@ -204,39 +215,34 @@ void TransformComponent::update(float deltaTime)
 	//{
 	if (parent == nullptr)
 	{
-		position = localPosition;
-		eulerAngles = localEulerAngles;
-		scale = localScale;
 		if (shouldUpdateModel())
 		{
 			updateModelMatrix();
 		}
 
 		updateRotation();
-		prevPosition = position;
-		prevEulerAngles = eulerAngles;
-		prevRotation = rotation;
-		prevScale = scale;
 	}
 	else
 	{
-		position = parent->localPosition + localPosition;
-		eulerAngles = parent->localEulerAngles + localEulerAngles;
-		scale = parent->localScale * localScale;
-
 		if (shouldUpdateModel())
 		{
 			updateModelMatrix();
 		}
 		updateRotation();
-		prevPosition = position;
-		prevEulerAngles = eulerAngles;
-		prevRotation = rotation;
-		prevScale = scale;
 	}
 
+	updateDirectionVectors();
 	//}
 }
+
+void TransformComponent::render(float deltaTime, glm::mat4 view)
+{
+	prevPosition = position;
+	prevEulerAngles = eulerAngles;
+	prevRotation = rotation;
+	prevScale = scale;
+}
+
 
 bool TransformComponent::shouldUpdateModel()
 {

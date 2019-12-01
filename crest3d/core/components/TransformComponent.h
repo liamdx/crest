@@ -48,6 +48,7 @@ public:
 	inline glm::vec3 getUp() { return up; }
 
 	void update(float deltaTime) override;
+	void render(float deltaTime, glm::mat4 view) override;
 
 	// reference
 	std::shared_ptr<TransformComponent> parent = nullptr;
@@ -69,6 +70,7 @@ public:
 
 private:
 	glm::mat4 model;
+	glm::mat4 localModelMatrix;
 	bool physicsOverride;
 	void updateDirectionVectors();
 	void clampRotation(float& value);

@@ -15,10 +15,11 @@ public:
 
 	std::string name;
 	std::vector<std::shared_ptr<EngineComponent>> components;
+	std::shared_ptr<Entity> parent;
 	std::vector<std::shared_ptr<Entity>> children;
 	std::shared_ptr<TransformComponent> transform;
 
-	Entity(const char* entityName, EngineManager* _em);
+	Entity(const char* entityName, EngineManager* _em, std::shared_ptr<Entity> e);
 	~Entity() {}
 
 	inline void SetId(unsigned int newId) { id = newId; }
@@ -43,7 +44,7 @@ public:
 		return nullptr;
 	}
 
-	std::shared_ptr<Entity> AddEntity();
+	void AddChild(std::shared_ptr<Entity> e);
 	std::shared_ptr<Entity> GetChild(unsigned int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
 

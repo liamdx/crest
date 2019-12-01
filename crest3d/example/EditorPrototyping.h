@@ -23,6 +23,8 @@ private:
 	Cubemap* skybox;
 	Shader* cubemapShader;
 
+	float clapTimer;
+
 	//skybox faces
 	std::vector<std::string> faces
 	{

@@ -37,6 +37,9 @@ public:
 	unsigned int makeUniqueComponentID();
 
 	std::shared_ptr<Entity> AddEntity();
+	std::shared_ptr<Entity> AddEntity(const char* name);
+	std::shared_ptr<Entity> AddEntity(std::shared_ptr<Entity> parent);
+	std::shared_ptr<Entity> AddEntity(std::shared_ptr<Entity> parent, const char* name);
 	std::shared_ptr<Entity> AddCameraEntity();
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh);
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);

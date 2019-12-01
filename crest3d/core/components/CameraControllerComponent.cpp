@@ -7,37 +7,37 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 {
 	if (input->GetKeyW())
 	{
-		attachedEntity->transform->addPosition(attachedEntity->transform->getForward() * movementSpeed * deltaTime);
+		attachedEntity->transform->position += (attachedEntity->transform->forward * movementSpeed * deltaTime);
 	}
 
 	if (input->GetKeyS())
 	{
 		//BoneCam.ProcessKeyboard(BACKWARD, deltaTime);
-		attachedEntity->transform->addPosition(-(attachedEntity->transform->getForward() * movementSpeed * deltaTime));
+		attachedEntity->transform->position += (-(attachedEntity->transform->forward) * movementSpeed * deltaTime);
 	}
 
 	if (input->GetKeyA())
 	{
 		//BoneCam.ProcessKeyboard(LEFT, deltaTime);
-		attachedEntity->transform->addPosition(-(attachedEntity->transform->getRight()) * movementSpeed * deltaTime);
+		attachedEntity->transform->position += (-(attachedEntity->transform->right) * movementSpeed * deltaTime);
 	}
 
 	if (input->GetKeyD())
 	{
 		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		attachedEntity->transform->addPosition(attachedEntity->transform->getRight() * movementSpeed * deltaTime);
+		attachedEntity->transform->position += (attachedEntity->transform->right * movementSpeed * deltaTime);
 	}
 
 	if (input->GetKeyE())
 	{
 		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		attachedEntity->transform->addPosition(attachedEntity->transform->getUp() * movementSpeed * deltaTime);
+		attachedEntity->transform->position += (attachedEntity->transform->up * movementSpeed * deltaTime);
 	}
 
 	if (input->GetKeyQ())
 	{
 		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		attachedEntity->transform->addPosition(-(attachedEntity->transform->getUp()) * movementSpeed * deltaTime);
+		attachedEntity->transform->position += (-(attachedEntity->transform->up) * movementSpeed * deltaTime);
 	}
 	if (input->GetKeyLeftShift())
 	{
@@ -60,8 +60,15 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	if (input->GetRightClick())
 	{
+		std::stringstream ss;
+		ss << "Delta X: ";
+		ss << deltaX;
+		ss << " Delta Y: ";
+		ss << deltaY;
+		
+		attachedEntity->engineManager->debug->console->Message<CameraControllerComponent>(ss.str().c_str());
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		attachedEntity->transform->addEulerAngles(glm::vec3(deltaY, deltaX, 0));
+		attachedEntity->transform->eulerAngles += glm::vec3(deltaY, deltaX, 0);
 	}
 	else
 	{

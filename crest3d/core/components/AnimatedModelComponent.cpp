@@ -63,7 +63,6 @@ void AnimatedModelComponent::draw(glm::mat4 view, std::shared_ptr<ShaderComponen
 			SetBoneTransformID(_shader, gBoneShaderIDs[i], boneTransforms[i]);
 		}
 
-		attachedEntity->transform->updateModelMatrix();
 		_shader->setView(view);
 		_shader->UpdateShader(attachedEntity->transform->getModelMatrix());
 		anim->Draw(_shader);

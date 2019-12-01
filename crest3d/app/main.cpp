@@ -77,12 +77,6 @@ int main() {
 	
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
-
-	float soundCounter = 0.0f;
-	
-	YSE::sound* debugSound = new YSE::sound();
-	debugSound->create("res/audio/clap.wav");
-	debugSound->play();
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	while (!glfwWindowShouldClose(engineManager->window)) {
@@ -93,13 +87,6 @@ int main() {
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
-		soundCounter += deltaTime;
-		if(soundCounter >= 1.0f)
-		{
-			debugSound->play();
-			soundCounter = 0.0f;
-		}
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();

@@ -44,7 +44,7 @@ class AudioComponent : public EngineComponent
 public:
 
 	
-	AudioComponent()  { name = "AudioComponent"; }
+	AudioComponent() { name = "AudioComponent"; clip = nullptr; }
 	AudioComponent(std::shared_ptr<AudioFile> file) { name = "AudioComponent"; clip = file; }
 	~AudioComponent() override {};
 

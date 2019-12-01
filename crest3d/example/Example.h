@@ -30,14 +30,15 @@ public:
 			
 			for (it = components.begin(); it != components.end(); it++)
 			{
-				std::cout << "Example, looping through keys: " << it->first << std::endl;
-				auto item = std::static_pointer_cast<T>(it->second);
-				std::cout << "Type of this component: " << typeid(item).name() << std::endl;
-				
-				if(typeid(std::shared_ptr<T>) == typeid(item))
+				if(it->first == path)
 				{
-					return item;
+					auto item = std::dynamic_pointer_cast<T>(it->second);
+					if (item != nullptr)
+					{
+						return item;
+					}
 				}
+				
 			}
 		}
 		else

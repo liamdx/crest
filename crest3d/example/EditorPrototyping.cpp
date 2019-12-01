@@ -6,16 +6,17 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
 	skybox = new Cubemap(faces);
 
+	clapTimer = 0.0f;
+	
 	auto m = engineManager->assetManager->loadModelAsset("res/models/cyborg/cyborg.obj");
 	auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
 	//auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
 	auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
 	
-	Entity *someEntity = new Entity("N", engineManager);
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
-	entities["cyborgEntity"]->transform->addPosition(glm::vec3(4, 0, 0));
+	entities["cyborgEntity"]->transform->position = (glm::vec3(4, 0, 0));
 	// cyborgEntity->transform->addScale(glm::vec3(3.0));
 	/*for (int i = 0; i < cyborgEntity->children.size(); i++)
 	{
@@ -24,8 +25,8 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	}
 */
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
-	entities["levelEntity"]->transform->setScale(glm::vec3(0.03, 0.03, 0.03));
-	entities["levelEntity"]->transform->addPosition(glm::vec3(0, -10, 0));
+	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
+	entities["levelEntity"]->transform->position += (glm::vec3(0, -10, 0));
 	/*for (int i = 0; i < levelEntity->children.size(); i++)
 	{
 		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
@@ -33,10 +34,11 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	}*/
 
 	entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
-	entities["animEntity"]->transform->addPosition(glm::vec3(-4.0, 0.0, 0.0));
+	entities["animEntity"]->transform->position = (glm::vec3(-4.0, 0.0, 0.0));
 	entities["animEntity"]->AddComponent(new AudioComponent());
 	components["someAudioComponent"] = entities["animEntity"]->GetComponent<AudioComponent>();
-	
+	auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
+	audio_component->SetClip(clapSound->asset);
 
 	entities["dirLight"] = engineManager->AddDirectionalLightEntity();
 	components["dirLightComponent"] = entities.at("dirLight")->GetComponent<DirectionalLightComponent>();
@@ -50,37 +52,37 @@ void EditorPrototyping::initBehaviour()
 	dirLightComponent->ambient = glm::vec3(0.05);
 
 	auto pl1 = engineManager->AddPointLightEntity();
-	pl1->transform->setPosition(glm::vec3(24.8, 3.7, 0.0));
+	pl1->transform->position = glm::vec3(24.8, 3.7, 0.0);
 	auto plc1 = pl1->GetComponent<PointLightComponent>();
 	plc1->diffuse = glm::vec3(1.0, 0.0, 0.0);
 	plc1->distance = 14.5;
 
 	auto pl2 = engineManager->AddPointLightEntity();
-	pl2->transform->setPosition(glm::vec3(7.5, 4.1, 0.0));
+	pl2->transform->position = (glm::vec3(7.5, 4.1, 0.0));
 	auto plc2 = pl2->GetComponent<PointLightComponent>();
 	plc2->diffuse = glm::vec3(0.0, 1.0, 1.0);
 	plc2->distance = 14.5;
 
 	auto pl3 = engineManager->AddPointLightEntity();
-	pl3->transform->setPosition(glm::vec3(-1.7, 4.1, 0.0));
+	pl3->transform->position = (glm::vec3(-1.7, 4.1, 0.0));
 	auto plc3 = pl3->GetComponent<PointLightComponent>();
 	plc3->diffuse = glm::vec3(1.0, 0.0, 1.0);
 	plc3->distance = 14.5;
 
 	auto pl4 = engineManager->AddPointLightEntity();
-	pl4->transform->setPosition(glm::vec3(-15.7, 5.9, 0.0));
+	pl4->transform->position = (glm::vec3(-15.7, 5.9, 0.0));
 	auto plc4 = pl4->GetComponent<PointLightComponent>();
 	plc4->diffuse = glm::vec3(1.0, 0.6, 0.1);
 	plc4->distance = 12.5;
 
 	auto pl5 = engineManager->AddPointLightEntity();
-	pl5->transform->setPosition(glm::vec3(-35.7, 5.2, 0.0));
+	pl5->transform->position = (glm::vec3(-35.7, 5.2, 0.0));
 	auto plc5 = pl5->GetComponent<PointLightComponent>();
 	plc5->diffuse = glm::vec3(0.0, 1.0, 0.0);
 	plc5->distance = 8.5;
 
 	auto pl6 = engineManager->AddPointLightEntity();
-	pl6->transform->setPosition(glm::vec3(1.1, 4.3, 0.0));
+	pl6->transform->position = (glm::vec3(1.1, 4.3, 0.0));
 	auto plc6 = pl6->GetComponent<PointLightComponent>();
 	plc6->setDiffuse(glm::vec3(1.0f, 0.9f, 0.7f));
 	plc6->setDistance(7.4f);
@@ -120,6 +122,15 @@ void EditorPrototyping::fixedUpdateBehaviour()
 void EditorPrototyping::updateBehaviour(float deltaTime)
 {
 	engineManager->scene->updateBehaviour(deltaTime);
+
+	clapTimer += deltaTime;
+
+	if(clapTimer >= 2.0f)
+	{
+		auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
+		audio_component->Play();
+		clapTimer = 0.0f;
+	}
 }
 
 void EditorPrototyping::renderBehaviour(float deltaTime)
@@ -142,9 +153,12 @@ void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 	{
 		if (ImGui::TreeNode("Transform"))
 		{
-			ImGui::Auto(e->transform->localPosition, "Entity Position");
-			ImGui::Auto(e->transform->localEulerAngles, "Entity Rotation");
-			ImGui::Auto(e->transform->localScale, "Entity Scale");
+			ImGui::Auto(e->transform->position, "Entity Position");
+			ImGui::Auto(e->transform->eulerAngles, "Entity Rotation");
+			ImGui::Auto(e->transform->scale, "Entity Scale");
+			ImGui::Auto(e->transform->localPosition, "Entity Local Position");
+			ImGui::Auto(e->transform->localEulerAngles, "Entity Local Rotation");
+			ImGui::Auto(e->transform->localScale, "Entity Local Scale");
 			ImGui::TreePop();
 		}
 

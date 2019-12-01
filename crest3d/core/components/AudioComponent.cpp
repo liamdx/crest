@@ -32,3 +32,11 @@ void AudioComponent::SetClip(std::shared_ptr<AudioFile> newAudioFile)
 {
 	clip = newAudioFile;
 }
+
+void AudioComponent::Play()
+{
+	if(clip != nullptr)
+	{
+		clip->sound->play();
+	}
+}
