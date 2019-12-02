@@ -147,7 +147,7 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 	engineManager->scene->renderBehaviour(deltaTime);
 }
 
-void ImGuiEntityDebug(std::shared_ptr<Entity> e)
+void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
 	if (ImGui::TreeNode(e->name.c_str()))
 	{
@@ -213,6 +213,11 @@ void ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			e->AddComponent(new CollisionShapeComponent(e));
 			rib->init();
 			rib->setMass(0.0f);
+		}
+
+		if(ImGui::Button("Delete Entity"))
+		{
+			engineManager->DeleteEntity(e->GetID());
 		}
 
 		for (int i = 0; i < e->children.size(); i++)

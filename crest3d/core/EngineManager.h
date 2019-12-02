@@ -43,6 +43,8 @@ public:
 	std::shared_ptr<Entity> AddCameraEntity();
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh);
 	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name);
+	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Entity> parent, std::shared_ptr<Mesh> mesh);
+	std::shared_ptr<Entity> AddMeshEntity(std::shared_ptr<Entity> parent, std::shared_ptr<Mesh> mesh, std::string name);
 	std::shared_ptr<Entity> AddModelEntity(std::shared_ptr<Model> model);
 	std::shared_ptr<Entity> AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model);
 	std::shared_ptr<Entity> AddDirectionalLightEntity();

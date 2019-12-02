@@ -44,8 +44,8 @@ class AudioComponent : public EngineComponent
 public:
 
 	
-	AudioComponent() { name = "AudioComponent"; clip = nullptr; }
-	AudioComponent(std::shared_ptr<AudioFile> file) { name = "AudioComponent"; clip = file; }
+	AudioComponent() { name = "AudioComponent"; clip = nullptr; is3D = false; }
+	AudioComponent(std::shared_ptr<AudioFile> file) { name = "AudioComponent"; clip = file; is3D = false; }
 	~AudioComponent() override {};
 
 	void init() override;
@@ -60,6 +60,8 @@ public:
 	
 	std::shared_ptr<AudioFile> clip;
 	bool looping;
+	bool is3D;
+	float volume;
 	
 private:
 	bool shouldPlay;

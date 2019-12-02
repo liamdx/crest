@@ -17,10 +17,11 @@ public:
 		ImVector<const char*> Commands;
 		ImVector<char*>       History;
 		int                   HistoryPos;    // -1: new line, 0..History.Size-1 browsing history.
+		const int			  MaxItems = 1024;
 		ImGuiTextFilter       Filter;
 		bool                  AutoScroll;
 		bool                  ScrollToBottom;
-
+		
 		Console()
 		{
 			ClearLog();
@@ -64,6 +65,10 @@ public:
 			vsnprintf(buf, IM_ARRAYSIZE(buf), fmt, args);
 			buf[IM_ARRAYSIZE(buf) - 1] = 0;
 			va_end(args);
+			if(Items.size() >= MaxItems)
+			{
+				Items.erase(Items.begin());
+			}
 			Items.push_back(Strdup(buf));
 			if (AutoScroll)
 				ScrollToBottom = true;
@@ -71,20 +76,21 @@ public:
 
 		void Error(const char* msg)
 		{
-			std::string m = "[error] : ";
-			m += msg;
+			std::string m;
+			m = "[error] : ";
+			m.append(msg);
 			AddLog(m.c_str());
 		}
 
 		template <class T>
 		void Error(const char* msg)
 		{
-			std::string m = "[error] ";
-			m += "[";
-			m += typeid(T).name();
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
+			std::stringstream m = "[error] ";
+			m << "[";
+			m << typeid(T).name();
+			m << "] : ";
+			m << msg;
+			AddLog(m.str().c_str());
 		}
 
 

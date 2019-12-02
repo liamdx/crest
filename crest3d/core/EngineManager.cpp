@@ -133,7 +133,17 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh)
 	mc->SetId(makeUniqueComponentID());
 	debug->console->Log<EngineManager>("Creating Mesh Entity");
 	return e;
-	
+}
+
+std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Entity> parent, std::shared_ptr<Mesh> mesh)
+{
+	std::shared_ptr<Entity> e = AddEntity(parent,"Mesh Entity");
+	e->AddComponent(new MeshComponent(e, mesh));
+	e->SetId(makeUniqueEntityID());
+	auto mc = e->GetComponent<MeshComponent>();
+	mc->SetId(makeUniqueComponentID());
+	debug->console->Log<EngineManager>("Creating Mesh Entity");
+	return e;
 }
 
 std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh, std::string name)
@@ -150,6 +160,21 @@ std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Mesh> mesh,
 	return e;
 }
 
+std::shared_ptr<Entity> EngineManager::AddMeshEntity(std::shared_ptr<Entity> parent, std::shared_ptr<Mesh> mesh, std::string name)
+{
+	std::shared_ptr<Entity> e = AddEntity(parent,name.c_str());
+	e->AddComponent(new MeshComponent(e, mesh));
+	e->SetId(makeUniqueEntityID());
+	auto mc = e->GetComponent<MeshComponent>();
+	if (mc != nullptr)
+	{
+		scene->meshes.emplace_back(e->GetComponent<MeshComponent>());
+	}
+	debug->console->Log<EngineManager>("Creating Mesh Entity");
+	return e;
+}
+
+
 std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> model)
 {
 	std::shared_ptr<Entity> e = AddEntity();
@@ -158,9 +183,8 @@ std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> mod
 	e->SetId(makeUniqueEntityID());
 	for (int i = 0; i < model->meshes.size(); i++)
 	{
-		std::shared_ptr<Entity> newE = AddMeshEntity(model->meshes.at(i), std::to_string(i));
+		std::shared_ptr<Entity> newE = AddMeshEntity(e,model->meshes.at(i), std::to_string(i));
 		newE->transform->setParent(e->transform);
-		e->children.emplace_back(newE);
 	}
 	debug->console->Log<EngineManager>("Creating Model Entity");
 	return e;

@@ -35,4 +35,9 @@ private:
 		"res/textures/violentdays/violentdays_bk.png",
 		"res/textures/violentdays/violentdays_ft.png"
 	};
+
+
+
+	// private functions
+	void ImGuiEntityDebug(std::shared_ptr<Entity> e);
 };

@@ -1,5 +1,5 @@
 #include "components/AudioComponent.h"
-
+#include "Entity.h"
 
 void AudioComponent::init()
 {
@@ -37,6 +37,15 @@ void AudioComponent::Play()
 {
 	if(clip != nullptr)
 	{
-		clip->sound->play();
+		if(is3D)
+		{
+			YSE::Vec pos = YSE::Vec(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z);
+			clip->sound->setPosition(pos);
+		}
+		else
+		{
+			clip->sound->play();
+		}
+		
 	}
 }

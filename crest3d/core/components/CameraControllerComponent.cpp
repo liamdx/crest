@@ -60,13 +60,6 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	if (input->GetRightClick())
 	{
-		std::stringstream ss;
-		ss << "Delta X: ";
-		ss << deltaX;
-		ss << " Delta Y: ";
-		ss << deltaY;
-		
-		attachedEntity->engineManager->debug->console->Message<CameraControllerComponent>(ss.str().c_str());
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		attachedEntity->transform->eulerAngles += glm::vec3(deltaY, deltaX, 0);
 	}
