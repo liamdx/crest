@@ -2,12 +2,12 @@
 #include "EngineManager.h"
 
 void MeshComponent::init() {
-	attachedEntity->engineManager->debug->console->Log<MeshComponent>("Mesh component calling init!");
+	//attachedEntity->engineManager->debug->console->Log<MeshComponent>("Mesh component calling init!");
 }
 
 void MeshComponent::start() {
 
-	attachedEntity->engineManager->debug->console->Message<MeshComponent>("Mesh component calling start!");
+	//attachedEntity->engineManager->debug->console->Message<MeshComponent>("Mesh component calling start!");
 }
 
 void MeshComponent::earlyUpdate(float deltaTime)

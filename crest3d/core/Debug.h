@@ -3,12 +3,140 @@
 
 
 
-class Debug
+static class Debug
 {
 	
 public:
 
-	Debug() { console = std::make_unique<Console>(); }
+	
+	static void Error(const char* msg)
+	{
+		std::string m;
+		m = "[error] : ";
+		m.append(msg);
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Error(const char* msg)
+	{
+		std::stringstream m = "[error] ";
+		m << "[";
+		m << typeid(T).name();
+		m << "] : ";
+		m << msg;
+		console->AddLog(m.str().c_str());
+	}
+
+
+	template <class T>
+	static void Error(const char* msg, unsigned int ID)
+	{
+		std::string m = "[error] ";
+		m += "[";
+		m += typeid(T).name();
+		m += " ";
+		m += std::to_string(ID);
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	static void Warn(const char* msg)
+	{
+		std::string m = "[warning] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Warn(const char* msg)
+	{
+		std::string m = "[warning] ";
+		m += "[";
+		m += typeid(T).name();
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Warn(const char* msg, unsigned int ID)
+	{
+		std::string m = "[warning] ";
+		m += "[";
+		m += typeid(T).name();
+		m += " ";
+		m += std::to_string(ID);
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	static void Log(const char* msg)
+	{
+		std::string m = "[log] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Log(const char* msg)
+	{
+		std::string m = "[log-class] ";
+
+		m += "[";
+		m += typeid(T).name();
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Log(const char* msg, unsigned int ID)
+	{
+		std::string m = "[log-class] ";
+		m += "[";
+		m += typeid(T).name();
+		m += " ";
+		m += std::to_string(ID);
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	static void Message(const char* msg)
+	{
+		std::string m = "[message] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Message(const char* msg)
+	{
+		std::string m = "[message] ";
+
+		m += "[";
+		m += typeid(T).name();
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
+	template <class T>
+	static void Message(const char* msg, unsigned int ID)
+	{
+		std::string m = "[message] ";
+		m += "[";
+		m += typeid(T).name();
+		m += " ";
+		m += std::to_string(ID);
+		m += "] : ";
+		m += msg;
+		console->AddLog(m.c_str());
+	}
+
 
 	struct Console
 	{
@@ -21,7 +149,7 @@ public:
 		ImGuiTextFilter       Filter;
 		bool                  AutoScroll;
 		bool                  ScrollToBottom;
-		
+
 		Console()
 		{
 			ClearLog();
@@ -65,7 +193,7 @@ public:
 			vsnprintf(buf, IM_ARRAYSIZE(buf), fmt, args);
 			buf[IM_ARRAYSIZE(buf) - 1] = 0;
 			va_end(args);
-			if(Items.size() >= MaxItems)
+			if (Items.size() >= MaxItems)
 			{
 				Items.erase(Items.begin());
 			}
@@ -74,134 +202,7 @@ public:
 				ScrollToBottom = true;
 		}
 
-		void Error(const char* msg)
-		{
-			std::string m;
-			m = "[error] : ";
-			m.append(msg);
-			AddLog(m.c_str());
-		}
 
-		template <class T>
-		void Error(const char* msg)
-		{
-			std::stringstream m = "[error] ";
-			m << "[";
-			m << typeid(T).name();
-			m << "] : ";
-			m << msg;
-			AddLog(m.str().c_str());
-		}
-
-
-		template <class T>
-		void Error(const char* msg, unsigned int ID)
-		{
-			std::string m = "[error] ";
-			m += "[";
-			m += typeid(T).name();
-			m += " ";
-			m += std::to_string(ID);
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		void Warn(const char* msg)
-		{
-			std::string m = "[warning] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-		
-		template <class T>
-		void Warn(const char* msg)
-		{
-			std::string m = "[warning] ";
-			m += "[";
-			m += typeid(T).name();
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		template <class T>
-		void Warn(const char* msg, unsigned int ID)
-		{
-			std::string m = "[warning] ";
-			m += "[";
-			m += typeid(T).name();
-			m += " ";
-			m += std::to_string(ID);
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-		
-		void Log(const char* msg)
-		{
-			std::string m = "[log] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		template <class T>
-		void Log(const char* msg)
-		{
-			std::string m = "[log-class] ";
-
-			m += "[";
-			m += typeid(T).name();
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		template <class T>
-		void Log(const char* msg, unsigned int ID)
-		{
-			std::string m = "[log-class] ";
-			m += "[";
-			m += typeid(T).name();
-			m += " ";
-			m += std::to_string(ID);
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		void Message(const char* msg)
-		{
-			std::string m = "[message] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		template <class T>
-		void Message(const char* msg)
-		{
-			std::string m = "[message] ";
-
-			m += "[";
-			m += typeid(T).name();
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-
-		template <class T>
-		void Message(const char* msg, unsigned int ID)
-		{
-			std::string m = "[message] ";
-			m += "[";
-			m += typeid(T).name();
-			m += " ";
-			m += std::to_string(ID);
-			m += "] : ";
-			m += msg;
-			AddLog(m.c_str());
-		}
-		
 		void    Draw(const char* title, bool* p_open)
 		{
 			ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
@@ -461,5 +462,9 @@ public:
 
 	};
 
-	std::unique_ptr<Console> console;
+	static void DrawConsole() { console->Draw("Console", b); }
+	
+private:
+	inline static Console* console = new Console();
+	inline static bool* b = new bool(true);
 };

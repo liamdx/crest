@@ -221,7 +221,7 @@ int main() {
 		{
 		}
 
-		engineManager->debug->console->Draw("Console", b);
+		Debug::DrawConsole();
 		
 		example.uiBehaviour(deltaTime);
 

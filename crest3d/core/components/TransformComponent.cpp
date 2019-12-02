@@ -232,7 +232,6 @@ void TransformComponent::update(float deltaTime)
 	}
 
 	updateDirectionVectors();
-	//}
 }
 
 void TransformComponent::render(float deltaTime, glm::mat4 view)

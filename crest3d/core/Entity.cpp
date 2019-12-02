@@ -21,7 +21,7 @@ Entity::Entity(const char* entityName, EngineManager* _em, std::shared_ptr<Entit
 
 void Entity::ConsoleError(std::string error)
 {
-	engineManager->debug->console->Warn<Entity>(error.c_str(), id);
+
 }
 
 
@@ -40,14 +40,16 @@ void Entity::AddComponent(EngineComponent* newComponent)
 		newComponent->SetId(engineManager->makeUniqueComponentID());
 		newComponent->init();
 		newComponent->start();
-		// newComponent->attachedEntity = std::make_shared<Entity>(*this);
 		components.emplace_back(newComponent);
+		std::string message;
+		message = "ID: " + std::to_string(id) + " successfully added a " + typeid(*newComponent).name() + "\n";
+		Debug::Log<Entity>(message.c_str());
 	}
 	else
 	{
-		std::string error = "Could not add ";
-		error += typeid(newComponent).name();
-		engineManager->debug->console->Warn<Entity>(error.c_str(), id);
+		std::string message;
+		message = "ID: " + std::to_string(id) + " could not add a " + typeid(*newComponent).name() + " to the Entity\n";
+		Debug::Warn<Entity>(message.c_str());
 		delete newComponent;
 	}
 }
@@ -68,12 +70,16 @@ void Entity::AddComponent(std::shared_ptr<EngineComponent> newComponent)
 		newComponent->init();
 		newComponent->start();
 		components.emplace_back(newComponent);
+		std::string message;
+		message = "ID: " + std::to_string(id) + " successfully added a " + typeid(*newComponent).name() + "\n";
+		Debug::Log<Entity>(message.c_str());
 	}
 	else
 	{
-		std::string error = "Could not add ";
-		error += typeid(newComponent).name();
-		engineManager->debug->console->Warn<Entity>(error.c_str(), id);
+		std::string message;
+		message = "ID: " + std::to_string(id) + " could not add a " + typeid(*newComponent).name() + " to the Entity\n";
+		Debug::Warn<Entity>(message.c_str());
+		
 	}
 }
 
@@ -139,6 +145,9 @@ void Entity::uiBehaviour(float deltaTime)
 void Entity::AddChild(std::shared_ptr<Entity> e)
 {
 	children.emplace_back(e);
+	std::string message;
+	message = "ID: " + std::to_string(id) + " added child with ID: " + std::to_string(e->GetID()) + "\n";
+	Debug::Log<Entity>(message.c_str());
 }
 
 
@@ -149,8 +158,9 @@ std::shared_ptr<Entity> Entity::GetChild(unsigned int index)
 		return(std::shared_ptr<Entity>(children.at(index)));
 	}
 
-	std::string error = "Could not find child";
-	engineManager->debug->console->Warn<Entity>(error.c_str(), id);
+	std::string message;
+	message = "ID: " + std::to_string(id) + " could not find child at index: " + std::to_string(index) + "\n";
+	Debug::Warn<Entity>(message.c_str());
 	return nullptr;
 }
 
@@ -164,8 +174,8 @@ std::shared_ptr<Entity> Entity::GetChild(const char* name)
 		}
 	}
 
-	std::string error = "Could not find child : ";
-	error += name;
-	engineManager->debug->console->Warn<Entity>(error.c_str(), id);
+	std::string message;
+	message = "ID: " + std::to_string(id) + " could not find child with name: " + name + "\n";
+	Debug::Warn<Entity>(message.c_str());
 	return nullptr;
 }

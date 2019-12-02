@@ -212,6 +212,7 @@
     <ClInclude Include="core\components\lighting\LightComponent.h" />
     <ClInclude Include="core\components\lighting\PointLightComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
+    <ClInclude Include="core\components\NodeGraphComponent.h" />
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
@@ -432,6 +433,8 @@
     <ClInclude Include="core\InputManager.h" />
     <ClInclude Include="core\gfx\Mesh.h" />
     <ClInclude Include="core\gfx\Model.h" />
+    <ClInclude Include="core\nodegraph\NodeGraph.h" />
+    <ClInclude Include="core\nodegraph\NodeGraphSerializer.h" />
     <ClInclude Include="core\PhysicsManager.h" />
     <ClInclude Include="core\primitives\Cube.h" />
     <ClInclude Include="core\primitives\Quad.h" />
