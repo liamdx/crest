@@ -78,7 +78,7 @@ int main() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 14.0f);
+	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 12.0f);
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -86,10 +86,17 @@ int main() {
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (io.ConfigFlags)
 	{
-		style.WindowRounding = 0.01f;
+		style.WindowRounding = 0.0f;
+		style.WindowPadding = ImVec2(2,2 );
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		style.PopupRounding = 1.0f;
+		style.TabRounding = 1.0f;
+		style.FrameRounding = 1.0f;
+		style.ChildRounding = 5.0f;
+		style.GrabRounding = 0.0f;
+		style.ScrollbarRounding = 1.0f;
 	}
 
 	SetImGuiStyle();
@@ -154,6 +161,7 @@ int main() {
 		deltaTime = (double)((currentFrame - lastFrame) / (double)SDL_GetPerformanceFrequency());
 		lastFrame = currentFrame;
 
+		engineManager->input->update(deltaTime);
 		
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame(engineManager->window);

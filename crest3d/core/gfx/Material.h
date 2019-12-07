@@ -7,7 +7,7 @@ public:
 	Material() {};
 	~Material() {};
 
-	std::vector<std::shared_ptr<Texture>> maps;
+	std::shared_ptr<Shader> shader;
+	std::map<std::string, std::shared_ptr<Texture>> maps;
 
-	inline void addMap(std::shared_ptr<Texture> t) { maps.emplace_back(t); }
 };

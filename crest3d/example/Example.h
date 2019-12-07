@@ -9,8 +9,8 @@ public:
 
 	virtual ~Example() {};
 	
-	virtual void initBehaviour() {};
-	virtual void startBehaviour() {};
+	virtual void initBehaviour() { inputManager = engineManager->input; };
+	virtual void startBehaviour() { };
 	virtual void earlyUpdateBehaviour(float deltaTime) {};
 	virtual void fixedUpdateBehaviour() {};
 	virtual void updateBehaviour(float deltaTime) {};
@@ -47,6 +47,7 @@ public:
 			return nullptr;
 		}
 	}
-	
+
+	std::shared_ptr<InputManager> inputManager;
 	EngineManager* engineManager;
 };

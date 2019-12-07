@@ -18,6 +18,8 @@ public:
 	float mouseSensitivity;
 	float movementSpeed;
 
+	bool useContoller;
+
 private:
 	float lastX, lastY, initMoveSpeed;
 };

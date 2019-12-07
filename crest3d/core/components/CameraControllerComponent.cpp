@@ -5,68 +5,97 @@
 
 void CameraControllerComponent::earlyUpdate(float deltaTime)
 {
-	if (input->GetKeyW())
-	{
-		attachedEntity->transform->position += (attachedEntity->transform->forward * movementSpeed * deltaTime);
-	}
+	if (!useContoller) {
+		if (input->GetKeyW())
+		{
+			attachedEntity->transform->position += (attachedEntity->transform->forward * movementSpeed * deltaTime);
+		}
 
-	if (input->GetKeyS())
-	{
-		//BoneCam.ProcessKeyboard(BACKWARD, deltaTime);
-		attachedEntity->transform->position += (-(attachedEntity->transform->forward) * movementSpeed * deltaTime);
-	}
+		if (input->GetKeyS())
+		{
+			//BoneCam.ProcessKeyboard(BACKWARD, deltaTime);
+			attachedEntity->transform->position += (-(attachedEntity->transform->forward) * movementSpeed * deltaTime);
+		}
 
-	if (input->GetKeyA())
-	{
-		//BoneCam.ProcessKeyboard(LEFT, deltaTime);
-		attachedEntity->transform->position += (-(attachedEntity->transform->right) * movementSpeed * deltaTime);
-	}
+		if (input->GetKeyA())
+		{
+			//BoneCam.ProcessKeyboard(LEFT, deltaTime);
+			attachedEntity->transform->position += (-(attachedEntity->transform->right) * movementSpeed * deltaTime);
+		}
 
-	if (input->GetKeyD())
-	{
-		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		attachedEntity->transform->position += (attachedEntity->transform->right * movementSpeed * deltaTime);
-	}
+		if (input->GetKeyD())
+		{
+			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
+			attachedEntity->transform->position += (attachedEntity->transform->right * movementSpeed * deltaTime);
+		}
 
-	if (input->GetKeyE())
-	{
-		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		attachedEntity->transform->position += (attachedEntity->transform->up * movementSpeed * deltaTime);
-	}
+		if (input->GetKeyE())
+		{
+			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
+			attachedEntity->transform->position += (attachedEntity->transform->up * movementSpeed * deltaTime);
+		}
 
-	if (input->GetKeyQ())
-	{
-		//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-		attachedEntity->transform->position += (-(attachedEntity->transform->up) * movementSpeed * deltaTime);
+		if (input->GetKeyQ())
+		{
+			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
+			attachedEntity->transform->position += (-(attachedEntity->transform->up) * movementSpeed * deltaTime);
+		}
+		if (input->GetKeyLeftShift())
+		{
+			movementSpeed = initMoveSpeed * 6.0f;
+		}
+		else
+		{
+			movementSpeed = initMoveSpeed;
+		}
+
+		input->GetMouseMovement();
+		float deltaX = input->xpos - lastX;
+		float deltaY = -(input->ypos - lastY);
+		lastX = input->xpos;
+		lastY = input->ypos;
+
+		// do mouseMovement
+		deltaX = deltaX * 360.0f * mouseSensitivity * deltaTime;
+		deltaY = deltaY * 360.0f * mouseSensitivity * deltaTime;
+
+		if (input->GetRightClick())
+		{
+			SDL_ShowCursor(0);
+			attachedEntity->transform->eulerAngles += glm::vec3(deltaY, deltaX, 0);
+		}
+		else
+		{
+			SDL_ShowCursor(1);
+		}
 	}
-	if (input->GetKeyLeftShift())
+	
+
+	float xMovement = input->controller1.left_x_input;
+	float yMovement = input->controller1.left_y_input;
+
+	float xLook = input->controller1.right_x_input;
+	float yLook = input->controller1.right_y_input;
+
+	bool isSprinting = input->controller1.left_bumper;
+
+	glm::vec3 x_movement = attachedEntity->transform->right * xMovement;
+	glm::vec3 y_movement = attachedEntity->transform->forward * yMovement;
+
+
+	if(isSprinting)
 	{
-		movementSpeed = initMoveSpeed * 6.0f;
+		movementSpeed = 10.0f;
 	}
 	else
 	{
-		movementSpeed = initMoveSpeed;
+		movementSpeed = 5.0f;
 	}
-
-	input->GetMouseMovement();
-	float deltaX = input->xpos - lastX;
-	float deltaY = -(input->ypos - lastY);
-	lastX = input->xpos;
-	lastY = input->ypos;
-
-	// do mouseMovement
-	deltaX = deltaX * 360.0f * mouseSensitivity * deltaTime;
-	deltaY = deltaY * 360.0f * mouseSensitivity * deltaTime;
-
-	if (input->GetRightClick())
-	{
-		SDL_ShowCursor(0);
-		attachedEntity->transform->eulerAngles += glm::vec3(deltaY, deltaX, 0);
-	}
-	else
-	{
-		SDL_ShowCursor(1);
-	}
+	attachedEntity->transform->position += ((x_movement + y_movement) * movementSpeed * deltaTime);
+	attachedEntity->transform->eulerAngles += (glm::vec3(yLook, xLook, 0.0f) * 360.0f * deltaTime);
+		
+	
+	
 }
 
 CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, std::shared_ptr<InputManager> _input)
@@ -79,4 +108,5 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, 
 	mouseSensitivity = 0.1f;
 	movementSpeed = 5.0f;
 	initMoveSpeed = movementSpeed;
+	useContoller = false;
 }
