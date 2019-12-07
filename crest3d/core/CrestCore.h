@@ -3,7 +3,6 @@
 
 #include "gfx/Model.h"
 #include "gfx/AnimatedModel.h"
-#include "gfx/Camera.h"
 #include "gfx/Cubemap.h"
 #include "gfx/FrameBuffer.h"
 

@@ -60,12 +60,12 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	if (input->GetRightClick())
 	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		SDL_ShowCursor(0);
 		attachedEntity->transform->eulerAngles += glm::vec3(deltaY, deltaX, 0);
 	}
 	else
 	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		SDL_ShowCursor(1);
 	}
 }
 
@@ -76,7 +76,7 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, 
 	input = _input;
 	lastX = 0.0f;
 	lastY = 0.0f;
-	mouseSensitivity = 0.3f;
+	mouseSensitivity = 0.1f;
 	movementSpeed = 5.0f;
 	initMoveSpeed = movementSpeed;
 }

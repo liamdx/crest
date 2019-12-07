@@ -197,7 +197,10 @@ void Scene::updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> s
 {
 	if (sc != nullptr) {
 		// do the lighting stuff
-		dirLightComponent->Bind(sc);
+		if(dirLightComponent != nullptr)
+		{
+			dirLightComponent->Bind(sc);
+		}
 		sc->SetNumPointLights(pointLightComponents.size());
 		for (int i = 0; i < pointLightComponents.size(); i++)
 		{

@@ -4,165 +4,85 @@
 class InputManager {
 public:
 
-	InputManager(GLFWwindow* newWindow) : window(newWindow) { initialize(); }
+	InputManager(SDL_Window* newWindow) : window(newWindow) { initialize(); }
 
 	~InputManager() {};
 
+	void processInput(SDL_Event windowEvent);
+
+	void processKeyboardUp(SDL_KeyboardEvent keyboardEvent);
+	void processKeyboardDown(SDL_KeyboardEvent keyboardEvent);
+	void processMouseButton(SDL_MouseButtonEvent mouseButtonEvent);
+	void processMouseMovement(SDL_MouseMotionEvent mouseEvent);
+
 	bool GetRightClick()
 	{
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return rightClick;
 	};
 
 	bool GetLeftClick()
 	{
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return leftClick;
 	};
+	bool GetMiddleClick()
+	{
+		return middleClick;
+	}
 	bool GetKeyW()
 	{
-		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["W"];
 	};
 
 	bool GetKeyR()
 	{
-		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["W"];
 	}
 
 	bool GetKeyS()
 	{
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["S"];
 	};
 	bool GetKeyA()
 	{
-		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["A"];
 	};
 	bool GetKeyD()
 	{
-		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["D"];
 	};
 	bool GetKeyEsc()
 	{
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["Escape"];
 	};
 
 	bool GetKeyQ()
 	{
-		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["Q"];
 	};
 
 	bool GetKeyE()
 	{
-		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["E"];
 	};
 
 	bool GetKeyF()
 	{
-		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["F"];
 	};
 
 	bool GetKeyLeftShift()
 	{
-		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return keyStates["Left Shift"];
 	};
 
-	GLFWwindow* window;
+	SDL_Window* window;
 
 	double xpos, ypos, scroll;
 
-	static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-	{
-	}
-
-	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-	{
-	}
 
 	void GetMouseMovement()
 	{
-		glfwGetCursorPos(window, &xpos, &ypos);
+		// glfwGetCursorPos(window, &xpos, &ypos);
 	}
 
 	void GetMouseScroll()
@@ -172,7 +92,10 @@ public:
 private:
 	void initialize()
 	{
-		glfwSetCursorPosCallback(window, mouse_callback);
-		glfwSetScrollCallback(window, scroll_callback);
+		// glfwSetCursorPosCallback(window, mouse_callback);
+		// glfwSetScrollCallback(window, scroll_callback);
 	}
+
+	std::map<std::string, bool> keyStates;
+	bool leftClick, rightClick, middleClick;
 };

@@ -27,7 +27,8 @@ public:
 	std::unique_ptr<Debug> debug;
 
 	// probably should be made generic (likely wil switch to SDL at somepoint) 
-	GLFWwindow* window;
+	SDL_Window* window;
+	SDL_GLContext context;
 
 
 	std::vector<unsigned int> componentIds;

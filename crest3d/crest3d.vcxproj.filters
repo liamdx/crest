@@ -93,9 +93,6 @@
     <ClCompile Include="core\components\CollisionShapeComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\ext\imgui\imgui_impl_glfw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\ext\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -133,6 +130,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\components\AudioComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ext\imgui\imgui_impl_sdl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -641,9 +644,6 @@
     <ClInclude Include="core\gfx\Cubemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\gfx\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\CrestCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -675,9 +675,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="example\EditorPrototyping.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\ext\imgui\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imgui_impl_opengl3.h">
@@ -864,6 +861,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\nodegraph\NodeGraphSerializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\imgui\imgui_impl_sdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

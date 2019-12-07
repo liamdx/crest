@@ -1,17 +1,16 @@
 #define _CRT_SECURE_NO_WARNINGS
-
+#define SDL_MAIN_HANDLED
+#include "SDL.h";
 #include "EditorPrototyping.h"
 
-float SCREEN_WIDTH = 1280.0;
-float SCREEN_HEIGHT = 720.0;
+float SCREEN_WIDTH = 1920.0;
+float SCREEN_HEIGHT = 1080.0;
 
 bool* b = new bool(true);
 
-void window_size_callback(GLFWwindow* window, int width, int height);
-
+void resizeWindow(int windowWidth, int windowHeight);
 
 int main() {
-	// SDL_Init(SDL_INIT_EVERYTHING);
 
 	float deltaTime = 0.0;
 	float lastFrame = 0.0;
@@ -42,7 +41,7 @@ int main() {
 	ImGuiStyle& style = ImGui::GetStyle();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
-		style.WindowRounding = 0.2f;
+		style.WindowRounding = 0.05f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
@@ -50,8 +49,10 @@ int main() {
 	YSE::System().init();
 	
 	//// Setup Platform/Renderer bindings
-	ImGui_ImplGlfw_InitForOpenGL(engineManager->window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplSDL2_InitForOpenGL(engineManager->window, engineManager->context);
+	ImGui_ImplOpenGL3_Init("#version 440");
+	
+	
 	imnodes::Initialize();
 
 	example.initBehaviour();
@@ -72,25 +73,43 @@ int main() {
 	example.startBehaviour();
 	
 	//Mouse input handle
-	glfwSetInputMode(engineManager->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	glfwSetWindowSizeCallback(engineManager->window, window_size_callback);
+	//glfwSetInputMode(engineManager->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	//glfwSetWindowSizeCallback(engineManager->window, window_size_callback);
 	
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
+
+	int vsync = 0;
+	SDL_Event windowEvent;
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	while (!glfwWindowShouldClose(engineManager->window)) {
+
+	bool shouldRun = true;
+	while (shouldRun) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 
+		while(SDL_PollEvent(&windowEvent))
+		{
+			engineManager->input->processInput(windowEvent);
+			
+			if(windowEvent.window.event == SDL_WINDOWEVENT_CLOSE)
+			{
+				shouldRun = false;
+			}
+			if (windowEvent.window.event == SDL_WINDOWEVENT_RESIZED) {
+				resizeWindow(windowEvent.window.data1, windowEvent.window.data2);
+			}
+			ImGui_ImplSDL2_ProcessEvent(&windowEvent);
+		}
 		//Engine time
-		float currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
+		float currentFrame = SDL_GetPerformanceCounter();
+		deltaTime = (double)((currentFrame - lastFrame) / (double)SDL_GetPerformanceFrequency());
 		lastFrame = currentFrame;
 
+		
 		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		// ImGui_ImplSDL2_NewFrame(sdl_window);
+		ImGui_ImplSDL2_NewFrame(engineManager->window);
 		ImGui::NewFrame();
 
 		//Render scene normally
@@ -138,12 +157,17 @@ int main() {
 		// this is so bleh and needs refactored.
 		if (ImGui::Begin("Scene Window", NULL, ImVec2(0, 0)))
 		{
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			if (ImGui::IsWindowFocused())
+			{
+				ImGui::Text("Focussed on this window");
+			}
+			else
+			{
+				ImGui::Text("Not focussed on this window");
+			}
 			ImVec2 pos = ImGui::GetCursorScreenPos();
 			float dWidth = ImGui::GetWindowWidth();
 			float dHeight = ImGui::GetWindowHeight();
-			ImGui::SliderFloat("Exposure", &exposure, 0, 10);
-			ImGui::SliderFloat("Gamma", &gamma, 0, 10);
 			if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
 			{
 				mainFB.changeScreenSize(dWidth, dHeight);
@@ -165,6 +189,15 @@ int main() {
 		ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
 		if (ImGui::Begin("Depth Window", NULL, ImVec2(0, 0)))
 		{
+			if(ImGui::IsWindowFocused())
+			{
+				ImGui::Text("Focussed on this window");
+			}
+			else
+			{
+				ImGui::Text("Not focussed on this window");
+			}
+			
 			ImGui::GetWindowDrawList()->AddImage(
 				(void*)depthFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
@@ -174,6 +207,14 @@ int main() {
 		ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
 		if (ImGui::Begin("Final Window", NULL, ImVec2(0, 0)))
 		{
+			if (ImGui::IsWindowFocused())
+			{
+				ImGui::Text("Focussed on this window");
+			}
+			else
+			{
+				ImGui::Text("Not focussed on this window");
+			}
 			ImGui::GetWindowDrawList()->AddImage(
 				(void*)finalFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
@@ -221,6 +262,27 @@ int main() {
 		{
 		}
 
+		ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
+		if(ImGui::Begin("Graphics"))
+		{
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			if (ImGui::Button("Enable VSYNC"))
+			{
+				if (vsync == 0)
+				{
+					SDL_GL_SetSwapInterval(0);
+					vsync = 1;
+				}
+				else
+				{
+					SDL_GL_SetSwapInterval(1);
+					vsync = 0;
+				}
+			}
+			ImGui::SliderFloat("Exposure", &exposure, 0, 10);
+			ImGui::SliderFloat("Gamma", &gamma, 0, 10);
+		}
+		ImGui::End();
 		Debug::DrawConsole();
 		
 		example.uiBehaviour(deltaTime);
@@ -229,26 +291,20 @@ int main() {
 		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		// ImGuiSDL::Render(ImGui::GetDrawData());
-		// ImGui_ImplSd
-
-		// Update and Render additional Platform Windows
-		// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-		//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			GLFWwindow* backup_current_context = glfwGetCurrentContext();
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(backup_current_context);
-		}
-
-		glfwSwapBuffers(engineManager->window);
-		/* Poll for and process events */
-		glfwPollEvents();
-
 		
-		// SDL_GL_SwapWindow(sdl_window);
+		//// ImGui_ImplSd
+
+		//// Update and Render additional Platform Windows
+		//// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+		////  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
+		//if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		//{
+		//	GLFWwindow* backup_current_context = glfwGetCurrentContext();
+		//	ImGui::UpdatePlatformWindows();
+		//	ImGui::RenderPlatformWindowsDefault();
+		//	glfwMakeContextCurrent(backup_current_context);
+		//}
+		SDL_GL_SwapWindow(engineManager->window);
 	}
 
 	YSE::System().close();
@@ -258,9 +314,14 @@ int main() {
 	
 }
 
-void window_size_callback(GLFWwindow* window, int width, int height)
-{
-	SCREEN_WIDTH = width;
-	SCREEN_HEIGHT = height;
-	glViewport(0, 0, width, height);
+void resizeWindow(int windowWidth, int windowHeight) {
+	glViewport(0, 0, windowWidth, windowHeight);
+	SCREEN_WIDTH = windowWidth;
+	SCREEN_HEIGHT = windowHeight;
 }
+//void window_size_callback(GLFWwindow* window, int width, int height)
+//{
+//	SCREEN_WIDTH = width;
+//	SCREEN_HEIGHT = height;
+//	glViewport(0, 0, width, height);
+//}

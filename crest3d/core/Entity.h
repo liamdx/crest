@@ -4,6 +4,11 @@
 
 class EngineManager;
 
+enum UpdateState
+{
+	fullRate, halfRate, quarterRate, eighthRate
+};
+
 class Entity {
 public:
 
@@ -14,6 +19,7 @@ public:
 	};
 
 	std::string name;
+	UpdateState state;
 	std::vector<std::shared_ptr<EngineComponent>> components;
 	std::shared_ptr<Entity> parent;
 	std::vector<std::shared_ptr<Entity>> children;
@@ -45,11 +51,13 @@ public:
 	}
 
 	void AddChild(std::shared_ptr<Entity> e);
+	void RemoveChild(unsigned int _ID);
+	void RemoveParent();
+	void ClearChildren();
+	void SetParent(std::shared_ptr<Entity> newParent);
+	
 	std::shared_ptr<Entity> GetChild(unsigned int index);
 	std::shared_ptr<Entity> GetChild(const char* name);
-
-	
-	EngineManager* engineManager;
 
 	void initBehaviour();
 	void startBehaviour();
@@ -59,7 +67,15 @@ public:
 	void renderBehaviour(float deltaTime, glm::mat4 view);
 	void uiBehaviour(float deltaTime);
 
+
+	EngineManager* engineManager;
 private:
+	// for variable update rates;
+	void do_update(float deltaTime);
+	void do_render(float deltaTime, glm::mat4 view);
+	
+	uint8_t halfRateCounter, quarterRateCounter, eighthRateCounter;
+	float halfRateTime, quarterRateTIme, eighthRateTime;
 	void ConsoleError(std::string error);
 	int id;
 };

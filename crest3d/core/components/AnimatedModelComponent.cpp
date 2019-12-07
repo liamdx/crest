@@ -34,6 +34,7 @@ void AnimatedModelComponent::earlyUpdate(float deltaTime)
 
 void AnimatedModelComponent::update(float deltaTime)
 {
+	boneTransforms.clear();
 	runningTime += deltaTime;
 	if (runningTime >= anim->currentAnimationLengthInSeconds)
 	{
@@ -66,7 +67,6 @@ void AnimatedModelComponent::draw(glm::mat4 view, std::shared_ptr<ShaderComponen
 		_shader->setView(view);
 		_shader->UpdateShader(attachedEntity->transform->getModelMatrix());
 		anim->Draw(_shader);
-		boneTransforms.clear();
 	}
 }
 

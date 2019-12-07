@@ -15,9 +15,10 @@
 #include <map>
 #include <typeinfo>
 
+
 //external dependencies
 #include "GL/glew.h"
-#include "GLFW/glfw3.h"
+#include "SDL.h"
 #include "ext/stb_image/stb_image.h"
 #include "yse.hpp"
 #include "pugixml/pugixml.hpp"
@@ -37,35 +38,16 @@
 #include "ext/imgui/ImGuiFileDialog.h"
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
-
-#include "ext/imgui/imgui_impl_glfw.h"
 #include "ext/imgui/imgui_impl_opengl3.h"
+#include "ext/imgui/imgui_impl_sdl.h"
 
-// #include "ext/imgui/imgui_impl_sdl.h"
 
-//physics lib (g'doy)
+//physics
 #include "btBulletDynamicsCommon.h"
 #include "btBulletCollisionCommon.h"
 #include "BulletCollision/CollisionShapes/btShapeHull.h"
 
-#define SDL_MAIN_HANDLED
-// #include "SDL2/SDL.h"
 
-//camera stuff
-// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
-enum Camera_Movement {
-	FORWARD,
-	BACKWARD,
-	LEFT,
-	RIGHT
-};
-
-// Default camera values
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVITY = 0.1f;
-const float ZOOM = 45.0f;
 
 #define ZERO_MEM(a) memset(a, 0, sizeof(a))
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))

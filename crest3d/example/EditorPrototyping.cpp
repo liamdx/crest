@@ -17,22 +17,25 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
 	entities["cyborgEntity"]->transform->position = (glm::vec3(4, 0, 0));
-	// cyborgEntity->transform->addScale(glm::vec3(3.0));
-	/*for (int i = 0; i < cyborgEntity->children.size(); i++)
-	{
-		cyborgEntity->children.at(i)->AddComponent(new RigidbodyComponent(cyborgEntity->children.at(i)));
-		cyborgEntity->children.at(i)->AddComponent(new CollisionShapeComponent(cyborgEntity->children.at(i)));
-	}
-*/
+
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
 	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
 	entities["levelEntity"]->transform->position += (glm::vec3(0, -10, 0));
-	/*for (int i = 0; i < levelEntity->children.size(); i++)
-	{
-		levelEntity->children.at(i)->AddComponent(new RigidbodyComponent(levelEntity->children.at(i)));
-		levelEntity->children.at(i)->AddComponent(new CollisionShapeComponent(levelEntity->children.at(i)));
-	}*/
 
+	int res = 5;
+	int counter = 0;
+	for(int x = 0; x < res; x++)
+	{
+		for(int y = 0; y < res; y++)
+		{
+			std::string s = "AnimEntity" + std::to_string(counter);
+			counter += 1;
+			entities[s] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
+			entities[s]->state = UpdateState(halfRate);
+			entities[s]->transform->position = (glm::vec3(x * 2, 0.0, y * 2));
+			
+		}
+	}
 	entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
 	entities["animEntity"]->transform->position = (glm::vec3(-4.0, 0.0, 0.0));
 	entities["animEntity"]->AddComponent(new AudioComponent());
@@ -162,6 +165,19 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			ImGui::TreePop();
 		}
 
+		if(e->state == UpdateState::fullRate)
+		{
+			ImGui::Text("Full rate Update");
+		}
+		if (e->state == UpdateState::halfRate)
+		{
+			ImGui::Text("Half rate Update");
+		}
+		if (e->state == UpdateState::quarterRate)
+		{
+			ImGui::Text("Quarter rate Update");
+		}
+		
 		if (e->GetComponent<MeshComponent>() != nullptr)
 		{
 			if (ImGui::TreeNode("MeshComponent"))
@@ -220,6 +236,21 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			engineManager->DeleteEntity(e->GetID());
 		}
 
+		if(ImGui::Button("Full Rate"))
+		{
+			e->state = UpdateState::fullRate;
+		}
+
+		if (ImGui::Button("Half Rate"))
+		{
+			e->state = UpdateState::halfRate;
+		}
+
+		if (ImGui::Button("Quarter Rate"))
+		{
+			e->state = UpdateState::quarterRate;
+		}
+		
 		for (int i = 0; i < e->children.size(); i++)
 		{
 			ImGuiEntityDebug(e->children.at(i));

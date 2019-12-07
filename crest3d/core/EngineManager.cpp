@@ -15,29 +15,38 @@ EngineManager::EngineManager()
 
 int EngineManager::initialise(int screenWidth, int screenHeight)
 {
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
-
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(screenWidth, screenHeight, "Crest", NULL, NULL);
-
-	if (!window) {
-		glfwTerminate();
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		std::cout << "Failed to initalise SDL2 \n";
 		return -1;
 	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	if (glewInit() != GLEW_OK) {
-		std::cout << "failed to initalise glew" << std::endl;
+	else
+	{
+		std::cout << "Successfully initialised SDL2 \n";
 	}
 
-	glfwSwapInterval(0);
 
-	// ok to start doing stuff with the opengl window & context
 
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+
+	window = SDL_CreateWindow("OpenGL", 0, 0, 800, 600, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	context = SDL_GL_CreateContext(window);
+	SDL_GL_MakeCurrent(window, context);
+	
+	glewExperimental = GL_TRUE;
+
+	if (GLEW_OK != glewInit())
+	{
+		std::cout << "Failed to initalise GLEW \n";
+		return -1;
+	}
+	else
+	{
+		std::cout << "Successfully initialised GLEW \n";
+	}
 	//Enable depth
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -47,6 +56,9 @@ int EngineManager::initialise(int screenWidth, int screenHeight)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	YSE::System().init();
+	SDL_SetWindowSize(window, 1280, 720);
+
+	return 1;
 }
 
 void EngineManager::initialiseExample(Example* _example)
@@ -197,7 +209,7 @@ std::shared_ptr<Entity> EngineManager::AddAnimatedModelEntity(std::shared_ptr<An
 	std::shared_ptr<Entity> e = AddEntity();
 	e->engineManager = this;
 	e->SetId(makeUniqueEntityID());
-	e->name = model->directory;
+	e->name = "AnimModel" + std::to_string(e->GetID());
 	e->AddComponent(new AnimatedModelComponent(e, model));
 	auto amc = e->GetComponent<AnimatedModelComponent>();
 	amc->getBoneShaderIDLocations(shaderManager->defaultAnimShader);
@@ -273,10 +285,12 @@ void EngineManager::deleteComponentInExample(unsigned int _id)
 			componentToDelete = it->first;
 			shouldDelete = true;
 		}
+		it++;
 	}
 	if (shouldDelete)
 	{
 		example->components.erase(componentToDelete);
+		return;
 	}
 }
 
@@ -288,9 +302,19 @@ std::shared_ptr<Entity> EngineManager::getEntity(std::shared_ptr<Entity> e, unsi
 	}
 	else
 	{
-		for (unsigned int i = 0; i < e->children.size(); i++)
+		if (e->children.size() > 0)
 		{
-			getEntity(e->children.at(i), _id);
+			for (unsigned int i = 0; i < e->children.size(); i++)
+			{
+				if(e->children.at(i)->GetID() == _id)
+				{
+					return e->children.at(i);
+				}
+			}
+			for(unsigned int i = 0; i < e->children.size(); i++)
+			{
+				getEntity(e->children.at(i), _id);
+			}
 		}
 	}
 }
@@ -299,6 +323,16 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 {
 	std::shared_ptr<Entity> e = nullptr;
 	e = getEntity(scene->rootEntity, entityId);
+
+	e->parent->RemoveChild(entityId);
+
+	for(int i = 0; i < e->children.size(); i++)
+	{
+		e->children.at(i)->RemoveParent();
+	}
+
+	e->ClearChildren();
+	
 	std::cout << "Entity num components before deletion : " << std::to_string(e->components.size()) << std::endl;
 	if (e != nullptr)
 	{
@@ -312,7 +346,7 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 
 void EngineManager::DeleteComponent(unsigned int componentId)
 {
-	if (scene->dirLightComponent->id == componentId)
+	if (scene->dirLightComponent != nullptr && scene->dirLightComponent->id == componentId)
 	{
 		scene->dirLightComponent = nullptr;
 	}
