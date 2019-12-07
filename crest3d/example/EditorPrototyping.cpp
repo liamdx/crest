@@ -141,6 +141,7 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 	std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
 	cubemapShader->use();
 	cubemapShader->setMat4("view", glm::mat4(glm::mat3(cam->GetViewMatrix())));
+	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 	cubemapShader->setInt("cubemap", 0);
 
 	skybox->Draw(*cubemapShader);
