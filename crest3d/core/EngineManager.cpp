@@ -32,7 +32,7 @@ int EngineManager::initialise(int screenWidth, int screenHeight)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
-	window = SDL_CreateWindow("OpenGL", 0, 0, 800, 600, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_MAXIMIZED );
+	window = SDL_CreateWindow("Crest", 0, 0, 800, 600, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_MAXIMIZED );
 	context = SDL_GL_CreateContext(window);
 	SDL_GL_MakeCurrent(window, context);
 	
