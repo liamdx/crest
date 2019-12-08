@@ -211,27 +211,28 @@ void TransformComponent::updateDirectionVectors()
 
 void TransformComponent::update(float deltaTime)
 {
-	//if (!physicsOverride)
-	//{
-	if (parent == nullptr)
+	if (!physicsOverride)
 	{
-		if (shouldUpdateModel())
+		if (parent == nullptr)
 		{
-			updateModelMatrix();
+			if (shouldUpdateModel())
+			{
+				updateModelMatrix();
+			}
+
+			updateRotation();
+		}
+		else
+		{
+			if (shouldUpdateModel())
+			{
+				updateModelMatrix();
+			}
+			updateRotation();
 		}
 
-		updateRotation();
+		updateDirectionVectors();
 	}
-	else
-	{
-		if (shouldUpdateModel())
-		{
-			updateModelMatrix();
-		}
-		updateRotation();
-	}
-
-	updateDirectionVectors();
 }
 
 void TransformComponent::render(float deltaTime, glm::mat4 view)

@@ -39,8 +39,6 @@ void CollisionShapeComponent::updateRigidbodyShape()
 {
 	auto scale = attachedEntity->transform->scale;
 	shape->setLocalScaling(btVector3(scale.x, scale.y, scale.z));
-	rib->changeCollisionShape(shape);
-	rib->applyCentralForce(glm::vec3(0, 500, 0));
 }
 
 // private smaller funcs

@@ -191,7 +191,7 @@ std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> mod
 {
 	std::shared_ptr<Entity> e = AddEntity();
 	e->engineManager = this;
-	e->name = model->name;
+	e->name = model->name + std::to_string(e->GetID());
 	e->SetId(makeUniqueEntityID());
 	for (int i = 0; i < model->meshes.size(); i++)
 	{
@@ -321,15 +321,6 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 {
 	std::shared_ptr<Entity> e = nullptr;
 	e = getEntity(scene->rootEntity, entityId);
-
-	e->parent->RemoveChild(entityId);
-
-	for(int i = 0; i < e->children.size(); i++)
-	{
-		e->children.at(i)->RemoveParent();
-	}
-
-	e->ClearChildren();
 	
 	std::cout << "Entity num components before deletion : " << std::to_string(e->components.size()) << std::endl;
 	if (e != nullptr)
@@ -337,9 +328,22 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 		for (int i = 0; i < e->components.size(); i++)
 		{
 			DeleteComponent(e->components.at(i)->id);
+			e->components.clear();
 		}
 	}
 	std::cout << "Entity num components after deletion : " << std::to_string(e->components.size()) << std::endl;
+
+	for(int i = 0; i < e->children.size(); i++)
+	{
+		for (int j = 0; j < e->children.at(i)->components.size(); j++)
+		{
+			DeleteComponent(e->children.at(i)->components.at(j)->id);
+		}
+		e->children.at(i)->components.clear();
+	}
+
+	e->parent->RemoveChild(entityId);
+	e->ClearChildren();
 }
 
 void EngineManager::DeleteComponent(unsigned int componentId)

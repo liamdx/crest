@@ -8,7 +8,7 @@ class PhysicsManager
 {
 public:
 	PhysicsManager();
-	~PhysicsManager() {};
+	~PhysicsManager();
 
 	// should we render the collision meshes?
 	bool debugRender;
@@ -26,7 +26,8 @@ public:
 	inline glm::mat4 getProjection() { return projection; }
 
 	// pm functions
-	void addRigidbody(std::shared_ptr<btRigidBody> rib, std::shared_ptr<btCollisionShape> col);
+	btRigidBody* addRigidbody(std::shared_ptr<Entity>attachedEntity);
+	btRigidBody* addRigidbody();
 	void addPhysicsEntity(std::shared_ptr<Entity> e) { physicsEntities.emplace_back(e); }
 
 	Shader debugShader;

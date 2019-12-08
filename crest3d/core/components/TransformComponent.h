@@ -67,9 +67,9 @@ public:
 	TransformComponent();
 	TransformComponent(std::shared_ptr<TransformComponent> _parent);
 	~TransformComponent() {};
-
-private:
 	glm::mat4 model;
+private:
+	
 	glm::mat4 localModelMatrix;
 	bool physicsOverride;
 	void updateDirectionVectors();

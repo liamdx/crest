@@ -78,7 +78,7 @@ int main() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 12.0f);
+	io.Fonts->AddFontFromFileTTF("res/font/Rubik-Light.ttf", 13.0f);
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -134,6 +134,7 @@ int main() {
 	float lastWindowHeight = 0.0;
 
 	int vsync = 0;
+	SDL_GL_SetSwapInterval(vsync);
 	SDL_Event windowEvent;
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -336,6 +337,19 @@ int main() {
 			}
 			ImGui::SliderFloat("Exposure", &exposure, 0, 10);
 			ImGui::SliderFloat("Gamma", &gamma, 0, 10);
+			if (ImGui::Button("Enable Debug Physics Drawing"))
+			{
+				engineManager->physicsManager->debugRender = !engineManager->physicsManager->debugRender;
+			}
+
+			if(engineManager->physicsManager->debugRender)
+			{
+				ImGui::Text("Rendering Debug Bullet Shapes");
+			}
+			else
+			{
+				ImGui::Text("Not Rendering Debug Bullet Shapes");
+			}
 		}
 		ImGui::End();
 		Debug::DrawConsole();

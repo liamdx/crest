@@ -6,7 +6,7 @@ class CollisionShapeComponent : public EngineComponent
 {
 public:
 
-	CollisionShapeComponent(std::shared_ptr<Entity> e) { attachedEntity = e; rib = e->GetComponent<RigidbodyComponent>(); }
+	CollisionShapeComponent(std::shared_ptr<Entity> e) { attachedEntity = e; createSphereShape(); }
 	~CollisionShapeComponent() override {};
 
 	std::shared_ptr<btCollisionShape> getShape() { return shape; }
@@ -28,7 +28,6 @@ private:
 
 	// hmm, maybe references?
 	std::shared_ptr<btCollisionShape> shape;
-	std::shared_ptr<RigidbodyComponent> rib;
 	glm::vec3 scale;
 
 	// convex hull stuff

@@ -40,9 +40,10 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
 			attachedEntity->transform->position += (-(attachedEntity->transform->up) * movementSpeed * deltaTime);
 		}
+
 		if (input->GetKeyLeftShift())
 		{
-			movementSpeed = initMoveSpeed * 6.0f;
+			movementSpeed = sprintSpeed;
 		}
 		else
 		{
@@ -108,5 +109,6 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, 
 	mouseSensitivity = 0.1f;
 	movementSpeed = 5.0f;
 	initMoveSpeed = movementSpeed;
+	sprintSpeed = initMoveSpeed * 3.0f;
 	useContoller = false;
 }

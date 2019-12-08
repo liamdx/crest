@@ -9,33 +9,62 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	clapTimer = 0.0f;
 	
 	auto m = engineManager->assetManager->loadModelAsset("res/models/cyborg/cyborg.obj");
-	auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
-	//auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
+	//auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
+	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
+	auto barrelModel = engineManager->assetManager->loadModelAsset("res/models/barrel/barrel.obj");
+	
 	auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
 	
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
 	entities["cyborgEntity"]->transform->position = (glm::vec3(4, 0, 0));
+	entities["cyborgEntity"]->AddComponent(new RigidbodyComponent(entities["cyborgEntity"]));
 
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
 	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
 	entities["levelEntity"]->transform->position += (glm::vec3(0, -10, 0));
+	entities["levelEntity"]->transform->scale = glm::vec3(0.05, 0.05, 0.05);
+	
 
-	int res = 5;
+	int res = 10;
 	int counter = 0;
 	for(int x = 0; x < res; x++)
 	{
 		for(int y = 0; y < res; y++)
 		{
+			for (int z = 0; z < res; z++)
+			{
+				std::string s = "RigidbodyEntity" + std::to_string(counter);
+				counter += 1;
+				entities[s] = engineManager->AddModelEntity(barrelModel->asset);
+				entities[s]->transform->position = (glm::vec3(x * 2, 20 + z * 2, y * 2));
+				entities[s]->transform->scale = glm::vec3(0.25, 0.25, 0.25);
+				entities[s]->AddComponent(new RigidbodyComponent(entities[s]));
+			}
+		}
+	}
+
+	for (int x = 0; x < res / 2; x++)
+	{
+		for (int y = 0; y < res / 2 ; y++)
+		{
 			std::string s = "AnimEntity" + std::to_string(counter);
 			counter += 1;
 			entities[s] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
-			entities[s]->state = UpdateState(halfRate);
-			entities[s]->transform->position = (glm::vec3(x * 2, 0.0, y * 2));
-			
+			entities[s]->state = UpdateState::halfRate;
+			entities[s]->transform->position = (glm::vec3(x * 2, 0, y * 2));
+			entities[s]->transform->scale = glm::vec3(0.5, 0.5, 0.5);
 		}
 	}
+	entities["floorEntity"] = engineManager->AddEntity();
+	entities["floorEntity"]->AddComponent(new RigidbodyComponent(entities["floorEntity"]));
+	components["floorRib"] = entities["floorEntity"]->GetComponent<RigidbodyComponent>();
+	auto floorRib = GetUsableComponent<RigidbodyComponent>("floorRib");
+	entities["floorEntity"]->transform->position = glm::vec3(0, -10, 0);
+	floorRib->SetCubeShape(glm::vec3(10000, 0.3, 10000));
+	floorRib->setMass(0.0f);
+
 	entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
 	entities["animEntity"]->transform->position = (glm::vec3(-4.0, 0.0, 0.0));
 	entities["animEntity"]->AddComponent(new AudioComponent());
@@ -52,7 +81,7 @@ void EditorPrototyping::initBehaviour()
 	// some sample pointlights, please implement scene xml soon :)
 	auto dirLightComponent = std::dynamic_pointer_cast<DirectionalLightComponent>(components["dirLightComponent"]);
 	dirLightComponent->diffuse = glm::vec3(0.0);
-	dirLightComponent->ambient = glm::vec3(0.05);
+	dirLightComponent->ambient = glm::vec3(0.0);
 
 	auto pl1 = engineManager->AddPointLightEntity();
 	pl1->transform->position = glm::vec3(24.8, 3.7, 0.0);
@@ -155,18 +184,7 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 {
 	if (ImGui::TreeNode(e->name.c_str()))
 	{
-		if (ImGui::TreeNode("Transform"))
-		{
-			ImGui::Auto(e->transform->position, "Entity Position");
-			ImGui::Auto(e->transform->eulerAngles, "Entity Rotation");
-			ImGui::Auto(e->transform->scale, "Entity Scale");
-			ImGui::Auto(e->transform->localPosition, "Entity Local Position");
-			ImGui::Auto(e->transform->localEulerAngles, "Entity Local Rotation");
-			ImGui::Auto(e->transform->localScale, "Entity Local Scale");
-			ImGui::TreePop();
-		}
-
-		if(e->state == UpdateState::fullRate)
+		if (e->state == UpdateState::fullRate)
 		{
 			ImGui::Text("Full rate Update");
 		}
@@ -177,6 +195,16 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 		if (e->state == UpdateState::quarterRate)
 		{
 			ImGui::Text("Quarter rate Update");
+		}
+		if (ImGui::TreeNode("Transform"))
+		{
+			ImGui::Auto(e->transform->position, "Entity Position");
+			ImGui::Auto(e->transform->eulerAngles, "Entity Rotation");
+			ImGui::Auto(e->transform->scale, "Entity Scale");
+			ImGui::Auto(e->transform->localPosition, "Entity Local Position");
+			ImGui::Auto(e->transform->localEulerAngles, "Entity Local Rotation");
+			ImGui::Auto(e->transform->localScale, "Entity Local Scale");
+			ImGui::TreePop();
 		}
 		
 		if (e->GetComponent<MeshComponent>() != nullptr)
@@ -219,17 +247,32 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			{
 				auto rbc = e->GetComponent<RigidbodyComponent>();
 				ImGui::Auto(rbc->mass, "Rigidbody Mass");
+				ImGui::Auto(forceAmount, "Force Amount");
+				ImGui::Auto(rbc->centerOffset, "Collision Shape Offset");
+				ImGui::Auto(rbc->shouldLog, "Should log rotation information");
+				ImGui::Auto(boxScale, "Box scale DEBUG");
+				if(ImGui::Button("Change to box shape"))
+				{
+					rbc->SetCubeShape(boxScale);
+				}
+				if(ImGui::Button("Add Force"))
+				{
+					rbc->applyCentralForce(glm::vec3(0, forceAmount, 0));
+				}
 				ImGui::TreePop();
 			}
 		}
 
+		if(e->GetComponent<CameraControllerComponent>() != nullptr)
+		{
+			auto controller = e->GetComponent<CameraControllerComponent>();
+			ImGui::Auto(controller->initMoveSpeed, "Cam speed");
+			ImGui::Auto(controller->movementSpeed, "Cam speed");
+		}
+		
 		if (ImGui::Button("Add Rigidbody to component"))
 		{
-			auto rib = std::make_shared<RigidbodyComponent>(e);
-			e->AddComponent(rib);
-			e->AddComponent(new CollisionShapeComponent(e));
-			rib->init();
-			rib->setMass(0.0f);
+			e->AddComponent(new RigidbodyComponent(e));
 		}
 
 		if(ImGui::Button("Delete Entity"))
@@ -280,6 +323,11 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 		if (ImGui::Button("Add Point Light"))
 		{
 			engineManager->AddPointLightEntity();
+		}
+
+		if (ImGui::Button("Add Entity"))
+		{
+			engineManager->AddEntity();
 		}
 
 		// load model

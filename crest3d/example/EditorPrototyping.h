@@ -36,8 +36,9 @@ private:
 		"res/textures/violentdays/violentdays_ft.png"
 	};
 
+	float forceAmount = 5.0f;
 
-
+	glm::vec3 boxScale;
 	// private functions
 	void ImGuiEntityDebug(std::shared_ptr<Entity> e);
 };

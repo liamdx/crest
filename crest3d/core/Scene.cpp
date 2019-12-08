@@ -53,7 +53,6 @@ void childEarlyUpdate(std::shared_ptr<Entity> e, float deltaTime)
 
 void Scene::earlyUpdateBehaviour(float deltaTime)
 {
-	engineManager->physicsManager->update(deltaTime);
 	childEarlyUpdate(rootEntity, deltaTime);
 }
 
@@ -82,6 +81,7 @@ void childUpdate(std::shared_ptr<Entity> e, float deltaTime)
 
 void Scene::updateBehaviour(float deltaTime)
 {
+	engineManager->physicsManager->update(deltaTime);
 	childUpdate(rootEntity, deltaTime);
 }
 

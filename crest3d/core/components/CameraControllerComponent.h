@@ -16,10 +16,10 @@ public:
 	SDL_Window* window;
 
 	float mouseSensitivity;
-	float movementSpeed;
+	float movementSpeed , sprintSpeed, initMoveSpeed;
 
 	bool useContoller;
 
 private:
-	float lastX, lastY, initMoveSpeed;
+	float lastX, lastY;
 };

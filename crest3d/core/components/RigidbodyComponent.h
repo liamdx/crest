@@ -7,35 +7,40 @@
 class RigidbodyComponent : public EngineComponent
 {
 public:
-	RigidbodyComponent(std::shared_ptr<Entity> e) { attachedEntity = e; name = "RigidbodyComponent"; };
+	RigidbodyComponent(std::shared_ptr<Entity> e) { attachedEntity = e; name = "RigidbodyComponent"; }
 
 	// change pointers to unique_ptr
-	~RigidbodyComponent() override {  };
+	~RigidbodyComponent() override;
 
 	void init() override;
 	void start() override;
 	void earlyUpdate(float deltaTime) override;
-	void update(float deltaTime) override;
-	void fixedUpdate() override;
-	void render(float deltaTime, glm::mat4 view) override;
-	void ui(float deltaTime) override;
+
 
 	// Bullet stuff
-	std::shared_ptr<btRigidBody> rib;
-	std::shared_ptr<btCollisionShape> shape;
-	std::shared_ptr<btDefaultMotionState> myMotionState;
+	btRigidBody* rib;
+	btCollisionShape* shape;
+	btMotionState* myMotionState;
 
 	void changeCollisionShape(std::shared_ptr<btCollisionShape> newShape);
-	void createConvexMeshShape();
-
 	void applyCentralForce(glm::vec3 force);
+
+	void SetCubeShape(glm::vec3 dimensions);
+	void SetSphereShape(glm::vec3 dimensions);
+	void SetCapsuleShape(glm::vec3 dimensions);
+	
 
 	//shape functionality pls
 	inline float getMass() { return mass; }
 	inline void setMass(float newMass) { mass = newMass; rib->setMassProps(newMass, btVector3(0, 0, 0)); }
 	bool enabled;
+	bool shouldLog = false;
 	float mass;
-
+	glm::vec3 centerOffset;
+	void reset();
+	
 private:
+
+	float previousFrameMass;
 	btTransform trans;
 };
