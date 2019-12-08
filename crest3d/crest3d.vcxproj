@@ -100,7 +100,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/yse/lib;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/SDL/lib/Win32;$(SolutionDir)dependencies/yse/lib;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/libyse/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib</AdditionalDependencies>
       <SubSystem>NotSet</SubSystem>
       <EntryPointSymbol>
@@ -138,7 +138,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/SDL/lib/x86;$(SolutionDir)dependencies/yse/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win32;$(SolutionDir)dependencies/assimp/lib;$(SolutionDir)dependencies/bullet/lib/debug32;$(SolutionDir)dependencies/SDL/lib/Win32;$(SolutionDir)dependencies/yse/lib;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc140-mt.lib;libyse32.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib</AdditionalDependencies>
       <SubSystem>NotSet</SubSystem>
       <EntryPointSymbol>
