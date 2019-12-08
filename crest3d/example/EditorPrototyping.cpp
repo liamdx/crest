@@ -36,6 +36,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 			for (int z = 0; z < res; z++)
 			{
 				std::string s = "RigidbodyEntity" + std::to_string(counter);
+				ribEntityNames.emplace_back(s);
 				counter += 1;
 				entities[s] = engineManager->AddModelEntity(barrelModel->asset);
 				entities[s]->transform->position = (glm::vec3(x * 2, 20 + z * 2, y * 2));
@@ -75,6 +76,15 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	entities["dirLight"] = engineManager->AddDirectionalLightEntity();
 	components["dirLightComponent"] = entities.at("dirLight")->GetComponent<DirectionalLightComponent>();
 }
+
+void EditorPrototyping::DeleteRigidbodies()
+{
+	for(int i = 0; i < ribEntityNames.size(); i++)
+	{
+		engineManager->DeleteEntity(entities[ribEntityNames.at(i)]->GetID());
+	}
+}
+
 
 void EditorPrototyping::initBehaviour()
 {
@@ -349,6 +359,11 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 				auto _anim = engineManager->assetManager->loadAnimatedModelAsset(text);
 				engineManager->AddAnimatedModelEntity(_anim->asset);
 			}
+		}
+
+		if(ImGui::Button("Delete All Default Rigidbodies"))
+		{
+			DeleteRigidbodies();
 		}
 
 		if (ImGui::BeginChild("Hierarchy"))

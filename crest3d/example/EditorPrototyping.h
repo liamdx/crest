@@ -23,6 +23,11 @@ private:
 	Cubemap* skybox;
 	Shader* cubemapShader;
 
+
+	void DeleteRigidbodies();
+
+	std::vector<std::string> ribEntityNames;
+	
 	float clapTimer;
 
 	//skybox faces
