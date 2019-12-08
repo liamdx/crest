@@ -121,7 +121,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/x64;$(SolutionDir)dependencies/assimp/lib/x64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -173,7 +173,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/x64;$(SolutionDir)dependencies/assimp/lib/x64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
