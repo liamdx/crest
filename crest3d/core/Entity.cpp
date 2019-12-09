@@ -147,7 +147,13 @@ void Entity::updateBehaviour(float deltaTime)
 	halfRateTime += deltaTime;
 	quarterRateTIme += deltaTime;
 	eighthRateTime += deltaTime;
-	
+	frozenTime += deltaTime;
+
+	if(state != UpdateState::frozen && frozenLastFrame)
+	{
+		frozenLastFrame = false;
+		do_update(frozenTime);
+	}
 	if (state == UpdateState::fullRate)
 	{
 		do_update(deltaTime);
@@ -192,6 +198,15 @@ void Entity::updateBehaviour(float deltaTime)
 		{
 			eighthRateCounter += 1;
 		}
+	}
+	else if (state == UpdateState::frozen)
+	{
+		if (!frozenLastFrame)
+		{
+			frozenTime = 0.0f;
+			frozenTime += deltaTime;
+		}
+		frozenLastFrame = true;
 	}
 }
 
@@ -240,6 +255,7 @@ void Entity::renderBehaviour(float deltaTime, glm::mat4 view)
 			eighthRateCounter += 1;
 		}
 	}
+	
 }
 
 void Entity::uiBehaviour(float deltaTime)

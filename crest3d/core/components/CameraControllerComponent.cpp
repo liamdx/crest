@@ -107,7 +107,7 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, 
 	lastX = 0.0f;
 	lastY = 0.0f;
 	mouseSensitivity = 0.1f;
-	movementSpeed = 5.0f;
+	movementSpeed = 10.0f;
 	initMoveSpeed = movementSpeed;
 	sprintSpeed = initMoveSpeed * 3.0f;
 	useContoller = false;

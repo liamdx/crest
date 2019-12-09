@@ -13,7 +13,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
 	auto barrelModel = engineManager->assetManager->loadModelAsset("res/models/barrel/barrel.obj");
-	
+	barrelAssetID = barrelModel->assetID;
 	auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
 	
 
@@ -66,12 +66,12 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	floorRib->SetCubeShape(glm::vec3(10000, 0.3, 10000));
 	floorRib->setMass(0.0f);
 
-	entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
+	/*entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
 	entities["animEntity"]->transform->position = (glm::vec3(-4.0, 0.0, 0.0));
 	entities["animEntity"]->AddComponent(new AudioComponent());
 	components["someAudioComponent"] = entities["animEntity"]->GetComponent<AudioComponent>();
 	auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
-	audio_component->SetClip(clapSound->asset);
+	audio_component->SetClip(clapSound->asset);*/
 
 	entities["dirLight"] = engineManager->AddDirectionalLightEntity();
 	components["dirLightComponent"] = entities.at("dirLight")->GetComponent<DirectionalLightComponent>();
@@ -83,8 +83,31 @@ void EditorPrototyping::DeleteRigidbodies()
 	{
 		engineManager->DeleteEntity(entities[ribEntityNames.at(i)]->GetID());
 	}
+	ribEntityNames.clear();
 }
 
+void EditorPrototyping::AddRigidbodies()
+{
+	auto barrelModel = engineManager->assetManager->getModelAssetID(barrelAssetID);
+	int res = 10;
+	int counter = ribEntityNames.size();
+	for (int x = 0; x < res; x++)
+	{
+		for (int y = 0; y < res; y++)
+		{
+			for (int z = 0; z < res; z++)
+			{
+				std::string s = "RigidbodyEntity" + std::to_string(counter);
+				ribEntityNames.emplace_back(s);
+				counter += 1;
+				entities[s] = engineManager->AddModelEntity(barrelModel->asset);
+				entities[s]->transform->position = (glm::vec3(x * 2, 20 + z * 2, y * 2));
+				entities[s]->transform->scale = glm::vec3(0.25, 0.25, 0.25);
+				entities[s]->AddComponent(new RigidbodyComponent(entities[s]));
+			}
+		}
+	}
+}
 
 void EditorPrototyping::initBehaviour()
 {
@@ -165,14 +188,14 @@ void EditorPrototyping::updateBehaviour(float deltaTime)
 {
 	engineManager->scene->updateBehaviour(deltaTime);
 
-	clapTimer += deltaTime;
+	/*clapTimer += deltaTime;
 
 	if(clapTimer >= 2.0f)
 	{
 		auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
 		audio_component->Play();
 		clapTimer = 0.0f;
-	}
+	}*/
 }
 
 void EditorPrototyping::renderBehaviour(float deltaTime)
@@ -304,7 +327,10 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 		{
 			e->state = UpdateState::quarterRate;
 		}
-		
+		if (ImGui::Button("Frozen"))
+		{
+			e->state = UpdateState::frozen;
+		}
 		for (int i = 0; i < e->children.size(); i++)
 		{
 			ImGuiEntityDebug(e->children.at(i));
@@ -361,6 +387,11 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			}
 		}
 
+		if (ImGui::Button("Add Default Rigidbodies"))
+		{
+			AddRigidbodies();
+		}
+		
 		if(ImGui::Button("Delete All Default Rigidbodies"))
 		{
 			DeleteRigidbodies();

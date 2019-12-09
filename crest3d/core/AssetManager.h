@@ -28,6 +28,13 @@ public:
 	std::shared_ptr<Asset<AnimatedModel>> loadAnimatedModelAsset(const char* path);
 	std::shared_ptr<Asset<Texture>> loadTextureAsset(const char* path);
 	std::shared_ptr<Asset<AudioFile>> loadAudioAsset(const char* path);
+
+
+	std::shared_ptr<Asset<Model>> getModelAssetID(unsigned int id);
+	std::shared_ptr<Asset<AnimatedModel>> getAnimatedModelAssetID(unsigned int id);
+	std::shared_ptr<Asset<Texture>> getTextureAssetID(unsigned int id);
+	std::shared_ptr<Asset<AudioFile>> getAudioAssetID(unsigned int id);
+
 	
 
 	void removeModelAsset(unsigned int _assetID);

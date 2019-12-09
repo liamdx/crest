@@ -342,6 +342,19 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 		e->children.at(i)->components.clear();
 	}
 
+	std::string entityName = "";
+	for(auto var : example->entities)
+	{
+		if(var.second->GetID() == entityId)
+		{
+			entityName = var.first;
+		}
+	}
+
+	if(entityName != "")
+	{
+		example->entities.erase(entityName);
+	}
 	e->parent->RemoveChild(entityId);
 	e->ClearChildren();
 }

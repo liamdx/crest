@@ -22,8 +22,8 @@ private:
 	// every scene needs these, should be organised in a game manager
 	Cubemap* skybox;
 	Shader* cubemapShader;
-
-
+	unsigned int barrelAssetID;
+	void AddRigidbodies();
 	void DeleteRigidbodies();
 
 	std::vector<std::string> ribEntityNames;

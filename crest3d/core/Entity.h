@@ -6,7 +6,7 @@ class EngineManager;
 
 enum UpdateState
 {
-	fullRate, halfRate, quarterRate, eighthRate
+	fullRate, halfRate, quarterRate, eighthRate, frozen
 };
 
 class Entity {
@@ -75,7 +75,8 @@ private:
 	void do_render(float deltaTime, glm::mat4 view);
 	
 	uint8_t halfRateCounter, quarterRateCounter, eighthRateCounter;
-	float halfRateTime, quarterRateTIme, eighthRateTime;
+	bool frozenLastFrame;
+	float halfRateTime, quarterRateTIme, eighthRateTime, frozenTime;
 	void ConsoleError(std::string error);
 	int id;
 };
