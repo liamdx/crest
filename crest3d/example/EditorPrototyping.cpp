@@ -109,6 +109,19 @@ void EditorPrototyping::AddRigidbodies()
 	}
 }
 
+void EditorPrototyping::RigidbodyTest()
+{
+	for(int i = 0; i < 10; i++)
+	{
+		std::stringstream s;
+		s << "Iteration" + std::to_string(i) << "\n";
+		std::cout << s.str();
+		DeleteRigidbodies();
+		AddRigidbodies();
+	}
+}
+
+
 void EditorPrototyping::initBehaviour()
 {
 	// some sample pointlights, please implement scene xml soon :)
@@ -397,6 +410,11 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			DeleteRigidbodies();
 		}
 
+		if (ImGui::Button("Rigidbody Test"))
+		{
+			RigidbodyTest();
+		}
+		
 		if (ImGui::BeginChild("Hierarchy"))
 		{
 			ImGuiEntityDebug(engineManager->scene->rootEntity);

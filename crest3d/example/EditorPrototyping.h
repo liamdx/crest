@@ -25,7 +25,7 @@ private:
 	unsigned int barrelAssetID;
 	void AddRigidbodies();
 	void DeleteRigidbodies();
-
+	void RigidbodyTest();
 	std::vector<std::string> ribEntityNames;
 	
 	float clapTimer;
