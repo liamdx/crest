@@ -189,6 +189,7 @@ vec3 calculateDirectionalLight(vec3 albedo, vec3 N, vec3 F0, vec3 V, float rough
     // add to outgoing radiance Lo
     return (kD * diffuse / PI + specular) * radiance * NdotL;
 }
+
 void main()
 {
     vec4 rawTex = texture(mat.m_Diffuse, TexCoords);
@@ -221,7 +222,9 @@ void main()
     // this ambient lighting with environment lighting).
     vec3 ambient = dirLight.ambient * albedo * ao;
     
-    vec3 color = ambient + Lo;
+    float edgeDetection = (dot(V, N) > 0.01) ? 1 : 0;
+
+    vec3 color = edgeDetection * (ambient + Lo);
 
     // HDR tonemapping
     color = color / (color + vec3(1.0));

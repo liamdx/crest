@@ -13,5 +13,6 @@ class Renderer
 
 	void Render(Mesh& mesh);
 	void Render(AnimatedModel& anim);
+
 	
 };

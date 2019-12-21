@@ -218,7 +218,9 @@ void main()
     // this ambient lighting with environment lighting).
     vec3 ambient = dirLight.ambient * albedo * ao;
     
-    vec3 color = ambient + Lo;
+     float edgeDetection = (dot(V, N) > 0.1) ? 1 : 0;
+
+    vec3 color = edgeDetection * (ambient + Lo);
 
     // HDR tonemapping
     color = color / (color + vec3(1.0));

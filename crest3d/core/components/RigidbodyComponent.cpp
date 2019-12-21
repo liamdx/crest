@@ -4,14 +4,22 @@
 
 void RigidbodyComponent::init()
 {
+	shouldLog = false;
 	enabled = true;
 	mass = 1.0f;
 	attachedEntity->transform->update(0.0);
-	attachedEntity->transform->setPhysicsOverride(true);
+	attachedEntity->transform->setPhysicsOverride(false);
 	rib = attachedEntity->engineManager->physicsManager->addRigidbody(attachedEntity);
+	btVector3 initialPosition = btVector3(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z);
+	rib->translate(initialPosition);
 	shape = rib->getCollisionShape();
 	myMotionState = rib->getMotionState();
 	centerOffset = glm::vec3(0.0f);
+	sphereRadius = 1.0f;
+	capsuleRadius = 1.0f;
+	capsuleHeight = 1.0f;
+	collisionScale = glm::vec3(1.0f);
+	cubeDimensions = glm::vec3(1.0f);
 }
 
 RigidbodyComponent::~RigidbodyComponent()
@@ -32,7 +40,7 @@ void RigidbodyComponent::applyCentralForce(glm::vec3 force)
 	rib->applyCentralForce(btVector3(force.x, force.y, force.z));
 }
 
-void RigidbodyComponent::SetCubeShape(glm::vec3 dimensions)
+void RigidbodyComponent::SetCubeShape()
 {
 	attachedEntity->engineManager->physicsManager->dynamicsWorld->removeRigidBody(rib);
 	btVector3 inertia(0, 0, 0);
@@ -43,19 +51,47 @@ void RigidbodyComponent::SetCubeShape(glm::vec3 dimensions)
 	rib->setAngularFactor(btVector3(1, 1, 1));
 	rib->updateInertiaTensor();
 	rib->clearForces();
-	btTransform transform;
-	transform.setIdentity();
-	float x = attachedEntity->transform->position.x;
-	float y = attachedEntity->transform->position.y;
-	float z = attachedEntity->transform->position.z;
-	transform.setOrigin(btVector3(x, y, z));
-	btVector3 dim(dimensions.x, dimensions.y, dimensions.z);
+	btVector3 dim(cubeDimensions.x, cubeDimensions.y, cubeDimensions.z);
 	rib->setCollisionShape(new btBoxShape(dim));
-	btVector3 scale(1, 1, 1);
+	btVector3 scale(collisionScale.x, collisionScale.y, collisionScale.z);
 	rib->getCollisionShape()->setLocalScaling(scale);
-	rib->setWorldTransform(transform);
 	attachedEntity->engineManager->physicsManager->dynamicsWorld->addRigidBody(rib);
 }
+
+void RigidbodyComponent::SetCapsuleShape()
+{
+	attachedEntity->engineManager->physicsManager->dynamicsWorld->removeRigidBody(rib);
+	btVector3 inertia(0, 0, 0);
+	rib->getCollisionShape()->calculateLocalInertia(mass, inertia);
+	rib->setActivationState(DISABLE_DEACTIVATION);
+	rib->setMassProps(mass, inertia);
+	rib->setLinearFactor(btVector3(1, 1, 1));
+	rib->setAngularFactor(btVector3(1, 1, 1));
+	rib->updateInertiaTensor();
+	rib->clearForces();
+	rib->setCollisionShape(new btCapsuleShape(capsuleRadius, capsuleHeight));
+	btVector3 scale(collisionScale.x, collisionScale.y, collisionScale.z);
+	rib->getCollisionShape()->setLocalScaling(scale);
+	attachedEntity->engineManager->physicsManager->dynamicsWorld->addRigidBody(rib);
+}
+
+void RigidbodyComponent::SetSphereShape()
+{
+	attachedEntity->engineManager->physicsManager->dynamicsWorld->removeRigidBody(rib);
+	btVector3 inertia(0, 0, 0);
+	rib->getCollisionShape()->calculateLocalInertia(mass, inertia);
+	rib->setActivationState(DISABLE_DEACTIVATION);
+	rib->setMassProps(mass, inertia);
+	rib->setLinearFactor(btVector3(1, 1, 1));
+	rib->setAngularFactor(btVector3(1, 1, 1));
+	rib->updateInertiaTensor();
+	rib->clearForces();
+	rib->setCollisionShape(new btSphereShape(sphereRadius));
+	btVector3 scale(collisionScale.x, collisionScale.y, collisionScale.z);
+	rib->getCollisionShape()->setLocalScaling(scale);
+	attachedEntity->engineManager->physicsManager->dynamicsWorld->addRigidBody(rib);
+}
+
 
 btVector3 quatToEuler(btQuaternion quat)
 {
@@ -110,9 +146,23 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 		}
 
 		// bleh this is nasty
-		trans.getOpenGLMatrix(glm::value_ptr(attachedEntity->transform->model));
+		/*trans.getOpenGLMatrix(glm::value_ptr(attachedEntity->transform->model));
 		attachedEntity->transform->model = glm::scale(attachedEntity->transform->model,attachedEntity->transform->scale);
-		
+		*/
+		glm::vec3 position = bulletToGlm(trans.getOrigin());
+		glm::vec3 radEulerAngles = glm::eulerAngles(bulletToGlm(trans.getRotation()));
+		glm::vec3 eulerAngles = glm::vec3(radToDegree(radEulerAngles.x), radToDegree(radEulerAngles.y), radToDegree(radEulerAngles.z));
+
+
+		attachedEntity->transform->position = position;
+		attachedEntity->transform->eulerAngles = eulerAngles;
+
+		if(shouldLog)
+		{
+			std::stringstream s;
+			s << "Position: " << glm::to_string(position) << " Euler: " << glm::to_string(eulerAngles) << std::endl;
+			Debug::Message<RigidbodyComponent>(s.str().c_str());
+		}
 		//auto interpolatedPosition = trans.getOrigin();
 		//auto ir = trans.getRotation();
 		//glm::vec3 newPosition = glm::vec3(interpolatedPosition.getX(), interpolatedPosition.getY(), interpolatedPosition.getZ());

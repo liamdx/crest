@@ -113,6 +113,8 @@ int main() {
 
 	// Framebuffer shader
 	Shader depthShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
+	Shader volumetricShader("res/shaders/framebuffer.vert", "res/shaders/volumetric.frag");
+	Shader blurShader("res/shaders/framebuffer.vert", "res/shaders/blur.frag");
 	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
 	screenQuad renderQuad;
 
@@ -121,6 +123,10 @@ int main() {
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, true);
 	FrameBuffer depthFB;
 	depthFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	FrameBuffer volumetricFB;
+	volumetricFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	FrameBuffer blurFB;
+	blurFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
 	FrameBuffer finalFB;
 	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
 
@@ -136,6 +142,7 @@ int main() {
 	int vsync = 0;
 	SDL_GL_SetSwapInterval(vsync);
 	SDL_Event windowEvent;
+	glm::vec2 blurScale = glm::vec2(0.002);
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -180,20 +187,42 @@ int main() {
 		example.renderBehaviour(deltaTime);
 		mainFB.finishDrawing();
 
-		glDisable(GL_DEPTH_TEST);
-		// framebuffers 
-		finalFB.initForDrawing();
-		fbShader.use();
-		fbShader.setFloat("exposure", exposure);
-		fbShader.setFloat("gamma", gamma);
-		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetTexture());
+		example.renderBehaviour(deltaTime);
 
-		finalFB.finishDrawing();
+		glDisable(GL_DEPTH_TEST);
+		// framebuffers
 
 		depthFB.initForDrawing();
 		depthShader.use();
 		renderQuad.Draw(depthShader, "screenTexture", mainFB.GetDepthTexture());
 		depthFB.finishDrawing();
+
+		/*volumetricFB.initForDrawing();
+		volumetricShader.use();
+		volumetricShader.setMat4("viewMatrix", engineManager->scene->sceneCamera->GetViewMatrix());
+		volumetricShader.setVec3("lightDir", engineManager->scene->dirLightComponent->direction);
+		renderQuad.Draw(volumetricShader, "screenTexture", depthFB.GetTexture());
+		volumetricFB.finishDrawing();
+
+		blurFB.initForDrawing();
+		blurShader.use();
+		blurShader.setVec2("scale", blurScale);
+		renderQuad.Draw(blurShader, "screenTexture", volumetricFB.GetTexture());
+		blurFB.finishDrawing();*/
+		
+		finalFB.initForDrawing();
+		fbShader.use();
+		fbShader.setFloat("exposure", exposure);
+		fbShader.setFloat("gamma", gamma);
+		glActiveTexture(GL_TEXTURE1);
+		// fbShader.setInt("volumetrics", 1);
+		glBindTexture(GL_TEXTURE_2D, blurFB.GetTexture());
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		renderQuad.Draw(fbShader, "screenTexture", mainFB.GetTexture());
+		finalFB.finishDrawing();
+
+		
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -227,6 +256,8 @@ int main() {
 			if (dHeight != lastWindowHeight || dWidth != lastWindowWidth)
 			{
 				mainFB.changeScreenSize(dWidth, dHeight);
+				volumetricFB.changeScreenSize(dWidth, dHeight);
+				blurFB.changeScreenSize(dWidth, dHeight);
 				depthFB.changeScreenSize(dWidth, dHeight);
 				finalFB.changeScreenSize(dWidth, dHeight);
 				glViewport(0, 0, dWidth, dHeight);
@@ -256,6 +287,24 @@ int main() {
 			
 			ImGui::GetWindowDrawList()->AddImage(
 				(void*)depthFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
+		}
+		ImGui::End();
+
+		ImGui::SetNextWindowDockID(dockspaceID, ImGuiCond_FirstUseEver);
+		if (ImGui::Begin("Volumetrics Blurred Window", NULL, ImVec2(0, 0)))
+		{
+			if (ImGui::IsWindowFocused())
+			{
+				ImGui::Text("Focussed on this window");
+			}
+			else
+			{
+				ImGui::Text("Not focussed on this window");
+			}
+
+			ImGui::GetWindowDrawList()->AddImage(
+				(void*)blurFB.GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
 				ImVec2(ImGui::GetCursorScreenPos().x + ImGui::GetWindowWidth(), ImGui::GetCursorScreenPos().y + ImGui::GetWindowHeight()), ImVec2(0, 1), ImVec2(1, 0));
 		}
 		ImGui::End();
@@ -350,6 +399,15 @@ int main() {
 			{
 				ImGui::Text("Not Rendering Debug Bullet Shapes");
 			}
+
+			if(ImGui::Button("Reload Framebuffer Shader"))
+			{
+				fbShader = Shader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
+				volumetricShader = Shader("res/shaders/framebuffer.vert", "res/shaders/volumetric.frag");
+				blurShader = Shader("res/shaders/framebuffer.vert", "res/shaders/blur.frag");
+			}
+
+			ImGui::Auto(blurScale, "Blue Scale");
 		}
 		ImGui::End();
 		Debug::DrawConsole();

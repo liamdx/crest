@@ -464,6 +464,8 @@
     <ClInclude Include="core\gfx\Shader.h" />
     <ClInclude Include="core\Renderer.h" />
     <ClInclude Include="core\Scene.h" />
+    <ClInclude Include="core\serialization\AbstractComponentConnector.h" />
+    <ClInclude Include="core\serialization\Serializer.h" />
     <ClInclude Include="core\ShaderManager.h" />
     <ClInclude Include="example\EditorPrototyping.h" />
     <ClInclude Include="example\Example.h" />

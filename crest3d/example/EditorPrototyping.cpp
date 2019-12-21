@@ -23,11 +23,11 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
 	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
-	entities["levelEntity"]->transform->position += (glm::vec3(0, -10, 0));
-	entities["levelEntity"]->transform->scale = glm::vec3(0.05, 0.05, 0.05);
+	entities["levelEntity"]->transform->position += (glm::vec3(0, 0, 0));
+	entities["levelEntity"]->transform->scale = glm::vec3(0.07, 0.07, 0.07);
 	
 
-	int res = 10;
+	int res = 8;
 	int counter = 0;
 	for(int x = 0; x < res; x++)
 	{
@@ -45,15 +45,22 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 			}
 		}
 	}
-
-	for (int x = 0; x < res / 2; x++)
+	counter = 0;
+	for (int x = 0; x < res; x++)
 	{
-		for (int y = 0; y < res / 2 ; y++)
+		for (int y = 0; y < res; y++)
 		{
 			std::string s = "AnimEntity" + std::to_string(counter);
 			counter += 1;
 			entities[s] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
-			entities[s]->state = UpdateState::halfRate;
+			if(counter % 4 == 0)
+			{
+				entities[s]->state = UpdateState::fullRate;
+			}
+			else
+			{
+				entities[s]->state = UpdateState::halfRate;
+			}
 			entities[s]->transform->position = (glm::vec3(x * 2, 0, y * 2));
 			entities[s]->transform->scale = glm::vec3(0.5, 0.5, 0.5);
 		}
@@ -63,7 +70,8 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	components["floorRib"] = entities["floorEntity"]->GetComponent<RigidbodyComponent>();
 	auto floorRib = GetUsableComponent<RigidbodyComponent>("floorRib");
 	entities["floorEntity"]->transform->position = glm::vec3(0, -10, 0);
-	floorRib->SetCubeShape(glm::vec3(10000, 0.3, 10000));
+	floorRib->cubeDimensions = glm::vec3(100000, 0.2, 100000);
+	floorRib->SetCubeShape();
 	floorRib->setMass(0.0f);
 
 	/*entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
@@ -89,7 +97,7 @@ void EditorPrototyping::DeleteRigidbodies()
 void EditorPrototyping::AddRigidbodies()
 {
 	auto barrelModel = engineManager->assetManager->getModelAssetID(barrelAssetID);
-	int res = 10;
+	int res = 6;
 	int counter = ribEntityNames.size();
 	for (int x = 0; x < res; x++)
 	{
@@ -295,11 +303,24 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 				ImGui::Auto(rbc->mass, "Rigidbody Mass");
 				ImGui::Auto(forceAmount, "Force Amount");
 				ImGui::Auto(rbc->centerOffset, "Collision Shape Offset");
-				ImGui::Auto(rbc->shouldLog, "Should log rotation information");
-				ImGui::Auto(boxScale, "Box scale DEBUG");
+				ImGui::Auto(rbc->shouldLog, "Should log debug information");
+				ImGui::Auto(rbc->cubeDimensions, "Cube Dimensions");
+				ImGui::Auto(rbc->capsuleRadius, "Capsule Radius");
+				ImGui::Auto(rbc->capsuleHeight, "Capsule Height");
+				ImGui::Auto(rbc->sphereRadius, "Sphere Radius");
+				ImGui::Auto(rbc->collisionScale, "Collision Scale");
+				
 				if(ImGui::Button("Change to box shape"))
 				{
-					rbc->SetCubeShape(boxScale);
+					rbc->SetCubeShape();
+				}
+				if (ImGui::Button("Change to sphere shape"))
+				{
+					rbc->SetSphereShape();
+				}
+				if (ImGui::Button("Change to capsule shape"))
+				{
+					rbc->SetCapsuleShape();
 				}
 				if(ImGui::Button("Add Force"))
 				{

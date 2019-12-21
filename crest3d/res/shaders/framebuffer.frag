@@ -5,19 +5,18 @@ out vec4 FragColor;
 in vec2 vTexCoords;
 
 uniform sampler2D screenTexture;
+uniform sampler2D volumetrics;
 uniform float exposure;
 uniform float gamma;
 
-const float offset = 1.0 / 300.0;  
+
 
 void main()
 {
-
-    vec4 tex = texture(screenTexture, vTexCoords);
-    vec3 col = vec3(tex);
+    vec4 baseMap = texture2D(screenTexture, vTexCoords);
 
     // reinhard tone mapping
-    vec3 mapped = vec3(1.0) - exp(-col * exposure);
+    vec3 mapped = vec3(1.0) - exp(-baseMap.xyz * exposure);
     // Gamma correction 
     mapped = pow(mapped, vec3(1.0 / gamma));
   

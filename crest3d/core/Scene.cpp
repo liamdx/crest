@@ -94,13 +94,38 @@ void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 	}
 }
 
+void Scene::renderBehaviour(float deltaTime, std::shared_ptr<ShaderComponent> meshShader, std::shared_ptr<ShaderComponent> animShader)
+{
+	meshShader->shader->use();
+	meshShader->setProjection(sceneCamera->GetProjectionMatrix());
+	meshShader->setView(sceneCamera->GetViewMatrix());
+	meshShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
+
+	for (std::shared_ptr<MeshComponent> mesh : meshes)
+	{
+		mesh->draw(sceneCamera->GetViewMatrix(), meshShader);
+	}
+
+	animShader->shader->use();
+	animShader->setProjection(sceneCamera->GetProjectionMatrix());
+	animShader->setView(sceneCamera->GetViewMatrix());
+	animShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
+
+	for (std::shared_ptr<AnimatedModelComponent> anim : animatedModels)
+	{
+		anim->draw(sceneCamera->GetViewMatrix(), animShader);
+	}
+	
+}
+
+
 void Scene::renderBehaviour(float deltaTime)
 {
 	glm::mat4 view = sceneCamera->GetViewMatrix();
 	updateSceneLighting();
 	// childRender(rootEntity, deltaTime, view);
 
-	sceneCamera->MakeFrustum();
+	// sceneCamera->MakeFrustum();
 	engineManager->shaderManager->defaultShader->shader->use();
 	engineManager->shaderManager->defaultShader->setProjection(sceneCamera->GetProjectionMatrix());
 	engineManager->shaderManager->defaultShader->setView(view);
@@ -164,7 +189,7 @@ void childUi(std::shared_ptr<Entity> e, float deltaTime)
 	}
 }
 void Scene::uiBehaviour(float deltaTime)
-{
+{ 
 	childUi(rootEntity, deltaTime);
 }
 

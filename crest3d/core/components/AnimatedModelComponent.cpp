@@ -6,6 +6,7 @@ AnimatedModelComponent::AnimatedModelComponent(std::shared_ptr<Entity> e, std::s
 	anim = _model;
 	runningTime = 0.0f;
 	shouldDraw = true;
+	usingMotionBlur = false;
 }
 
 void AnimatedModelComponent::getBoneShaderIDLocations(std::shared_ptr<ShaderComponent> sc)
@@ -16,6 +17,14 @@ void AnimatedModelComponent::getBoneShaderIDLocations(std::shared_ptr<ShaderComp
 		std::stringstream currentBoneLocation;
 		currentBoneLocation << "gBones[" << i << "]";
 		gBoneShaderIDs.push_back(sc->shader->getMat4Location(currentBoneLocation.str()));
+		currentBoneLocation.clear();
+	}
+	gPrevBoneShaderIDs.clear();
+	for(unsigned int i = 0; i < anim->NumBones(); i++)
+	{
+		std::stringstream currentBoneLocation;
+		currentBoneLocation << "gPrevBones[" << i << "]";
+		gPrevBoneShaderIDs.push_back(sc->shader->getMat4Location(currentBoneLocation.str()));
 		currentBoneLocation.clear();
 	}
 }
@@ -62,11 +71,16 @@ void AnimatedModelComponent::draw(glm::mat4 view, std::shared_ptr<ShaderComponen
 		for (int i = 0; i < anim->NumBones(); i++)
 		{
 			SetBoneTransformID(_shader, gBoneShaderIDs[i], boneTransforms[i]);
+			if(usingMotionBlur)
+			{
+				SetBoneTransformID(_shader, gPrevBoneShaderIDs[i], previousBoneTransforms[i]);
+			}
 		}
 
 		_shader->setView(view);
 		_shader->UpdateShader(attachedEntity->transform->getModelMatrix());
 		anim->Draw(_shader);
+		previousBoneTransforms = boneTransforms;
 	}
 }
 

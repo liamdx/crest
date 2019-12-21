@@ -469,8 +469,6 @@ void AnimatedModel::Draw(Shader shader)
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 	}
-
-	// Make sure the VAO is not changed from the outside
 	glBindVertexArray(0);
 }
 
@@ -497,7 +495,6 @@ void AnimatedModel::Draw(std::shared_ptr<ShaderComponent> shader)
 			(void*)(sizeof(unsigned int) * m_Entries[i].BaseIndex),
 			m_Entries[i].BaseVertex);
 	}
-
 	// Make sure the VAO is not changed from the outside
 	glBindVertexArray(0);
 }

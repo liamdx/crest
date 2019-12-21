@@ -24,9 +24,13 @@ public:
 	std::shared_ptr<AnimatedModel> anim;
 	void getBoneShaderIDLocations(std::shared_ptr<ShaderComponent> sc);
 
+	bool usingMotionBlur;
+
 private:
 	float runningTime;
 	static const int MAX_NUM_BONES = 250;
 	std::vector<unsigned int> gBoneShaderIDs;
+	std::vector<unsigned int> gPrevBoneShaderIDs;
 	std::vector<glm::mat4> boneTransforms;
+	std::vector<glm::mat4> previousBoneTransforms;
 };

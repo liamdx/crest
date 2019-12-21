@@ -26,6 +26,7 @@ public:
 	void fixedUpdateBehaviour();
 	void updateBehaviour(float deltaTime);
 	void renderBehaviour(float deltaTime);
+	void renderBehaviour(float deltaTime, std::shared_ptr<ShaderComponent> meshShader, std::shared_ptr<ShaderComponent> animShader);
 	void uiBehaviour(float deltaTime);
 
 	void updateShaderProjections(std::shared_ptr<Entity> e);
