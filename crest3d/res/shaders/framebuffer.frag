@@ -10,11 +10,32 @@ uniform float exposure;
 uniform float gamma;
 
 
+vec2 cubic_distortion()
+{
+    float k = 0.0;
+    float kcube = k * k * k;
+
+    float r2 = (vTexCoords.x - 0.5) * (vTexCoords.x - 0.5) + (vTexCoords.y - 0.5) * (vTexCoords.y - 0.5);
+    float f = 0;
+    if(kcube == 0.0)
+    {
+        f = 1 + r2 * k;
+    }
+    else
+    {
+        f = 1 + r2 * (k + kcube * sqrt(2));
+    }
+
+    vec2 pos;
+    pos.x = f * (vTexCoords.x - 0.5) + 0.5;
+    pos.y = f * (vTexCoords.y - 0.5) + 0.5;
+    return pos;
+}
 
 void main()
 {
-    vec4 baseMap = texture2D(screenTexture, vTexCoords);
-
+    vec2 pos = cubic_distortion();
+    vec4 baseMap = texture2D(screenTexture, pos);
     // reinhard tone mapping
     vec3 mapped = vec3(1.0) - exp(-baseMap.xyz * exposure);
     // Gamma correction 
@@ -22,3 +43,4 @@ void main()
   
     FragColor = vec4(mapped, 1.0);
 } 
+
