@@ -9,7 +9,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	clapTimer = 0.0f;
 	
 	auto m = engineManager->assetManager->loadModelAsset("res/models/cyborg/cyborg.obj");
-	//auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
+	// auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
 	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
 	auto barrelModel = engineManager->assetManager->loadModelAsset("res/models/barrel/barrel.obj");
@@ -18,8 +18,8 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
-	entities["cyborgEntity"]->transform->position = (glm::vec3(4, 0, 0));
-	entities["cyborgEntity"]->AddComponent(new RigidbodyComponent(entities["cyborgEntity"]));
+	entities["cyborgEntity"]->transform->position = (glm::vec3(0, 8, 0));
+	entities["cyborgEntity"]->AddComponent(new LuaComponent(entities["cyborgEntity"]));
 
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
 	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
@@ -27,7 +27,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	entities["levelEntity"]->transform->scale = glm::vec3(0.07, 0.07, 0.07);
 	
 
-	int res = 8;
+	int res = 4;
 	int counter = 0;
 	for(int x = 0; x < res; x++)
 	{
@@ -53,14 +53,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 			std::string s = "AnimEntity" + std::to_string(counter);
 			counter += 1;
 			entities[s] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
-			if(counter % 4 == 0)
-			{
-				entities[s]->state = UpdateState::fullRate;
-			}
-			else
-			{
-				entities[s]->state = UpdateState::halfRate;
-			}
+			entities[s]->state = UpdateState::halfRate;
 			entities[s]->transform->position = (glm::vec3(x * 2, 0, y * 2));
 			entities[s]->transform->scale = glm::vec3(0.5, 0.5, 0.5);
 		}
@@ -81,6 +74,15 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
 	audio_component->SetClip(clapSound->asset);*/
 
+	// temporarily initialise everything her
+	entities["cameraEntity"] = engineManager->AddCameraEntity();
+	// entities["cameraEntity"]->AddComponent(new CameraControllerComponent(entities.at("cameraEntity"), engineManager->input));
+	auto orbit_script = engineManager->assetManager->loadScriptAsset("res/scripts/OrbitCam.lua");
+	entities["cameraEntity"]->AddComponent(new LuaComponent(entities["cameraEntity"], orbit_script->asset));
+	/*std::shared_ptr<CameraControllerComponent> camController = entities.at("cameraEntity")->GetComponent<CameraControllerComponent>();
+	camController->window = engineManager->window;*/
+	components["cam"] = entities.at("cameraEntity")->GetComponent<CameraComponent>();
+	
 	entities["dirLight"] = engineManager->AddDirectionalLightEntity();
 	components["dirLightComponent"] = entities.at("dirLight")->GetComponent<DirectionalLightComponent>();
 }
@@ -173,12 +175,7 @@ void EditorPrototyping::initBehaviour()
 	plc6->setDiffuse(glm::vec3(1.0f, 0.9f, 0.7f));
 	plc6->setDistance(7.4f);
 
-	// temporarily initialise everything her
-	entities["cameraEntity"] = engineManager->AddCameraEntity();
-	entities["cameraEntity"]->AddComponent(new CameraControllerComponent(entities.at("cameraEntity"), engineManager->input));
-	std::shared_ptr<CameraControllerComponent> camController = entities.at("cameraEntity")->GetComponent<CameraControllerComponent>();
-	camController->window = engineManager->window;
-	components["cam"] = entities.at("cameraEntity")->GetComponent<CameraComponent>();
+	
 	engineManager->scene->initBehaviour();
 }
 
@@ -294,7 +291,7 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 				ImGui::TreePop();
 			}
 		}
-
+		
 		if (e->GetComponent<RigidbodyComponent>() != nullptr)
 		{
 			if (ImGui::TreeNode("Rigidbody Component"))
@@ -335,6 +332,20 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			auto controller = e->GetComponent<CameraControllerComponent>();
 			ImGui::Auto(controller->initMoveSpeed, "Cam speed");
 			ImGui::Auto(controller->movementSpeed, "Cam speed");
+		}
+
+		if (e->GetComponent<LuaComponent>() != nullptr)
+		{
+			auto lua = e->GetComponent<LuaComponent>();
+			if(ImGui::TreeNode("Lua Component"))
+			{
+				ImGui::Text(lua->script->filepath);
+				if (ImGui::Button("Reload Script"))
+				{
+					lua->reload();
+				}
+				ImGui::TreePop();
+			}
 		}
 		
 		if (ImGui::Button("Add Rigidbody to component"))

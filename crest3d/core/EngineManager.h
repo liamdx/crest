@@ -37,6 +37,8 @@ public:
 	unsigned int makeUniqueEntityID();
 	unsigned int makeUniqueComponentID();
 
+	void AttachComponentToEntity(unsigned int entityID, EngineComponent* component);
+
 	std::shared_ptr<Entity> AddEntity();
 	std::shared_ptr<Entity> AddEntity(const char* name);
 	std::shared_ptr<Entity> AddEntity(std::shared_ptr<Entity> parent);
@@ -58,7 +60,6 @@ public:
 	void deleteComponentInScene(std::shared_ptr<Entity> e, unsigned int _id);
 
 	std::shared_ptr<Entity> getEntity(std::shared_ptr<Entity> e, unsigned int _id);
-
 private:
 	const unsigned int currentSceneIndex = 0;
 };

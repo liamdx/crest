@@ -31,7 +31,6 @@ public:
 	inline void SetId(unsigned int newId) { id = newId; }
 	inline unsigned int GetID() { return id; }
 
-	void AddComponent(std::shared_ptr<EngineComponent> newComponent);
 	void AddComponent(EngineComponent* newComponent);
 	// template method only works in .h file without round-about bs
 	// any way to keep this in cpp?

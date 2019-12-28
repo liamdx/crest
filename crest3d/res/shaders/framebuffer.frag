@@ -12,7 +12,7 @@ uniform float gamma;
 
 vec2 cubic_distortion()
 {
-    float k = 0.0;
+    float k = 0;
     float kcube = k * k * k;
 
     float r2 = (vTexCoords.x - 0.5) * (vTexCoords.x - 0.5) + (vTexCoords.y - 0.5) * (vTexCoords.y - 0.5);

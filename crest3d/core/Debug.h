@@ -1,13 +1,12 @@
 #pragma once
 #include "Common.h"
+#include <mutex>
 
 
-
-static class Debug
+class Debug
 {
 	
 public:
-
 	
 	static void Error(const char* msg)
 	{
@@ -20,7 +19,8 @@ public:
 	template <class T>
 	static void Error(const char* msg)
 	{
-		std::stringstream m = "[error] ";
+		std::stringstream m;
+		m << "[error] ";
 		m << "[";
 		m << typeid(T).name();
 		m << "] : ";
@@ -32,14 +32,15 @@ public:
 	template <class T>
 	static void Error(const char* msg, unsigned int ID)
 	{
-		std::string m = "[error] ";
-		m += "[";
-		m += typeid(T).name();
-		m += " ";
-		m += std::to_string(ID);
-		m += "] : ";
-		m += msg;
-		console->AddLog(m.c_str());
+		std::stringstream m;
+		m << "[error] ";
+		m << "[";
+		m << typeid(T).name();
+		m << "][";
+		m << std::to_string(ID);
+		m << "] : ";
+		m << msg;
+		console->AddLog(m.str().c_str());
 	}
 
 	static void Warn(const char* msg)
@@ -463,8 +464,27 @@ public:
 	};
 
 	static void DrawConsole() { console->Draw("Console", b); }
-	
+
+	/*static Console* getInstance() {
+		return console;
+	}*/
+
+	std::shared_ptr<Debug> getInstance() {
+		static std::weak_ptr<Debug> instance;
+		static std::mutex m;
+
+		m.lock();
+		auto ret = instance.lock();
+		if (!ret) {
+			ret.reset(new Debug());
+			instance = ret;
+		}
+		m.unlock();
+
+		return ret;
+	}
 private:
-	inline static Console* console = new Console();
+	// inline static Console* console = new Console();
+	inline static std::shared_ptr<Console> console = std::make_shared<Console>();
 	inline static bool* b = new bool(true);
 };

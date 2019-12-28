@@ -1,5 +1,6 @@
 #include "EngineManager.h"
 #include "Example.h"
+#include "glm/gtx/range.hpp"
 
 EngineManager::EngineManager()
 {
@@ -82,8 +83,8 @@ unsigned int EngineManager::makeUniqueEntityID()
 std::shared_ptr<Entity> EngineManager::AddEntity()
 {
 	unsigned int entityID = makeUniqueEntityID();
-	std::string name = "Entity: " + entityID;
-	std::shared_ptr<Entity> e = std::make_shared<Entity>(name.c_str(), this, scene->rootEntity);
+	const std::string name = "Entity: " + std::to_string(entityID);
+	std::shared_ptr<Entity> e{ new Entity(name.c_str(), this, scene->rootEntity) };
 	e->transform->attachedEntity = e;
 	scene->rootEntity->AddChild(e);
 	e->SetId(entityID);
@@ -93,8 +94,8 @@ std::shared_ptr<Entity> EngineManager::AddEntity()
 std::shared_ptr<Entity> EngineManager::AddEntity(std::shared_ptr<Entity> parent)
 {
 	unsigned int entityID = makeUniqueEntityID();
-	std::string name = "Entity: " + entityID;
-	std::shared_ptr<Entity> e = std::make_shared<Entity>(name.c_str(), this, parent);
+	const std::string name = "Entity: " + std::to_string(entityID);
+	std::shared_ptr<Entity> e{ new Entity(name.c_str(), this, parent) };
 	e->transform->attachedEntity = e;
 	parent->AddChild(e);
 	e->SetId(entityID);
@@ -105,7 +106,7 @@ std::shared_ptr<Entity> EngineManager::AddEntity(std::shared_ptr<Entity> parent)
 std::shared_ptr<Entity> EngineManager::AddEntity(const char* name)
 {
 	unsigned int entityID = makeUniqueEntityID();
-	std::shared_ptr<Entity> e = std::make_shared<Entity>(name, this, scene->rootEntity);
+	std::shared_ptr<Entity> e{ new Entity(name, this, scene->rootEntity) };
 	e->transform->attachedEntity = e;
 	scene->rootEntity->AddChild(e);
 	e->SetId(entityID);
@@ -115,7 +116,7 @@ std::shared_ptr<Entity> EngineManager::AddEntity(const char* name)
 std::shared_ptr<Entity> EngineManager::AddEntity(std::shared_ptr<Entity> parent, const char* name)
 {
 	unsigned int entityID = makeUniqueEntityID();
-	std::shared_ptr<Entity> e = std::make_shared<Entity>(name, this, parent);
+	std::shared_ptr<Entity> e { new Entity (name, this, parent) };
 	e->transform->attachedEntity = e;
 	parent->AddChild(e);
 	e->SetId(entityID);
@@ -325,6 +326,13 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 	std::cout << "Entity num components before deletion : " << std::to_string(e->components.size()) << std::endl;
 	if (e != nullptr)
 	{
+		for(int i = 0; i < e->components.size(); i++)
+		{
+			if(typeid(e->components.at(i)) == typeid(std::shared_ptr<LuaComponent>))
+			{
+				DeleteComponent(e->components.at(i)->id);
+			}
+		}
 		for (int i = 0; i < e->components.size(); i++)
 		{
 			DeleteComponent(e->components.at(i)->id);
@@ -335,6 +343,14 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 
 	for(int i = 0; i < e->children.size(); i++)
 	{
+		for (int i = 0; i < e->components.size(); i++)
+		{
+			if (typeid(e->components.at(i)) == typeid(std::shared_ptr<LuaComponent>))
+			{
+				DeleteComponent(e->components.at(i)->id);
+			}
+		}
+		
 		for (int j = 0; j < e->children.at(i)->components.size(); j++)
 		{
 			DeleteComponent(e->children.at(i)->components.at(j)->id);
@@ -399,6 +415,13 @@ void EngineManager::DeleteComponent(unsigned int componentId)
 	deleteComponentInScene(scene->rootEntity, componentId);
 	deleteComponentInExample(componentId);
 }
+
+void EngineManager::AttachComponentToEntity(unsigned entityID, EngineComponent* component)
+{
+	auto e = getEntity(scene->rootEntity, entityID);
+	component->attachedEntity = e;
+}
+
 
 void EngineManager::shutdown()
 {

@@ -106,19 +106,21 @@ int main() {
 	ImGui_ImplSDL2_InitForOpenGL(engineManager->window, engineManager->context);
 	ImGui_ImplOpenGL3_Init("#version 440");
 	
+#define SOL_NO_EXCEPTIONS
 	
 	imnodes::Initialize();
 
 	example.initBehaviour();
 
-	// Framebuffer shader
+	// Framebuffer & POST FX shaders
 	Shader depthShader("res/shaders/framebuffer.vert", "res/shaders/depthframebuffer.frag");
 	Shader volumetricShader("res/shaders/framebuffer.vert", "res/shaders/volumetric.frag");
 	Shader blurShader("res/shaders/framebuffer.vert", "res/shaders/blur.frag");
 	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
+	// Quad we use to render framebuffers
 	screenQuad renderQuad;
 
-	// Main Frame buffer set up
+	// Initialise buffers (uniform resolution for now)
 	FrameBuffer mainFB;
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, true);
 	FrameBuffer depthFB;
@@ -131,17 +133,14 @@ int main() {
 	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
 
 	example.startBehaviour();
-	
-	//Mouse input handle
-	//glfwSetInputMode(engineManager->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	//glfwSetWindowSizeCallback(engineManager->window, window_size_callback);
-	
+
 	float lastWindowWidth = 0.0;
 	float lastWindowHeight = 0.0;
 
-	int vsync = 0;
+	int vsync = 1;
 	SDL_GL_SetSwapInterval(vsync);
 	SDL_Event windowEvent;
+	
 	glm::vec2 blurScale = glm::vec2(0.002);
 	
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -185,9 +184,8 @@ int main() {
 		example.updateBehaviour(deltaTime);
 		// draw everything in the scene
 		example.renderBehaviour(deltaTime);
+		
 		mainFB.finishDrawing();
-
-		example.renderBehaviour(deltaTime);
 
 		glDisable(GL_DEPTH_TEST);
 		// framebuffers

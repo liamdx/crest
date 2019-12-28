@@ -18,7 +18,7 @@ AssetManager::AssetManager()
 
 std::shared_ptr<Asset<Model>> AssetManager::loadModelAsset(const char* path)
 {
-	std::shared_ptr<Model> m = std::make_shared<Model>(path);
+	std::shared_ptr<Model> m{ new Model(path) } ;
 	std::shared_ptr<Asset<Model>> asset = std::make_shared<Asset<Model>>();
 	asset->asset = m;
 	asset->assetPath = path;
@@ -63,6 +63,18 @@ std::shared_ptr<Asset<AudioFile>> AssetManager::loadAudioAsset(const char* path)
 	audioAssets.emplace_back(asset);
 	return asset;
 }
+
+std::shared_ptr<Asset<LuaScript>> AssetManager::loadScriptAsset(const char* path)
+{
+	std::shared_ptr<LuaScript> a{ new LuaScript(path) };
+	std::shared_ptr<Asset<LuaScript>> asset { new Asset<LuaScript>() };
+	asset->asset = a;
+	asset->assetPath = path;
+	asset->assetID = getUniqueAssetID();
+	scriptAssets.emplace_back(asset);
+	return asset;
+}
+
 
 void AssetManager::removeModelAsset(unsigned _assetID)
 {

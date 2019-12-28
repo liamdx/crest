@@ -138,6 +138,9 @@
     <ClCompile Include="core\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\components\LuaComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\components\DebugComponent.h">
@@ -854,15 +857,6 @@
     <ClInclude Include="core\components\AudioComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\components\NodeGraphComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\nodegraph\NodeGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\nodegraph\NodeGraphSerializer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\ext\imgui\imgui_impl_sdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -876,6 +870,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\serialization\AbstractComponentConnector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\LuaComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

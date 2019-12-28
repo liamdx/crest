@@ -32,7 +32,8 @@ public:
 	void addScale(glm::vec3 newScale);
 
 	void updateModelMatrix();
-
+	void LookAt(glm::vec3 target);
+	
 	inline glm::vec3 getPosition() { return position; };
 	inline glm::vec3 getEulerAngles() { return eulerAngles; };
 	inline glm::quat getRotation() { return rotation; }
@@ -69,6 +70,8 @@ public:
 	~TransformComponent() {};
 	glm::mat4 model;
 private:
+
+	glm::vec3 RotationBetweenVectors(glm::vec3 start, glm::vec3 dest);
 	
 	glm::mat4 localModelMatrix;
 	bool physicsOverride;

@@ -4,22 +4,28 @@
 
 void RigidbodyComponent::init()
 {
-	shouldLog = false;
-	enabled = true;
-	mass = 1.0f;
-	attachedEntity->transform->update(0.0);
-	attachedEntity->transform->setPhysicsOverride(false);
-	rib = attachedEntity->engineManager->physicsManager->addRigidbody(attachedEntity);
-	btVector3 initialPosition = btVector3(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z);
-	rib->translate(initialPosition);
-	shape = rib->getCollisionShape();
-	myMotionState = rib->getMotionState();
-	centerOffset = glm::vec3(0.0f);
-	sphereRadius = 1.0f;
-	capsuleRadius = 1.0f;
-	capsuleHeight = 1.0f;
-	collisionScale = glm::vec3(1.0f);
-	cubeDimensions = glm::vec3(1.0f);
+	if(attachedEntity != nullptr)
+	{
+		shouldLog = false;
+		enabled = true;
+		mass = 1.0f;
+		attachedEntity->transform->update(0.0);
+		attachedEntity->transform->setPhysicsOverride(false);
+		rib = attachedEntity->engineManager->physicsManager->addRigidbody(attachedEntity);
+		btVector3 initialPosition = btVector3(attachedEntity->transform->position.x, attachedEntity->transform->position.y, attachedEntity->transform->position.z);
+		rib->translate(initialPosition);
+		shape = rib->getCollisionShape();
+		myMotionState = rib->getMotionState();
+		centerOffset = glm::vec3(0.0f);
+		sphereRadius = 1.0f;
+		capsuleRadius = 1.0f;
+		capsuleHeight = 1.0f;
+		collisionScale = glm::vec3(1.0f);
+		cubeDimensions = glm::vec3(1.0f);
+		linearFactor = glm::vec3(1.0f);
+		angularFactor = glm::vec3(1.0f);
+	}
+	
 }
 
 RigidbodyComponent::~RigidbodyComponent()
@@ -139,16 +145,15 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 			myMotionState = rib->getMotionState();
 			rib->setMassProps(mass, rib->getLocalInertia());
 			rib->getMotionState()->getWorldTransform(trans);
+			rib->setLinearFactor(glmToBullet(linearFactor));
+			rib->setAngularFactor(glmToBullet(angularFactor));
 		}
 		else
 		{
 			std::cout << "No Motion State " << std::endl;
 		}
 
-		// bleh this is nasty
-		/*trans.getOpenGLMatrix(glm::value_ptr(attachedEntity->transform->model));
-		attachedEntity->transform->model = glm::scale(attachedEntity->transform->model,attachedEntity->transform->scale);
-		*/
+	
 		glm::vec3 position = bulletToGlm(trans.getOrigin());
 		glm::vec3 radEulerAngles = glm::eulerAngles(bulletToGlm(trans.getRotation()));
 		glm::vec3 eulerAngles = glm::vec3(radToDegree(radEulerAngles.x), radToDegree(radEulerAngles.y), radToDegree(radEulerAngles.z));
@@ -163,15 +168,6 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 			s << "Position: " << glm::to_string(position) << " Euler: " << glm::to_string(eulerAngles) << std::endl;
 			Debug::Message<RigidbodyComponent>(s.str().c_str());
 		}
-		//auto interpolatedPosition = trans.getOrigin();
-		//auto ir = trans.getRotation();
-		//glm::vec3 newPosition = glm::vec3(interpolatedPosition.getX(), interpolatedPosition.getY(), interpolatedPosition.getZ());
-		//newPosition += centerOffset;
-		//btVector3 newEuler = quatToEuler(trans.getRotation());
-		//glm::vec3 finalEuler = glm::vec3(newEuler.getX() * 90, newEuler.getY(), newEuler.getZ());
-
-		//attachedEntity->transform->position = newPosition;
-		//attachedEntity->transform->eulerAngles = finalEuler;
 	}
 
 	previousFrameMass = mass;

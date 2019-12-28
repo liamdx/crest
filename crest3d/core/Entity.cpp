@@ -30,6 +30,7 @@ void Entity::ConsoleError(std::string error)
 }
 
 
+
 void Entity::AddComponent(EngineComponent* newComponent)
 {
 	bool canEmplace = true;
@@ -43,6 +44,7 @@ void Entity::AddComponent(EngineComponent* newComponent)
 	if (canEmplace)
 	{
 		newComponent->SetId(engineManager->makeUniqueComponentID());
+		if (newComponent->attachedEntity == nullptr) { engineManager->AttachComponentToEntity(id, newComponent); }
 		newComponent->init();
 		newComponent->start();
 		components.emplace_back(newComponent);
@@ -55,38 +57,10 @@ void Entity::AddComponent(EngineComponent* newComponent)
 		std::string message;
 		message = "ID: " + std::to_string(id) + " could not add a " + typeid(*newComponent).name() + " to the Entity\n";
 		Debug::Warn<Entity>(message.c_str());
-		delete newComponent;
+
 	}
 }
 
-void Entity::AddComponent(std::shared_ptr<EngineComponent> newComponent)
-{
-	bool canEmplace = true;
-	for (unsigned int i = 0; i < components.size(); i++)
-	{
-		if (components[i]->name == newComponent->name)
-		{
-			canEmplace = false;
-		}
-	}
-	if (canEmplace)
-	{
-		newComponent->SetId(engineManager->makeUniqueComponentID());
-		newComponent->init();
-		newComponent->start();
-		components.emplace_back(newComponent);
-		std::string message;
-		message = "ID: " + std::to_string(id) + " successfully added a " + typeid(*newComponent).name() + "\n";
-		Debug::Log<Entity>(message.c_str());
-	}
-	else
-	{
-		std::string message;
-		message = "ID: " + std::to_string(id) + " could not add a " + typeid(*newComponent).name() + " to the Entity\n";
-		Debug::Warn<Entity>(message.c_str());
-		
-	}
-}
 
 void Entity::initBehaviour()
 {

@@ -70,33 +70,33 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 			SDL_ShowCursor(1);
 		}
 	}
-	
 
-	float xMovement = input->controller1.left_x_input;
-	float yMovement = input->controller1.left_y_input;
-
-	float xLook = input->controller1.right_x_input;
-	float yLook = input->controller1.right_y_input;
-
-	bool isSprinting = input->controller1.left_bumper;
-
-	glm::vec3 x_movement = attachedEntity->transform->right * xMovement;
-	glm::vec3 y_movement = attachedEntity->transform->forward * yMovement;
-
-
-	if(isSprinting)
+	if(useContoller)
 	{
-		movementSpeed = 10.0f;
+		float xMovement = input->controller1.left_x_input;
+		float yMovement = input->controller1.left_y_input;
+
+		float xLook = input->controller1.right_x_input;
+		float yLook = input->controller1.right_y_input;
+
+		bool isSprinting = input->controller1.left_bumper;
+
+		glm::vec3 x_movement = attachedEntity->transform->right * xMovement;
+		glm::vec3 y_movement = attachedEntity->transform->forward * yMovement;
+
+
+		if (isSprinting)
+		{
+			movementSpeed = 10.0f;
+		}
+		else
+		{
+			movementSpeed = 5.0f;
+		}
+		attachedEntity->transform->position += ((x_movement + y_movement) * movementSpeed * deltaTime);
+		attachedEntity->transform->eulerAngles += (glm::vec3(yLook, xLook, 0.0f) * 360.0f * deltaTime);
+
 	}
-	else
-	{
-		movementSpeed = 5.0f;
-	}
-	attachedEntity->transform->position += ((x_movement + y_movement) * movementSpeed * deltaTime);
-	attachedEntity->transform->eulerAngles += (glm::vec3(yLook, xLook, 0.0f) * 360.0f * deltaTime);
-		
-	
-	
 }
 
 CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, std::shared_ptr<InputManager> _input)

@@ -113,16 +113,16 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/lua/include;$(SolutionDir)dependencies/sol2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions>/D_DISABLE_EXTENDED_ALIGNED_STORAGE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_DISABLE_EXTENDED_ALIGNED_STORAGE /bigobj %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/lua/lib/Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,18 +163,18 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/lua/include;$(SolutionDir)dependencies/sol2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions>/D_DISABLE_EXTENDED_ALIGNED_STORAGE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/D_DISABLE_EXTENDED_ALIGNED_STORAGE /bigobj %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/lua/lib/Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -187,6 +187,7 @@
     <ClCompile Include="core\components\DebugComponent.cpp" />
     <ClCompile Include="core\components\lighting\DirectionalLightComponent.cpp" />
     <ClCompile Include="core\components\lighting\PointLightComponent.cpp" />
+    <ClCompile Include="core\components\LuaComponent.cpp" />
     <ClCompile Include="core\components\MeshComponent.cpp">
       <SubType>
       </SubType>
@@ -234,8 +235,8 @@
     <ClInclude Include="core\components\lighting\DirectionalLightComponent.h" />
     <ClInclude Include="core\components\lighting\LightComponent.h" />
     <ClInclude Include="core\components\lighting\PointLightComponent.h" />
+    <ClInclude Include="core\components\LuaComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
-    <ClInclude Include="core\components\NodeGraphComponent.h" />
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
@@ -456,8 +457,6 @@
     <ClInclude Include="core\InputManager.h" />
     <ClInclude Include="core\gfx\Mesh.h" />
     <ClInclude Include="core\gfx\Model.h" />
-    <ClInclude Include="core\nodegraph\NodeGraph.h" />
-    <ClInclude Include="core\nodegraph\NodeGraphSerializer.h" />
     <ClInclude Include="core\PhysicsManager.h" />
     <ClInclude Include="core\primitives\Cube.h" />
     <ClInclude Include="core\primitives\Quad.h" />

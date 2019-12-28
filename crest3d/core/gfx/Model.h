@@ -37,5 +37,7 @@ public:
 	aiMatrix4x4 currentTransformation;
 	std::vector<aiMatrix4x4> debugMatrices;
 	static TextureType convertTextureType(aiTextureType t);
+
+	aiMatrix4x4 globalMeshInverse;
 private:
 };

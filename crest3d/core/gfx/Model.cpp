@@ -6,8 +6,7 @@ void Model::loadModel(std::string _path)
 	const aiScene* scene = importer.ReadFile(_path, aiProcess_Triangulate |
 		aiProcess_FlipUVs |
 		aiProcess_CalcTangentSpace |
-		aiProcess_GenSmoothNormals |
-		aiProcess_OptimizeMeshes);
+		aiProcess_GenSmoothNormals );
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
@@ -18,6 +17,7 @@ void Model::loadModel(std::string _path)
 	directory = path.substr(0, path.find_last_of('/'));
 	name = path.substr(path.find_last_of('/') + 1, path.find_last_of('.') - 1);
 	std::cout << directory << std::endl;
+	globalMeshInverse = aiMatrix4x4();
 	processNode(scene->mRootNode, scene);
 
 	std::cout << "done" << std::endl;
@@ -26,13 +26,10 @@ void Model::loadModel(std::string _path)
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
 	debugMatrices.emplace_back(node->mTransformation);
+	globalMeshInverse *= node->mTransformation;
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-		// node->mTransformation->
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		// node->mTransformation->
-		// node->mTransformation->
-
 		meshes.push_back(processMesh2(mesh, node, scene));
 	}
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -137,7 +134,7 @@ std::shared_ptr<Mesh> Model::processMesh2(aiMesh* mesh, aiNode* node, const aiSc
 	{
 		//vertex
 		aiVector3D pos = mesh->mVertices[i];
-		aiTransformVecByMatrix4(&pos, &node->mTransformation.Inverse());
+		aiTransformVecByMatrix4(&pos, &globalMeshInverse);
 
 		Vertex vert;
 		/*

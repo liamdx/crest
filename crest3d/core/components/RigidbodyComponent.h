@@ -38,11 +38,13 @@ public:
 	bool shouldLog = false;
 	float mass;
 	glm::vec3 centerOffset;
-	void reset();
+	glm::vec3 linearFactor, angularFactor;
 	glm::vec3 cubeDimensions, collisionScale;
 	float capsuleRadius, capsuleHeight;
 	float sphereRadius;
 
+	void reset();
+	
 	glm::vec3 bulletToGlm(const btVector3& v) { return glm::vec3(v.getX(), v.getY(), v.getZ()); }
 
 	btVector3 glmToBullet(const glm::vec3& v) { return btVector3(v.x, v.y, v.z); }
