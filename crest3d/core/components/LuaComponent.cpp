@@ -265,6 +265,7 @@ void LuaComponent::BindCrestToLua()
 
 	auto _this = lua["this"].get_or_create<sol::table>();
 	_this.set_function("Transform", [&]() {return attachedEntity->transform; });
+	_this.set_function("Entity", [&]() {return attachedEntity; });
 
 
 	auto _cm = lua["CrestMaths"].get_or_create<sol::table>();

@@ -3,16 +3,19 @@ speed = 5
 movementVector = vec3.new(0,0,0)
 e = Entity.new()
 
+local rbc
+
 function init()
     -- some stuff
     -- initalise new components
     e.Transform.position = vec3.new(0, 10, 0)
     e:AddComponent(RigidbodyComponent.new())
+    this.Entity():AddComponent(RigidbodyComponent.new())
 end
 
 function start()
     -- some stuff
-    
+    rbc = this.Entity():GetComponent("RigidbodyComponent")
 
 end
 
@@ -21,16 +24,14 @@ function earlyUpdate(deltaTime)
 end
 
 function update(deltaTime)
-    movementVector = this.Transform().forward * Input.Controller1LY()
-    movementVector = movementVector + this.Transform().right * Input.Controller1LX()
-    movementVector = movementVector * speed * deltaTime
-    this.Transform().position = this.Transform().position + movementVector
-    -- this.Transform():LookAt(e.Transform.position)
-    this.Transform():LookAt(vec3.new(0,0,0))
 
-    rbc = e:GetComponent()
-    rbc:ApplyForce(vec3.new(0, 5, 0))
-    -- rbc.ApplyForce(vec3.new(0, 5, 0))
+    rbcd = e:GetComponent()
+    rbcd:ApplyForce(vec3.new(0, 0, 0))
+
+    if Input.Controller1A() == true then
+        rbc:ApplyForce(vec3.new(0, 10, 0))
+    end
+        -- rbc.ApplyForce(vec3.new(0, 5, 0))
     -- e.Transform.position = e.Transform.position + vec3.new(0, deltaTime, 0)
     -- local movement = vec3.new(0, 0, 0)
     -- this.Transform.position = this.Transform.position + movement * 5 * deltaTime

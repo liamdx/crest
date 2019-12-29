@@ -76,9 +76,9 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 
 	// temporarily initialise everything her
 	entities["cameraEntity"] = engineManager->AddCameraEntity();
-	// entities["cameraEntity"]->AddComponent(new CameraControllerComponent(entities.at("cameraEntity"), engineManager->input));
-	auto orbit_script = engineManager->assetManager->loadScriptAsset("res/scripts/OrbitCam.lua");
-	entities["cameraEntity"]->AddComponent(new LuaComponent(entities["cameraEntity"], orbit_script->asset));
+	entities["cameraEntity"]->AddComponent(new CameraControllerComponent(entities.at("cameraEntity"), engineManager->input));
+	//auto orbit_script = engineManager->assetManager->loadScriptAsset("res/scripts/OrbitCam.lua");
+	// entities["cameraEntity"]->AddComponent(new LuaComponent(entities["cameraEntity"], orbit_script->asset));
 	/*std::shared_ptr<CameraControllerComponent> camController = entities.at("cameraEntity")->GetComponent<CameraControllerComponent>();
 	camController->window = engineManager->window;*/
 	components["cam"] = entities.at("cameraEntity")->GetComponent<CameraComponent>();
@@ -329,9 +329,14 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 
 		if(e->GetComponent<CameraControllerComponent>() != nullptr)
 		{
-			auto controller = e->GetComponent<CameraControllerComponent>();
-			ImGui::Auto(controller->initMoveSpeed, "Cam speed");
-			ImGui::Auto(controller->movementSpeed, "Cam speed");
+			if(ImGui::TreeNode("CameraControllerComponent"))
+			{
+				auto controller = e->GetComponent<CameraControllerComponent>();
+				ImGui::Auto(controller->initMoveSpeed, "Init Cam speed");
+				ImGui::Auto(controller->movementSpeed, "Cam speed");
+				ImGui::Auto(controller->useContoller, "Use Controller");
+			}
+			ImGui::TreePop();
 		}
 
 		if (e->GetComponent<LuaComponent>() != nullptr)
