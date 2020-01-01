@@ -22,8 +22,9 @@ void LuaScript::reload()
 
 void LuaComponent::BindCrestToLua()
 {
+	// lua.stack_clear();
 	lua.open_libraries(sol::lib::base, sol::lib::math);
-
+	
 	// this needs separated and managed somehow...
 	// glm::vec3
 	auto vec3_mult_overloads = sol::overload(
@@ -283,13 +284,20 @@ void LuaComponent::BindCrestToLua()
 
 	try
 	{
-		sol::protected_function_result result = lua.script(script->script);
-		if (!result.valid())
+		sol::environment env(lua, sol::create, lua.globals());
+		auto result = lua.safe_script(script->script,[](lua_State*, sol::protected_function_result pfr) {
+			// pfr will contain things that went wrong, for either loading or executing the script
+			// the user can do whatever they like here, including throw. Otherwise...
+			sol::error err = pfr;
+			std::cout << "An error (an expected one) occurred: " << err.what() << std::endl;
+			// ... they need to return the protected_function_result
+			return pfr;
+		});
+
+		// didnt get a result
+		if(result.valid() == false)
 		{
-			sol::error err = result;
-			std::string error = err.what();
-			Debug::Error<LuaComponent>(error.c_str());
-			shouldRun = false;
+			std::cout <<" boom yes skeeeat\n"; 
 		}
 
 		init_func = lua["init"];

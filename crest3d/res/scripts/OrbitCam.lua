@@ -1,13 +1,13 @@
 target = vec3.new(0,0,0)
-distance = 8.0
+distance = 30.0
 xSpeed = 0.02
 ySpeed = 3.0
 
-yMinLimit = 10.0
+yMinLimit = -30.0
 yMaxLimit = 180.0
 
-distanceMin = 5
-distanceMax = 15.0
+distanceMin = 20
+distanceMax = 40.0
 
 x = 0
 y = 0
@@ -44,20 +44,20 @@ function earlyUpdate(deltaTime)
 end
 
 function update(deltaTime)
-    x = x + Input.Controller1RX() * xSpeed * distance * 0.2
-    y = y - Input.Controller1RY() * ySpeed * 0.02
-    y = clampAngle(yMinLimit, yMaxLimit)
+    -- x = x + Input.Controller1RX() * xSpeed * distance * 0.2
+    -- y = y - Input.Controller1RY() * ySpeed * 0.02
+    -- y = clampAngle(yMinLimit, yMaxLimit)
 
-    rotation = quat.new(vec3.new(y,x,0))
+    -- rotation = quat.new(vec3.new(y,x,0))
 
-    distance = clamp(distance, distanceMin, distanceMax)
-    distance_vec = target - this.Transform().position
-    -- distance = distance - CrestMaths.Magnitude(distance_vec)
+    -- distance = clamp(distance, distanceMin, distanceMax)
+    -- distance_vec = target - this.Transform().position
+    -- -- distance = distance - CrestMaths.Magnitude(distance_vec)
 
-    negative_distance = vec3.new(0, 0, -distance)
-    position = rotation * negative_distance + target
-
-    this.Transform().position = position
+    -- negative_distance = vec3.new(0, 0, -distance)
+    -- position = rotation * negative_distance + target
+    -- position.y = target.y + 5
+    -- this.Transform().position = position
     this.Transform():LookAt(target)
 
 end        

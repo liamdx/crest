@@ -10,7 +10,7 @@ function init()
     -- initalise new components
     e.Transform.position = vec3.new(0, 10, 0)
     e:AddComponent(RigidbodyComponent.new())
-    this.Entity():AddComponent(RigidbodyComponent.new())
+    -- this.Entity():AddComponent(RigidbodyComponent.new())
 end
 
 function start()
@@ -25,11 +25,11 @@ end
 
 function update(deltaTime)
 
+    this.Transform():LookAt(vec3.new(0,0,0))
     rbcd = e:GetComponent()
-    rbcd:ApplyForce(vec3.new(0, 0, 0))
 
     if Input.Controller1A() == true then
-        rbc:ApplyForce(vec3.new(0, 10, 0))
+        rbcd:ApplyForce(vec3.new(0, 10, 0))
     end
         -- rbc.ApplyForce(vec3.new(0, 5, 0))
     -- e.Transform.position = e.Transform.position + vec3.new(0, deltaTime, 0)

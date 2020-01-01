@@ -9,8 +9,8 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	clapTimer = 0.0f;
 	
 	auto m = engineManager->assetManager->loadModelAsset("res/models/cyborg/cyborg.obj");
-	// auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
-	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
+	auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
+//	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
 	auto barrelModel = engineManager->assetManager->loadModelAsset("res/models/barrel/barrel.obj");
 	barrelAssetID = barrelModel->assetID;
@@ -78,7 +78,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	entities["cameraEntity"] = engineManager->AddCameraEntity();
 	entities["cameraEntity"]->AddComponent(new CameraControllerComponent(entities.at("cameraEntity"), engineManager->input));
 	//auto orbit_script = engineManager->assetManager->loadScriptAsset("res/scripts/OrbitCam.lua");
-	// entities["cameraEntity"]->AddComponent(new LuaComponent(entities["cameraEntity"], orbit_script->asset));
+	//entities["cameraEntity"]->AddComponent(new LuaComponent(entities["cameraEntity"], orbit_script->asset));
 	/*std::shared_ptr<CameraControllerComponent> camController = entities.at("cameraEntity")->GetComponent<CameraControllerComponent>();
 	camController->window = engineManager->window;*/
 	components["cam"] = entities.at("cameraEntity")->GetComponent<CameraComponent>();

@@ -180,8 +180,6 @@ void TransformComponent::addScale(glm::vec3 newScale)
 
 void TransformComponent::updateModelMatrix()
 {
-	rotation = glm::quat(glm::radians(eulerAngles));
-	
 	localModelMatrix = glm::translate(glm::mat4(1.0), position);
 	localModelMatrix = localModelMatrix * glm::mat4(rotation);
 	localModelMatrix = glm::scale(localModelMatrix, scale);
@@ -246,9 +244,26 @@ void TransformComponent::render(float deltaTime, glm::mat4 view)
 
 void TransformComponent::LookAt(glm::vec3 target)
 {
-	glm::vec3 direction = target - position;
-	glm::quat rot = glm::quatLookAt(direction, worldUp);
-	eulerAngles = glm::degrees(glm::eulerAngles(rot));
+	glm::vec3 lookVector = glm::vec3(target.x, target.y, target.z);
+	if (lookVector == position) { return; }
+
+	glm::vec3 direction = glm::normalize(lookVector - position);
+	float dot = glm::dot(glm::vec3(0, 0, 1), direction);
+	if (fabs(dot - (-1.0f)) < 0.000001f) {
+		rotation = glm::angleAxis((float)M_PI, glm::vec3(0, 1, 0));
+		return;
+	}
+	else if (fabs(dot - (1.0f)) < 0.000001f) {
+		rotation = glm::quat();
+		return;
+	}
+
+	float angle = glm::degrees(acosf(dot));
+
+	glm::vec3 cross = glm::normalize(glm::cross(glm::vec3(0, 0, 1), direction));
+	rotation = glm::normalize(glm::angleAxis(angle, cross));
+	eulerAngles = (glm::eulerAngles(rotation));
+	
 }
 
 glm::vec3 TransformComponent::RotationBetweenVectors(glm::vec3 start, glm::vec3 dest)
