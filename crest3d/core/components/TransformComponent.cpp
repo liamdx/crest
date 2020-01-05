@@ -211,24 +211,11 @@ void TransformComponent::update(float deltaTime)
 {
 	if (!physicsOverride)
 	{
-		if (parent == nullptr)
+		if (shouldUpdateModel())
 		{
-			if (shouldUpdateModel())
-			{
-				updateModelMatrix();
-			}
-
-			updateRotation();
+			updateModelMatrix();
 		}
-		else
-		{
-			if (shouldUpdateModel())
-			{
-				updateModelMatrix();
-			}
-			updateRotation();
-		}
-
+		updateRotation();
 		updateDirectionVectors();
 	}
 }
@@ -244,13 +231,14 @@ void TransformComponent::render(float deltaTime, glm::mat4 view)
 
 void TransformComponent::LookAt(glm::vec3 target)
 {
+	// FUCKING LEAVE ME ALONE AWRIGHT
 	glm::vec3 lookVector = glm::vec3(target.x, target.y, target.z);
 	if (lookVector == position) { return; }
 
 	glm::vec3 direction = glm::normalize(lookVector - position);
 	float dot = glm::dot(glm::vec3(0, 0, 1), direction);
 	if (fabs(dot - (-1.0f)) < 0.000001f) {
-		rotation = glm::angleAxis((float)M_PI, glm::vec3(0, 1, 0));
+		rotation = glm::angleAxis((float)glm::radians(M_PI), glm::vec3(0, 1, 0));
 		return;
 	}
 	else if (fabs(dot - (1.0f)) < 0.000001f) {
@@ -258,11 +246,11 @@ void TransformComponent::LookAt(glm::vec3 target)
 		return;
 	}
 
-	float angle = glm::degrees(acosf(dot));
+	float angle = acosf(dot);
 
 	glm::vec3 cross = glm::normalize(glm::cross(glm::vec3(0, 0, 1), direction));
 	rotation = glm::normalize(glm::angleAxis(angle, cross));
-	eulerAngles = (glm::eulerAngles(rotation));
+	eulerAngles = (glm::degrees(glm::eulerAngles(rotation)));
 	
 }
 

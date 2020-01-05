@@ -277,7 +277,8 @@ void LuaComponent::BindCrestToLua()
 	auto degrees_overloads = sol::overload(
 		[](const glm::vec3& v)->glm::vec3 {return glm::degrees(v); });
 	
-	_cm.set_function("EulerAngles", [](glm::quat q) -> glm::vec3 { return glm::eulerAngles(q); });
+	_cm.set_function("QuatToEuler", [](glm::quat q) -> glm::vec3 { return glm::eulerAngles(q); });
+	_cm.set_function("EulerToQuat", [](glm::vec3 v) -> glm::quat { return glm::quat(glm::radians(v)); });
 	_cm.set_function("Magnitude", magnitude_overloads);
 	_cm.set_function("Degrees", degrees_overloads);
 	// lua.new_usertype<>()

@@ -44,21 +44,18 @@ function earlyUpdate(deltaTime)
 end
 
 function update(deltaTime)
-    -- x = x + Input.Controller1RX() * xSpeed * distance * 0.2
+    -- x = x + Input.Controller1RX() * xSpeed * distance * 360.0 * deltaTime
     -- y = y - Input.Controller1RY() * ySpeed * 0.02
-    -- y = clampAngle(yMinLimit, yMaxLimit)
 
-    -- rotation = quat.new(vec3.new(y,x,0))
-
+    -- rotation = CrestMaths.EulerToQuat(vec3.new(y,x,0))
     -- distance = clamp(distance, distanceMin, distanceMax)
     -- distance_vec = target - this.Transform().position
     -- -- distance = distance - CrestMaths.Magnitude(distance_vec)
 
     -- negative_distance = vec3.new(0, 0, -distance)
     -- position = rotation * negative_distance + target
-    -- position.y = target.y + 5
     -- this.Transform().position = position
-    this.Transform():LookAt(target)
+    this.Transform():LookAt(vec3.new(0,0,0))
 
 end        
 
