@@ -20,7 +20,7 @@
 #include "SDL.h"
 #include "ext/stb_image/stb_image.h"
 #include "yse.hpp"
-#include "pugixml/pugixml.hpp"
+#include "tinyxml2.h"
 
 // glm stuff *sigh*
 #define GLM_ENABLE_EXPERIMENTAL
@@ -31,6 +31,7 @@
 #include "ext/glm/gtx/string_cast.hpp"
 #include "ext/glm/gtx/norm.hpp"
 #include "ext/glm/gtx/euler_angles.hpp"
+
 // Imgui and various extensions
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/auto.h"
@@ -56,15 +57,3 @@
 #define SOL_NO_EXCEPTIONS
 
 
-// some profiling macros (not sure if these are used)
-#define ZERO_MEM(a) memset(a, 0, sizeof(a))
-#define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
-#define SAFE_DELETE(p) if (p) { delete p; p = NULL; }
-
-#ifndef SYSOUT_F
-#define SYSOUT_F(f, ...)      _RPT1( 0, f, __VA_ARGS__ ) // For Visual studio
-#endif
-
-#ifndef speedtest__
-#define speedtest__(data)   for (long blockTime = NULL; (blockTime == NULL ? (blockTime = clock()) != NULL : false); SYSOUT_F(data "%.9fs", (double) (clock() - blockTime) / CLOCKS_PER_SEC))
-#endif

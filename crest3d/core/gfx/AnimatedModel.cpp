@@ -46,9 +46,10 @@ void AnimatedModel::Clear()
 	m_NumVertices = 0;
 }
 
-bool AnimatedModel::LoadMesh(const std::string& filepath)
+bool AnimatedModel::LoadMesh(const std::string& _filepath)
 {
 	// Release the previously loaded mesh (if it exists)
+	filepath = _filepath;
 	Clear();
 
 	// Create the VAO
@@ -759,4 +760,12 @@ aiNodeAnim* AnimatedModel::FindNodeAnim(aiAnimation* pAnimation, std::string Nod
 */
 	return(nodeMappings[pAnimation][NodeName]);
 	return NULL;
+}
+
+
+tinyxml2::XMLElement* AnimatedModel::serialize(tinyxml2::XMLDocument* doc)
+{
+	auto amElement = doc->NewElement("AnimatedModel");
+	amElement->SetAttribute("filepath", filepath.c_str());
+	return amElement;
 }

@@ -7,6 +7,12 @@
 class RigidbodyComponent : public EngineComponent
 {
 public:
+
+	enum CollisionShape
+	{
+		cube, sphere, capsule
+	};
+	
 	RigidbodyComponent(std::shared_ptr<Entity> e) { attachedEntity = e; name = "RigidbodyComponent"; }
 
 	// change pointers to unique_ptr
@@ -90,6 +96,8 @@ public:
 		return m;
 	}
 	
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+	void deserialize_component(tinyxml2::XMLElement* e) override;
 	
 private:
 

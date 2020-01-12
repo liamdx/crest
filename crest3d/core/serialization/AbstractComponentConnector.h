@@ -6,6 +6,4 @@ class AbstractComponentConnector
 	virtual void serialize();
 	virtual void deserialize();
 
-	
-	
 };

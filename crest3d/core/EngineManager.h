@@ -7,6 +7,12 @@
 
 class Example;
 
+enum EngineState
+{
+	Play,
+	Edit
+};
+
 class EngineManager
 {
 public:
@@ -21,10 +27,12 @@ public:
 	std::unique_ptr<ShaderManager> shaderManager;
 	std::unique_ptr<PhysicsManager> physicsManager;
 	std::unique_ptr<AssetManager> assetManager;
-	std::unique_ptr<Scene> scene;
+	std::shared_ptr<Scene> scene;
 	std::shared_ptr<InputManager> input;
 	std::unique_ptr<Example> example;
 	std::unique_ptr<Debug> debug;
+
+	EngineState engineState = Edit;
 
 	// probably should be made generic (likely wil switch to SDL at somepoint) 
 	SDL_Window* window;
@@ -53,6 +61,9 @@ public:
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
 	std::shared_ptr<Entity> AddPointLightEntity();
 
+	void ClearScene();
+	void ResetScene();
+	
 	void DeleteEntity(unsigned int entityId);
 	void DeleteComponent(unsigned int componentId);
 

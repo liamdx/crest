@@ -6,50 +6,51 @@
 void CameraControllerComponent::earlyUpdate(float deltaTime)
 {
 	if (!useContoller) {
-		if (input->GetKeyW())
-		{
-			attachedEntity->transform->position += (attachedEntity->transform->forward * movementSpeed * deltaTime);
-		}
+		if (useMovement) {
+			if (input->GetKeyW())
+			{
+				attachedEntity->transform->position += (attachedEntity->transform->forward * movementSpeed * deltaTime);
+			}
 
-		if (input->GetKeyS())
-		{
-			//BoneCam.ProcessKeyboard(BACKWARD, deltaTime);
-			attachedEntity->transform->position += (-(attachedEntity->transform->forward) * movementSpeed * deltaTime);
-		}
+			if (input->GetKeyS())
+			{
+				//BoneCam.ProcessKeyboard(BACKWARD, deltaTime);
+				attachedEntity->transform->position += (-(attachedEntity->transform->forward) * movementSpeed * deltaTime);
+			}
 
-		if (input->GetKeyA())
-		{
-			//BoneCam.ProcessKeyboard(LEFT, deltaTime);
-			attachedEntity->transform->position += (-(attachedEntity->transform->right) * movementSpeed * deltaTime);
-		}
+			if (input->GetKeyA())
+			{
+				//BoneCam.ProcessKeyboard(LEFT, deltaTime);
+				attachedEntity->transform->position += (-(attachedEntity->transform->right) * movementSpeed * deltaTime);
+			}
 
-		if (input->GetKeyD())
-		{
-			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-			attachedEntity->transform->position += (attachedEntity->transform->right * movementSpeed * deltaTime);
-		}
+			if (input->GetKeyD())
+			{
+				//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
+				attachedEntity->transform->position += (attachedEntity->transform->right * movementSpeed * deltaTime);
+			}
 
-		if (input->GetKeyE())
-		{
-			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-			attachedEntity->transform->position += (attachedEntity->transform->up * movementSpeed * deltaTime);
-		}
+			if (input->GetKeyE())
+			{
+				//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
+				attachedEntity->transform->position += (attachedEntity->transform->up * movementSpeed * deltaTime);
+			}
 
-		if (input->GetKeyQ())
-		{
-			//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
-			attachedEntity->transform->position += (-(attachedEntity->transform->up) * movementSpeed * deltaTime);
-		}
+			if (input->GetKeyQ())
+			{
+				//BoneCam.ProcessKeyboard(RIGHT, deltaTime);
+				attachedEntity->transform->position += (-(attachedEntity->transform->up) * movementSpeed * deltaTime);
+			}
 
-		if (input->GetKeyLeftShift())
-		{
-			movementSpeed = sprintSpeed;
+			if (input->GetKeyLeftShift())
+			{
+				movementSpeed = sprintSpeed;
+			}
+			else
+			{
+				movementSpeed = initMoveSpeed;
+			}
 		}
-		else
-		{
-			movementSpeed = initMoveSpeed;
-		}
-
 		input->GetMouseMovement();
 		float deltaX = input->xpos - lastX;
 		float deltaY = -(input->ypos - lastY);
@@ -73,27 +74,29 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 	if(useContoller)
 	{
-		float xMovement = input->controller1.left_x_input;
-		float yMovement = input->controller1.left_y_input;
+		if (useMovement) {
+			float xMovement = input->controller1.left_x_input;
+			float yMovement = input->controller1.left_y_input;
 
+
+			bool isSprinting = input->controller1.left_bumper;
+
+			glm::vec3 x_movement = attachedEntity->transform->right * xMovement;
+			glm::vec3 y_movement = attachedEntity->transform->forward * yMovement;
+
+
+			if (isSprinting)
+			{
+				movementSpeed = 10.0f;
+			}
+			else
+			{
+				movementSpeed = 5.0f;
+			}
+			attachedEntity->transform->position += ((x_movement + y_movement) * movementSpeed * deltaTime);
+		}
 		float xLook = input->controller1.right_x_input;
 		float yLook = input->controller1.right_y_input;
-
-		bool isSprinting = input->controller1.left_bumper;
-
-		glm::vec3 x_movement = attachedEntity->transform->right * xMovement;
-		glm::vec3 y_movement = attachedEntity->transform->forward * yMovement;
-
-
-		if (isSprinting)
-		{
-			movementSpeed = 10.0f;
-		}
-		else
-		{
-			movementSpeed = 5.0f;
-		}
-		attachedEntity->transform->position += ((x_movement + y_movement) * movementSpeed * deltaTime);
 		attachedEntity->transform->eulerAngles += (glm::vec3(yLook, xLook, 0.0f) * 360.0f * deltaTime);
 
 	}
@@ -111,4 +114,17 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, 
 	initMoveSpeed = movementSpeed;
 	sprintSpeed = initMoveSpeed * 3.0f;
 	useContoller = false;
+	useMovement = true;
+}
+
+tinyxml2::XMLElement* CameraControllerComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto ccElement = doc->NewElement("CameraControllerComponent");
+	ccElement->SetAttribute("mouseSensitivity", mouseSensitivity);
+	ccElement->SetAttribute("movementSpeed", movementSpeed);
+	ccElement->SetAttribute("sprintSpeed", sprintSpeed);
+	ccElement->SetAttribute("useController", useContoller);
+	ccElement->SetAttribute("useMovement", useMovement);
+	// ..
+	return ccElement;
 }

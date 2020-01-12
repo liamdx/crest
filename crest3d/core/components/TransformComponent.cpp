@@ -1,5 +1,6 @@
 #include "TransformComponent.h"
 #include "Common.h"
+#include "serialization/Serializer.hpp"
 
 TransformComponent::TransformComponent()
 {
@@ -309,3 +310,19 @@ bool TransformComponent::shouldUpdateModel()
 
 	return false;
 }
+
+tinyxml2::XMLElement* TransformComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto tcElement = doc->NewElement("TransformComponent");
+	tcElement->LinkEndChild(Serializer::SerializeVec3(position, "position", doc));
+	tcElement->LinkEndChild(Serializer::SerializeVec3(eulerAngles, "eulerAngles", doc));
+	tcElement->LinkEndChild(Serializer::SerializeQuat(rotation, "rotation", doc));
+	tcElement->LinkEndChild(Serializer::SerializeVec3(scale, "scale", doc));
+	tcElement->LinkEndChild(Serializer::SerializeVec3(forward, "forward", doc));
+	tcElement->LinkEndChild(Serializer::SerializeVec3(right, "right", doc));
+	tcElement->LinkEndChild(Serializer::SerializeVec3(up, "up", doc));
+	return tcElement;
+}
+
+
+

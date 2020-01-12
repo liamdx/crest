@@ -17,6 +17,9 @@ public:
 	virtual void fixedUpdate() {};
 	virtual void render(float deltaTime, glm::mat4 view) {};
 	virtual void ui(float deltaTime) {};
-
+	virtual tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) { return doc->NewElement("EngineComponent"); }
+	virtual void deserialize_component(tinyxml2::XMLElement* e) {} 
+	
 	inline void SetId(unsigned int newId) { id = newId; }
+
 };

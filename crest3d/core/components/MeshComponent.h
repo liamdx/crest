@@ -2,15 +2,26 @@
 
 #include "EngineComponent.h"
 #include "ShaderComponent.h"
-#include "gfx/Mesh.h"
 #include "Entity.h"
+#include "gfx/Model.h"
 
 class MeshComponent : public EngineComponent
 {
 public:;
-	  MeshComponent(std::shared_ptr<Entity> e, std::shared_ptr<Mesh> newMesh) { name = "MeshComponent"; attachedEntity = std::shared_ptr<Entity>(e); mesh = newMesh; shouldDraw = true;
+	  MeshComponent(std::shared_ptr<Entity> e, std::shared_ptr<Mesh> newMesh) {
+	  	name = "MeshComponent";
+	  	attachedEntity = std::shared_ptr<Entity>(e);
+	  	mesh = newMesh;
+		model = nullptr;
+	  	shouldDraw = true;
 	  };
-
+	  MeshComponent(std::shared_ptr<Entity> e, std::shared_ptr<Mesh> newMesh, std::shared_ptr<Model> newModel) {
+		name = "MeshComponent";
+	  	attachedEntity = std::shared_ptr<Entity>(e);
+	  	mesh = newMesh;
+	  	shouldDraw = true;
+	  	model = newModel;
+	  };
 	  void init() override;
 	  void start() override;
 	  void earlyUpdate(float deltaTime) override;
@@ -23,6 +34,8 @@ public:;
 	  bool meshIsConvex;
 	  // definitely can be changed to be unique
 	  std::shared_ptr<Mesh> mesh;
+	  std::shared_ptr<Model> model;
+	
 	  bool shouldDraw;
 private:
 	int i = 0;

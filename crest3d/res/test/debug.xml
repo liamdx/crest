@@ -1,0 +1,3038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+    <Entity name="root" id="0">
+        <TransformComponent>
+            <Vector3 name="position" x="0" y="0" z="0"/>
+            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+            <Vector3 name="scale" x="1" y="1" z="1"/>
+            <Vector3 name="forward" x="1" y="0" z="0"/>
+            <Vector3 name="right" x="0" y="0" z="1"/>
+            <Vector3 name="up" x="0" y="1" z="0"/>
+        </TransformComponent>
+        <Components/>
+        <Children>
+            <Entity name="cyborg.obj0" id="1">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="8" z="0"/>
+                    <Vector3 name="eulerAngles" x="90" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0.70710683" y="0" z="-0" w="0.70710683"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="-4.3711388e-08" y="1" z="-0"/>
+                    <Vector3 name="right" x="0" y="0" z="-1"/>
+                    <Vector3 name="up" x="1" y="4.3711388e-08" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <LuaComponent>
+                        <LuaScript filepath="res/scripts/debug.lua"/>
+                    </LuaComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="3">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="Entity: 4" id="4">
+                <TransformComponent>
+                    <Vector3 name="position" x="-74.98526" y="1.1999497" z="-9.5508547"/>
+                    <Vector3 name="eulerAngles" x="-44.856583" y="-72.603203" z="134.24466"/>
+                    <Quaternion name="rotation" x="0.38466805" y="-0.49604255" z="0.59853745" w="0.49772"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="0.21194458" y="-0.7053346" z="-0.67644852"/>
+                    <Vector3 name="right" x="0.95425701" y="-0" z="0.29898742"/>
+                    <Vector3 name="up" x="0.2108862" y="0.70887452" z="-0.67307055"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="map_1.obj5" id="6">
+                <TransformComponent>
+                    <Vector3 name="position" x="0.029999999" y="0.029999999" z="0.029999999"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.07" y="0.07" z="0.07"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components/>
+                <Children>
+                    <Entity name="0" id="8">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="1" id="10">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="2" id="12">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="3" id="14">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="4" id="16">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="5" id="18">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="6" id="20">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="7" id="22">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="8" id="24">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                    <Entity name="9" id="26">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj27" id="28">
+                <TransformComponent>
+                    <Vector3 name="position" x="-49.788315" y="1.1995349" z="-40.369514"/>
+                    <Vector3 name="eulerAngles" x="-54.68483" y="-13.541498" z="-71.561768"/>
+                    <Quaternion name="rotation" x="-0.43124992" y="0.1817188" z="-0.55967265" w="0.68393588"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.56200361" y="-0.81598467" z="-0.13535573"/>
+                    <Vector3 name="right" x="0.23414959" y="-0" z="0.97220057"/>
+                    <Vector3 name="up" x="0.79330063" y="0.57807368" z="-0.19106245"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="30">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj31" id="32">
+                <TransformComponent>
+                    <Vector3 name="position" x="-95.504326" y="1.1994119" z="46.027378"/>
+                    <Vector3 name="eulerAngles" x="81.74247" y="-26.141603" z="-161.89246"/>
+                    <Quaternion name="rotation" x="-0.06858027" y="-0.65637732" z="-0.70412588" w="0.26205415"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.12893127" y="0.98963261" z="-0.063278906"/>
+                    <Vector3 name="right" x="0.44059113" y="-0" z="0.89770788"/>
+                    <Vector3 name="up" x="-0.88840097" y="0.14362274" z="0.43602335"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="34">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj35" id="36">
+                <TransformComponent>
+                    <Vector3 name="position" x="-35.715672" y="1.199984" z="-46.653538"/>
+                    <Vector3 name="eulerAngles" x="-96.095131" y="-7.2816" z="39.760628"/>
+                    <Quaternion name="rotation" x="-0.68353188" y="-0.29231113" z="0.18246207" w="0.64346403"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.1053233" y="-0.99434698" z="0.013457848"/>
+                    <Vector3 name="right" x="-0.12674606" y="0" z="-0.99193513"/>
+                    <Vector3 name="up" x="-0.98632783" y="0.10617962" z="0.12602958"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="38">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj39" id="40">
+                <TransformComponent>
+                    <Vector3 name="position" x="27.693085" y="1.1991408" z="-75.298973"/>
+                    <Vector3 name="eulerAngles" x="1.4280819" y="9.7881098" z="-89.677605"/>
+                    <Quaternion name="rotation" x="0.068955682" y="0.051735435" z="-0.7032432" w="0.70570362"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.9851371" y="0.024922151" z="0.16995218"/>
+                    <Vector3 name="right" x="-0.17000498" y="0" z="0.98544317"/>
+                    <Vector3 name="up" x="-0.024559367" y="0.99968946" z="-0.0042368905"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="42">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj43" id="44">
+                <TransformComponent>
+                    <Vector3 name="position" x="-65.277428" y="1.1962862" z="-24.109442"/>
+                    <Vector3 name="eulerAngles" x="68.69976" y="5.8804631" z="-75.446342"/>
+                    <Quaternion name="rotation" x="0.47162783" y="-0.31128016" z="-0.52737325" w="0.63446778"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.36134365" y="0.93168968" z="0.037216708"/>
+                    <Vector3 name="right" x="-0.10245335" y="0" z="0.9947378"/>
+                    <Vector3 name="up" x="-0.92678708" y="0.3632552" z="-0.095454745"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="46">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj47" id="48">
+                <TransformComponent>
+                    <Vector3 name="position" x="-70.050598" y="1.2001469" z="74.139313"/>
+                    <Vector3 name="eulerAngles" x="-48.603237" y="2.8077912" z="-93.604965"/>
+                    <Quaternion name="rotation" x="-0.26534307" y="0.31520668" z="-0.65730166" w="0.63102484"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.66047567" y="-0.75014853" z="0.032392681"/>
+                    <Vector3 name="right" x="-0.048985593" y="0" z="0.9987995"/>
+                    <Vector3 name="up" x="0.74924791" y="0.66126949" z="0.036746468"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="50">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj51" id="52">
+                <TransformComponent>
+                    <Vector3 name="position" x="-82.933136" y="1.2150921" z="-16.415901"/>
+                    <Vector3 name="eulerAngles" x="52.723843" y="-18.109142" z="-116.48701"/>
+                    <Quaternion name="rotation" x="0.11089144" y="-0.44707346" z="-0.71559542" w="0.5251205"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.57565683" y="0.79572558" z="-0.18825531"/>
+                    <Vector3 name="right" x="0.31082809" y="-0" z="0.95046622"/>
+                    <Vector3 name="up" x="-0.75631016" y="0.60565734" z="0.24733384"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="54">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj55" id="56">
+                <TransformComponent>
+                    <Vector3 name="position" x="-0.93544942" y="1.2000797" z="7.9207768"/>
+                    <Vector3 name="eulerAngles" x="43.950478" y="-5.9487534" z="-95.134781"/>
+                    <Quaternion name="rotation" x="0.21662946" y="-0.30828577" z="-0.67042398" w="0.63918942"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.71606308" y="0.69403636" z="-0.07461378"/>
+                    <Vector3 name="right" x="0.10363889" y="-0" z="0.99461502"/>
+                    <Vector3 name="up" x="-0.69029897" y="0.71993995" z="0.071929164"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="58">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj59" id="60">
+                <TransformComponent>
+                    <Vector3 name="position" x="-76.665985" y="1.2024816" z="18.309177"/>
+                    <Vector3 name="eulerAngles" x="26.400284" y="-38.225105" z="-107.58424"/>
+                    <Quaternion name="rotation" x="-0.12975544" y="-0.3624019" z="-0.69809067" w="0.60373652"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.70365673" y="0.44463959" z="-0.5542227"/>
+                    <Vector3 name="right" x="0.61875272" y="-0" z="0.78558588"/>
+                    <Vector3 name="up" x="-0.34930259" y="0.89570957" z="0.27512196"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="62">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj63" id="64">
+                <TransformComponent>
+                    <Vector3 name="position" x="4.4286904" y="1.1907405" z="71.23632"/>
+                    <Vector3 name="eulerAngles" x="41.862549" y="15.439189" z="103.07394"/>
+                    <Quaternion name="rotation" x="0.12196065" y="0.35523131" z="0.69486207" w="0.61327237"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.71787262" y="0.66734588" z="0.19826342"/>
+                    <Vector3 name="right" x="-0.26621547" y="0" z="0.9639135"/>
+                    <Vector3 name="up" x="-0.64326376" y="0.744748" z="-0.17765781"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="66">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj67" id="68">
+                <TransformComponent>
+                    <Vector3 name="position" x="-48.359245" y="1.1996216" z="23.388145"/>
+                    <Vector3 name="eulerAngles" x="-75.638725" y="-56.188583" z="-16.57411"/>
+                    <Quaternion name="rotation" x="-0.58889604" y="-0.29015595" z="-0.38618517" w="0.64797533"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.13802198" y="-0.96875101" z="-0.20608591"/>
+                    <Vector3 name="right" x="0.83087361" y="-0" z="0.55646122"/>
+                    <Vector3 name="up" x="0.53907239" y="0.24803522" z="-0.80490965"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="70">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj71" id="72">
+                <TransformComponent>
+                    <Vector3 name="position" x="-27.329826" y="1.1992861" z="82.601624"/>
+                    <Vector3 name="eulerAngles" x="-116.07132" y="17.600676" z="122.15004"/>
+                    <Quaternion name="rotation" x="-0.47638816" y="-0.69463104" z="0.52067399" w="0.13942991"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.41891584" y="-0.89824766" z="-0.13289337"/>
+                    <Vector3 name="right" x="0.30238113" y="0" z="-0.95318711"/>
+                    <Vector3 name="up" x="-0.85619819" y="0.43948966" z="-0.27161318"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="74">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj75" id="76">
+                <TransformComponent>
+                    <Vector3 name="position" x="39.081478" y="1.2002692" z="-50.727566"/>
+                    <Vector3 name="eulerAngles" x="78.587929" y="24.879" z="-24.58596"/>
+                    <Quaternion name="rotation" x="0.63974589" y="0.03121312" z="-0.29419512" w="0.7093659"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.17950173" y="0.98022962" z="0.083241969"/>
+                    <Vector3 name="right" x="-0.42070332" y="0" z="0.90719831"/>
+                    <Vector3 name="up" x="-0.88926256" y="0.1978638" z="-0.41238579"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="78">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj79" id="80">
+                <TransformComponent>
+                    <Vector3 name="position" x="-15.142817" y="1.2023011" z="110.60648"/>
+                    <Vector3 name="eulerAngles" x="-109.9485" y="14.286825" z="-57.78299"/>
+                    <Quaternion name="rotation" x="-0.67692298" y="0.45506835" z="-0.18599245" w="0.54780924"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.33062366" y="-0.9399997" z="-0.084193952"/>
+                    <Vector3 name="right" x="0.24677616" y="0" z="-0.96907246"/>
+                    <Vector3 name="up" x="-0.91092783" y="0.34117532" z="-0.23196952"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="82">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj83" id="84">
+                <TransformComponent>
+                    <Vector3 name="position" x="-71.786758" y="1.1895503" z="94.11235"/>
+                    <Vector3 name="eulerAngles" x="51.243458" y="-27.505541" z="56.980389"/>
+                    <Quaternion name="rotation" x="0.47141385" y="0.011960506" z="0.50812542" w="0.72071803"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.55525196" y="0.77981311" z="-0.28911415"/>
+                    <Vector3 name="right" x="0.46183443" y="-0" z="0.88696617"/>
+                    <Vector3 name="up" x="-0.6916678" y="0.6260125" z="0.36014453"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="86">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj87" id="88">
+                <TransformComponent>
+                    <Vector3 name="position" x="4.744318" y="1.1973776" z="89.335579"/>
+                    <Vector3 name="eulerAngles" x="-70.431389" y="6.0305662" z="-107.26778"/>
+                    <Quaternion name="rotation" x="-0.30684489" y="0.48918837" z="-0.63897765" w="0.50818163"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.33308196" y="-0.94224119" z="0.035187989"/>
+                    <Vector3 name="right" x="-0.10505901" y="0" z="0.99446601"/>
+                    <Vector3 name="up" x="0.93702674" y="0.33493549" z="0.09899091"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="90">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj91" id="92">
+                <TransformComponent>
+                    <Vector3 name="position" x="-15.937269" y="1.1941557" z="-59.726334"/>
+                    <Vector3 name="eulerAngles" x="31.316736" y="19.324974" z="-78.688385"/>
+                    <Quaternion name="rotation" x="0.30822736" y="-0.043698438" z="-0.63682312" w="0.70536703"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.80617267" y="0.51976866" z="0.28271219"/>
+                    <Vector3 name="right" x="-0.33092576" y="0" z="0.94365686"/>
+                    <Vector3 name="up" x="-0.49048325" y="0.85430712" z="-0.17200483"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="94">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj95" id="96">
+                <TransformComponent>
+                    <Vector3 name="position" x="21.58477" y="1.1700982" z="-14.315777"/>
+                    <Vector3 name="eulerAngles" x="-90.380188" y="-25.497705" z="2.8654554"/>
+                    <Quaternion name="rotation" x="-0.68785375" y="-0.17277685" z="-0.13932398" w="0.69108194"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.0059891487" y="-0.99997801" z="0.0028563833"/>
+                    <Vector3 name="right" x="-0.430475" y="0" z="-0.90260255"/>
+                    <Vector3 name="up" x="-0.90258271" y="0.0066354224" z="0.43046552"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="98">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj99" id="100">
+                <TransformComponent>
+                    <Vector3 name="position" x="-5.9980669" y="1.1992548" z="-69.472633"/>
+                    <Vector3 name="eulerAngles" x="134.98326" y="15.61136" z="75.062317"/>
+                    <Quaternion name="rotation" x="0.6941514" y="0.59880298" z="0.13155046" w="0.37720472"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.68082219" y="0.7073133" z="-0.1902345"/>
+                    <Vector3 name="right" x="0.26911077" y="0" z="-0.9631092"/>
+                    <Vector3 name="up" x="0.68121994" y="0.70690024" z="0.19034563"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="102">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj103" id="104">
+                <TransformComponent>
+                    <Vector3 name="position" x="-37.785545" y="1.1999346" z="-45.903065"/>
+                    <Vector3 name="eulerAngles" x="-98.977211" y="0.82341135" z="-83.459122"/>
+                    <Quaternion name="rotation" x="-0.56426913" y="0.5095225" z="-0.4282952" w="0.4884164"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.15602544" y="-0.98775059" z="-0.0022424331"/>
+                    <Vector3 name="right" x="0.014370743" y="0" z="-0.99989671"/>
+                    <Vector3 name="up" x="-0.98764855" y="0.15604155" z="-0.01419471"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="106">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj107" id="108">
+                <TransformComponent>
+                    <Vector3 name="position" x="-70.402786" y="1.1973443" z="13.864303"/>
+                    <Vector3 name="eulerAngles" x="-12.77052" y="32.865005" z="-96.567665"/>
+                    <Quaternion name="rotation" x="0.13886718" y="0.26670027" z="-0.69058406" w="0.65778458"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.81917375" y="-0.22104673" z="0.52923787"/>
+                    <Vector3 name="right" x="-0.54266155" y="0" z="0.8399514"/>
+                    <Vector3 name="up" x="0.18566853" y="0.9752633" z="0.11995357"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="110">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj111" id="112">
+                <TransformComponent>
+                    <Vector3 name="position" x="-63.694931" y="1.1923078" z="44.824028"/>
+                    <Vector3 name="eulerAngles" x="63.429626" y="33.729385" z="-41.616096"/>
+                    <Quaternion name="rotation" x="0.55793953" y="0.051980436" z="-0.43175828" w="0.70681423"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.37200302" y="0.89438564" z="0.2483709"/>
+                    <Vector3 name="right" x="-0.55527103" y="0" z="0.83166945"/>
+                    <Vector3 name="up" x="-0.74383318" y="0.44729671" z="-0.49662644"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="114">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj115" id="116">
+                <TransformComponent>
+                    <Vector3 name="position" x="16.611464" y="1.1815226" z="23.747843"/>
+                    <Vector3 name="eulerAngles" x="135.1783" y="-10.518382" z="-80.327995"/>
+                    <Quaternion name="rotation" x="0.68097103" y="-0.62046015" z="-0.18010236" w="0.3447763"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.69738495" y="0.70490301" z="0.1294841"/>
+                    <Vector3 name="right" x="-0.18255098" y="0" z="-0.98319644"/>
+                    <Vector3 name="up" x="0.69305807" y="0.7093038" z="-0.12868072"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="118">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj119" id="120">
+                <TransformComponent>
+                    <Vector3 name="position" x="-58.067501" y="1.1967725" z="-80.017464"/>
+                    <Vector3 name="eulerAngles" x="99.157158" y="-11.142647" z="-40.206989"/>
+                    <Quaternion name="rotation" x="0.68989837" y="-0.31954908" z="-0.15240771" w="0.63142723"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.15614299" y="0.98725557" z="0.030754751"/>
+                    <Vector3 name="right" x="-0.19325233" y="0" z="-0.98114914"/>
+                    <Vector3 name="up" x="0.96864498" y="0.159143" z="-0.19078943"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="122">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj123" id="124">
+                <TransformComponent>
+                    <Vector3 name="position" x="-68.116013" y="1.1973183" z="85.757065"/>
+                    <Vector3 name="eulerAngles" x="-25.528837" y="-60.379555" z="112.21787"/>
+                    <Quaternion name="rotation" x="0.30062169" y="-0.43200442" z="0.63782263" w="0.56229961"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.44599751" y="-0.43096533" z="-0.7844457"/>
+                    <Vector3 name="right" x="0.86931866" y="-0" z="0.49425212"/>
+                    <Vector3 name="up" x="0.21300553" y="0.90236849" z="-0.37464622"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="126">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj127" id="128">
+                <TransformComponent>
+                    <Vector3 name="position" x="-56.879665" y="1.1967689" z="14.368657"/>
+                    <Vector3 name="eulerAngles" x="-99.426598" y="32.427395" z="162.9048"/>
+                    <Quaternion name="rotation" x="-0.28741136" y="-0.69750804" z="0.64565617" w="-0.11834461"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.1382454" y="-0.98649633" z="-0.087825947"/>
+                    <Vector3 name="right" x="0.53623044" y="0" z="-0.84407163"/>
+                    <Vector3 name="up" x="-0.83267343" y="0.16378395" z="-0.52898932"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="130">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj131" id="132">
+                <TransformComponent>
+                    <Vector3 name="position" x="-59.974155" y="1.200493" z="94.51757"/>
+                    <Vector3 name="eulerAngles" x="6.6265187" y="-57.149345" z="-95.371719"/>
+                    <Quaternion name="rotation" x="-0.31892943" y="-0.35898522" z="-0.62969911" w="0.61064941"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.5388273" y="0.1153969" z="-0.8344751"/>
+                    <Vector3 name="right" x="0.84008729" y="-0" z="0.54245114"/>
+                    <Vector3 name="up" x="-0.062597185" y="0.99331951" z="0.096943483"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="134">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj135" id="136">
+                <TransformComponent>
+                    <Vector3 name="position" x="-63.989738" y="1.191956" z="39.015301"/>
+                    <Vector3 name="eulerAngles" x="39.351276" y="13.771774" z="-79.522705"/>
+                    <Quaternion name="rotation" x="0.32916045" y="-0.12701185" z="-0.6289348" w="0.69279325"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.75104272" y="0.6340732" z="0.18408152"/>
+                    <Vector3 name="right" x="-0.23805502" y="0" z="0.97125167"/>
+                    <Vector3 name="up" x="-0.61584473" y="0.77327311" z="-0.15094432"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="138">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj139" id="140">
+                <TransformComponent>
+                    <Vector3 name="position" x="50.516998" y="1.1896639" z="54.180222"/>
+                    <Vector3 name="eulerAngles" x="-104.58652" y="-47.541294" z="-160.14178"/>
+                    <Quaternion name="rotation" x="-0.36768216" y="0.6706816" z="-0.60633725" w="-0.2176035"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.17000784" y="-0.96776849" z="0.18579966"/>
+                    <Vector3 name="right" x="-0.73776406" y="0" z="-0.67505866"/>
+                    <Vector3 name="up" x="-0.65330052" y="0.25184157" z="0.71398479"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="142">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj143" id="144">
+                <TransformComponent>
+                    <Vector3 name="position" x="-8.8617105" y="1.1992873" z="14.912192"/>
+                    <Vector3 name="eulerAngles" x="-94.624168" y="4.2781768" z="-46.410084"/>
+                    <Quaternion name="rotation" x="-0.66514963" y="0.31268713" z="-0.24174631" w="0.6335308"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.080394775" y="-0.99674493" z="-0.0060141198"/>
+                    <Vector3 name="right" x="0.074598908" y="0" z="-0.99721366"/>
+                    <Vector3 name="up" x="-0.99396765" y="0.08061941" z="-0.074356087"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="146">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj147" id="148">
+                <TransformComponent>
+                    <Vector3 name="position" x="47.465595" y="1.1972928" z="49.854103"/>
+                    <Vector3 name="eulerAngles" x="-95.042061" y="17.726109" z="-16.672314"/>
+                    <Quaternion name="rotation" x="-0.70593446" y="0.20859948" z="0.01569318" w="0.67668045"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.083714411" y="-0.99613047" z="-0.026758716"/>
+                    <Vector3 name="right" x="0.30446714" y="0" z="-0.95252281"/>
+                    <Vector3 name="up" x="-0.9488371" y="0.087887041" z="-0.30328903"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="150">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj151" id="152">
+                <TransformComponent>
+                    <Vector3 name="position" x="-40.314121" y="1.1878954" z="91.651176"/>
+                    <Vector3 name="eulerAngles" x="-43.054787" y="20.520241" z="-108.97514"/>
+                    <Quaternion name="rotation" x="-0.074871182" y="0.39016122" z="-0.70713317" w="0.58491993"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.68433708" y="-0.68269736" z="0.25613871"/>
+                    <Vector3 name="right" x="-0.35053822" y="0" z="0.93654841"/>
+                    <Vector3 name="up" x="0.6393792" y="0.73070127" z="0.23931155"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="154">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj155" id="156">
+                <TransformComponent>
+                    <Vector3 name="position" x="64.979179" y="1.1964488" z="-57.93763"/>
+                    <Vector3 name="eulerAngles" x="-110.77073" y="8.6001081" z="104.1563"/>
+                    <Quaternion name="rotation" x="-0.5379743" y="-0.62121224" z="0.4847725" w="0.29945728"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.35064197" y="-0.93500698" z="-0.053030286"/>
+                    <Vector3 name="right" x="0.14953719" y="0" z="-0.98875606"/>
+                    <Vector3 name="up" x="-0.92449391" y="0.3546294" z="-0.13981833"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="158">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj159" id="160">
+                <TransformComponent>
+                    <Vector3 name="position" x="92.179199" y="1.1994318" z="-21.900017"/>
+                    <Vector3 name="eulerAngles" x="42.283962" y="-0.82443088" z="-90.818199"/>
+                    <Quaternion name="rotation" x="0.24842687" y="-0.26155818" z="-0.6623643" w="0.65661627"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.73974288" y="0.67280549" z="-0.01064492"/>
+                    <Vector3 name="right" x="0.014388538" y="-0" z="0.99989647"/>
+                    <Vector3 name="up" x="-0.67273581" y="0.73981947" z="0.0096806874"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="162">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj163" id="164">
+                <TransformComponent>
+                    <Vector3 name="position" x="91.283936" y="1.1974287" z="-31.562771"/>
+                    <Vector3 name="eulerAngles" x="-99.855377" y="69.180893" z="-11.350248"/>
+                    <Quaternion name="rotation" x="-0.59073567" y="0.42596757" z="0.37989181" w="0.57032019"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.060834128" y="-0.9852429" z="-0.1599862"/>
+                    <Vector3 name="right" x="0.93470716" y="0" z="-0.35541877"/>
+                    <Vector3 name="up" x="-0.35017386" y="0.17116185" z="-0.9209137"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="166">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj167" id="168">
+                <TransformComponent>
+                    <Vector3 name="position" x="58.603909" y="1.1978633" z="-66.101852"/>
+                    <Vector3 name="eulerAngles" x="-147.68222" y="-59.295502" z="61.601677"/>
+                    <Quaternion name="rotation" x="-0.64651638" y="-0.54568672" z="-0.28425917" w="0.4510425"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.43151477" y="-0.53461474" z="0.72662377"/>
+                    <Vector3 name="right" x="-0.8598122" y="0" z="-0.5106104"/>
+                    <Vector3 name="up" x="-0.27297986" y="0.84509587" z="0.45966828"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="170">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj171" id="172">
+                <TransformComponent>
+                    <Vector3 name="position" x="-21.793938" y="1.1841258" z="-29.946791"/>
+                    <Vector3 name="eulerAngles" x="146.97246" y="68.415443" z="58.661762"/>
+                    <Quaternion name="rotation" x="0.61296839" y="0.52771586" z="-0.35475668" w="0.46897048"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.3084287" y="0.5450421" z="-0.77961588"/>
+                    <Vector3 name="right" x="0.92987567" y="0" z="-0.36787391"/>
+                    <Vector3 name="up" x="0.20050676" y="0.83840871" z="0.50682139"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="174">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj175" id="176">
+                <TransformComponent>
+                    <Vector3 name="position" x="20.191919" y="1.1976081" z="56.977318"/>
+                    <Vector3 name="eulerAngles" x="-104.43118" y="54.174427" z="162.5213"/>
+                    <Quaternion name="rotation" x="-0.38265792" y="-0.65307641" z="0.5938338" w="-0.27281055"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.14587159" y="-0.96844769" z="-0.20206578"/>
+                    <Vector3 name="right" x="0.8108027" y="0" z="-0.5853197"/>
+                    <Vector3 name="up" x="-0.5668515" y="0.249217" z="-0.78521997"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="178">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj179" id="180">
+                <TransformComponent>
+                    <Vector3 name="position" x="-68.537552" y="1.2053022" z="-16.665789"/>
+                    <Vector3 name="eulerAngles" x="-166.35094" y="-72.53186" z="75.968277"/>
+                    <Quaternion name="rotation" x="-0.58773178" y="-0.54810625" z="-0.40396708" w="0.43699139"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.29169825" y="-0.23597433" z="0.92694569"/>
+                    <Vector3 name="right" x="-0.95388407" y="0" z="-0.30017543"/>
+                    <Vector3 name="up" x="-0.070833698" y="0.97175938" z="0.22509214"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="182">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj183" id="184">
+                <TransformComponent>
+                    <Vector3 name="position" x="9.4324837" y="1.199688" z="-71.225647"/>
+                    <Vector3 name="eulerAngles" x="74.634331" y="-19.016422" z="-138.97585"/>
+                    <Quaternion name="rotation" x="0.086462334" y="-0.60602444" z="-0.6995458" w="0.36863846"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.25051731" y="0.96425444" z="-0.086340345"/>
+                    <Vector3 name="right" x="0.32583913" y="-0" z="0.94542527"/>
+                    <Vector3 name="up" x="-0.91163039" y="0.26497841" z="0.31419179"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="186">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj187" id="188">
+                <TransformComponent>
+                    <Vector3 name="position" x="-6.9186225" y="1.1870997" z="58.319904"/>
+                    <Vector3 name="eulerAngles" x="-160.51372" y="25.981094" z="-79.80278"/>
+                    <Quaternion name="rotation" x="-0.71233159" y="0.64521933" z="0.06418208" w="0.26861927"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.84744871" y="-0.33358112" z="-0.41298226"/>
+                    <Vector3 name="right" x="0.43807453" y="0" z="-0.8989386"/>
+                    <Vector3 name="up" x="-0.29986897" y="0.94272149" z="-0.14613341"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="190">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj191" id="192">
+                <TransformComponent>
+                    <Vector3 name="position" x="36.648548" y="1.2305872" z="49.630623"/>
+                    <Vector3 name="eulerAngles" x="111.65915" y="-31.872993" z="-43.677757"/>
+                    <Quaternion name="rotation" x="0.68110901" y="-0.43909854" z="0.0099643767" w="0.58581889"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.31343395" y="0.92939609" z="0.19489053"/>
+                    <Vector3 name="right" x="-0.52803808" y="0" z="-0.84922069"/>
+                    <Vector3 name="up" x="0.78926229" y="0.36908418" z="-0.49075648"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="194">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj195" id="196">
+                <TransformComponent>
+                    <Vector3 name="position" x="26.026211" y="1.1994628" z="48.374802"/>
+                    <Vector3 name="eulerAngles" x="32.132057" y="43.207973" z="113.29708"/>
+                    <Quaternion name="rotation" x="-0.15408282" y="0.40944424" z="0.69028229" w="0.57630223"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.61722779" y="0.53187251" z="0.57977724"/>
+                    <Vector3 name="right" x="-0.68464857" y="0" z="0.72887325"/>
+                    <Vector3 name="up" x="-0.38766766" y="0.84682453" z="-0.36414576"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="198">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj199" id="200">
+                <TransformComponent>
+                    <Vector3 name="position" x="58.033337" y="1.1989242" z="4.1568027"/>
+                    <Vector3 name="eulerAngles" x="-67.693718" y="30.176804" z="39.344116"/>
+                    <Quaternion name="rotation" x="-0.5791651" y="0.022542089" z="0.40647101" w="0.70628673"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.32811937" y="-0.9251681" z="0.19079222"/>
+                    <Vector3 name="right" x="-0.50266993" y="0" z="0.86447835"/>
+                    <Vector3 name="up" x="0.79978794" y="0.37955767" z="0.46505424"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="202">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj203" id="204">
+                <TransformComponent>
+                    <Vector3 name="position" x="45.053955" y="1.199728" z="48.981487"/>
+                    <Vector3 name="eulerAngles" x="-84.241768" y="44.152634" z="-171.73717"/>
+                    <Quaternion name="rotation" x="0.23327157" y="0.63999319" z="-0.66740394" w="0.3009403"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.071986139" y="-0.99495411" z="0.069887765"/>
+                    <Vector3 name="right" x="-0.69657224" y="0" z="0.71748674"/>
+                    <Vector3 name="up" x="0.71386635" y="0.10033098" z="0.69305742"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="206">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj207" id="208">
+                <TransformComponent>
+                    <Vector3 name="position" x="-40.498337" y="1.2042741" z="-61.530544"/>
+                    <Vector3 name="eulerAngles" x="-150.40663" y="61.534454" z="117.33384"/>
+                    <Quaternion name="rotation" x="-0.54359621" y="-0.64166236" z="0.44463199" w="-0.3083424"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.41445485" y="-0.49384138" z="-0.76442665"/>
+                    <Vector3 name="right" x="0.8791039" y="0" z="-0.47663027"/>
+                    <Vector3 name="up" x="-0.23537973" y="0.86955202" z="-0.43413782"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="210">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj211" id="212">
+                <TransformComponent>
+                    <Vector3 name="position" x="64.238647" y="1.1949084" z="44.368519"/>
+                    <Vector3 name="eulerAngles" x="-88.803185" y="14.021036" z="-175.55394"/>
+                    <Quaternion name="rotation" x="0.060197044" y="0.69731206" z="-0.70526564" w="0.11283925"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.020264599" y="-0.99978185" z="0.0050604353"/>
+                    <Vector3 name="right" x="-0.24227813" y="0" z="0.97020692"/>
+                    <Vector3 name="up" x="0.96999526" y="0.020886887" z="0.24222527"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="214">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj215" id="216">
+                <TransformComponent>
+                    <Vector3 name="position" x="60.294018" y="1.1961731" z="-48.534306"/>
+                    <Vector3 name="eulerAngles" x="59.688007" y="-30.637177" z="-130.44716"/>
+                    <Quaternion name="rotation" x="-0.0069164038" y="-0.53181171" z="-0.70446491" w="0.46995497"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.43425691" y="0.86328989" z="-0.25719929"/>
+                    <Vector3 name="right" x="0.5095998" y="-0" z="0.86041158"/>
+                    <Vector3 name="up" x="-0.74278462" y="0.50470841" z="0.43993235"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="218">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj219" id="220">
+                <TransformComponent>
+                    <Vector3 name="position" x="82.167435" y="1.1972021" z="-43.661572"/>
+                    <Vector3 name="eulerAngles" x="78.041016" y="69.570412" z="167.69006"/>
+                    <Quaternion name="rotation" x="-0.38523838" y="0.561629" z="0.59589279" w="0.42553025"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.072328396" y="0.97829622" z="0.19417818"/>
+                    <Vector3 name="right" x="-0.9371019" y="0" z="0.34905609"/>
+                    <Vector3 name="up" x="-0.34148023" y="0.20721138" z="-0.91676313"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="222">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj223" id="224">
+                <TransformComponent>
+                    <Vector3 name="position" x="20.502382" y="1.1938791" z="69.949631"/>
+                    <Vector3 name="eulerAngles" x="-22.321556" y="-18.108545" z="-82.871826"/>
+                    <Quaternion name="rotation" x="-0.24548016" y="0.010751784" z="-0.66401267" w="0.70619482"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.87924784" y="-0.37980425" z="-0.28752765"/>
+                    <Vector3 name="right" x="0.3108182" y="-0" z="0.95046937"/>
+                    <Vector3 name="up" x="0.36099231" y="0.92506695" z="-0.11805008"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="226">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj227" id="228">
+                <TransformComponent>
+                    <Vector3 name="position" x="46.786385" y="1.1970431" z="7.762578"/>
+                    <Vector3 name="eulerAngles" x="99.817345" y="6.1306705" z="-120.58737"/>
+                    <Quaternion name="rotation" x="0.40847817" y="-0.64646107" z="-0.57884276" w="0.28315157"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.16953258" y="0.98535633" z="-0.018209601"/>
+                    <Vector3 name="right" x="0.10679633" y="0" z="-0.99428093"/>
+                    <Vector3 name="up" x="0.97972101" y="0.17050773" z="0.10523244"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="230">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj231" id="232">
+                <TransformComponent>
+                    <Vector3 name="position" x="13.560869" y="1.2113343" z="-98.760529"/>
+                    <Vector3 name="eulerAngles" x="-111.83614" y="74.072067" z="-24.692158"/>
+                    <Quaternion name="rotation" x="-0.57368791" y="0.47108325" z="0.39167935" w="0.5436452"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.10207444" y="-0.9282515" z="-0.35767323"/>
+                    <Vector3 name="right" x="0.96160764" y="0" z="-0.27442801"/>
+                    <Vector3 name="up" x="-0.25473821" y="0.3719534" z="-0.89261371"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="234">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj235" id="236">
+                <TransformComponent>
+                    <Vector3 name="position" x="63.66861" y="1.1958463" z="-83.107338"/>
+                    <Vector3 name="eulerAngles" x="-11.643334" y="-19.447077" z="-86.024307"/>
+                    <Quaternion name="rotation" x="-0.18772051" y="-0.054661572" z="-0.68141264" w="0.70530128"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.92354631" y="-0.20181878" z="-0.32608518"/>
+                    <Vector3 name="right" x="0.33293602" y="-0" z="0.94294941"/>
+                    <Vector3 name="up" x="0.19030488" y="0.97942287" z="-0.067192733"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="238">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj239" id="240">
+                <TransformComponent>
+                    <Vector3 name="position" x="5.2737417" y="1.1998634" z="-91.336838"/>
+                    <Vector3 name="eulerAngles" x="21.072384" y="53.177097" z="106.50498"/>
+                    <Quaternion name="rotation" x="-0.25475901" y="0.39429176" z="0.65549248" w="0.59157538"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.55926371" y="0.35954708" z="0.74696052"/>
+                    <Vector3 name="right" x="-0.80049181" y="0" z="0.59934366"/>
+                    <Vector3 name="up" x="-0.21549229" y="0.93312705" z="-0.28781453"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="242">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj243" id="244">
+                <TransformComponent>
+                    <Vector3 name="position" x="66.868675" y="1.1928066" z="-31.568672"/>
+                    <Vector3 name="eulerAngles" x="-125.2588" y="-50.053734" z="-137.28104"/>
+                    <Quaternion name="rotation" x="-0.47420892" y="0.67856443" z="-0.52479631" w="-0.19815418"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.37064749" y="-0.81655294" z="0.4425627"/>
+                    <Vector3 name="right" x="-0.76664692" y="0" z="-0.64206892"/>
+                    <Vector3 name="up" x="-0.52428329" y="0.57727057" z="0.6260078"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="246">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj247" id="248">
+                <TransformComponent>
+                    <Vector3 name="position" x="9.0511398" y="1.1978613" z="40.313641"/>
+                    <Vector3 name="eulerAngles" x="-16.914009" y="-6.372314" z="-88.155075"/>
+                    <Quaternion name="rotation" x="-0.14373261" y="0.062651739" z="-0.69287586" w="0.70380306"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.95083141" y="-0.29093614" z="-0.10618762"/>
+                    <Vector3 name="right" x="0.11098871" y="-0" z="0.99382168"/>
+                    <Vector3 name="up" x="0.28913864" y="0.95674253" z="-0.03229063"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="250">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj251" id="252">
+                <TransformComponent>
+                    <Vector3 name="position" x="61.440498" y="1.1990814" z="-73.640915"/>
+                    <Vector3 name="eulerAngles" x="94.603127" y="2.2091496" z="63.037601"/>
+                    <Quaternion name="rotation" x="0.6195569" y="0.39527968" z="0.34237343" w="0.58539182"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.080193676" y="0.99677449" z="-0.0030935553"/>
+                    <Vector3 name="right" x="0.038547378" y="0" z="-0.99925673"/>
+                    <Vector3 name="up" x="0.99603373" y="0.080253325" z="0.038423046"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="254">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj255" id="256">
+                <TransformComponent>
+                    <Vector3 name="position" x="65.273605" y="1.1986729" z="20.48057"/>
+                    <Vector3 name="eulerAngles" x="97.807991" y="49.437771" z="-169.80301"/>
+                    <Quaternion name="rotation" x="0.33461803" y="-0.65742052" z="-0.62273532" w="-0.26082477"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.088342063" y="0.99072891" z="-0.10320807"/>
+                    <Vector3 name="right" x="0.75970012" y="0" z="-0.65027356"/>
+                    <Vector3 name="up" x="0.64424485" y="0.13585369" z="0.752657"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="258">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj259" id="260">
+                <TransformComponent>
+                    <Vector3 name="position" x="88.016525" y="1.1997658" z="-31.579416"/>
+                    <Vector3 name="eulerAngles" x="101.92207" y="-27.381992" z="-24.712036"/>
+                    <Quaternion name="rotation" x="0.7052682" y="-0.30710682" z="0.048630565" w="0.63711637"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.18343565" y="0.97842962" z="0.095010892"/>
+                    <Vector3 name="right" x="-0.45992076" y="0" z="-0.88795996"/>
+                    <Vector3 name="up" x="0.86880618" y="0.20658095" z="-0.45000005"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="262">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj263" id="264">
+                <TransformComponent>
+                    <Vector3 name="position" x="7.6142263" y="1.2000874" z="64.808861"/>
+                    <Vector3 name="eulerAngles" x="50.501274" y="-8.0027561" z="81.513618"/>
+                    <Quaternion name="rotation" x="0.36354366" y="0.23000571" z="0.61157888" w="0.66400647"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.62986672" y="0.77163875" z="-0.088552885"/>
+                    <Vector3 name="right" x="0.13922073" y="-0" z="0.99026138"/>
+                    <Vector3 name="up" x="-0.76412404" y="0.63606107" z="0.10742811"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="266">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj267" id="268">
+                <TransformComponent>
+                    <Vector3 name="position" x="86.142548" y="1.2017312" z="27.521719"/>
+                    <Vector3 name="eulerAngles" x="-97.624687" y="0.2153701" z="-83.324654"/>
+                    <Quaternion name="rotation" x="-0.56139296" y="0.50117785" z="-0.43669158" w="0.49290895"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.1326825" y="-0.99115849" z="-0.00049874489"/>
+                    <Vector3 name="right" x="0.0037589082" y="0" z="-0.99999291"/>
+                    <Vector3 name="up" x="-0.99115145" y="0.13268344" z="-0.0037256738"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="270">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj271" id="272">
+                <TransformComponent>
+                    <Vector3 name="position" x="91.650475" y="1.3260511" z="46.566109"/>
+                    <Vector3 name="eulerAngles" x="153.62407" y="-41.280655" z="-92.311424"/>
+                    <Quaternion name="rotation" x="0.57313931" y="-0.71283883" z="0.083754629" w="0.39542025"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.67325598" y="0.44425887" z="0.59106725"/>
+                    <Vector3 name="right" x="-0.65974796" y="0" z="-0.75148684"/>
+                    <Vector3 name="up" x="0.33385473" y="0.89589852" z="-0.2930989"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="274">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj275" id="276">
+                <TransformComponent>
+                    <Vector3 name="position" x="-66.295296" y="1.1927836" z="76.055473"/>
+                    <Vector3 name="eulerAngles" x="-108.37052" y="37.117241" z="-30.119093"/>
+                    <Quaternion name="rotation" x="-0.6939528" y="0.37958473" z="0.10509613" w="0.60274363"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="-0.25130996" y="-0.94903827" z="-0.19018312"/>
+                    <Vector3 name="right" x="0.60344791" y="0" z="-0.79740238"/>
+                    <Vector3 name="up" x="-0.75676548" y="0.31516081" z="-0.5726952"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="278">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="barrel.obj279" id="280">
+                <TransformComponent>
+                    <Vector3 name="position" x="-70.982925" y="1.4031324" z="31.254665"/>
+                    <Vector3 name="eulerAngles" x="-89.061508" y="-40.263123" z="-142.13219"/>
+                    <Quaternion name="rotation" x="-0.44573045" y="0.54320812" z="-0.71142489" w="-0.011129469"/>
+                    <Vector3 name="scale" x="0.25" y="0.25" z="0.25"/>
+                    <Vector3 name="forward" x="0.012498605" y="-0.99986595" z="-0.010585765"/>
+                    <Vector3 name="right" x="0.64629877" y="-0" z="0.76308441"/>
+                    <Vector3 name="up" x="0.76298213" y="0.016379058" z="-0.6462121"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children>
+                    <Entity name="0" id="282">
+                        <TransformComponent>
+                            <Vector3 name="position" x="0" y="0" z="0"/>
+                            <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                            <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                            <Vector3 name="scale" x="1" y="1" z="1"/>
+                            <Vector3 name="forward" x="1" y="0" z="0"/>
+                            <Vector3 name="right" x="0" y="0" z="1"/>
+                            <Vector3 name="up" x="0" y="1" z="0"/>
+                        </TransformComponent>
+                        <Components>
+                            <EngineComponent/>
+                        </Components>
+                        <Children/>
+                    </Entity>
+                </Children>
+            </Entity>
+            <Entity name="AnimModel284" id="284">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="0" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel286" id="286">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="0" z="2"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel288" id="288">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="0" z="4"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel290" id="290">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="0" z="6"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel292" id="292">
+                <TransformComponent>
+                    <Vector3 name="position" x="2" y="0" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel294" id="294">
+                <TransformComponent>
+                    <Vector3 name="position" x="2" y="0" z="2"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel296" id="296">
+                <TransformComponent>
+                    <Vector3 name="position" x="2" y="0" z="4"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel298" id="298">
+                <TransformComponent>
+                    <Vector3 name="position" x="2" y="0" z="6"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel300" id="300">
+                <TransformComponent>
+                    <Vector3 name="position" x="4" y="0" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel302" id="302">
+                <TransformComponent>
+                    <Vector3 name="position" x="4" y="0" z="2"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel304" id="304">
+                <TransformComponent>
+                    <Vector3 name="position" x="4" y="0" z="4"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel306" id="306">
+                <TransformComponent>
+                    <Vector3 name="position" x="4" y="0" z="6"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel308" id="308">
+                <TransformComponent>
+                    <Vector3 name="position" x="6" y="0" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel310" id="310">
+                <TransformComponent>
+                    <Vector3 name="position" x="6" y="0" z="2"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel312" id="312">
+                <TransformComponent>
+                    <Vector3 name="position" x="6" y="0" z="4"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="AnimModel314" id="314">
+                <TransformComponent>
+                    <Vector3 name="position" x="6" y="0" z="6"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="0.5" y="0.5" z="0.5"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <AnimatedModelComponent shouldDraw="true" usingMotionBlur="false">
+                        <AnimatedModel filepath="res/models/stormtrooper/silly_dancing.fbx"/>
+                    </AnimatedModelComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Entity: 315" id="315">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="-27952.057" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="-0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="-0"/>
+                    <Vector3 name="right" x="0" y="-0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Camera Entity" id="316">
+                <TransformComponent>
+                    <Vector3 name="position" x="-2.2743385" y="1.8133707" z="2.0966702"/>
+                    <Vector3 name="eulerAngles" x="-2.5952253" y="-8.257534" z="0"/>
+                    <Quaternion name="rotation" x="-0.022586908" y="-0.071979769" z="-0.0016304487" w="0.99714899"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="0.98861754" y="-0.045279745" z="-0.14347546"/>
+                    <Vector3 name="right" x="0.14362276" y="-0" z="0.98963249"/>
+                    <Vector3 name="up" x="0.044810306" y="0.99897438" z="-0.0065032016"/>
+                </TransformComponent>
+                <Components>
+                    <CameraComponent fov="75" width="2556" height="1373" nearPlane="0.1" farPlane="1000"/>
+                    <CameraControllerComponent mouseSensitivity="0.1" movementSpeed="10" sprintSpeed="30" useController="false" useMovement="true"/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Directional Light" id="318">
+                <TransformComponent>
+                    <Vector3 name="position" x="0" y="0" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Point Light 1" id="320">
+                <TransformComponent>
+                    <Vector3 name="position" x="24.799999" y="3.7" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Point Light 2" id="322">
+                <TransformComponent>
+                    <Vector3 name="position" x="7.5" y="4.0999999" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Point Light 3" id="324">
+                <TransformComponent>
+                    <Vector3 name="position" x="-1.7" y="4.0999999" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Point Light 4" id="326">
+                <TransformComponent>
+                    <Vector3 name="position" x="-15.7" y="5.9000001" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Point Light 5" id="328">
+                <TransformComponent>
+                    <Vector3 name="position" x="-35.700001" y="5.1999998" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Point Light 6" id="330">
+                <TransformComponent>
+                    <Vector3 name="position" x="1.1" y="4.3000002" z="0"/>
+                    <Vector3 name="eulerAngles" x="0" y="0" z="0"/>
+                    <Quaternion name="rotation" x="0" y="0" z="0" w="1"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="1" y="0" z="0"/>
+                    <Vector3 name="right" x="0" y="0" z="1"/>
+                    <Vector3 name="up" x="0" y="1" z="0"/>
+                </TransformComponent>
+                <Components>
+                    <EngineComponent/>
+                </Components>
+                <Children/>
+            </Entity>
+            <Entity name="Entity: 331" id="331">
+                <TransformComponent>
+                    <Vector3 name="position" x="-6.7428141" y="1.1972591" z="9.8305988"/>
+                    <Vector3 name="eulerAngles" x="126.5387" y="-64.214485" z="-38.79813"/>
+                    <Quaternion name="rotation" x="0.63417506" y="-0.47677565" z="0.32120591" w="0.51704329"/>
+                    <Vector3 name="scale" x="1" y="1" z="1"/>
+                    <Vector3 name="forward" x="-0.25898606" y="0.803455" z="0.53608423"/>
+                    <Vector3 name="right" x="-0.90042883" y="0" z="-0.43500349"/>
+                    <Vector3 name="up" x="0.34950572" y="0.59536552" z="-0.72345406"/>
+                </TransformComponent>
+                <Components>
+                    <RigidbodyComponent isKinematic="false" enabled="true" mass="1" capsuleRadius="1" capsuleHeight="1" sphereRadius="1">
+                        <Vector3 name="centerOffset" x="0" y="0" z="0"/>
+                        <Vector3 name="linearFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="angularFactor" x="1" y="1" z="1"/>
+                        <Vector3 name="cubeDimensions" x="1" y="1" z="1"/>
+                        <Vector3 name="collisionScale" x="1" y="1" z="1"/>
+                    </RigidbodyComponent>
+                </Components>
+                <Children/>
+            </Entity>
+        </Children>
+    </Entity>
+</Scene>

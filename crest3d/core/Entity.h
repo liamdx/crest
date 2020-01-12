@@ -65,9 +65,9 @@ public:
 	void updateBehaviour(float deltaTime);
 	void renderBehaviour(float deltaTime, glm::mat4 view);
 	void uiBehaviour(float deltaTime);
-
-
+	
 	EngineManager* engineManager;
+	int id;
 private:
 	// for variable update rates;
 	void do_update(float deltaTime);
@@ -77,5 +77,5 @@ private:
 	bool frozenLastFrame;
 	float halfRateTime, quarterRateTIme, eighthRateTime, frozenTime;
 	void ConsoleError(std::string error);
-	int id;
+	
 };

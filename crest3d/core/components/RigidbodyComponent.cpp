@@ -1,6 +1,7 @@
 #include "components/RigidbodyComponent.h"
 #include "components/MeshComponent.h"
 #include "EngineManager.h"
+#include "serialization/Serializer.hpp"
 
 void RigidbodyComponent::init()
 {
@@ -153,7 +154,6 @@ void RigidbodyComponent::earlyUpdate(float deltaTime)
 			std::cout << "No Motion State " << std::endl;
 		}
 
-	
 		glm::vec3 position = bulletToGlm(trans.getOrigin());
 		glm::vec3 radEulerAngles = glm::eulerAngles(bulletToGlm(trans.getRotation()));
 		glm::vec3 eulerAngles = glm::vec3(radToDegree(radEulerAngles.x), radToDegree(radEulerAngles.y), radToDegree(radEulerAngles.z));
@@ -200,4 +200,34 @@ void RigidbodyComponent::reset()
 	rib->setWorldTransform(transform);
 	attachedEntity->engineManager->physicsManager->dynamicsWorld->addRigidBody(rib);
 
+}
+
+tinyxml2::XMLElement* RigidbodyComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto rbcElement = doc->NewElement("RigidbodyComponent");
+	rbcElement->SetAttribute("isKinematic", isKinematic);
+	rbcElement->SetAttribute("enabled", enabled);
+	rbcElement->SetAttribute("mass", mass);
+	rbcElement->SetAttribute("capsuleRadius", capsuleRadius);
+	rbcElement->SetAttribute("capsuleHeight", capsuleHeight);
+	rbcElement->SetAttribute("sphereRadius", sphereRadius);
+
+	auto offset_element = Serializer::SerializeVec3(centerOffset, "centerOffset", doc);
+	auto linear_element = Serializer::SerializeVec3(linearFactor, "linearFactor", doc);
+	auto angular_element = Serializer::SerializeVec3(angularFactor, "angularFactor", doc);
+	auto cube_dimensions_element = Serializer::SerializeVec3(cubeDimensions, "cubeDimensions", doc);
+	auto collision_scale_element = Serializer::SerializeVec3(collisionScale, "collisionScale", doc);
+
+	rbcElement->InsertEndChild(offset_element);
+	rbcElement->InsertEndChild(linear_element);
+	rbcElement->InsertEndChild(angular_element);
+	rbcElement->InsertEndChild(cube_dimensions_element);
+	rbcElement->InsertEndChild(collision_scale_element);
+
+	return rbcElement;
+}
+
+void RigidbodyComponent::deserialize_component(tinyxml2::XMLElement* e)
+{
+	
 }

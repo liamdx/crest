@@ -259,7 +259,10 @@ int main() {
 				depthFB.changeScreenSize(dWidth, dHeight);
 				finalFB.changeScreenSize(dWidth, dHeight);
 				glViewport(0, 0, dWidth, dHeight);
-				engineManager->scene->sceneCamera->updateProjection(75.0f, dWidth, dHeight);
+				if (engineManager->scene != nullptr)
+				{
+					engineManager->scene->sceneCamera->updateProjection(75.0f, dWidth, dHeight);
+				}
 			}
 
 			ImGui::GetWindowDrawList()->AddImage(

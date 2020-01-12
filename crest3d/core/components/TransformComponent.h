@@ -69,6 +69,9 @@ public:
 	TransformComponent(std::shared_ptr<TransformComponent> _parent);
 	~TransformComponent() {};
 	glm::mat4 model;
+
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+
 private:
 
 	glm::vec3 RotationBetweenVectors(glm::vec3 start, glm::vec3 dest);
@@ -81,4 +84,5 @@ private:
 	bool shouldUpdateModel();
 	void updateRotation();
 	void updateEulerAngles();
+
 };

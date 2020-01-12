@@ -51,7 +51,7 @@ public:
 		std::vector<Texture> Textures;
 	};
 
-	bool LoadMesh(const std::string& filepath);
+	bool LoadMesh(const std::string& _filepath);
 
 	void Draw(Shader shader);
 	void Draw(std::shared_ptr<ShaderComponent> shader);
@@ -66,6 +66,7 @@ public:
 	float currentAnimationLengthInSeconds;
 
 	std::string directory;
+	std::string filepath;
 	std::vector<MeshEntry> m_Entries;
 
 	void LoadTextureToMesh(unsigned int meshIndex, Texture texture);
@@ -82,7 +83,14 @@ public:
 		}
 	}
 
+	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc);
+	
 private:
+
+	// some stuff used in animated model
+#define ZERO_MEM(a) memset(a, 0, sizeof(a))
+#define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
+#define SAFE_DELETE(p) if (p) { delete p; p = NULL; }
 
 #define NUM_BONES_PER_VERTEX 4
 

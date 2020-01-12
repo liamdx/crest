@@ -414,3 +414,10 @@ void Model::processNodeForEntity(aiNode* node, const aiScene* scene, std::shared
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 	}
 }
+
+tinyxml2::XMLElement* Model::serialize(tinyxml2::XMLDocument* doc)
+{
+	auto modelElement = doc->NewElement("Model");
+	modelElement->SetAttribute("filepath", path.c_str());
+	return modelElement;
+}

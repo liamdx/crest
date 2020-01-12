@@ -16,6 +16,7 @@ struct Face
 	int numIndices;
 };
 
+
 class Mesh {
 public:
 	std::vector<Vertex> vertices;

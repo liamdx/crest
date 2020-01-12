@@ -112,8 +112,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/lua/include;$(SolutionDir)dependencies/sol2/include</AdditionalIncludeDirectories>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/lua/include;$(SolutionDir)dependencies/sol2/include;$(SolutionDir)dependencies/tinyxml2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -121,8 +121,8 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/lua/lib/Win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/lua/lib/Win64;$(SolutionDir)dependencies/tinyxml2/lib/Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;lua.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -162,8 +162,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/lua/include;$(SolutionDir)dependencies/sol2/include</AdditionalIncludeDirectories>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies/GLEW/include;$(SolutionDir)crest3d/core;$(SolutionDir)crest3d/core/ext;$(SolutionDir)dependencies/assimp/include;$(SolutionDir)dependencies/libyse/include;$(SolutionDir)crest3d/example;$(SolutionDir)crest3d;$(SolutionDir)dependencies/SDL/include;$(SolutionDir)dependencies/bullet/include;$(SolutionDir)dependencies/lua/include;$(SolutionDir)dependencies/sol2/include;$(SolutionDir)dependencies/tinyxml2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4496;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -173,8 +173,8 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/lua/lib/Win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies/GLEW/lib/Win64;$(SolutionDir)dependencies/assimp/lib/Win64;$(SolutionDir)dependencies/bullet/lib/debug64;$(SolutionDir)dependencies/SDL/lib/Win64;$(SolutionDir)dependencies/libyse/lib;$(SolutionDir)dependencies/lua/lib/Win64;$(SolutionDir)dependencies/tinyxml2/lib/Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;Shell32.lib;Gdi32.lib;User32.lib;assimp-vc142-mt.lib;libyse64.lib;BulletSoftBody.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;lua.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -288,6 +288,7 @@
     <ClInclude Include="core\ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="core\ext\imgui\imstb_textedit.h" />
     <ClInclude Include="core\ext\imgui\imstb_truetype.h" />
+    <ClInclude Include="core\ext\nlohmann\json.hpp" />
     <ClInclude Include="core\Gamepad.hpp" />
     <ClInclude Include="core\gfx\AnimatedModel.h" />
     <ClInclude Include="core\Common.h" />
@@ -464,7 +465,7 @@
     <ClInclude Include="core\Renderer.h" />
     <ClInclude Include="core\Scene.h" />
     <ClInclude Include="core\serialization\AbstractComponentConnector.h" />
-    <ClInclude Include="core\serialization\Serializer.h" />
+    <ClInclude Include="core\serialization\Serializer.hpp" />
     <ClInclude Include="core\ShaderManager.h" />
     <ClInclude Include="example\EditorPrototyping.h" />
     <ClInclude Include="example\Example.h" />

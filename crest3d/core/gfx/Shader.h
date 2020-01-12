@@ -17,6 +17,12 @@ struct Texture {
 	unsigned int t_Id;
 	TextureType t_Type;
 	std::string t_Path;
+
+	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc)
+	{
+		auto textureElement = doc->NewElement("Texture");
+		textureElement->SetAttribute("filepath", t_Path.c_str());
+	}
 };
 
 class Shader
@@ -48,6 +54,10 @@ public:
 	static std::string textureTypeToShaderName(TextureType t);
 	std::map<TextureType, unsigned int> textureIdMappings;
 
+	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc);
+
 private:
 	void fillMappings();
+
+	std::string vertexFilepath, fragmentFilepath;
 };

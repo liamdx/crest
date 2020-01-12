@@ -7,6 +7,9 @@ Shader::Shader(const char* vertexPath, const char* fragPath)
 	std::ifstream vertexShaderFile;
 	std::ifstream fragShaderFile;
 
+	vertexFilepath = vertexPath;
+	fragmentFilepath = fragPath;
+	
 	vertexShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 	fragShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
@@ -325,4 +328,12 @@ void Shader::fillMappings()
 		unsigned int shaderId = getUniformLocation(shaderString);
 		textureIdMappings.insert(std::pair<TextureType, unsigned int>(t, shaderId));
 	}
+}
+
+tinyxml2::XMLElement* Shader::serialize(tinyxml2::XMLDocument* doc)
+{
+	auto shaderElement = doc->NewElement("Shader");
+	shaderElement->SetAttribute("vertexFilepath", vertexFilepath.c_str());
+	shaderElement->SetAttribute("fragmentFilepath", fragmentFilepath.c_str());
+	return shaderElement;
 }

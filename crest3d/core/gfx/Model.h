@@ -39,5 +39,8 @@ public:
 	static TextureType convertTextureType(aiTextureType t);
 
 	aiMatrix4x4 globalMeshInverse;
+
+	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc);
+	
 private:
 };

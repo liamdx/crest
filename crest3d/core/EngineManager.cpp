@@ -8,7 +8,7 @@ EngineManager::EngineManager()
 	physicsManager = std::make_unique<PhysicsManager>();
 	assetManager = std::make_unique<AssetManager>();
 	shaderManager = std::make_unique<ShaderManager>();
-	scene = std::unique_ptr<Scene>(new Scene("debugScene", this));
+	scene = std::shared_ptr<Scene>(new Scene("debugScene", this));
 	input = std::unique_ptr<InputManager>(new InputManager(window));
 	debug = std::make_unique<Debug>();
 }
@@ -416,11 +416,36 @@ void EngineManager::DeleteComponent(unsigned int componentId)
 	deleteComponentInExample(componentId);
 }
 
+void EngineManager::ClearScene()
+{
+	std::vector<unsigned int> ids;
+	for(unsigned int i = 0; i < scene->rootEntity->children.size(); i++)
+	{
+		ids.emplace_back(scene->rootEntity->children.at(i)->id);
+	}
+
+	for(unsigned int i = 0; i < ids.size(); i++)
+	{
+		DeleteEntity(ids.at(i));
+	}
+	scene.reset();
+	scene = nullptr;
+}
+
+void EngineManager::ResetScene()
+{
+	ClearScene();
+	// scene = std::make_shared<Scene>("New Scene", this);
+}
+
+
+
 void EngineManager::AttachComponentToEntity(unsigned entityID, EngineComponent* component)
 {
 	auto e = getEntity(scene->rootEntity, entityID);
 	component->attachedEntity = e;
 }
+
 
 
 void EngineManager::shutdown()

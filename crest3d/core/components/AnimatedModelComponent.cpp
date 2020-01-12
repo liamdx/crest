@@ -88,3 +88,13 @@ void AnimatedModelComponent::SetBoneTransformID(std::shared_ptr<ShaderComponent>
 {
 	shader->shader->setMat4ID(id, transform);
 }
+
+tinyxml2::XMLElement* AnimatedModelComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto amcElement = doc->NewElement("AnimatedModelComponent");
+	auto amElement = anim->serialize(doc);
+	amcElement->InsertEndChild(amElement);
+	amcElement->SetAttribute("shouldDraw", shouldDraw);
+	amcElement->SetAttribute("usingMotionBlur", usingMotionBlur);
+	return amcElement;
+}

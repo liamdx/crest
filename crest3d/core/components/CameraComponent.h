@@ -19,6 +19,9 @@ public:
 	bool checkPoint(glm::vec3 position);
 
 	void MakeFrustum();
+
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+	
 	float fov;
 private:
 	float width, height;

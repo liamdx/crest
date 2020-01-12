@@ -297,6 +297,7 @@ std::shared_ptr<Entity> Entity::GetChild(unsigned int index)
 	return nullptr;
 }
 
+
 std::shared_ptr<Entity> Entity::GetChild(const char* name)
 {
 	for (unsigned int i = 0; i < children.size(); i++)
@@ -312,3 +313,6 @@ std::shared_ptr<Entity> Entity::GetChild(const char* name)
 	Debug::Warn<Entity>(message.c_str());
 	return nullptr;
 }
+
+
+

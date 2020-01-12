@@ -18,8 +18,10 @@ public:
 	float mouseSensitivity;
 	float movementSpeed , sprintSpeed, initMoveSpeed;
 
-	bool useContoller;
+	bool useContoller, useMovement;
 
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+	
 private:
 	float lastX, lastY;
 };

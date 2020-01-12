@@ -9,6 +9,14 @@ struct LuaScript
 	unsigned int scriptID;
 	unsigned int priority = 0;
 	void reload();
+
+	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc)
+	{
+		auto lElement = doc->NewElement("LuaScript");
+		lElement->SetAttribute("filepath", filepath);
+		return lElement;
+	}
+
 };
 
 class LuaComponent : public EngineComponent
@@ -29,14 +37,13 @@ public:
 	void BindCrestToLua(); // needs to be wayyyy refactored
 	std::shared_ptr<LuaScript> script;
 	sol::state lua;
-	// reload all the attached scripts;
 	void reload();
 	bool shouldRun;
+
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+	void deserialize_component(tinyxml2::XMLElement* e) override;
 	
 private:
-	// caching stuff
-	// sol::table_proxy<sol::basic_table_core<true, sol::reference>&, std::tuple<const char(&)[7]>>* update_function_proxy;
-	//
 	sol::protected_function init_func;
 	sol::protected_function start_func;
 	sol::protected_function early_update_func;
@@ -44,5 +51,7 @@ private:
 	sol::protected_function fixed_update_func;
 	sol::protected_function render_func;
 	sol::protected_function ui_func;
+
+	sol::protected_function_result update_result;
 	
 };

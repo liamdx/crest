@@ -22,7 +22,7 @@ void LuaScript::reload()
 
 void LuaComponent::BindCrestToLua()
 {
-	// lua.stack_clear();
+	lua.stack_clear();
 	lua.open_libraries(sol::lib::base, sol::lib::math);
 	
 	// this needs separated and managed somehow...
@@ -372,7 +372,7 @@ LuaComponent::LuaComponent(std::shared_ptr<Entity> _attachedEntity, std::shared_
 
 LuaComponent::~LuaComponent()
 {
-	
+	lua.stack_clear();
 }
 
 void LuaComponent::reload()
@@ -434,7 +434,7 @@ void LuaComponent::update(float deltaTime)
 {
 	if (shouldRun)
 	{
-		sol::protected_function_result update_result = update_func(deltaTime);
+		update_result = update_func(deltaTime);
 		if (!update_result.valid())
 		{
 			sol::error err = update_result;
@@ -488,4 +488,17 @@ void LuaComponent::ui(float deltaTime)
 			shouldRun = false;
 		}
 	}
+}
+
+tinyxml2::XMLElement* LuaComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto lcElement = doc->NewElement("LuaComponent");
+	auto lsElement = script->serialize(doc);
+	lcElement->InsertEndChild(lsElement);
+	return lcElement;
+}
+
+void LuaComponent::deserialize_component(tinyxml2::XMLElement* e)
+{
+	
 }

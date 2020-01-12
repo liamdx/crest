@@ -2,6 +2,7 @@
 
 EditorPrototyping::EditorPrototyping(EngineManager *em)
 {
+	
 	engineManager = em;
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
 	skybox = new Cubemap(faces);
@@ -134,101 +135,120 @@ void EditorPrototyping::RigidbodyTest()
 
 void EditorPrototyping::initBehaviour()
 {
-	// some sample pointlights, please implement scene xml soon :)
-	auto dirLightComponent = std::dynamic_pointer_cast<DirectionalLightComponent>(components["dirLightComponent"]);
-	dirLightComponent->diffuse = glm::vec3(0.0);
-	dirLightComponent->ambient = glm::vec3(0.0);
+	if (engineManager->scene != nullptr)
+	{
+		// some sample pointlights, please implement scene xml soon :)
+		auto dirLightComponent = std::dynamic_pointer_cast<DirectionalLightComponent>(components["dirLightComponent"]);
+		dirLightComponent->diffuse = glm::vec3(0.0);
+		dirLightComponent->ambient = glm::vec3(0.0);
 
-	auto pl1 = engineManager->AddPointLightEntity();
-	pl1->transform->position = glm::vec3(24.8, 3.7, 0.0);
-	auto plc1 = pl1->GetComponent<PointLightComponent>();
-	plc1->diffuse = glm::vec3(1.0, 0.0, 0.0);
-	plc1->distance = 14.5;
+		auto pl1 = engineManager->AddPointLightEntity();
+		pl1->transform->position = glm::vec3(24.8, 3.7, 0.0);
+		auto plc1 = pl1->GetComponent<PointLightComponent>();
+		plc1->diffuse = glm::vec3(1.0, 0.0, 0.0);
+		plc1->distance = 14.5;
 
-	auto pl2 = engineManager->AddPointLightEntity();
-	pl2->transform->position = (glm::vec3(7.5, 4.1, 0.0));
-	auto plc2 = pl2->GetComponent<PointLightComponent>();
-	plc2->diffuse = glm::vec3(0.0, 1.0, 1.0);
-	plc2->distance = 14.5;
+		auto pl2 = engineManager->AddPointLightEntity();
+		pl2->transform->position = (glm::vec3(7.5, 4.1, 0.0));
+		auto plc2 = pl2->GetComponent<PointLightComponent>();
+		plc2->diffuse = glm::vec3(0.0, 1.0, 1.0);
+		plc2->distance = 14.5;
 
-	auto pl3 = engineManager->AddPointLightEntity();
-	pl3->transform->position = (glm::vec3(-1.7, 4.1, 0.0));
-	auto plc3 = pl3->GetComponent<PointLightComponent>();
-	plc3->diffuse = glm::vec3(1.0, 0.0, 1.0);
-	plc3->distance = 14.5;
+		auto pl3 = engineManager->AddPointLightEntity();
+		pl3->transform->position = (glm::vec3(-1.7, 4.1, 0.0));
+		auto plc3 = pl3->GetComponent<PointLightComponent>();
+		plc3->diffuse = glm::vec3(1.0, 0.0, 1.0);
+		plc3->distance = 14.5;
 
-	auto pl4 = engineManager->AddPointLightEntity();
-	pl4->transform->position = (glm::vec3(-15.7, 5.9, 0.0));
-	auto plc4 = pl4->GetComponent<PointLightComponent>();
-	plc4->diffuse = glm::vec3(1.0, 0.6, 0.1);
-	plc4->distance = 12.5;
+		auto pl4 = engineManager->AddPointLightEntity();
+		pl4->transform->position = (glm::vec3(-15.7, 5.9, 0.0));
+		auto plc4 = pl4->GetComponent<PointLightComponent>();
+		plc4->diffuse = glm::vec3(1.0, 0.6, 0.1);
+		plc4->distance = 12.5;
 
-	auto pl5 = engineManager->AddPointLightEntity();
-	pl5->transform->position = (glm::vec3(-35.7, 5.2, 0.0));
-	auto plc5 = pl5->GetComponent<PointLightComponent>();
-	plc5->diffuse = glm::vec3(0.0, 1.0, 0.0);
-	plc5->distance = 8.5;
+		auto pl5 = engineManager->AddPointLightEntity();
+		pl5->transform->position = (glm::vec3(-35.7, 5.2, 0.0));
+		auto plc5 = pl5->GetComponent<PointLightComponent>();
+		plc5->diffuse = glm::vec3(0.0, 1.0, 0.0);
+		plc5->distance = 8.5;
 
-	auto pl6 = engineManager->AddPointLightEntity();
-	pl6->transform->position = (glm::vec3(1.1, 4.3, 0.0));
-	auto plc6 = pl6->GetComponent<PointLightComponent>();
-	plc6->setDiffuse(glm::vec3(1.0f, 0.9f, 0.7f));
-	plc6->setDistance(7.4f);
+		auto pl6 = engineManager->AddPointLightEntity();
+		pl6->transform->position = (glm::vec3(1.1, 4.3, 0.0));
+		auto plc6 = pl6->GetComponent<PointLightComponent>();
+		plc6->setDiffuse(glm::vec3(1.0f, 0.9f, 0.7f));
+		plc6->setDistance(7.4f);
 
-	
-	engineManager->scene->initBehaviour();
+
+		engineManager->scene->initBehaviour();
+	}
 }
 
 void EditorPrototyping::startBehaviour()
 {
-	
+	if (engineManager->scene != nullptr)
+	{
 
-	// std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
-	std::shared_ptr<DirectionalLightComponent> dir = GetUsableComponent < DirectionalLightComponent>("dirLightComponent");
-	std::shared_ptr<CameraComponent> cam = GetUsableComponent<CameraComponent>("cam");
+		// std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
+		std::shared_ptr<DirectionalLightComponent> dir = GetUsableComponent < DirectionalLightComponent>("dirLightComponent");
+		std::shared_ptr<CameraComponent> cam = GetUsableComponent<CameraComponent>("cam");
 
-	engineManager->scene->startBehaviour();
-	cubemapShader->use();
-	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
+		engineManager->scene->startBehaviour();
+		cubemapShader->use();
+		cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
+	}
 }
 
 void EditorPrototyping::earlyUpdateBehaviour(float deltaTime)
 {
-	engineManager->scene->earlyUpdateBehaviour(deltaTime);
+	if (engineManager->scene != nullptr)
+	{
+		engineManager->scene->earlyUpdateBehaviour(deltaTime);
+	}
 }
 
 void EditorPrototyping::fixedUpdateBehaviour()
 {
-	engineManager->scene->fixedUpdateBehaviour();
+	if (engineManager->scene != nullptr)
+	{
+		engineManager->scene->fixedUpdateBehaviour();
+	}
 }
 
 void EditorPrototyping::updateBehaviour(float deltaTime)
 {
-	engineManager->scene->updateBehaviour(deltaTime);
-
-	/*clapTimer += deltaTime;
-
-	if(clapTimer >= 2.0f)
+	if (engineManager->scene != nullptr)
 	{
-		auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
-		audio_component->Play();
-		clapTimer = 0.0f;
-	}*/
+		engineManager->scene->updateBehaviour(deltaTime);
+
+		/*clapTimer += deltaTime;
+
+		if(clapTimer >= 2.0f)
+		{
+			auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
+			audio_component->Play();
+			clapTimer = 0.0f;
+		}*/
+	}
 }
 
 void EditorPrototyping::renderBehaviour(float deltaTime)
 {
-	std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
-	cubemapShader->use();
-	cubemapShader->setMat4("view", glm::mat4(glm::mat3(cam->GetViewMatrix())));
-	cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
-	cubemapShader->setInt("cubemap", 0);
+	if (engineManager->scene != nullptr)
+	{
+		std::shared_ptr<CameraComponent> cam = std::dynamic_pointer_cast<CameraComponent>(components["cam"]);
+		cubemapShader->use();
+		cubemapShader->setMat4("view", glm::mat4(glm::mat3(cam->GetViewMatrix())));
+		cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
+		cubemapShader->setInt("cubemap", 0);
 
-	skybox->Draw(*cubemapShader);
+		skybox->Draw(*cubemapShader);
 
-	engineManager->shaderManager->defaultShader->shader->use();
+		engineManager->shaderManager->defaultShader->shader->use();
 
-	engineManager->scene->renderBehaviour(deltaTime);
+		
+			engineManager->scene->renderBehaviour(deltaTime);
+	}
+	
 }
 
 void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
@@ -416,6 +436,23 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			engineManager->AddEntity();
 		}
 
+		if(ImGui::Button("Write scene to file"))
+		{
+			Serializer s;
+			s.SerializeScene(engineManager->scene);
+		}
+
+		if (ImGui::Button("Open scene from file"))
+		{
+			Serializer s;
+			s.DeserializeScene("res/test/debug.xml");
+		}
+
+		if (ImGui::Button("Reset Scene"))
+		{
+			engineManager->ResetScene();
+		}
+
 		// load model
 		{
 			static char text[512] = "res/models/stormtrooper/silly_dancing.fbx";
@@ -423,7 +460,10 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			if (ImGui::Button("Load New Model Entity"))
 			{
 				auto _model = engineManager->assetManager->loadModelAsset(text);
-				engineManager->AddModelEntity(_model->asset);
+				if (engineManager->scene != nullptr)
+				{
+					engineManager->AddModelEntity(_model->asset);
+				}
 			}
 		}
 		// load animated model
@@ -433,7 +473,10 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			if (ImGui::Button("Load New AnimatedModel Entity"))
 			{
 				auto _anim = engineManager->assetManager->loadAnimatedModelAsset(text);
-				engineManager->AddAnimatedModelEntity(_anim->asset);
+				if (engineManager->scene != nullptr)
+				{
+					engineManager->AddAnimatedModelEntity(_anim->asset);
+				}
 			}
 		}
 
@@ -451,14 +494,20 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 		{
 			RigidbodyTest();
 		}
-		
-		if (ImGui::BeginChild("Hierarchy"))
+		if(engineManager->scene != nullptr)
 		{
-			ImGuiEntityDebug(engineManager->scene->rootEntity);
+			if (ImGui::BeginChild("Hierarchy"))
+			{
+				ImGuiEntityDebug(engineManager->scene->rootEntity);
+			}
+			ImGui::EndChild();
 		}
-		ImGui::EndChild();
+		
+		
 	}
 	ImGui::End();
-
-	engineManager->scene->uiBehaviour(deltaTime);
+	if (engineManager->scene != nullptr)
+	{
+		engineManager->scene->uiBehaviour(deltaTime);
+	}
 }

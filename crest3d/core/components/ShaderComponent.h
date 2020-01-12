@@ -50,11 +50,19 @@ public:
 		shader->setIntID(numPointLightsId, numPointLights);
 	}
 
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override
+	{
+		auto scElement = doc->NewElement("ShaderComponent");
+		auto shaderElement = shader->serialize(doc);
+		scElement->InsertEndChild(shaderElement);
+		return scElement;
+	}
+	
 	~ShaderComponent() override {};
 	std::shared_ptr<Shader> shader;
 	inline void setView(glm::mat4 _view) { view = _view; }
 	inline void setProjection(glm::mat4 _projection) { projection = _projection; }
-private:
+	
 	glm::mat4 view;
 	glm::mat4 projection;
 	std::string _vertexPath, _fragPath;

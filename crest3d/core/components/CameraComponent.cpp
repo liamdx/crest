@@ -227,3 +227,14 @@ glm::vec4 CameraComponent::normalizePlane(glm::vec4 plane)
 
 	return normVec;
 }
+
+tinyxml2::XMLElement* CameraComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto cameraElement = doc->NewElement("CameraComponent");
+	cameraElement->SetAttribute("fov", fov);
+	cameraElement->SetAttribute("width", width);
+	cameraElement->SetAttribute("height", height);
+	cameraElement->SetAttribute("nearPlane", nearPlane);
+	cameraElement->SetAttribute("farPlane", farPlane);
+	return cameraElement;
+}
