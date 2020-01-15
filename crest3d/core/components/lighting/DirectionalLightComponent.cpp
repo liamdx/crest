@@ -1,5 +1,7 @@
 #include "components/lighting/DirectionalLightComponent.h"
 #include "Entity.h"
+#include "serialization/Serializer.hpp"
+
 float clampAngle(float input)
 {
 	float ret;
@@ -63,4 +65,14 @@ DirectionalLightComponent::DirectionalLightComponent(std::shared_ptr<Entity> e)
 	this->ambient = glm::vec3(0.3f);
 	this->diffuse = glm::vec3(1.0f);
 	this->specular = glm::vec3(0.2f);
+}
+
+tinyxml2::XMLElement* DirectionalLightComponent::serialize_component(tinyxml2::XMLDocument* doc)
+{
+	auto dlElement = doc->NewElement("DirectionalLightComponent");
+	dlElement->LinkEndChild(Serializer::SerializeVec3(direction, "direction", doc));
+	dlElement->LinkEndChild(Serializer::SerializeVec3(ambient, "ambient", doc));
+	dlElement->LinkEndChild(Serializer::SerializeVec3(diffuse, "diffuse", doc));
+	dlElement->LinkEndChild(Serializer::SerializeVec3(specular, "specular", doc));
+	return dlElement;
 }

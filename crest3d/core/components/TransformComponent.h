@@ -71,6 +71,7 @@ public:
 	glm::mat4 model;
 
 	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+	void deserialize_component(tinyxml2::XMLElement* e) override;
 
 private:
 

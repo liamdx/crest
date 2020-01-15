@@ -10,13 +10,8 @@ struct LuaScript
 	unsigned int priority = 0;
 	void reload();
 
-	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc)
-	{
-		auto lElement = doc->NewElement("LuaScript");
-		lElement->SetAttribute("filepath", filepath);
-		return lElement;
-	}
-
+	tinyxml2::XMLElement* serialize(tinyxml2::XMLDocument* doc);
+	
 };
 
 class LuaComponent : public EngineComponent

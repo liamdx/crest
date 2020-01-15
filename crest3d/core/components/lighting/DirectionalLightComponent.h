@@ -13,6 +13,8 @@ public:
 	DirectionalLightComponent(std::shared_ptr<Entity> e);
 	void clampDirection();
 
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+
 	glm::vec3 direction;
 	glm::vec3 ambient;
 	glm::vec3 diffuse;

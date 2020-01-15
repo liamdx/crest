@@ -316,13 +316,17 @@ tinyxml2::XMLElement* TransformComponent::serialize_component(tinyxml2::XMLDocum
 	auto tcElement = doc->NewElement("TransformComponent");
 	tcElement->LinkEndChild(Serializer::SerializeVec3(position, "position", doc));
 	tcElement->LinkEndChild(Serializer::SerializeVec3(eulerAngles, "eulerAngles", doc));
-	tcElement->LinkEndChild(Serializer::SerializeQuat(rotation, "rotation", doc));
 	tcElement->LinkEndChild(Serializer::SerializeVec3(scale, "scale", doc));
 	tcElement->LinkEndChild(Serializer::SerializeVec3(forward, "forward", doc));
 	tcElement->LinkEndChild(Serializer::SerializeVec3(right, "right", doc));
 	tcElement->LinkEndChild(Serializer::SerializeVec3(up, "up", doc));
+	tcElement->LinkEndChild(Serializer::SerializeQuat(rotation, "rotation", doc));
 	return tcElement;
 }
 
 
+void TransformComponent::deserialize_component(tinyxml2::XMLElement* e)
+{
+	// position = Serializer::DeserializeVec3()
+}
 

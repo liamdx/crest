@@ -1,6 +1,7 @@
 #include "CameraComponent.h"
 #include "Entity.h"
 #include "Common.h"
+#include "serialization/Serializer.hpp"
 
 CameraComponent::CameraComponent(std::shared_ptr<Entity> e)
 {
@@ -231,10 +232,10 @@ glm::vec4 CameraComponent::normalizePlane(glm::vec4 plane)
 tinyxml2::XMLElement* CameraComponent::serialize_component(tinyxml2::XMLDocument* doc)
 {
 	auto cameraElement = doc->NewElement("CameraComponent");
-	cameraElement->SetAttribute("fov", fov);
-	cameraElement->SetAttribute("width", width);
-	cameraElement->SetAttribute("height", height);
-	cameraElement->SetAttribute("nearPlane", nearPlane);
-	cameraElement->SetAttribute("farPlane", farPlane);
+	cameraElement->LinkEndChild(Serializer::SerializeFloat(fov, "fov", doc));
+	cameraElement->LinkEndChild(Serializer::SerializeFloat(width, "width", doc));
+	cameraElement->LinkEndChild(Serializer::SerializeFloat(height, "height", doc));
+	cameraElement->LinkEndChild(Serializer::SerializeFloat(nearPlane, "nearPlane", doc));
+	cameraElement->LinkEndChild(Serializer::SerializeFloat(farPlane, "farPlane", doc));
 	return cameraElement;
 }

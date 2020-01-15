@@ -3,6 +3,7 @@
 #include "Debug.h"
 #include "Entity.h"
 #include "EngineManager.h"
+#include "serialization/Serializer.hpp"
 
 LuaScript::LuaScript(const char* _filepath)
 {
@@ -19,6 +20,15 @@ void LuaScript::reload()
 	script = std::string((std::istreambuf_iterator<char>(ifs)),
 		(std::istreambuf_iterator<char>()));
 }
+
+tinyxml2::XMLElement* LuaScript::serialize(tinyxml2::XMLDocument* doc)
+{
+	auto lElement = doc->NewElement("LuaScript");
+	lElement->SetAttribute("id", scriptID);
+	lElement->LinkEndChild(Serializer::SerializeString(filepath, "filepath", doc));
+	return lElement;
+}
+ 
 
 void LuaComponent::BindCrestToLua()
 {
@@ -494,7 +504,7 @@ tinyxml2::XMLElement* LuaComponent::serialize_component(tinyxml2::XMLDocument* d
 {
 	auto lcElement = doc->NewElement("LuaComponent");
 	auto lsElement = script->serialize(doc);
-	lcElement->InsertEndChild(lsElement);
+	lcElement->LinkEndChild(lsElement);
 	return lcElement;
 }
 

@@ -33,9 +33,6 @@
     <ClCompile Include="core\ext\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\ext\imgui\ImGuiFileDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\ext\stb_image\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,12 +123,6 @@
     <ClCompile Include="core\EngineManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\ext\imgui\imnodes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\components\AudioComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\ext\imgui\imgui_impl_sdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -139,6 +130,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\components\LuaComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ext\imgui\TextEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -596,9 +590,6 @@
     <ClInclude Include="core\ext\imgui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\ext\imgui\ImGuiFileDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\ext\imgui\stb_rect_pack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -845,16 +836,10 @@
     <ClInclude Include="core\EngineManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\ext\imgui\imnodes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\AudioManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\components\AudioComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imgui_impl_sdl.h">
@@ -876,6 +861,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\serialization\Serializer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\imgui\TextEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ext\imgui\imfilebrowser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

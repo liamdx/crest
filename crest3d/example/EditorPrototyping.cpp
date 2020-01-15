@@ -15,7 +15,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
 	auto barrelModel = engineManager->assetManager->loadModelAsset("res/models/barrel/barrel.obj");
 	barrelAssetID = barrelModel->assetID;
-	auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
+	// auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
 	
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
@@ -445,7 +445,7 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 		if (ImGui::Button("Open scene from file"))
 		{
 			Serializer s;
-			s.DeserializeScene("res/test/debug.xml");
+			s.DeserializeScene("res/test/debug.xml", engineManager);
 		}
 
 		if (ImGui::Button("Reset Scene"))

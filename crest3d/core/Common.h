@@ -1,5 +1,5 @@
 #pragma once
-
+#define NOMINMAX
 // basic C++ stuffs
 #include "stdafx.h";
 #include "math.h"
@@ -36,8 +36,8 @@
 #include "ext/imgui/imgui.h"
 #include "ext/imgui/auto.h"
 #include "ext/imgui/imconfig.h"
-#include "ext/imgui/imnodes.h"
-#include "ext/imgui/ImGuiFileDialog.h"
+#include "ext/imgui/TextEditor.h"
+#include "ext/imgui/imfilebrowser.h"
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 #include "ext/imgui/imgui_impl_opengl3.h"
 #include "ext/imgui/imgui_impl_sdl.h"

@@ -53,17 +53,6 @@ std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 	return asset;
 }
 
-std::shared_ptr<Asset<AudioFile>> AssetManager::loadAudioAsset(const char* path)
-{
-	std::shared_ptr<AudioFile> a = std::make_shared<AudioFile>(path);
-	std::shared_ptr<Asset<AudioFile>> asset = std::make_shared<Asset<AudioFile>>();
-	asset->asset = a;
-	asset->assetPath = path;
-	asset->assetID = getUniqueAssetID();
-	audioAssets.emplace_back(asset);
-	return asset;
-}
-
 std::shared_ptr<Asset<LuaScript>> AssetManager::loadScriptAsset(const char* path)
 {
 	std::shared_ptr<LuaScript> a{ new LuaScript(path) };
@@ -119,22 +108,6 @@ void AssetManager::removeTextureAsset(unsigned _assetID)
 	removeAssetID(_assetID);
 }
 
-void AssetManager::removeAudioAsset(unsigned _assetID)
-{
-	int indexToRemove;
-	for (unsigned int i = 0; i < audioAssets.size(); i++)
-	{
-		if (audioAssets.at(i)->assetID == _assetID)
-		{
-			indexToRemove = i;
-		}
-	}
-
-	audioAssets.erase(audioAssets.begin() + indexToRemove);
-	removeAssetID(_assetID);
-}
-
-
 unsigned int AssetManager::getUniqueAssetID()
 {
 	assetCounter += 1;
@@ -185,17 +158,6 @@ std::shared_ptr<Asset<Texture>> AssetManager::getTextureAssetID(unsigned id)
 		if (textureAssets.at(i)->assetID == id)
 		{
 			return textureAssets.at(i);
-		}
-	}
-}
-
-std::shared_ptr<Asset<AudioFile>> AssetManager::getAudioAssetID(unsigned id)
-{
-	for (int i = 0; i < audioAssets.size(); i++)
-	{
-		if (audioAssets.at(i)->assetID == id)
-		{
-			return audioAssets.at(i);
 		}
 	}
 }

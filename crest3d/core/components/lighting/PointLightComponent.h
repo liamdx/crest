@@ -6,9 +6,9 @@ class PointLightComponent : public LightComponent
 {
 public:
 
-	PointLightComponent(std::shared_ptr<Entity> e, glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
+	PointLightComponent(std::shared_ptr<Entity> e, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
 	PointLightComponent(std::shared_ptr<Entity> e);
-	void intitalize(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
+	void intitalize(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, float intensity, float distance);
 	void Bind(std::shared_ptr<ShaderComponent> shader, unsigned int index);
 	void Bind(std::shared_ptr<ShaderComponent> shader);
 
@@ -18,7 +18,8 @@ public:
 	inline void setDistance(float newDistance) { distance = newDistance; }
 	inline void setIntensity(float newIntensity) { intensity = newIntensity; }
 
-	glm::vec3 position;
+	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
+
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;

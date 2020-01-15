@@ -205,24 +205,18 @@ void RigidbodyComponent::reset()
 tinyxml2::XMLElement* RigidbodyComponent::serialize_component(tinyxml2::XMLDocument* doc)
 {
 	auto rbcElement = doc->NewElement("RigidbodyComponent");
-	rbcElement->SetAttribute("isKinematic", isKinematic);
-	rbcElement->SetAttribute("enabled", enabled);
-	rbcElement->SetAttribute("mass", mass);
-	rbcElement->SetAttribute("capsuleRadius", capsuleRadius);
-	rbcElement->SetAttribute("capsuleHeight", capsuleHeight);
-	rbcElement->SetAttribute("sphereRadius", sphereRadius);
 
-	auto offset_element = Serializer::SerializeVec3(centerOffset, "centerOffset", doc);
-	auto linear_element = Serializer::SerializeVec3(linearFactor, "linearFactor", doc);
-	auto angular_element = Serializer::SerializeVec3(angularFactor, "angularFactor", doc);
-	auto cube_dimensions_element = Serializer::SerializeVec3(cubeDimensions, "cubeDimensions", doc);
-	auto collision_scale_element = Serializer::SerializeVec3(collisionScale, "collisionScale", doc);
-
-	rbcElement->InsertEndChild(offset_element);
-	rbcElement->InsertEndChild(linear_element);
-	rbcElement->InsertEndChild(angular_element);
-	rbcElement->InsertEndChild(cube_dimensions_element);
-	rbcElement->InsertEndChild(collision_scale_element);
+	rbcElement->LinkEndChild(Serializer::SerializeBool(isKinematic, "isKinematic",doc));
+	rbcElement->LinkEndChild(Serializer::SerializeBool(enabled, "enabled", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeFloat(mass, "mass", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeFloat(capsuleRadius, "capsuleRadius", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeFloat(capsuleHeight, "capsuleHeight", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeFloat(sphereRadius, "sphereRadius", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeVec3(centerOffset, "centerOffset", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeVec3(linearFactor, "linearFactor", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeVec3(angularFactor, "angularFactor", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeVec3(cubeDimensions, "cubeDimensions", doc));
+	rbcElement->LinkEndChild(Serializer::SerializeVec3(collisionScale, "collisionScale", doc));
 
 	return rbcElement;
 }

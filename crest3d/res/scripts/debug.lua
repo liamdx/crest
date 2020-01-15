@@ -7,6 +7,7 @@ local rbc
 
 function init()
     -- some stuff
+	-- additional comment to see if saving is working at all. 
     -- initalise new components
     e.Transform.position = vec3.new(0, 10, 0)
     e:AddComponent(RigidbodyComponent.new())
@@ -26,6 +27,8 @@ end
 function update(deltaTime)
 
     this.Transform():LookAt(vec3.new(0,0,0))
+
+    
     rbcd = e:GetComponent()
 
     if Input.Controller1A() == true then
@@ -49,3 +52,4 @@ end
 function ui(deltaTime)
     -- some stuff
 end
+

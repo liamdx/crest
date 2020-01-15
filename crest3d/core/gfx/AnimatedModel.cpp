@@ -1,4 +1,5 @@
 #include "AnimatedModel.h"
+#include "serialization/Serializer.hpp"
 
 #define POSITION_LOCATION    0
 #define TEX_COORD_LOCATION   1
@@ -766,6 +767,6 @@ aiNodeAnim* AnimatedModel::FindNodeAnim(aiAnimation* pAnimation, std::string Nod
 tinyxml2::XMLElement* AnimatedModel::serialize(tinyxml2::XMLDocument* doc)
 {
 	auto amElement = doc->NewElement("AnimatedModel");
-	amElement->SetAttribute("filepath", filepath.c_str());
+	amElement->LinkEndChild(Serializer::SerializeString(filepath, "filepath", doc));
 	return amElement;
 }

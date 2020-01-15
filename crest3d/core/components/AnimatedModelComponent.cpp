@@ -1,4 +1,5 @@
 #include "components/AnimatedModelComponent.h"
+#include "serialization/Serializer.hpp"
 
 AnimatedModelComponent::AnimatedModelComponent(std::shared_ptr<Entity> e, std::shared_ptr<AnimatedModel> _model)
 {
@@ -93,8 +94,8 @@ tinyxml2::XMLElement* AnimatedModelComponent::serialize_component(tinyxml2::XMLD
 {
 	auto amcElement = doc->NewElement("AnimatedModelComponent");
 	auto amElement = anim->serialize(doc);
-	amcElement->InsertEndChild(amElement);
-	amcElement->SetAttribute("shouldDraw", shouldDraw);
-	amcElement->SetAttribute("usingMotionBlur", usingMotionBlur);
+	amcElement->LinkEndChild(amElement);
+	amcElement->LinkEndChild(Serializer::SerializeBool(shouldDraw, "shouldDraw", doc));
+	amcElement->LinkEndChild(Serializer::SerializeBool(usingMotionBlur, "useMotionBlur", doc));
 	return amcElement;
 }

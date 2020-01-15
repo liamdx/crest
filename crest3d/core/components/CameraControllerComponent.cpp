@@ -2,6 +2,7 @@
 #include "Entity.h"
 
 #include "EngineManager.h"
+#include "serialization/Serializer.hpp"
 
 void CameraControllerComponent::earlyUpdate(float deltaTime)
 {
@@ -120,11 +121,11 @@ CameraControllerComponent::CameraControllerComponent(std::shared_ptr<Entity> e, 
 tinyxml2::XMLElement* CameraControllerComponent::serialize_component(tinyxml2::XMLDocument* doc)
 {
 	auto ccElement = doc->NewElement("CameraControllerComponent");
-	ccElement->SetAttribute("mouseSensitivity", mouseSensitivity);
-	ccElement->SetAttribute("movementSpeed", movementSpeed);
-	ccElement->SetAttribute("sprintSpeed", sprintSpeed);
-	ccElement->SetAttribute("useController", useContoller);
-	ccElement->SetAttribute("useMovement", useMovement);
 	// ..
+	ccElement->LinkEndChild(Serializer::SerializeFloat(mouseSensitivity, "mouseSensitivity", doc));
+	ccElement->LinkEndChild(Serializer::SerializeFloat(movementSpeed, "movementSpeed", doc));
+	ccElement->LinkEndChild(Serializer::SerializeFloat(sprintSpeed, "sprintSpeed", doc));
+	ccElement->LinkEndChild(Serializer::SerializeBool(useContoller, "useController", doc));
+	ccElement->LinkEndChild(Serializer::SerializeBool(useMovement, "useMovement", doc));
 	return ccElement;
 }

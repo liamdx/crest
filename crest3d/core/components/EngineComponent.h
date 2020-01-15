@@ -17,9 +17,31 @@ public:
 	virtual void fixedUpdate() {};
 	virtual void render(float deltaTime, glm::mat4 view) {};
 	virtual void ui(float deltaTime) {};
-	virtual tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) { return doc->NewElement("EngineComponent"); }
-	virtual void deserialize_component(tinyxml2::XMLElement* e) {} 
 	
+	virtual tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) { return doc->NewElement("EngineComponent"); }
+	virtual void deserialize_component(tinyxml2::XMLElement* e) {};
+				
 	inline void SetId(unsigned int newId) { id = newId; }
 
+protected:
+	
 };
+
+// Virtual static idiom 
+//class Foo
+//{
+//public:
+//	Foo();
+//
+//protected:
+//	// Virtual static idiom <-- StaticCallback()
+//	virtual bool Callback();
+//
+//private:
+//	// Virtual static idiom --> Callback()
+//	static bool StaticCallback(void* pThis)
+//	{
+//		assert(pThis);
+//		return ((Foo*)pThis)->Callback();
+//	}
+//};

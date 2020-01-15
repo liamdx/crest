@@ -180,7 +180,6 @@
   <ItemGroup>
     <ClCompile Include="core\AssetManager.cpp" />
     <ClCompile Include="core\components\AnimatedModelComponent.cpp" />
-    <ClCompile Include="core\components\AudioComponent.cpp" />
     <ClCompile Include="core\components\CameraComponent.cpp" />
     <ClCompile Include="core\components\CameraControllerComponent.cpp" />
     <ClCompile Include="core\components\CollisionShapeComponent.cpp" />
@@ -200,13 +199,12 @@
     <ClCompile Include="core\ext\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_impl_sdl.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="core\ext\imgui\imnodes.cpp" />
+    <ClCompile Include="core\ext\imgui\TextEditor.cpp" />
     <ClCompile Include="core\gfx\AnimatedModel.cpp" />
     <ClCompile Include="core\gfx\Cubemap.cpp" />
     <ClCompile Include="core\Entity.cpp" />
     <ClCompile Include="core\ext\glm\detail\glm.cpp" />
     <ClCompile Include="core\ext\imgui\imgui.cpp" />
-    <ClCompile Include="core\ext\imgui\ImGuiFileDialog.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_demo.cpp" />
     <ClCompile Include="core\ext\imgui\imgui_draw.cpp" />
     <ClCompile Include="core\ext\stb_image\stb_image.cpp" />
@@ -228,7 +226,6 @@
     <ClInclude Include="core\AssetManager.h" />
     <ClInclude Include="core\AudioManager.h" />
     <ClInclude Include="core\components\AnimatedModelComponent.h" />
-    <ClInclude Include="core\components\AudioComponent.h" />
     <ClInclude Include="core\components\CameraComponent.h" />
     <ClInclude Include="core\components\CameraControllerComponent.h" />
     <ClInclude Include="core\components\CollisionShapeComponent.h" />
@@ -282,12 +279,13 @@
     <ClInclude Include="core\ext\imgui\auto\core.h" />
     <ClInclude Include="core\ext\imgui\auto\impl_base.h" />
     <ClInclude Include="core\ext\imgui\auto\impl_glm.h" />
+    <ClInclude Include="core\ext\imgui\imfilebrowser.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="core\ext\imgui\imgui_impl_sdl.h" />
-    <ClInclude Include="core\ext\imgui\imnodes.h" />
     <ClInclude Include="core\ext\imgui\imstb_rectpack.h" />
     <ClInclude Include="core\ext\imgui\imstb_textedit.h" />
     <ClInclude Include="core\ext\imgui\imstb_truetype.h" />
+    <ClInclude Include="core\ext\imgui\TextEditor.h" />
     <ClInclude Include="core\ext\nlohmann\json.hpp" />
     <ClInclude Include="core\Gamepad.hpp" />
     <ClInclude Include="core\gfx\AnimatedModel.h" />
@@ -445,7 +443,6 @@
     <ClInclude Include="core\ext\glm\vector_relational.hpp" />
     <ClInclude Include="core\ext\imgui\imconfig.h" />
     <ClInclude Include="core\ext\imgui\imgui.h" />
-    <ClInclude Include="core\ext\imgui\ImGuiFileDialog.h" />
     <ClInclude Include="core\ext\imgui\imgui_internal.h" />
     <ClInclude Include="core\ext\imgui\stb_rect_pack.h" />
     <ClInclude Include="core\ext\imgui\stb_textedit.h" />

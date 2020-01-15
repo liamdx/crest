@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "serialization/Serializer.hpp"
 
 Shader::Shader(const char* vertexPath, const char* fragPath)
 {
@@ -333,7 +334,9 @@ void Shader::fillMappings()
 tinyxml2::XMLElement* Shader::serialize(tinyxml2::XMLDocument* doc)
 {
 	auto shaderElement = doc->NewElement("Shader");
-	shaderElement->SetAttribute("vertexFilepath", vertexFilepath.c_str());
-	shaderElement->SetAttribute("fragmentFilepath", fragmentFilepath.c_str());
+	auto vertexElement = Serializer::SerializeString("vertexFilepath", vertexFilepath, doc);
+	auto fragElement = Serializer::SerializeString("fragmentFilepath", fragmentFilepath, doc);
+	shaderElement->LinkEndChild(vertexElement);
+	shaderElement->LinkEndChild(fragElement);
 	return shaderElement;
 }

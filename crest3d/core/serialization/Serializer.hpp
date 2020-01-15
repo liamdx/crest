@@ -1,5 +1,6 @@
 #pragma once
-#include "Scene.h"
+
+#include "EngineManager.h"
 
 //
 //namespace glm
@@ -129,6 +130,84 @@
 class Serializer
 {
 public:
+
+	
+
+	static unsigned int DeserializeUnsignedInt(const char* input)
+	{
+		std::stringstream s(input);
+		unsigned int x = 0;
+		s >> x;
+		return x;
+	}
+
+	static float DeserializeFloat(const char* input)
+	{
+		std::stringstream s(input);
+		float x = 0;
+		s >> x;
+		return x;
+	}
+
+	static glm::vec2 DeserializeVec2(tinyxml2::XMLElement* element)
+	{
+		glm::vec2 v = glm::vec2(0.0);
+		v.x = DeserializeFloat(element->Attribute("x"));
+		v.y = DeserializeFloat(element->Attribute("y"));
+		return v;
+	}
+	
+	static glm::vec3 DeserializeVec3(tinyxml2::XMLElement* element)
+	{
+		glm::vec3 v = glm::vec3(0.0);
+		v.x = DeserializeFloat(element->Attribute("x"));
+		v.y = DeserializeFloat(element->Attribute("y"));
+		v.z = DeserializeFloat(element->Attribute("z"));
+		return v;
+	}
+
+	static glm::quat DeserializeQuaternion(tinyxml2::XMLElement* element)
+	{
+		glm::quat v;
+		v.x = DeserializeFloat(element->Attribute("x"));
+		v.y = DeserializeFloat(element->Attribute("y"));
+		v.z = DeserializeFloat(element->Attribute("z"));
+		v.w = DeserializeFloat(element->Attribute("w"));
+		return v;
+	}
+	
+	static tinyxml2::XMLElement* SerializeString(std::string v, std::string name, tinyxml2::XMLDocument* doc)
+	{
+		auto stringElement = doc->NewElement("String");
+		stringElement->SetAttribute("name", name.c_str());
+		stringElement->SetAttribute("value", v.c_str());
+		return stringElement;
+	}
+
+	static tinyxml2::XMLElement* SerializeBool(bool v, std::string name, tinyxml2::XMLDocument* doc)
+	{
+		auto bElement = doc->NewElement("Boolean");
+		bElement->SetAttribute("name", name.c_str());
+		bElement->SetAttribute("value", v);
+		return bElement;
+	}
+	
+	static tinyxml2::XMLElement *SerializeFloat(float v, std::string name, tinyxml2::XMLDocument *doc)
+	{
+		auto floatElement = doc->NewElement("Float");
+		floatElement->SetAttribute("name", name.c_str());
+		floatElement->SetAttribute("value", v);
+		return floatElement;
+	}
+
+	static tinyxml2::XMLElement* SerializeUnsignedInt(unsigned int v, std::string name, tinyxml2::XMLDocument* doc)
+	{
+		auto uiElement = doc->NewElement("UnsignedInt");
+		uiElement->SetAttribute("name", name.c_str());
+		uiElement->SetAttribute("value", v);
+		return uiElement;
+	}
+	
 	static tinyxml2::XMLElement *SerializeVec2(glm::vec2 v, std::string name, tinyxml2::XMLDocument *doc)
 	{
 		auto vecElement = doc->NewElement("Vector2");
@@ -156,7 +235,6 @@ public:
 		vecElement->SetAttribute("y", v.y);
 		vecElement->SetAttribute("z", v.z);
 		vecElement->SetAttribute("w", v.w);
-
 		return vecElement;
 	}
 
@@ -229,7 +307,7 @@ public:
 		return entityElement;
 	}
 
-	void SerializeScene(std::shared_ptr<Scene> scene)
+	static void SerializeScene(std::shared_ptr<Scene> scene)
 	{
 		tinyxml2::XMLDocument doc;
 
@@ -245,36 +323,76 @@ public:
 		doc.SaveFile("res/test/debug.xml", false);
 	}
 
-	void LookElement(tinyxml2::XMLElement *element)
+	static tinyxml2::XMLElement* FindComponentInEntity(tinyxml2::XMLElement* entityElement, const char* elementType)
 	{
-		std::cout << element << std::endl;
-		
-		if (element->FirstChildElement() != NULL)
+		if (strcmp(entityElement->Value(), "Entity") == 0)
 		{
-			auto firstChild = element->FirstChildElement();
-			LookElement(firstChild);
-			bool hasNext = false;
-			if (firstChild->NextSibling() != NULL)
+			if(strcmp(elementType, "TransformComponent") == 0)
 			{
-				hasNext = true;
+				return entityElement->FirstChildElement("TransformComponent");
 			}
-			while (hasNext)
+			else
 			{
-				auto nextChild = firstChild->NextSiblingElement();
-				LookElement(nextChild);
-				if (nextChild->NextSibling() != NULL)
+				auto components = entityElement->FirstChildElement("Components");
+				for (tinyxml2::XMLElement* e = components->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
 				{
-					hasNext = true;
+					if (strcmp(e->Value(), elementType) == 0)
+					{
+						return e;
+					}
 				}
-				firstChild = nextChild;
 			}
+			
 		}
+		return nullptr;
 	}
 
-	void DeserializeScene(const char *path)
+	static tinyxml2::XMLElement* FindElementInComponent(tinyxml2::XMLElement* componentElement, const char* elementType, const char* elementName)
+	{
+		for (tinyxml2::XMLElement* e = componentElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+		{
+			// if types match
+			if(strcmp(elementType, e->Value()) == 0)
+			{
+				// if element name is correct
+				if(strcmp(elementName, e->Attribute("name")))
+				{
+					return e;
+				}
+			}
+		}
+		return nullptr;
+	}
+
+
+	static void LoadEntity(tinyxml2::XMLElement* entityElement, std::shared_ptr<Entity> parent, EngineManager* em)
+	{
+		// load entity
+
+		// for each child in children
+			// LoadEntity(childElement, this, em)
+	}
+	static void LookComponent(tinyxml2::XMLElement* element)
+	{
+		
+	}
+	
+	static void LookEntity(tinyxml2::XMLElement* element, EngineManager* em)
+	{
+		std::string entityName = element->Attribute("name");
+		unsigned int entityId = DeserializeFloat(element->Attribute("id"));
+	}
+
+	static void DeserializeScene(const char *path, EngineManager* em)
 	{
 		tinyxml2::XMLDocument doc;
 		doc.LoadFile(path);
-		LookElement(doc.RootElement());
+
+		auto sceneRoot = doc.FirstChildElement("Scene")->FirstChildElement("Entity");
+		std::cout << "loaded xml" << std::endl;
+
+		auto t = FindComponentInEntity(sceneRoot, "TransformComponent");
+		Debug::Log(t->Value());
+		em->AddPointLightEntity();
 	}
 };

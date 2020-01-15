@@ -54,7 +54,7 @@ public:
 	{
 		auto scElement = doc->NewElement("ShaderComponent");
 		auto shaderElement = shader->serialize(doc);
-		scElement->InsertEndChild(shaderElement);
+		scElement->LinkEndChild(shaderElement);
 		return scElement;
 	}
 	
