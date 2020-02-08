@@ -118,7 +118,7 @@ int main() {
 	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
 	// Quad we use to render framebuffers
 	screenQuad renderQuad;
-
+	std::shared_ptr<Shader> particleShader = std::make_shared<Shader>("res/shaders/particle.vert", "res/shaders/particle.frag");
 	// Initialise buffers (uniform resolution for now)
 	FrameBuffer mainFB;
 	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, true);
@@ -212,6 +212,8 @@ int main() {
 		mainFB.finishDrawing();
 
 		glDisable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
 		// framebuffers
 
 		depthFB.initForDrawing();
@@ -378,6 +380,11 @@ int main() {
 				blurShader = Shader("res/shaders/framebuffer.vert", "res/shaders/blur.frag");
 			}
 
+			if(ImGui::Button("Reload Assets"))
+			{
+				engineManager->scene->updateDrawables();
+			}
+			
 			ImGui::Auto(blurScale, "Blue Scale");
 		}
 		ImGui::End();
@@ -492,7 +499,7 @@ int main() {
 		}
 
 		ImGui::PopFont();
-		
+
 		example.uiBehaviour(deltaTime);
 
 		YSE::System().update();

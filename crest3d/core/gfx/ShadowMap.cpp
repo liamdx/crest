@@ -1,6 +1,6 @@
-#include "ShadowMap.h"
+#include "Shadowmap.h"
 
-ShadowMap::ShadowMap(ShadowMapType _type, unsigned int _resolution)
+Shadowmap::Shadowmap(ShadowmapType _type, unsigned int _resolution)
 {
 	type = _type;
 	shadowResolution = _resolution;
@@ -9,7 +9,7 @@ ShadowMap::ShadowMap(ShadowMapType _type, unsigned int _resolution)
 	lightSpaceMatrix = glm::mat4(1.0);
 }
 
-ShadowMap::ShadowMap(ShadowMapType _type)
+Shadowmap::Shadowmap(ShadowmapType _type)
 {
 	type = _type;
 	shadowResolution = 512;
@@ -18,10 +18,10 @@ ShadowMap::ShadowMap(ShadowMapType _type)
 	lightSpaceMatrix = glm::mat4(1.0);
 }
 
-void ShadowMap::start()
+void Shadowmap::start()
 {
 	// directional
-	if (type == ShadowMapType::directional)
+	if (type == ShadowmapType::directional)
 	{
 		glGenFramebuffers(1, &depthMapFBO);
 		glGenTextures(1, &depthMap);
@@ -38,7 +38,7 @@ void ShadowMap::start()
 		glReadBuffer(GL_NONE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	else if (type == ShadowMapType::point)
+	else if (type == ShadowmapType::point)
 	{
 		glGenFramebuffers(1, &depthMapFBO);
 		glGenTextures(1, &depthMap);
@@ -61,17 +61,17 @@ void ShadowMap::start()
 	}
 }
 
-void ShadowMap::renderLightView(glm::vec3 cameraPosition, std::vector<MeshComponent> meshes)
+void Shadowmap::renderLightView(glm::vec3 cameraPosition, std::vector<MeshComponent> meshes)
 {
-	if (type == ShadowMapType::directional)
+	if (type == ShadowmapType::directional)
 	{
 		// directional draw
 	}
-	else if (type == ShadowMapType::point)
+	else if (type == ShadowmapType::point)
 	{
 		// point draw
 	}
-	else if (type == ShadowMapType::spot)
+	else if (type == ShadowmapType::spot)
 	{
 		// still need to work out how to do spot light shadows
 	}

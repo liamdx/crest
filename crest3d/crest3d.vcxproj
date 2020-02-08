@@ -191,6 +191,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="core\components\ParticleSystemComponent.cpp" />
     <ClCompile Include="core\components\RigidbodyComponent.cpp" />
     <ClCompile Include="core\components\TransformComponent.cpp" />
     <ClCompile Include="core\DebugRenderer.cpp" />
@@ -212,14 +213,16 @@
     <ClCompile Include="app\main.cpp" />
     <ClCompile Include="core\gfx\Mesh.cpp" />
     <ClCompile Include="core\gfx\Model.cpp" />
+    <ClCompile Include="core\gfx\ParticleSystem.cpp" />
     <ClCompile Include="core\gfx\ShadowMap.cpp" />
     <ClCompile Include="core\InputManager.cpp" />
     <ClCompile Include="core\PhysicsManager.cpp" />
     <ClCompile Include="core\primitives\Cube.cpp" />
     <ClCompile Include="core\primitives\Quad.cpp" />
     <ClCompile Include="core\gfx\Shader.cpp" />
+    <ClCompile Include="core\gfx\Renderer.cpp" />
     <ClCompile Include="core\Scene.cpp" />
-    <ClCompile Include="core\ShaderManager.cpp" />
+    <ClCompile Include="core\gfx\ShaderManager.cpp" />
     <ClCompile Include="example\EditorPrototyping.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +237,7 @@
     <ClInclude Include="core\components\lighting\PointLightComponent.h" />
     <ClInclude Include="core\components\LuaComponent.h" />
     <ClInclude Include="core\components\MeshComponent.h" />
+    <ClInclude Include="core\components\ParticleSystemComponent.h" />
     <ClInclude Include="core\components\RigidbodyComponent.h" />
     <ClInclude Include="core\components\ShaderComponent.h" />
     <ClInclude Include="core\CrestCore.h" />
@@ -451,19 +455,21 @@
     <ClInclude Include="core\ext\stb_image\stb_image.h" />
     <ClInclude Include="core\gfx\FrameBuffer.h" />
     <ClInclude Include="core\gfx\Material.h" />
+    <ClInclude Include="core\gfx\ParticleSystem.h" />
+    <ClInclude Include="core\gfx\RenderContext.h" />
     <ClInclude Include="core\gfx\ShadowMap.h" />
     <ClInclude Include="core\InputManager.h" />
     <ClInclude Include="core\gfx\Mesh.h" />
     <ClInclude Include="core\gfx\Model.h" />
+    <ClInclude Include="core\LuaManager.h" />
     <ClInclude Include="core\PhysicsManager.h" />
     <ClInclude Include="core\primitives\Cube.h" />
     <ClInclude Include="core\primitives\Quad.h" />
     <ClInclude Include="core\gfx\Shader.h" />
-    <ClInclude Include="core\Renderer.h" />
+    <ClInclude Include="core\gfx\Renderer.h" />
     <ClInclude Include="core\Scene.h" />
-    <ClInclude Include="core\serialization\AbstractComponentConnector.h" />
     <ClInclude Include="core\serialization\Serializer.hpp" />
-    <ClInclude Include="core\ShaderManager.h" />
+    <ClInclude Include="core\gfx\ShaderManager.h" />
     <ClInclude Include="example\EditorPrototyping.h" />
     <ClInclude Include="example\Example.h" />
     <ClInclude Include="stdafx.h" />

@@ -340,3 +340,5 @@ tinyxml2::XMLElement* Shader::serialize(tinyxml2::XMLDocument* doc)
 	shaderElement->LinkEndChild(fragElement);
 	return shaderElement;
 }
+
+

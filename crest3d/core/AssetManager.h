@@ -23,6 +23,7 @@ public:
 	std::shared_ptr<Asset<Texture>> defaultAO;
 	std::shared_ptr<Asset<Texture>> defaultMetallic;
 	std::shared_ptr<Asset<Texture>> defaultRoughness;
+	std::shared_ptr<Asset<Texture>> defaultParticle;
 
 	std::shared_ptr<Asset<Model>> loadModelAsset(const char* path);
 	std::shared_ptr<Asset<AnimatedModel>> loadAnimatedModelAsset(const char* path);

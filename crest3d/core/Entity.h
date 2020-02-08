@@ -44,8 +44,6 @@ public:
 				return(std::static_pointer_cast<T>(components.at(i)));
 			}
 		}
-		std::string error = "Could not find component ";
-		error += typeid(T).name();
 		return nullptr;
 	}
 

@@ -19,7 +19,7 @@ public:
 	std::vector<std::shared_ptr<Mesh>> meshes;
 	static int TextureFromFile(char const* path, const std::string& directory);
 
-	static int CommonTextureLoad(std::string path);
+	static unsigned int CommonTextureLoad(std::string path);
 
 	std::string directory;
 	std::string path;

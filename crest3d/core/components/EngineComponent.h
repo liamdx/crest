@@ -26,22 +26,3 @@ public:
 protected:
 	
 };
-
-// Virtual static idiom 
-//class Foo
-//{
-//public:
-//	Foo();
-//
-//protected:
-//	// Virtual static idiom <-- StaticCallback()
-//	virtual bool Callback();
-//
-//private:
-//	// Virtual static idiom --> Callback()
-//	static bool StaticCallback(void* pThis)
-//	{
-//		assert(pThis);
-//		return ((Foo*)pThis)->Callback();
-//	}
-//};

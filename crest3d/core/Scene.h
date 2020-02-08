@@ -7,8 +7,9 @@
 #include "components/AnimatedModelComponent.h"
 #include "components/MeshComponent.h"
 #include "AssetManager.h"
-#include "ShaderManager.h"
+#include "gfx/ShaderManager.h"
 #include "PhysicsManager.h"
+#include "components/ParticleSystemComponent.h"
 
 class Scene
 {
@@ -29,24 +30,36 @@ public:
 	void renderBehaviour(float deltaTime, std::shared_ptr<ShaderComponent> meshShader, std::shared_ptr<ShaderComponent> animShader);
 	void uiBehaviour(float deltaTime);
 
+
 	void updateShaderProjections(std::shared_ptr<Entity> e);
 
 	// might move this to a lighting manager
 	void updateShaderLightSources(std::shared_ptr<Entity> e);
 	void updateShaderComponentLightSources(std::shared_ptr<ShaderComponent> sc);
-	
+	void updateDrawables();
 	void updateSceneLighting();
+	// the concept of a scene camera will die with renderer
+	// .. need a distinction between a real camera to be rendered.
+	// and a proxy camera that can be used as a virtual view point in the scene. 
 	std::shared_ptr<CameraComponent> sceneCamera;
-	// helping to make stuff more SIMD freindly
+	
+	// scene keeps references to every drawable for renderer. 
 	std::vector<std::shared_ptr<MeshComponent>> meshes;
 	std::vector<std::shared_ptr<AnimatedModelComponent>> animatedModels;
-	// lighting stuff
+	std::vector<std::shared_ptr<ParticleSystemComponent>> particleSystems;
 	std::shared_ptr<DirectionalLightComponent> dirLightComponent;
 	std::vector <std::shared_ptr<PointLightComponent>> pointLightComponents;
 
+
+	template<typename T>
+	std::vector<std::shared_ptr<T>> FindComponentsInScene();
+
+	
 	
 	float DEBUG_SPHERE_RADIUS;
 private:
+
+	
 	void updateLightComponentsVector(std::shared_ptr<Entity> e);
 	void bindDefaultTextures(std::shared_ptr<ShaderComponent> sc);
 };

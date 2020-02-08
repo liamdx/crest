@@ -43,7 +43,7 @@ void FrameBuffer::initialise(float SCREEN_WIDTH, float SCREEN_HEIGHT, bool multi
 
 		glGenTextures(1, &msFramebufferTexture);
 		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, msFramebufferTexture);
-		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 2, GL_RGB, screenWidth, screenHeight, GL_TRUE);
+		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGB, screenWidth, screenHeight, GL_TRUE);
 		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, msFramebufferTexture, 0);
 

@@ -13,6 +13,8 @@ AssetManager::AssetManager()
 	defaultMetallic->asset->t_Type = TextureType::metallic;
 	defaultRoughness = loadTextureAsset("res/textures/default_roughness.png");
 	defaultRoughness->asset->t_Type = TextureType::roughness;
+	defaultParticle = loadTextureAsset("res/textures/particle.png");
+	defaultParticle->asset->t_Type = TextureType::unknown;
 	
 }
 

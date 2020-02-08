@@ -3,7 +3,8 @@ speed = 5
 movementVector = vec3.new(0,0,0)
 e = Entity.new()
 
-local rbc
+rbcd = nil
+
 
 function init()
     -- some stuff
@@ -16,7 +17,7 @@ end
 
 function start()
     -- some stuff
-    rbc = this.Entity():GetComponent("RigidbodyComponent")
+    rbcd = e:GetComponent("RigidbodyComponent")
 
 end
 
@@ -28,10 +29,7 @@ function update(deltaTime)
 
     this.Transform():LookAt(vec3.new(0,0,0))
 
-    
-    rbcd = e:GetComponent()
-
-    if Input.Controller1A() == true then
+    if Input.KeySpace() == true then
         rbcd:ApplyForce(vec3.new(0, 10, 0))
     end
         -- rbc.ApplyForce(vec3.new(0, 5, 0))
@@ -52,4 +50,6 @@ end
 function ui(deltaTime)
     -- some stuff
 end
+
+
 

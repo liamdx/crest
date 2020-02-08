@@ -4,18 +4,18 @@
 
 #include "components/MeshComponent.h"
 
-class ShadowMap
+class Shadowmap
 {
 public:
-	enum ShadowMapType {
+	enum ShadowmapType {
 		directional,
 		point,
 		spot
 	};
 
-	ShadowMap(ShadowMapType _type);
-	ShadowMap(ShadowMapType _type, unsigned int _resolution);
-	~ShadowMap() {};
+	Shadowmap(ShadowmapType _type);
+	Shadowmap(ShadowmapType _type, unsigned int _resolution);
+	~Shadowmap() {};
 
 	void start();
 	void renderLightView(glm::vec3 cameraPosition, std::vector<MeshComponent> meshes);
@@ -26,7 +26,7 @@ public:
 private:
 	unsigned int shadowResolution;
 	unsigned int depthMap, depthMapFBO;
-	ShadowMapType type;
+	ShadowmapType type;
 	glm::mat4 projection;
 	glm::mat4 view;
 	glm::mat4 lightSpaceMatrix;

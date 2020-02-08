@@ -80,6 +80,14 @@ unsigned int EngineManager::makeUniqueEntityID()
 	return(newId);
 }
 
+void EngineManager::MoveChild(std::shared_ptr<Entity> movee,  std::shared_ptr<Entity> newParent)
+{
+	movee->parent->RemoveChild(movee->id);
+	movee->RemoveParent();
+	newParent->AddChild(movee);
+}
+
+
 std::shared_ptr<Entity> EngineManager::AddEntity()
 {
 	unsigned int entityID = makeUniqueEntityID();

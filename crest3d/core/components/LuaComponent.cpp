@@ -95,12 +95,6 @@ void LuaComponent::BindCrestToLua()
 		sol::meta_function::addition, quat_add_overloads,
 		sol::meta_function::subtraction, quat_sub_overloads);
 	
-	glm::vec3 a = glm::vec3(1.0);
-	glm::vec3 b = glm::vec3(1.0);
-	glm::quat c = glm::quat();
-
-	auto d = c * a + b;
-	
 	// Debug Namespace
 	auto dbg = lua["Debug"].get_or_create<sol::table>();
 	dbg.set_function("Log", sol::resolve<void(const char*, unsigned int)>(&Debug::Log<LuaComponent>));
@@ -291,7 +285,6 @@ void LuaComponent::BindCrestToLua()
 	_cm.set_function("EulerToQuat", [](glm::vec3 v) -> glm::quat { return glm::quat(glm::radians(v)); });
 	_cm.set_function("Magnitude", magnitude_overloads);
 	_cm.set_function("Degrees", degrees_overloads);
-	// lua.new_usertype<>()
 
 	try
 	{

@@ -56,4 +56,24 @@
 #define SOL_DEFAULT_PASS_ON_ERROR
 #define SOL_NO_EXCEPTIONS
 
+#define GLCall(x) GLClearError(); x; GLLogCall(#x, __FILE__, __LINE__)
+static void GLClearError()
+{
+	while (glGetError() != GL_NO_ERROR);
+}
+
+static bool GLLogCall(const char* function, const char* file, int line)
+{
+	while (GLenum error = glGetError())
+	{
+		
+		std::cout << "[OpenGL Error] (" << error << "): " << function << " " <<
+			file << " : " << line << " : " << glewGetErrorString(error) << std::endl;
+		return false;
+		
+	}
+	return true;
+}
+
+
 

@@ -332,7 +332,7 @@ int Model::TextureFromFile(char const* path, const std::string& directory)
 	}
 }
 
-int Model::CommonTextureLoad(std::string path)
+unsigned int Model::CommonTextureLoad(std::string path)
 {
 	unsigned int id;
 	std::cout << path << std::endl;

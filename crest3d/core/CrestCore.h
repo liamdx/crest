@@ -7,6 +7,7 @@
 #include "gfx/AnimatedModel.h"
 #include "gfx/Cubemap.h"
 #include "gfx/FrameBuffer.h"
+#include "gfx/ParticleSystem.h"
 #include "primitives/Quad.h"
 #include "primitives/Cube.h"
 #include "PhysicsManager.h"

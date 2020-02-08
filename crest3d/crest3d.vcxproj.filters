@@ -114,9 +114,6 @@
     <ClCompile Include="core\components\AnimatedModelComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\ShaderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\gfx\ShadowMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -133,6 +130,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\ext\imgui\TextEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\gfx\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\gfx\ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\gfx\ParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\components\ParticleSystemComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -821,9 +830,6 @@
     <ClInclude Include="example\Example.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\ShaderManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\gfx\ShadowMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -848,12 +854,6 @@
     <ClInclude Include="core\Gamepad.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\serialization\AbstractComponentConnector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\components\LuaComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -867,6 +867,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\ext\imgui\imfilebrowser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\gfx\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\LuaManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\gfx\ShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\gfx\RenderContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\gfx\ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\components\ParticleSystemComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

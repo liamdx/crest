@@ -61,6 +61,9 @@ public:
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
 	std::shared_ptr<Entity> AddPointLightEntity();
 
+
+	void MoveChild(std::shared_ptr<Entity> movee, std::shared_ptr<Entity> newParent);
+	
 	void ClearScene();
 	void ResetScene();
 	

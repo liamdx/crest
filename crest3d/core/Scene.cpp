@@ -51,6 +51,7 @@ void childEarlyUpdate(std::shared_ptr<Entity> e, float deltaTime)
 	}
 }
 
+
 void Scene::earlyUpdateBehaviour(float deltaTime)
 {
 	childEarlyUpdate(rootEntity, deltaTime);
@@ -96,6 +97,7 @@ void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 
 void Scene::renderBehaviour(float deltaTime, std::shared_ptr<ShaderComponent> meshShader, std::shared_ptr<ShaderComponent> animShader)
 {
+	
 	meshShader->shader->use();
 	meshShader->setProjection(sceneCamera->GetProjectionMatrix());
 	meshShader->setView(sceneCamera->GetViewMatrix());
@@ -151,6 +153,18 @@ void Scene::renderBehaviour(float deltaTime)
 	{
 		anim->draw(view, engineManager->shaderManager->defaultAnimShader);
 	}
+
+	auto particleShader = engineManager->shaderManager->defaultParticleShader;
+	auto sceneCamera = engineManager->scene->sceneCamera;
+	
+	particleShader->shader->use();
+	updateShaderComponentLightSources(particleShader);
+	for(std::shared_ptr<ParticleSystemComponent> ps : particleSystems)
+	{
+		ps->draw(deltaTime, view, particleShader);
+	}
+
+	
 	engineManager->physicsManager->setView(view);
 	engineManager->physicsManager->setProjection(sceneCamera->GetProjectionMatrix());
 	engineManager->physicsManager->render(deltaTime);
@@ -259,8 +273,43 @@ void Scene::updateLightComponentsVector(std::shared_ptr<Entity> e)
 	}
 }
 
+void Scene::updateDrawables()
+{
+	animatedModels.clear();
+	meshes.clear();
+	particleSystems.clear();
+	animatedModels = FindComponentsInScene<AnimatedModelComponent>();
+	meshes = FindComponentsInScene<MeshComponent>();
+	particleSystems = FindComponentsInScene<ParticleSystemComponent>();
+}
+
 void Scene::updateSceneLighting()
 {
 	updateLightComponentsVector(rootEntity);
 	// updateShaderLightSources(rootEntity);
+}
+
+template <typename T>
+std::vector<std::shared_ptr<T>> Scene::FindComponentsInScene()
+{
+	std::vector<std::shared_ptr<T>> Ts;
+	RecursiveFind(rootEntity, Ts);
+	return Ts;
+	
+}
+
+template <typename T>
+void RecursiveFind(std::shared_ptr<Entity>& e, std::vector<std::shared_ptr<T>>& Ts)
+{
+	std::shared_ptr<T> Tcomponent = e->GetComponent<T>();
+
+	if(Tcomponent != nullptr)
+	{
+		Ts.emplace_back(Tcomponent);
+	}
+
+	for(auto c : e->children)
+	{
+		RecursiveFind(c, Ts);
+	}
 }

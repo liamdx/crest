@@ -367,10 +367,32 @@ public:
 
 	static void LoadEntity(tinyxml2::XMLElement* entityElement, std::shared_ptr<Entity> parent, EngineManager* em)
 	{
-		// load entity
+		auto entity = em->AddEntity();
+		if(parent != nullptr)
+		{
+			em->MoveChild(entity, parent);
+		}
 
-		// for each child in children
-			// LoadEntity(childElement, this, em)
+		entity->name = entityElement->Attribute("name");
+		//  sscanf(str, "%d", &x); 
+
+		sscanf(entityElement->Attribute("id"), "%d", &entity->id);
+		
+		for (tinyxml2::XMLElement* e = entityElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+		{
+			if(strcmp("Entity", e->Value()) == 0)
+			{
+				LoadEntity(e, entity, em);
+			}
+		}
+
+		for (tinyxml2::XMLElement* e = entityElement; e != NULL; e = e->NextSiblingElement())
+		{
+			if (strcmp("Entity", e->Value()) == 0)
+			{
+				LoadEntity(e, entity, em);
+			}
+		}
 	}
 	static void LookComponent(tinyxml2::XMLElement* element)
 	{
@@ -389,6 +411,8 @@ public:
 		doc.LoadFile(path);
 
 		auto sceneRoot = doc.FirstChildElement("Scene")->FirstChildElement("Entity");
+
+		LoadEntity(sceneRoot, em->scene->rootEntity, em);
 		std::cout << "loaded xml" << std::endl;
 
 		auto t = FindComponentInEntity(sceneRoot, "TransformComponent");

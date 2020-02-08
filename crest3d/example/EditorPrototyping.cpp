@@ -21,6 +21,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
 	entities["cyborgEntity"]->transform->position = (glm::vec3(0, 8, 0));
 	entities["cyborgEntity"]->AddComponent(new LuaComponent(entities["cyborgEntity"]));
+	entities["cyborgEntity"]->AddComponent(new ParticleSystemComponent(entities["cyborgEntity"]));
 
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
 	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
@@ -196,6 +197,8 @@ void EditorPrototyping::startBehaviour()
 		cubemapShader->use();
 		cubemapShader->setMat4("projection", cam->GetProjectionMatrix());
 	}
+
+	engineManager->scene->updateDrawables();
 }
 
 void EditorPrototyping::earlyUpdateBehaviour(float deltaTime)
@@ -372,6 +375,15 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 				ImGui::TreePop();
 			}
 		}
+
+		if(e->GetComponent<ParticleSystemComponent>())
+		{
+			if (ImGui::TreeNode("Particle System Component"))
+			{
+				ImGui::TreePop();
+			}
+		}
+		
 		
 		if (ImGui::Button("Add Rigidbody to component"))
 		{
