@@ -52,7 +52,6 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 				movementSpeed = initMoveSpeed;
 			}
 		}
-		input->GetMouseMovement();
 		float deltaX = input->xpos - lastX;
 		float deltaY = -(input->ypos - lastY);
 		lastX = input->xpos;
@@ -61,16 +60,16 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 		// do mouseMovement
 		deltaX = deltaX * 360.0f * mouseSensitivity * deltaTime;
 		deltaY = deltaY * 360.0f * mouseSensitivity * deltaTime;
+		
 
 		if (input->GetRightClick())
 		{
-			SDL_ShowCursor(0);
-			attachedEntity->transform->eulerAngles += glm::vec3(deltaY, deltaX, 0);
+			std::cout << "Clicking RC" << std::endl;
+			// SDL_ShowCursor(0);
+			attachedEntity->transform->eulerAngles = attachedEntity->transform->eulerAngles + glm::vec3(deltaY, deltaX, 0);
+			activeLastFrame = true;
 		}
-		else
-		{
-			SDL_ShowCursor(1);
-		}
+		
 	}
 
 	if(useContoller)

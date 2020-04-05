@@ -15,12 +15,16 @@
 #include <map>
 #include <typeinfo>
 
+#define strdup _strdup
+
 //external dependencies
 #include "GL/glew.h"
-#include "SDL.h"
+#include "GLFW/glfw3.h"
 #include "ext/stb_image/stb_image.h"
 #include "yse.hpp"
 #include "tinyxml2.h"
+
+const double M_PI = 3.145;
 
 // glm stuff *sigh*
 #define GLM_ENABLE_EXPERIMENTAL
@@ -40,7 +44,7 @@
 #include "ext/imgui/imfilebrowser.h"
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 #include "ext/imgui/imgui_impl_opengl3.h"
-#include "ext/imgui/imgui_impl_sdl.h"
+#include "ext/imgui/imgui_impl_glfw.h"
 
 // Bullet physics
 #include "btBulletDynamicsCommon.h"
@@ -51,8 +55,7 @@
 #include "lua.hpp"
 #include "sol/forward.hpp"
 #include "sol/sol.hpp"
-// ?
-// #define SOL_ENABLE_INTEROP
+
 #define SOL_DEFAULT_PASS_ON_ERROR
 #define SOL_NO_EXCEPTIONS
 

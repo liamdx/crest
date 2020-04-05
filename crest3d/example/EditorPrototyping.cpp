@@ -1,39 +1,37 @@
 #include "EditorPrototyping.h"
 
-EditorPrototyping::EditorPrototyping(EngineManager *em)
+// horrible and needs to go :/ 
+
+EditorPrototyping::EditorPrototyping(EngineManager* em)
 {
-	
+
 	engineManager = em;
 	cubemapShader = new Shader("res/shaders/cubemap.vert", "res/shaders/cubemap.frag");
 	skybox = new Cubemap(faces);
 
 	clapTimer = 0.0f;
-	
+
 	auto m = engineManager->assetManager->loadModelAsset("res/models/cyborg/cyborg.obj");
-	auto level = engineManager->assetManager->loadModelAsset("res/models/swamp/map_1.obj");
-//	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
+	auto level = engineManager->assetManager->loadModelAsset("res/models/sponza/sponza.fbx");
 	auto animatedModel = engineManager->assetManager->loadAnimatedModelAsset("res/models/stormtrooper/silly_dancing.fbx");
 	auto barrelModel = engineManager->assetManager->loadModelAsset("res/models/barrel/barrel.obj");
 	barrelAssetID = barrelModel->assetID;
-	// auto clapSound = engineManager->assetManager->loadAudioAsset("res/audio/clap.wav");
-	
 
 	entities["cyborgEntity"] = engineManager->AddModelEntity(m->asset);
 	entities["cyborgEntity"]->transform->position = (glm::vec3(0, 8, 0));
-	entities["cyborgEntity"]->AddComponent(new LuaComponent(entities["cyborgEntity"]));
 	entities["cyborgEntity"]->AddComponent(new ParticleSystemComponent(entities["cyborgEntity"]));
 
 	entities["levelEntity"] = engineManager->AddModelEntity(level->asset);
 	entities["levelEntity"]->transform->position = (glm::vec3(0.03, 0.03, 0.03));
 	entities["levelEntity"]->transform->position += (glm::vec3(0, 0, 0));
 	entities["levelEntity"]->transform->scale = glm::vec3(0.07, 0.07, 0.07);
-	
+
 
 	int res = 4;
 	int counter = 0;
-	for(int x = 0; x < res; x++)
+	for (int x = 0; x < res; x++)
 	{
-		for(int y = 0; y < res; y++)
+		for (int y = 0; y < res; y++)
 		{
 			for (int z = 0; z < res; z++)
 			{
@@ -57,7 +55,7 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 			entities[s] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
 			entities[s]->state = UpdateState::halfRate;
 			entities[s]->transform->position = (glm::vec3(x * 2, 0, y * 2));
-			entities[s]->transform->scale = glm::vec3(0.5, 0.5, 0.5);
+			entities[s]->transform->scale = glm::vec3(0.03, 0.03, 0.03);
 		}
 	}
 	entities["floorEntity"] = engineManager->AddEntity();
@@ -69,29 +67,20 @@ EditorPrototyping::EditorPrototyping(EngineManager *em)
 	floorRib->SetCubeShape();
 	floorRib->setMass(0.0f);
 
-	/*entities["animEntity"] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
-	entities["animEntity"]->transform->position = (glm::vec3(-4.0, 0.0, 0.0));
-	entities["animEntity"]->AddComponent(new AudioComponent());
-	components["someAudioComponent"] = entities["animEntity"]->GetComponent<AudioComponent>();
-	auto audio_component = GetUsableComponent<AudioComponent>("someAudioComponent");
-	audio_component->SetClip(clapSound->asset);*/
 
 	// temporarily initialise everything her
 	entities["cameraEntity"] = engineManager->AddCameraEntity();
 	entities["cameraEntity"]->AddComponent(new CameraControllerComponent(entities.at("cameraEntity"), engineManager->input));
-	//auto orbit_script = engineManager->assetManager->loadScriptAsset("res/scripts/OrbitCam.lua");
-	//entities["cameraEntity"]->AddComponent(new LuaComponent(entities["cameraEntity"], orbit_script->asset));
-	/*std::shared_ptr<CameraControllerComponent> camController = entities.at("cameraEntity")->GetComponent<CameraControllerComponent>();
-	camController->window = engineManager->window;*/
+
 	components["cam"] = entities.at("cameraEntity")->GetComponent<CameraComponent>();
-	
+
 	entities["dirLight"] = engineManager->AddDirectionalLightEntity();
 	components["dirLightComponent"] = entities.at("dirLight")->GetComponent<DirectionalLightComponent>();
 }
 
 void EditorPrototyping::DeleteRigidbodies()
 {
-	for(int i = 0; i < ribEntityNames.size(); i++)
+	for (int i = 0; i < ribEntityNames.size(); i++)
 	{
 		engineManager->DeleteEntity(entities[ribEntityNames.at(i)]->GetID());
 	}
@@ -123,7 +112,7 @@ void EditorPrototyping::AddRigidbodies()
 
 void EditorPrototyping::RigidbodyTest()
 {
-	for(int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		std::stringstream s;
 		s << "Iteration" + std::to_string(i) << "\n";
@@ -248,10 +237,10 @@ void EditorPrototyping::renderBehaviour(float deltaTime)
 
 		engineManager->shaderManager->defaultShader->shader->use();
 
-		
-			engineManager->scene->renderBehaviour(deltaTime);
+
+		engineManager->scene->renderBehaviour(deltaTime);
 	}
-	
+
 }
 
 void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
@@ -280,7 +269,7 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			ImGui::Auto(e->transform->localScale, "Entity Local Scale");
 			ImGui::TreePop();
 		}
-		
+
 		if (e->GetComponent<MeshComponent>() != nullptr)
 		{
 			if (ImGui::TreeNode("MeshComponent"))
@@ -314,7 +303,7 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 				ImGui::TreePop();
 			}
 		}
-		
+
 		if (e->GetComponent<RigidbodyComponent>() != nullptr)
 		{
 			if (ImGui::TreeNode("Rigidbody Component"))
@@ -329,8 +318,8 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 				ImGui::Auto(rbc->capsuleHeight, "Capsule Height");
 				ImGui::Auto(rbc->sphereRadius, "Sphere Radius");
 				ImGui::Auto(rbc->collisionScale, "Collision Scale");
-				
-				if(ImGui::Button("Change to box shape"))
+
+				if (ImGui::Button("Change to box shape"))
 				{
 					rbc->SetCubeShape();
 				}
@@ -342,7 +331,7 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 				{
 					rbc->SetCapsuleShape();
 				}
-				if(ImGui::Button("Add Force"))
+				if (ImGui::Button("Add Force"))
 				{
 					rbc->applyCentralForce(glm::vec3(0, forceAmount, 0));
 				}
@@ -350,52 +339,39 @@ void EditorPrototyping::ImGuiEntityDebug(std::shared_ptr<Entity> e)
 			}
 		}
 
-		if(e->GetComponent<CameraControllerComponent>() != nullptr)
+		if (e->GetComponent<CameraControllerComponent>() != nullptr)
 		{
-			if(ImGui::TreeNode("CameraControllerComponent"))
+			if (ImGui::TreeNode("CameraControllerComponent"))
 			{
 				auto controller = e->GetComponent<CameraControllerComponent>();
 				ImGui::Auto(controller->initMoveSpeed, "Init Cam speed");
 				ImGui::Auto(controller->movementSpeed, "Cam speed");
 				ImGui::Auto(controller->useContoller, "Use Controller");
-			}
-			ImGui::TreePop();
-		}
-
-		if (e->GetComponent<LuaComponent>() != nullptr)
-		{
-			auto lua = e->GetComponent<LuaComponent>();
-			if(ImGui::TreeNode("Lua Component"))
-			{
-				ImGui::Text(lua->script->filepath);
-				if (ImGui::Button("Reload Script"))
-				{
-					lua->reload();
-				}
 				ImGui::TreePop();
 			}
+			
 		}
 
-		if(e->GetComponent<ParticleSystemComponent>())
+		if (e->GetComponent<ParticleSystemComponent>())
 		{
 			if (ImGui::TreeNode("Particle System Component"))
 			{
 				ImGui::TreePop();
 			}
 		}
-		
-		
+
+
 		if (ImGui::Button("Add Rigidbody to component"))
 		{
 			e->AddComponent(new RigidbodyComponent(e));
 		}
 
-		if(ImGui::Button("Delete Entity"))
+		if (ImGui::Button("Delete Entity"))
 		{
 			engineManager->DeleteEntity(e->GetID());
 		}
 
-		if(ImGui::Button("Full Rate"))
+		if (ImGui::Button("Full Rate"))
 		{
 			e->state = UpdateState::fullRate;
 		}
@@ -448,7 +424,7 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			engineManager->AddEntity();
 		}
 
-		if(ImGui::Button("Write scene to file"))
+		if (ImGui::Button("Write scene to file"))
 		{
 			Serializer s;
 			s.SerializeScene(engineManager->scene);
@@ -496,8 +472,8 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 		{
 			AddRigidbodies();
 		}
-		
-		if(ImGui::Button("Delete All Default Rigidbodies"))
+
+		if (ImGui::Button("Delete All Default Rigidbodies"))
 		{
 			DeleteRigidbodies();
 		}
@@ -506,7 +482,7 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 		{
 			RigidbodyTest();
 		}
-		if(engineManager->scene != nullptr)
+		if (engineManager->scene != nullptr)
 		{
 			if (ImGui::BeginChild("Hierarchy"))
 			{
@@ -514,8 +490,8 @@ void EditorPrototyping::uiBehaviour(float deltaTime)
 			}
 			ImGui::EndChild();
 		}
-		
-		
+
+
 	}
 	ImGui::End();
 	if (engineManager->scene != nullptr)

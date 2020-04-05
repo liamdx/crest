@@ -57,7 +57,10 @@ public :
 	std::string path;
 	float avg_cam_distance;
 
+	char sortCounter;
+
 	unsigned int viewProjId, textureId, camRightId, camUpId;
+	
 
 	glm::vec3 position, eulerAngles, scale;
 

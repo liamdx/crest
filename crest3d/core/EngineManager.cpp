@@ -14,29 +14,26 @@ EngineManager::EngineManager()
 }
 
 
+void EngineManager::InitImgui()
+{
+
+}
+
 int EngineManager::initialise(int screenWidth, int screenHeight)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	window = glfwCreateWindow(1024, 600, "LearnOpenGL", NULL, NULL);
+	if (window == NULL)
 	{
-		std::cout << "Failed to initalise SDL2 \n";
+		std::cout << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
 		return -1;
 	}
-	else
-	{
-		std::cout << "Successfully initialised SDL2 \n";
-	}
-
-
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-
-	window = SDL_CreateWindow("Crest", 0, 0, 800, 600, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_MAXIMIZED );
-	context = SDL_GL_CreateContext(window);
-	SDL_GL_MakeCurrent(window, context);
-	
+	glfwMakeContextCurrent(window);
 	glewExperimental = GL_TRUE;
 
 	if (GLEW_OK != glewInit())
@@ -58,6 +55,11 @@ int EngineManager::initialise(int screenWidth, int screenHeight)
 
 	YSE::System().init();
 	return 1;
+}
+
+void EngineManager::update()
+{
+	input->GetMouseMovement();
 }
 
 void EngineManager::initialiseExample(Example* _example)
@@ -334,13 +336,7 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 	std::cout << "Entity num components before deletion : " << std::to_string(e->components.size()) << std::endl;
 	if (e != nullptr)
 	{
-		for(int i = 0; i < e->components.size(); i++)
-		{
-			if(typeid(e->components.at(i)) == typeid(std::shared_ptr<LuaComponent>))
-			{
-				DeleteComponent(e->components.at(i)->id);
-			}
-		}
+		
 		for (int i = 0; i < e->components.size(); i++)
 		{
 			DeleteComponent(e->components.at(i)->id);
@@ -351,14 +347,7 @@ void EngineManager::DeleteEntity(unsigned int entityId)
 
 	for(int i = 0; i < e->children.size(); i++)
 	{
-		for (int i = 0; i < e->components.size(); i++)
-		{
-			if (typeid(e->components.at(i)) == typeid(std::shared_ptr<LuaComponent>))
-			{
-				DeleteComponent(e->components.at(i)->id);
-			}
-		}
-		
+				
 		for (int j = 0; j < e->children.at(i)->components.size(); j++)
 		{
 			DeleteComponent(e->children.at(i)->components.at(j)->id);

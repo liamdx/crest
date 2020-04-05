@@ -2,57 +2,6 @@
 #include "Debug.h"
 
 
-void InputManager::processKeyboardDown(SDL_KeyboardEvent keyboardEvent)
-{
-	keyStates[SDL_GetKeyName(keyboardEvent.keysym.sym)] = true;
-}
-
-void InputManager::processKeyboardUp(SDL_KeyboardEvent keyboardEvent)
-{
-	keyStates[SDL_GetKeyName(keyboardEvent.keysym.sym)] = false;
-}
-
-
-void InputManager::processMouseMovement(SDL_MouseMotionEvent mouseEvent)
-{
-	xpos = mouseEvent.x;
-	ypos = mouseEvent.y;
-}
-
-void InputManager::processMouseButton(SDL_MouseButtonEvent mouseButtonEvent)
-{
-	if(mouseButtonEvent.type == SDL_MOUSEBUTTONDOWN)
-	{
-		if(mouseButtonEvent.button == SDL_BUTTON_LEFT)
-		{
-			leftClick = true;
-		}
-		if (mouseButtonEvent.button == SDL_BUTTON_RIGHT)
-		{
-			rightClick = true;
-		}
-		if(mouseButtonEvent.button == SDL_BUTTON_MIDDLE)
-		{
-			middleClick = true;
-		}
-	}
-	else if(mouseButtonEvent.type == SDL_MOUSEBUTTONUP)
-	{
-		if (mouseButtonEvent.button == SDL_BUTTON_LEFT)
-		{
-			leftClick = false;
-		}
-		if (mouseButtonEvent.button == SDL_BUTTON_RIGHT)
-		{
-			rightClick = false;
-		}
-		if (mouseButtonEvent.button == SDL_BUTTON_MIDDLE)
-		{
-			middleClick = false;
-		}
-	}
-}
-
 void InputManager::update(float deltaTime)
 {
 	GP1::update();
@@ -116,90 +65,11 @@ void InputManager::update(float deltaTime)
 		controller2.left_click = GP2::isButtonPressed(Gamepad::Button::LStick);
 		controller2.right_click = GP2::isButtonPressed(Gamepad::Button::RStick);
 	}
-	GP3::update();
-	if (GP3::isConnected())
-	{
-		controller3.a_button = GP3::isButtonPressed(Gamepad::Button::A);
-		controller3.b_button = GP3::isButtonPressed(Gamepad::Button::B);
-		controller3.x_button = GP3::isButtonPressed(Gamepad::Button::X);
-		controller3.y_button = GP3::isButtonPressed(Gamepad::Button::Y);
-
-		controller3.up_button = GP3::isButtonPressed(Gamepad::Button::Up);
-		controller3.down_button = GP3::isButtonPressed(Gamepad::Button::Down);
-		controller3.left_button = GP3::isButtonPressed(Gamepad::Button::Left);
-		controller3.right_button = GP3::isButtonPressed(Gamepad::Button::Right);
-
-		controller3.left_x_input = GP3::getLStickPosition().x;
-		controller3.left_y_input = GP3::getLStickPosition().y;
-		controller3.right_x_input = GP3::getRStickPosition().x;
-		controller3.right_y_input = GP3::getRStickPosition().y;
-
-		controller3.right_trigger = GP3::getRTrigger();
-		controller3.left_trigger = GP3::getRTrigger();
-		controller3.right_bumper = GP3::isButtonPressed(Gamepad::Button::RB);
-		controller3.left_bumper = GP3::isButtonPressed(Gamepad::Button::LB);
-
-		controller3.start_button = GP3::isButtonPressed(Gamepad::Button::Start);
-		controller3.back_button = GP3::isButtonPressed(Gamepad::Button::Back);
-
-		controller3.left_click = GP3::isButtonPressed(Gamepad::Button::LStick);
-		controller3.right_click = GP3::isButtonPressed(Gamepad::Button::RStick);
-	}
-	GP4::update();
-	if (GP4::isConnected())
-	{
-		controller4.a_button = GP4::isButtonPressed(Gamepad::Button::A);
-		controller4.b_button = GP4::isButtonPressed(Gamepad::Button::B);
-		controller4.x_button = GP4::isButtonPressed(Gamepad::Button::X);
-		controller4.y_button = GP4::isButtonPressed(Gamepad::Button::Y);
-
-		controller4.up_button = GP4::isButtonPressed(Gamepad::Button::Up);
-		controller4.down_button = GP4::isButtonPressed(Gamepad::Button::Down);
-		controller4.left_button = GP4::isButtonPressed(Gamepad::Button::Left);
-		controller4.right_button = GP4::isButtonPressed(Gamepad::Button::Right);
-
-		controller4.left_x_input = GP4::getLStickPosition().x;
-		controller4.left_y_input = GP4::getLStickPosition().y;
-		controller4.right_x_input = GP4::getRStickPosition().x;
-		controller4.right_y_input = GP4::getRStickPosition().y;
-
-		controller4.right_trigger = GP4::getRTrigger();
-		controller4.left_trigger = GP4::getRTrigger();
-		controller4.right_bumper = GP4::isButtonPressed(Gamepad::Button::RB);
-		controller4.left_bumper = GP4::isButtonPressed(Gamepad::Button::LB);
-
-		controller4.start_button = GP4::isButtonPressed(Gamepad::Button::Start);
-		controller4.back_button = GP4::isButtonPressed(Gamepad::Button::Back);
-
-		controller4.left_click = GP4::isButtonPressed(Gamepad::Button::LStick);
-		controller4.right_click = GP4::isButtonPressed(Gamepad::Button::RStick);
-	}
 	
 }
 
 
-void InputManager::processInput(SDL_Event windowEvent)
+void InputManager::processInput()
 {
-	switch (windowEvent.type)
-	{
-	case SDL_KEYDOWN:
-		// Debug::Message<InputManager>("Key press detected");
-		processKeyboardDown(windowEvent.key);
-		break;
-	case SDL_KEYUP:
-		// Debug::Message<InputManager>("Key release detected");
-		processKeyboardUp(windowEvent.key);
-		break;
-	case SDL_MOUSEMOTION:
-		// Debug::Message<InputManager>("Mouse movement detected");
-		processMouseMovement(windowEvent.motion);
-		break;
-	case SDL_MOUSEBUTTONDOWN:
-		processMouseButton(windowEvent.button);
-		break;
-		// Debug::Message<InputManager>("Mouse button pressed");
-	case SDL_MOUSEBUTTONUP:
-		processMouseButton(windowEvent.button);
-		break;
-	}
+	
 }

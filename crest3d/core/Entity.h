@@ -47,6 +47,8 @@ public:
 		return nullptr;
 	}
 
+	sol::table GetLuaComponent(std::string name);
+
 	void AddChild(std::shared_ptr<Entity> e);
 	void RemoveChild(unsigned int _ID);
 	void RemoveParent();

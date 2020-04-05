@@ -21,7 +21,7 @@ void AnimatedModelComponent::getBoneShaderIDLocations(std::shared_ptr<ShaderComp
 		currentBoneLocation.clear();
 	}
 	gPrevBoneShaderIDs.clear();
-	for(unsigned int i = 0; i < anim->NumBones(); i++)
+	for (unsigned int i = 0; i < anim->NumBones(); i++)
 	{
 		std::stringstream currentBoneLocation;
 		currentBoneLocation << "gPrevBones[" << i << "]";
@@ -72,7 +72,7 @@ void AnimatedModelComponent::draw(glm::mat4 view, std::shared_ptr<ShaderComponen
 		for (int i = 0; i < anim->NumBones(); i++)
 		{
 			SetBoneTransformID(_shader, gBoneShaderIDs[i], boneTransforms[i]);
-			if(usingMotionBlur)
+			if (usingMotionBlur)
 			{
 				SetBoneTransformID(_shader, gPrevBoneShaderIDs[i], previousBoneTransforms[i]);
 			}

@@ -27,7 +27,7 @@ public:
 	bool usingMotionBlur;
 
 	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
-	
+
 private:
 	float runningTime;
 	static const int MAX_NUM_BONES = 250;

@@ -13,12 +13,12 @@ public:
 
 	// can be turned in to references
 	std::shared_ptr<InputManager> input;
-	SDL_Window* window;
+	GLFWwindow* window;
 
 	float mouseSensitivity;
 	float movementSpeed , sprintSpeed, initMoveSpeed;
 
-	bool useContoller, useMovement;
+	bool useContoller, useMovement, activeLastFrame;
 
 	tinyxml2::XMLElement* serialize_component(tinyxml2::XMLDocument* doc) override;
 	

@@ -13,6 +13,7 @@ ParticleSystem::ParticleSystem()
 		particles[i].life = -1.0f;
 		particles[i].cameradistance = -1.0f;
 	}
+	sortCounter = 0;
 
 
 }
@@ -136,7 +137,16 @@ void ParticleSystem::update(float deltaTime, std::shared_ptr<CameraComponent> ca
 
 	particleCount = ParticlesCount;
 
-	SortParticles();
+	if ((sortCounter + 1) >= 4)
+	{
+		SortParticles();
+		sortCounter = 0;
+	}
+	else
+	{
+		sortCounter += 1;
+	}
+	
 
 }
 

@@ -55,17 +55,6 @@ std::shared_ptr<Asset<Texture>> AssetManager::loadTextureAsset(const char* path)
 	return asset;
 }
 
-std::shared_ptr<Asset<LuaScript>> AssetManager::loadScriptAsset(const char* path)
-{
-	std::shared_ptr<LuaScript> a{ new LuaScript(path) };
-	std::shared_ptr<Asset<LuaScript>> asset { new Asset<LuaScript>() };
-	asset->asset = a;
-	asset->assetPath = path;
-	asset->assetID = getUniqueAssetID();
-	scriptAssets.emplace_back(asset);
-	return asset;
-}
-
 
 void AssetManager::removeModelAsset(unsigned _assetID)
 {

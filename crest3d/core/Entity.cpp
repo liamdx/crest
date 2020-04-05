@@ -30,7 +30,6 @@ void Entity::ConsoleError(std::string error)
 }
 
 
-
 void Entity::AddComponent(EngineComponent* newComponent)
 {
 	bool canEmplace = true;

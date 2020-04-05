@@ -22,6 +22,7 @@ public:
 
 	int initialise(int screenWidth, int screenHeight);
 	void initialiseExample(Example* _example);
+	void update();
 	void shutdown();
 
 	std::unique_ptr<ShaderManager> shaderManager;
@@ -32,12 +33,10 @@ public:
 	std::unique_ptr<Example> example;
 	std::unique_ptr<Debug> debug;
 
-	EngineState engineState = Edit;
 
 	// probably should be made generic (likely wil switch to SDL at somepoint) 
-	SDL_Window* window;
-	SDL_GLContext context;
-
+	GLFWwindow* window;
+	
 
 	std::vector<unsigned int> componentIds;
 	std::vector<unsigned int> entityIds;
@@ -76,4 +75,5 @@ public:
 	std::shared_ptr<Entity> getEntity(std::shared_ptr<Entity> e, unsigned int _id);
 private:
 	const unsigned int currentSceneIndex = 0;
+	void InitImgui();
 };
