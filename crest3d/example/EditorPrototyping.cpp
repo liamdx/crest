@@ -55,7 +55,7 @@ EditorPrototyping::EditorPrototyping(EngineManager* em)
 			entities[s] = engineManager->AddAnimatedModelEntity(animatedModel->asset);
 			entities[s]->state = UpdateState::halfRate;
 			entities[s]->transform->position = (glm::vec3(x * 2, 0, y * 2));
-			entities[s]->transform->scale = glm::vec3(0.03, 0.03, 0.03);
+			entities[s]->transform->scale = glm::vec3(1, 1, 1);
 		}
 	}
 	entities["floorEntity"] = engineManager->AddEntity();
@@ -108,6 +108,9 @@ void EditorPrototyping::AddRigidbodies()
 			}
 		}
 	}
+	std::stringstream message;
+	message << "Number of rigidbodies: " << ribEntityNames.size();
+	Debug::Warn(message.str().c_str());
 }
 
 void EditorPrototyping::RigidbodyTest()

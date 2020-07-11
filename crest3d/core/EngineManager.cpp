@@ -5,6 +5,7 @@
 EngineManager::EngineManager()
 {
 	initialise(800, 600);
+	renderer = std::make_unique<Renderer>();
 	physicsManager = std::make_unique<PhysicsManager>();
 	assetManager = std::make_unique<AssetManager>();
 	shaderManager = std::make_unique<ShaderManager>();
@@ -62,9 +63,17 @@ void EngineManager::update()
 	input->GetMouseMovement();
 }
 
+void window_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+	CREST_WINDOW_WIDTH = width;
+	CREST_WINDOW_HEIGHT = height;
+}
+
 void EngineManager::initialiseExample(Example* _example)
 {
 	example = std::unique_ptr<Example>(_example);
+	glfwSetWindowSizeCallback(window, window_size_callback);
 }
 
 
@@ -98,6 +107,7 @@ std::shared_ptr<Entity> EngineManager::AddEntity()
 	e->transform->attachedEntity = e;
 	scene->rootEntity->AddChild(e);
 	e->SetId(entityID);
+	e->engineManager = this;
 	return e;
 }
 
@@ -216,8 +226,6 @@ std::shared_ptr<Entity> EngineManager::AddModelEntity(std::shared_ptr<Model> mod
 std::shared_ptr<Entity> EngineManager::AddAnimatedModelEntity(std::shared_ptr<AnimatedModel> model)
 {
 	std::shared_ptr<Entity> e = AddEntity();
-	e->engineManager = this;
-	e->SetId(makeUniqueEntityID());
 	e->name = "AnimModel" + std::to_string(e->GetID());
 	e->AddComponent(new AnimatedModelComponent(e, model));
 	auto amc = e->GetComponent<AnimatedModelComponent>();

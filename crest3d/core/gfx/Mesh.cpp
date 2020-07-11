@@ -108,32 +108,6 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 		unsigned int uniformLocation = shader->textureIdMappings[textures[i].t_Type];
 		shader->setIntID(uniformLocation, i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-
-		/*if (textures[i].t_Type == TextureType::diffuse)
-		{
-			shader->setInt("mat.m_Diffuse", i);
-			diffuseCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-		else if (textures[i].t_Type == TextureType::specular)
-		{
-			shader->setInt("mat.m_Specular", i);
-			specularCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-		else if (textures[i].t_Type == TextureType::reflection)
-		{
-			shader->setInt("mat.m_Reflection", i);
-			reflectionCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}
-
-		else if (textures[i].t_Type == TextureType::normal)
-		{
-			shader->setInt("mat.m_Normal", i);
-			normalCount += 1;
-			glBindTexture(GL_TEXTURE_2D, textures[i].t_Id);
-		}*/
 	}
 
 	glBindVertexArray(vao);

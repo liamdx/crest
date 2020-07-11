@@ -19,8 +19,7 @@ struct Particle
 
 class ParticleSystem
 {
-
-private:
+public:
 	static constexpr unsigned int MAX_PARTICLES = 100000;
 	unsigned int lastUsedParticle;
 	unsigned int shaderTextureLoc, shaderCamRightLoc, shaderCamUpLoc, viewProjMatrixLoc;
@@ -35,9 +34,7 @@ private:
 	};
 	
 	unsigned int particles_position_buffer, particles_colour_buffer;
-	
-public :
-	
+
 	ParticleSystem();
 	~ParticleSystem() {};
 

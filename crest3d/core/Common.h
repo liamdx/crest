@@ -78,5 +78,7 @@ static bool GLLogCall(const char* function, const char* file, int line)
 	return true;
 }
 
+static unsigned int CREST_WINDOW_WIDTH = 1280;
+static unsigned int CREST_WINDOW_HEIGHT = 800;
 
 

@@ -2,10 +2,7 @@
 
 #include "EditorPrototyping.h"
 
-float SCREEN_WIDTH = 1920.0;
-float SCREEN_HEIGHT = 1080.0;
-
-void window_size_callback(GLFWwindow* window, int width, int height);
+static void window_size_callback(GLFWwindow* window, int width, int height);
 
 int main() {
 
@@ -23,7 +20,7 @@ int main() {
 	EditorPrototyping example(engineManager);
 	engineManager->initialiseExample(&example);
 
-	glfwSetWindowSizeCallback(engineManager->window, window_size_callback);
+	
 
 	
 	// Setup Dear ImGui context
@@ -49,18 +46,17 @@ int main() {
 	Shader fbShader("res/shaders/framebuffer.vert", "res/shaders/framebuffer.frag");
 	// Quad we use to render framebuffers
 	screenQuad renderQuad;
-	std::shared_ptr<Shader> particleShader = std::make_shared<Shader>("res/shaders/particle.vert", "res/shaders/particle.frag");
 	// Initialise buffers (uniform resolution for now)
 	FrameBuffer mainFB;
-	mainFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, true);
+	mainFB.initialise(CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT, true);
 	FrameBuffer depthFB;
-	depthFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	depthFB.initialise(CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT, false);
 	FrameBuffer volumetricFB;
-	volumetricFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	volumetricFB.initialise(CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT, false);
 	FrameBuffer blurFB;
-	blurFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	blurFB.initialise(CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT, false);
 	FrameBuffer finalFB;
-	finalFB.initialise(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	finalFB.initialise(CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT, false);
 
 	example.startBehaviour();
 
@@ -94,7 +90,7 @@ int main() {
 	luaFileDialog.SetTypeFilters({ ".lua"});
 
 	// END OF FILE BROWSER SAMPLE
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glViewport(0, 0, CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT);
 
 	bool shouldRun = true;
 	while (!glfwWindowShouldClose(engineManager->window)) {
@@ -156,7 +152,7 @@ int main() {
 
 		// docking stuff
 		static ImGuiID dockspaceID = 0;
-		ImGui::SetNextWindowSize(ImVec2(SCREEN_WIDTH, SCREEN_HEIGHT));
+		ImGui::SetNextWindowSize(ImVec2(CREST_WINDOW_WIDTH, CREST_WINDOW_HEIGHT));
 		ImGui::SetNextWindowPos(ImVec2(0, 0));
 		if (ImGui::Begin("Master Window", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBringToFrontOnFocus))
 		{
@@ -426,9 +422,3 @@ int main() {
 	YSE::System().close();	
 }
 
-void window_size_callback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
-	SCREEN_WIDTH = width;
-	SCREEN_HEIGHT = height;
-}

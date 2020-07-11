@@ -95,31 +95,6 @@ void childRender(std::shared_ptr<Entity> e, float deltaTime, glm::mat4 view)
 	}
 }
 
-void Scene::renderBehaviour(float deltaTime, std::shared_ptr<ShaderComponent> meshShader, std::shared_ptr<ShaderComponent> animShader)
-{
-	
-	meshShader->shader->use();
-	meshShader->setProjection(sceneCamera->GetProjectionMatrix());
-	meshShader->setView(sceneCamera->GetViewMatrix());
-	meshShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
-
-	for (std::shared_ptr<MeshComponent> mesh : meshes)
-	{
-		mesh->draw(sceneCamera->GetViewMatrix(), meshShader);
-	}
-
-	animShader->shader->use();
-	animShader->setProjection(sceneCamera->GetProjectionMatrix());
-	animShader->setView(sceneCamera->GetViewMatrix());
-	animShader->shader->setVec3("viewPosition", sceneCamera->attachedEntity->transform->position);
-
-	for (std::shared_ptr<AnimatedModelComponent> anim : animatedModels)
-	{
-		anim->draw(sceneCamera->GetViewMatrix(), animShader);
-	}
-	
-}
-
 
 void Scene::renderBehaviour(float deltaTime)
 {
@@ -164,6 +139,7 @@ void Scene::renderBehaviour(float deltaTime)
 		ps->draw(deltaTime, view, particleShader);
 	}
 
+	glClear(GL_DEPTH_BUFFER_BIT);
 	
 	engineManager->physicsManager->setView(view);
 	engineManager->physicsManager->setProjection(sceneCamera->GetProjectionMatrix());

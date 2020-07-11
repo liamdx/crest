@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "InputManager.h"
 #include "Debug.h"
+#include "Renderer.h"
 
 class Example;
 
@@ -25,6 +26,7 @@ public:
 	void update();
 	void shutdown();
 
+	std::shared_ptr<Renderer> renderer;
 	std::unique_ptr<ShaderManager> shaderManager;
 	std::unique_ptr<PhysicsManager> physicsManager;
 	std::unique_ptr<AssetManager> assetManager;
@@ -60,7 +62,7 @@ public:
 	std::shared_ptr<Entity> AddDirectionalLightEntity();
 	std::shared_ptr<Entity> AddPointLightEntity();
 
-
+	void Render();
 	void MoveChild(std::shared_ptr<Entity> movee, std::shared_ptr<Entity> newParent);
 	
 	void ClearScene();
@@ -73,6 +75,9 @@ public:
 	void deleteComponentInScene(std::shared_ptr<Entity> e, unsigned int _id);
 
 	std::shared_ptr<Entity> getEntity(std::shared_ptr<Entity> e, unsigned int _id);
+
+	
+
 private:
 	const unsigned int currentSceneIndex = 0;
 	void InitImgui();

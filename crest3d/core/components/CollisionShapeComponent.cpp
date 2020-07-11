@@ -25,7 +25,6 @@ void CollisionShapeComponent::createConvexHullShape(std::shared_ptr<MeshComponen
 		btVector3 point = btVector3(mesh->vertices.at(i).position.x, mesh->vertices.at(i).position.y, mesh->vertices.at(i).position.z);
 		_convexHullShape->addPoint(point, false);
 	}
-
 	_convexHullShape->recalcLocalAabb();
 	shapeHull = std::unique_ptr<btShapeHull>(new btShapeHull(_convexHullShape));
 	shapeHull->buildHull(0, 1);    // note: parameter is ignored by buildHull

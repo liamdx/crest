@@ -64,10 +64,18 @@ void CameraControllerComponent::earlyUpdate(float deltaTime)
 
 		if (input->GetRightClick())
 		{
-			std::cout << "Clicking RC" << std::endl;
+			glfwSetInputMode(attachedEntity->engineManager->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			// SDL_ShowCursor(0);
 			attachedEntity->transform->eulerAngles = attachedEntity->transform->eulerAngles + glm::vec3(deltaY, deltaX, 0);
 			activeLastFrame = true;
+		}
+		else
+		{
+			if (activeLastFrame)
+			{
+				glfwSetInputMode(attachedEntity->engineManager->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				activeLastFrame = true;
+			}
 		}
 		
 	}
